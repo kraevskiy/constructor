@@ -1,19 +1,21 @@
 export class PageModel {
+	_id: string;
+	slag: string;
 	seo: {
 		seoTitle: string;
 		seoDescription: string;
 		additional?: string
 	};
-	header: {
+	header?: {
 		logo: string;
 	};
-	slides: {
+	slides?: {
 		image: string;
 		title: string;
 		text: string;
 		additional?: string
 	}[];
-	souvenirs: {
+	souvenirs?: {
 		title: string;
 		items:{
 			image: string;
@@ -21,7 +23,7 @@ export class PageModel {
 		}[],
 		additional?: string
 	};
-	pictures: {
+	pictures?: {
 		title: string;
 		items: {
 			image: string;
@@ -29,7 +31,7 @@ export class PageModel {
 		}[],
 		additional?: string
 	};
-	advantages: {
+	advantages?: {
 		title: string;
 		items: {
 			title: string;
@@ -38,7 +40,7 @@ export class PageModel {
 		}[],
 		additional?: string
 	};
-	contacts: {
+	contacts?: {
 		title: string;
 		items: {
 			name: string;
@@ -48,7 +50,7 @@ export class PageModel {
 		}[],
 		additional?: string
 	};
-	faqs: {
+	faqs?: {
 		title: string;
 		items: {
 			title: string;
