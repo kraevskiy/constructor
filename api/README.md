@@ -1,3 +1,22 @@
+
+top-page
+ 
+ -- text, seo
+
+user[]
+
+-- id, email, password, login, orders, roles(admin, user, viewer), layouts+
+
+layout[]
+
+-- id, user+, data
+
+orders[]
+
+-- id, date, user+, status(accepted, new, progress, completed), layout+
+
+
+
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
 </p>
