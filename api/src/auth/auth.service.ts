@@ -48,7 +48,7 @@ export class AuthService {
 	async generateUserData (_id: Types.ObjectId) {
 		const user = await this.userModel.find({_id}).exec();
 		const layouts = await this.layoutModel.find({user: _id});
-		const orders: [] = [];
+		// const orders: [] = [];
 
 		return {
 			user: {
@@ -59,7 +59,7 @@ export class AuthService {
 					login: user[0].login
 				},
 				layouts,
-				orders
+				// orders
 			}
 		};
 	}
