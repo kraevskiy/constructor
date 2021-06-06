@@ -1,3 +1,15 @@
+import { IsOptional, IsString } from 'class-validator';
+
 export class FindOrdersDto {
-	limit: number;
+	@IsOptional()
+	@IsString()
+	status?:  'accepted' | 'new' | 'progress' | 'completed';
+
+	@IsOptional()
+	@IsString()
+	user?: string;
+
+	@IsOptional()
+	@IsString()
+	limit?: number;
 }

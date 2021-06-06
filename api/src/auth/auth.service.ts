@@ -15,7 +15,7 @@ export class AuthService {
 	constructor(
 		@InjectModel(UserModel) private readonly userModel: ModelType<UserModel>,
 		@InjectModel(LayoutModel) private readonly layoutModel: ModelType<LayoutModel>,
-		@InjectModel(OrderModel) private readonly order: ModelType<OrderModel>,
+		@InjectModel(OrderModel) private readonly orderModel: ModelType<OrderModel>,
 		private readonly jwtService: JwtService) {
 	}
 
@@ -45,21 +45,20 @@ export class AuthService {
 		return user[0];
 	}
 
-	async generateUserData (_id: Types.ObjectId) {
-		const user = await this.userModel.find({_id}).exec();
-		const layouts = await this.layoutModel.find({user: _id});
-		// const orders: [] = [];
+	async generateUserData(user: UserModel) {
+		const layouts = await this.layoutModel.find({user: user._id}).exec();
+		const orders = await this.orderModel.find({user: {_id: user._id, email: user.email}}).exec();
 
 		return {
 			user: {
 				info: {
-					email: user[0].email,
-					role: user[0].role,
-					_id: user[0]._id,
-					login: user[0].login
+					email: user.email,
+					role: user.role,
+					_id: user._id,
+					login: user.login
 				},
 				layouts,
-				// orders
+				orders
 			}
 		};
 	}
@@ -72,8 +71,8 @@ export class AuthService {
 			login: user.login
 		};
 
-		const layouts = await this.layoutModel.find({user: user._id});
-		const orders: [] = [];
+		const layouts = await this.layoutModel.find({user: user._id}).exec();
+		const orders = await this.orderModel.find({user}).exec();
 
 		return {
 			access_token: await this.jwtService.signAsync(payload),
@@ -89,7 +88,10 @@ export class AuthService {
 	}
 
 	async editUser(user: EditUserModel, _id: Types.ObjectId) {
-		await this.userModel.findOneAndUpdate({_id}, user).exec();
-		return this.generateUserData(_id);
+		const newUser = await this.userModel.findOneAndUpdate({_id}, user, {new: true}).exec();
+		if(!newUser) {
+			throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
+		}
+		return this.generateUserData(newUser);
 	}
 }

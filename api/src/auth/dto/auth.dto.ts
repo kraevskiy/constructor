@@ -1,4 +1,4 @@
-import { IsString } from 'class-validator';
+import { IsOptional, IsString } from 'class-validator';
 
 export class AuthDto {
 	@IsString()
@@ -7,5 +7,7 @@ export class AuthDto {
 	@IsString()
 	password: string;
 
+	@IsOptional()
+	@IsString()
 	role?: string;
 }

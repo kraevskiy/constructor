@@ -31,7 +31,7 @@ export class LayoutService {
 		return this.layoutModel.find(dto).exec();
 	}
 
-	async edit(id: string): Promise<DocumentType<LayoutModel> | null> {
-		return this.layoutModel.findByIdAndUpdate(id).exec();
+	async edit(id: string, dto: CreateLayoutDto): Promise<DocumentType<LayoutModel> | null> {
+		return this.layoutModel.findByIdAndUpdate(id, dto, {new: true}).exec();
 	}
 }
