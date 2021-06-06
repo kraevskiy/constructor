@@ -7,7 +7,7 @@ export interface LayoutModel extends Base {
 
 export class LayoutModel extends TimeStamps {
 	@prop()
-	user: string;
+	user: Types.ObjectId;
 
 	@prop()
 	title: string;
