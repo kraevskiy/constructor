@@ -1,8 +1,9 @@
 import { IsOptional, IsString } from 'class-validator';
 
 export class CreateLayoutDto {
+	@IsOptional()
 	@IsString()
-	user: string;
+	user?: string;
 
 	@IsString()
 	title: string;
