@@ -20,11 +20,11 @@ import { UserGuard } from '../decorators/user.decorator';
 import { Types } from 'mongoose';
 
 @Controller('layout')
+@UseGuards(JwtAuthGuard)
 export class LayoutController {
 	constructor(private readonly layoutService: LayoutService) {
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@UsePipes(new ValidationPipe())
 	@Post('create')
 	async create(@Body() dto: CreateLayoutDto, @UserGuard() guard: {_id: string}) {
@@ -32,7 +32,6 @@ export class LayoutController {
 		return this.layoutService.create({...dto, slash, user: guard._id});
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Delete(':id')
 	async delete(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
 		const layout = await this.layoutService.findById(id);
@@ -47,7 +46,6 @@ export class LayoutController {
 		return deletedLayout;
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Get(':id')
 	async get(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
 		const findLayout = await this.layoutService.findById(id);
@@ -60,7 +58,6 @@ export class LayoutController {
 		return findLayout;
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Get('user/:id')
 	async findByUser(@Param('id') id: Types.ObjectId) {
 		const findLayouts = await this.layoutService.findByUser(id);
@@ -70,7 +67,6 @@ export class LayoutController {
 		return findLayouts;
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@Get()
 	async find(@Body() dto: FindLayoutsDto, @UserGuard() guard: {email: string, _id: string, role: string}) {
 		if (guard.role !== 'admin'){
@@ -79,7 +75,6 @@ export class LayoutController {
 		return this.layoutService.findAll(dto);
 	}
 
-	@UseGuards(JwtAuthGuard)
 	@UsePipes(new ValidationPipe())
 	@Patch(':id')
 	async patch(@Param('id') id: string, @Body() dto: CreateLayoutDto, @UserGuard() guard: { _id: Types.ObjectId}) {
