@@ -6,8 +6,6 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { getJwtConfig } from '../configs/jwt.config';
-import { LayoutModel } from '../layout/layout.model';
-import { OrderModel } from '../order/order.model';
 import { PassportModule } from '@nestjs/passport';
 import { JwtStrategy } from './strategies/jwt.strategy';
 
@@ -19,18 +17,6 @@ import { JwtStrategy } from './strategies/jwt.strategy';
 				typegooseClass: UserModel,
 				schemaOptions: {
 					collection: 'User'
-				}
-			},
-			{
-				typegooseClass: LayoutModel,
-				schemaOptions: {
-					collection: 'Layout'
-				}
-			},
-			{
-				typegooseClass: OrderModel,
-				schemaOptions: {
-					collection: 'Order'
 				}
 			}
 		]),
