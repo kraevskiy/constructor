@@ -34,11 +34,6 @@ export class LayoutController {
 
 	@Delete(':id')
 	async delete(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
-		const layout = await this.layoutService.findById(id);
-		if(layout && layout.user !== guard._id) {
-			throw new HttpException(LAYOUT_NOT_USER, HttpStatus.BAD_REQUEST);
-		}
-
 		const deletedLayout = await this.layoutService.delete(id);
 		if(!deletedLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.BAD_REQUEST);
@@ -51,9 +46,6 @@ export class LayoutController {
 		const findLayout = await this.layoutService.findById(id);
 		if(!findLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
-		}
-		if(findLayout.user !== guard._id) {
-			throw new HttpException(LAYOUT_NOT_USER, HttpStatus.BAD_REQUEST);
 		}
 		return findLayout;
 	}

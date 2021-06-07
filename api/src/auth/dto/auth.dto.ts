@@ -10,4 +10,8 @@ export class AuthDto {
 	@IsOptional()
 	@IsString()
 	role?: string;
+
+	@IsOptional()
+	@IsString()
+	login?: string;
 }

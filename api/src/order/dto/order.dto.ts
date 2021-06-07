@@ -1,10 +1,9 @@
 import { Types } from 'mongoose';
 import { IsString, IsObject, IsOptional, IsArray } from 'class-validator';
-import { LayoutsOrderModel } from '../order.model';
 
-export class OrderUserDto {
+export class LayoutsUserDto {
 	@IsString()
-	email: string;
+	title: string;
 
 	@IsString()
 	_id: Types.ObjectId;
@@ -12,7 +11,7 @@ export class OrderUserDto {
 
 export class OrderDto {
 	@IsArray()
-	layouts: LayoutsOrderModel[];
+	layouts: LayoutsUserDto[];
 
 	@IsOptional()
 	@IsString()
@@ -20,5 +19,9 @@ export class OrderDto {
 
 	@IsOptional()
 	@IsObject()
-	user: OrderUserDto;
+	user: Types.ObjectId;
+
+	@IsOptional()
+	@IsString()
+	paymentIntent?: 'hold' | 'succeeded';
 }
