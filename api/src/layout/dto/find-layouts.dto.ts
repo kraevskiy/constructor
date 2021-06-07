@@ -1,3 +1,15 @@
+import { IsNumber, IsOptional, IsString } from 'class-validator';
+
 export class FindLayoutsDto {
-	limit: number;
+	@IsOptional()
+	@IsNumber()
+	limit?: number;
+
+	@IsOptional()
+	@IsNumber()
+	page?: number;
+
+	@IsOptional()
+	@IsString()
+	user?: string;
 }

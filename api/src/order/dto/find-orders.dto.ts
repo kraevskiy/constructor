@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class FindOrdersDto {
 	@IsOptional()
@@ -12,4 +12,8 @@ export class FindOrdersDto {
 	@IsOptional()
 	@IsString()
 	limit?: number;
+
+	@IsOptional()
+	@IsNumber()
+	page?: number;
 }

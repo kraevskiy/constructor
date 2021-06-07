@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpService, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { EditUserModel, UserModel } from './user.model';
@@ -133,19 +133,30 @@ export class AuthService {
 	async getAll(): Promise<UserModel[] | null> {
 		return this.userModel.aggregate([
 			{
-				$lookup: {
-					from: 'Layout',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'layouts'
-				}
-			},
-			{
-				$lookup: {
-					from: 'Order',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'orders'
+				$facet: {
+					count: [
+						{
+							$count: 'totalCount'
+						}
+					],
+					users: [
+						{
+							$lookup: {
+								from: 'Layout',
+								localField: '_id',
+								foreignField: 'user',
+								as: 'layouts'
+							}
+						},
+						{
+							$lookup: {
+								from: 'Order',
+								localField: '_id',
+								foreignField: 'user',
+								as: 'orders'
+							}
+						}
+					]
 				}
 			}
 		]).exec();

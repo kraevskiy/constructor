@@ -71,7 +71,7 @@ export class OrderController {
 		if(!isAdmin(role)) {
 			throw new HttpException(ORDER_PERMISSION, HttpStatus.BAD_REQUEST);
 		}
-		return this.orderService.findAll();
+		return this.orderService.findAll(dto);
 	}
 
 	@Get('userId/:id')

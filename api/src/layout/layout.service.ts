@@ -27,7 +27,47 @@ export class LayoutService {
 	}
 
 	async findAll(dto: FindLayoutsDto): Promise<DocumentType<LayoutModel>[] | null> {
-		return this.layoutModel.find(dto).exec();
+		const limit: number = dto.limit ?? 4;
+		const page: number = dto.page ?? 0;
+		function generatePage (): number {
+			if (page===0) { return 0; }
+			if (page===1) { return 0; }
+			return limit * page - 1;
+		}
+
+		function generateMatch(){
+			const newMatch: {[key: string] : string} = {};
+			if(dto.user) { newMatch['user'] = dto.user; }
+			return {
+				$match: newMatch
+			};
+		}
+		return this.layoutModel.aggregate([
+			{
+				$facet: {
+					totalCount: [
+						{
+							$count: 'totalCount'
+						}
+					],
+					layouts: [
+						generateMatch(),
+						{
+							$sort: {
+								_id: 1
+							}
+						},
+						{
+							$skip: generatePage()
+						},
+						{
+							$limit: limit
+						}
+					]
+				}
+			}
+		]).exec();
+		// return this.layoutModel.find(dto).exec();
 	}
 
 	async edit(id: string, dto: CreateLayoutDto): Promise<DocumentType<LayoutModel> | null> {
