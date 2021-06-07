@@ -1,4 +1,5 @@
-import { Body,
+import {
+	Body,
 	Controller,
 	Delete,
 	Get,
@@ -9,7 +10,8 @@ import { Body,
 	Post,
 	UseGuards,
 	UsePipes,
-	ValidationPipe } from '@nestjs/common';
+	ValidationPipe
+} from '@nestjs/common';
 import { FindLayoutsDto } from './dto/find-layouts.dto';
 import { CreateLayoutDto } from './dto/create-layout.dto';
 import { LayoutService } from './layout.service';
@@ -17,7 +19,6 @@ import { LAYOUT_NOT_FOUND, LAYOUT_NOT_USER, NOT_ADMIN } from './layout.constans'
 import { transliterate } from './helpers/transliter';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
-import { Types } from 'mongoose';
 
 @Controller('layout')
 @UseGuards(JwtAuthGuard)
@@ -27,41 +28,49 @@ export class LayoutController {
 
 	@UsePipes(new ValidationPipe())
 	@Post('create')
-	async create(@Body() dto: CreateLayoutDto, @UserGuard() guard: {_id: string}) {
+	async create(
+		@Body() dto: CreateLayoutDto,
+		@UserGuard() guard: { _id: string }) {
 		const slash = transliterate(dto.title);
 		return this.layoutService.create({...dto, slash, user: guard._id});
 	}
 
 	@Delete(':id')
-	async delete(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
+	async delete(
+		@Param('id') id: string,
+		@UserGuard() guard: { _id: string, email: string }) {
 		const deletedLayout = await this.layoutService.delete(id);
-		if(!deletedLayout) {
+		if (!deletedLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.BAD_REQUEST);
 		}
 		return deletedLayout;
 	}
 
 	@Get(':id')
-	async get(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
+	async get(
+		@Param('id') id: string,
+		@UserGuard() guard: { _id: string, email: string }) {
 		const findLayout = await this.layoutService.findById(id);
-		if(!findLayout) {
+		if (!findLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 		return findLayout;
 	}
 
 	@Get('user/:id')
-	async findByUser(@Param('id') id: Types.ObjectId) {
+	async findByUser(@Param('id') id: string) {
 		const findLayouts = await this.layoutService.findByUser(id);
-		if(!findLayouts) {
+		if (!findLayouts) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 		return findLayouts;
 	}
 
 	@Get()
-	async findAll(@Body() dto: FindLayoutsDto, @UserGuard() guard: {email: string, _id: string, role: string}) {
-		if (guard.role !== 'admin'){
+	async findAll(
+		@Body() dto: FindLayoutsDto,
+		@UserGuard() guard: { email: string, _id: string, role: string }) {
+		if (guard.role !== 'admin') {
 			throw new HttpException(NOT_ADMIN, HttpStatus.BAD_REQUEST);
 		}
 		return this.layoutService.findAll(dto);
@@ -69,13 +78,16 @@ export class LayoutController {
 
 	@UsePipes(new ValidationPipe())
 	@Patch(':id')
-	async patch(@Param('id') id: string, @Body() dto: CreateLayoutDto, @UserGuard() guard: { _id: Types.ObjectId}) {
+	async patch(
+		@Param('id') id: string,
+		@Body() dto: CreateLayoutDto,
+		@UserGuard() guard: { _id: string }) {
 		const editLayout = await this.layoutService.edit(id, dto);
-		if(!editLayout) {
+		if (!editLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 
-		if(editLayout.user !== guard._id) {
+		if (editLayout.user !== guard._id) {
 			throw new HttpException(LAYOUT_NOT_USER, HttpStatus.BAD_REQUEST);
 		}
 		return editLayout;

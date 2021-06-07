@@ -1,8 +1,13 @@
 version: '3'
 services:
+#  api:
+#    container_name: constructor_api
+#    build: .
+#    ports:
+#      - 3000:3000
   mongo:
     image: mongo:4.4.4
-    container_name: mongo_api_constructor
+    container_name: constructor_mongo
     restart: always
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin

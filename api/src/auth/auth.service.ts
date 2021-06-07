@@ -1,4 +1,4 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { HttpService, Injectable, UnauthorizedException } from '@nestjs/common';
 import { AuthDto } from './dto/auth.dto';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { EditUserModel, UserModel } from './user.model';
@@ -6,7 +6,6 @@ import { InjectModel } from 'nestjs-typegoose';
 import { compare, genSalt, hash } from 'bcryptjs';
 import { USER_NOT_FOUND_ERROR, WRONG_PASSWORD_ERROR } from './auth.constans';
 import { JwtService } from '@nestjs/jwt';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class AuthService {
@@ -123,7 +122,7 @@ export class AuthService {
 		};
 	}
 
-	async editUser(user: EditUserModel, _id: Types.ObjectId) {
+	async editUser(user: EditUserModel, _id: string) {
 		const newUser = await this.userModel.findOneAndUpdate({_id}, user, {new: true}).exec();
 		if (!newUser) {
 			throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
@@ -134,19 +133,30 @@ export class AuthService {
 	async getAll(): Promise<UserModel[] | null> {
 		return this.userModel.aggregate([
 			{
-				$lookup: {
-					from: 'Layout',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'layouts'
-				}
-			},
-			{
-				$lookup: {
-					from: 'Order',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'orders'
+				$facet: {
+					count: [
+						{
+							$count: 'totalCount'
+						}
+					],
+					users: [
+						{
+							$lookup: {
+								from: 'Layout',
+								localField: '_id',
+								foreignField: 'user',
+								as: 'layouts'
+							}
+						},
+						{
+							$lookup: {
+								from: 'Order',
+								localField: '_id',
+								foreignField: 'user',
+								as: 'orders'
+							}
+						}
+					]
 				}
 			}
 		]).exec();

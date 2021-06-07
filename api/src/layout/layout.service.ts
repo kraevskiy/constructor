@@ -4,7 +4,6 @@ import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { CreateLayoutDto } from './dto/create-layout.dto';
 import { InjectModel } from 'nestjs-typegoose';
 import { FindLayoutsDto } from './dto/find-layouts.dto';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class LayoutService {
@@ -23,12 +22,52 @@ export class LayoutService {
 		return this.layoutModel.findById(id).exec();
 	}
 
-	async findByUser(id: Types.ObjectId): Promise<DocumentType<LayoutModel>[] | null> {
+	async findByUser(id: string): Promise<DocumentType<LayoutModel>[] | null> {
 		return this.layoutModel.find({user: id}).exec();
 	}
 
 	async findAll(dto: FindLayoutsDto): Promise<DocumentType<LayoutModel>[] | null> {
-		return this.layoutModel.find(dto).exec();
+		const limit: number = dto.limit ?? 4;
+		const page: number = dto.page ?? 0;
+		function generatePage (): number {
+			if (page===0) { return 0; }
+			if (page===1) { return 0; }
+			return limit * page - 1;
+		}
+
+		function generateMatch(){
+			const newMatch: {[key: string] : string} = {};
+			if(dto.user) { newMatch['user'] = dto.user; }
+			return {
+				$match: newMatch
+			};
+		}
+		return this.layoutModel.aggregate([
+			{
+				$facet: {
+					totalCount: [
+						{
+							$count: 'totalCount'
+						}
+					],
+					layouts: [
+						generateMatch(),
+						{
+							$sort: {
+								_id: 1
+							}
+						},
+						{
+							$skip: generatePage()
+						},
+						{
+							$limit: limit
+						}
+					]
+				}
+			}
+		]).exec();
+		// return this.layoutModel.find(dto).exec();
 	}
 
 	async edit(id: string, dto: CreateLayoutDto): Promise<DocumentType<LayoutModel> | null> {

@@ -17,7 +17,6 @@ import { AuthService } from './auth.service';
 import { ALREADY_REGISTERED_ERROR } from './auth.constans';
 import { JwtAuthGuard } from './guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
-import { Types } from 'mongoose';
 import { isAdmin } from '../order/helpers/checkRoles';
 import { ORDER_PERMISSION } from '../order/order.constans';
 
@@ -48,7 +47,9 @@ export class AuthController {
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Post('edit')
-	async edit(@Body() dto: EditDto, @UserGuard() guard: { _id: Types.ObjectId, email: string }) {
+	async edit(
+		@Body() dto: EditDto,
+		@UserGuard() guard: { _id: string, email: string }) {
 		return this.authService.editUser(dto, guard._id);
 	}
 

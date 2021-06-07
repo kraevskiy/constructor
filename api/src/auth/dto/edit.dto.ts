@@ -3,13 +3,13 @@ import { IsString, IsOptional } from 'class-validator';
 export class EditDto {
 	@IsOptional()
 	@IsString({always: false})
-	email: string;
+	email?: string;
 
 	@IsOptional()
 	@IsString()
-	password: string;
+	password?: string;
 
 	@IsOptional()
 	@IsString()
-	login: string;
+	login?: string;
 }
