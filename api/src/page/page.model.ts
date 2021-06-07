@@ -4,10 +4,10 @@ import { TimeStamps, Base } from '@typegoose/typegoose/lib/defaultClasses';
 
 export class FaqItemsPageModel {
 	@prop()
-	title: string;
+	title?: string;
 
 	@prop()
-	text: string;
+	text?: string;
 }
 
 export class FaqPageModel {
@@ -23,16 +23,16 @@ export class FaqPageModel {
 
 export class ContactsPageItemsModel {
 	@prop()
-	name: string;
+	name?: string;
 
 	@prop()
-	icon: string;
+	icon?: string;
 
 	@prop()
-	link: string;
+	link?: string;
 
 	@prop()
-	showLink: string;
+	showLink?: string;
 }
 
 export class ContactsPageModel {
@@ -48,13 +48,13 @@ export class ContactsPageModel {
 
 export class AdvantagesPageItemsModel {
 	@prop()
-	title: string;
+	title?: string;
 
 	@prop()
-	text: string;
+	text?: string;
 
 	@prop()
-	icon: string;
+	icon?: string;
 }
 
 export class AdvantagesPageModel {
@@ -130,13 +130,13 @@ export class HeaderPageModel {
 
 export class SliderPageModel {
 	@prop()
-	image: string;
+	image?: string;
 
 	@prop()
-	title: string;
+	title?: string;
 
 	@prop()
-	text: string;
+	text?: string;
 
 	@prop()
 	additional?: string;
@@ -147,11 +147,11 @@ export interface PageModel extends Base {
 }
 
 export class PageModel extends TimeStamps {
-	@prop()
-	slag: string;
+	@prop({unique: true})
+	slag?: string;
 
 	@prop({type: () => SeoPageModel})
-	seo: SeoPageModel;
+	seo?: SeoPageModel;
 
 	@prop({type: () => HeaderPageModel})
 	header?: HeaderPageModel;
