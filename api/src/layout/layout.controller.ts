@@ -17,7 +17,6 @@ import { LAYOUT_NOT_FOUND, LAYOUT_NOT_USER, NOT_ADMIN } from './layout.constans'
 import { transliterate } from './helpers/transliter';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
-import { Types } from 'mongoose';
 
 @Controller('layout')
 @UseGuards(JwtAuthGuard)
@@ -27,13 +26,17 @@ export class LayoutController {
 
 	@UsePipes(new ValidationPipe())
 	@Post('create')
-	async create(@Body() dto: CreateLayoutDto, @UserGuard() guard: {_id: string}) {
+	async create(
+		@Body() dto: CreateLayoutDto,
+		@UserGuard() guard: {_id: string}) {
 		const slash = transliterate(dto.title);
 		return this.layoutService.create({...dto, slash, user: guard._id});
 	}
 
 	@Delete(':id')
-	async delete(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
+	async delete(
+		@Param('id') id: string,
+		@UserGuard() guard: {_id: string, email: string}) {
 		const deletedLayout = await this.layoutService.delete(id);
 		if(!deletedLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.BAD_REQUEST);
@@ -42,7 +45,9 @@ export class LayoutController {
 	}
 
 	@Get(':id')
-	async get(@Param('id') id: string, @UserGuard() guard: {_id: Types.ObjectId, email: string}) {
+	async get(
+		@Param('id') id: string,
+		@UserGuard() guard: {_id: string, email: string}) {
 		const findLayout = await this.layoutService.findById(id);
 		if(!findLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
@@ -51,7 +56,7 @@ export class LayoutController {
 	}
 
 	@Get('user/:id')
-	async findByUser(@Param('id') id: Types.ObjectId) {
+	async findByUser(@Param('id') id: string) {
 		const findLayouts = await this.layoutService.findByUser(id);
 		if(!findLayouts) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
@@ -60,7 +65,9 @@ export class LayoutController {
 	}
 
 	@Get()
-	async findAll(@Body() dto: FindLayoutsDto, @UserGuard() guard: {email: string, _id: string, role: string}) {
+	async findAll(
+		@Body() dto: FindLayoutsDto,
+		@UserGuard() guard: {email: string, _id: string, role: string}) {
 		if (guard.role !== 'admin'){
 			throw new HttpException(NOT_ADMIN, HttpStatus.BAD_REQUEST);
 		}
@@ -69,7 +76,10 @@ export class LayoutController {
 
 	@UsePipes(new ValidationPipe())
 	@Patch(':id')
-	async patch(@Param('id') id: string, @Body() dto: CreateLayoutDto, @UserGuard() guard: { _id: Types.ObjectId}) {
+	async patch(
+		@Param('id') id: string,
+		@Body() dto: CreateLayoutDto,
+		@UserGuard() guard: { _id: string}) {
 		const editLayout = await this.layoutService.edit(id, dto);
 		if(!editLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);

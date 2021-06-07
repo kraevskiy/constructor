@@ -48,7 +48,9 @@ export class AuthController {
 	@UsePipes(new ValidationPipe())
 	@HttpCode(200)
 	@Post('edit')
-	async edit(@Body() dto: EditDto, @UserGuard() guard: { _id: Types.ObjectId, email: string }) {
+	async edit(
+		@Body() dto: EditDto,
+		@UserGuard() guard: { _id: string, email: string }) {
 		return this.authService.editUser(dto, guard._id);
 	}
 

@@ -4,7 +4,6 @@ import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { CreateLayoutDto } from './dto/create-layout.dto';
 import { InjectModel } from 'nestjs-typegoose';
 import { FindLayoutsDto } from './dto/find-layouts.dto';
-import { Types } from 'mongoose';
 
 @Injectable()
 export class LayoutService {
@@ -23,7 +22,7 @@ export class LayoutService {
 		return this.layoutModel.findById(id).exec();
 	}
 
-	async findByUser(id: Types.ObjectId): Promise<DocumentType<LayoutModel>[] | null> {
+	async findByUser(id: string): Promise<DocumentType<LayoutModel>[] | null> {
 		return this.layoutModel.find({user: id}).exec();
 	}
 
