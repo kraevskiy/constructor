@@ -42,6 +42,7 @@ export class LayoutService {
 				$match: newMatch
 			};
 		}
+
 		return this.layoutModel.aggregate([
 			{
 				$facet: {

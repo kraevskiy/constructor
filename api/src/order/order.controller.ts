@@ -19,6 +19,7 @@ import { UserGuard } from '../decorators/user.decorator';
 import { OrderDto } from './dto/order.dto';
 import { ORDER_NOT_FOUND, ORDER_PERMISSION } from './order.constans';
 import { isAdmin } from './helpers/checkRoles';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @Controller('order')
 @UseGuards(JwtAuthGuard)
@@ -33,7 +34,7 @@ export class OrderController {
 	}
 
 	@Delete(':id')
-	async delete(@Param('id') id: string) {
+	async delete(@Param('id', IdValidationPipe) id: string) {
 		const deletedOrder = await this.orderService.findById(id);
 		if(!deletedOrder){
 			throw new HttpException(ORDER_NOT_FOUND, HttpStatus.BAD_REQUEST);
@@ -44,7 +45,7 @@ export class OrderController {
 	@UsePipes(new ValidationPipe())
 	@Patch(':id')
 	async patch(
-		@Param('id') id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: Omit<OrderDto, '_id'>,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {
 		const editedOrder = await this.orderService.findById(id);
@@ -76,7 +77,7 @@ export class OrderController {
 
 	@Get('userId/:id')
 	async getByUserId(
-		@Param('id') id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {
 		if(id !== _id && isAdmin(role)) {
 			throw new HttpException(ORDER_PERMISSION, HttpStatus.BAD_REQUEST);
@@ -86,7 +87,7 @@ export class OrderController {
 
 	@Get(':id')
 	async getById(
-		@Param('id') id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {
 		if(id !== _id && isAdmin(role)) {
 			throw new HttpException(ORDER_PERMISSION, HttpStatus.BAD_REQUEST);

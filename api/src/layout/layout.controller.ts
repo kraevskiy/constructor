@@ -19,6 +19,7 @@ import { LAYOUT_NOT_FOUND, LAYOUT_NOT_USER, NOT_ADMIN } from './layout.constans'
 import { transliterate } from './helpers/transliter';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
+import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @Controller('layout')
 @UseGuards(JwtAuthGuard)
@@ -37,7 +38,7 @@ export class LayoutController {
 
 	@Delete(':id')
 	async delete(
-		@Param('id') id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() guard: { _id: string, email: string }) {
 		const deletedLayout = await this.layoutService.delete(id);
 		if (!deletedLayout) {
@@ -48,7 +49,7 @@ export class LayoutController {
 
 	@Get(':id')
 	async get(
-		@Param('id') id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() guard: { _id: string, email: string }) {
 		const findLayout = await this.layoutService.findById(id);
 		if (!findLayout) {
@@ -58,7 +59,7 @@ export class LayoutController {
 	}
 
 	@Get('user/:id')
-	async findByUser(@Param('id') id: string) {
+	async findByUser(@Param('id', IdValidationPipe) id: string) {
 		const findLayouts = await this.layoutService.findByUser(id);
 		if (!findLayouts) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
@@ -79,7 +80,7 @@ export class LayoutController {
 	@UsePipes(new ValidationPipe())
 	@Patch(':id')
 	async patch(
-		@Param('id') id: string,
+		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: CreateLayoutDto,
 		@UserGuard() guard: { _id: string }) {
 		const editLayout = await this.layoutService.edit(id, dto);
