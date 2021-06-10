@@ -22,18 +22,19 @@ import { isAdmin } from './helpers/checkRoles';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
 
 @Controller('order')
-@UseGuards(JwtAuthGuard)
 export class OrderController {
 	constructor(private readonly orderService: OrderService) {
 	}
 
-	@UsePipes(new ValidationPipe())
 	@Post('create')
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(new ValidationPipe())
 	async create(@Body() dto: OrderDto, @UserGuard() guard: {_id: string, email: string}) {
 		return this.orderService.createOrder(dto, guard._id);
 	}
 
 	@Delete(':id')
+	@UseGuards(JwtAuthGuard)
 	async delete(@Param('id', IdValidationPipe) id: string) {
 		const deletedOrder = await this.orderService.findById(id);
 		if(!deletedOrder){
@@ -42,11 +43,12 @@ export class OrderController {
 		return this.orderService.delete(id);
 	}
 
-	@UsePipes(new ValidationPipe())
 	@Patch(':id')
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(new ValidationPipe())
 	async patch(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: Omit<OrderDto, '_id'>,
+		@Body() dto: OrderDto,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {
 		const editedOrder = await this.orderService.findById(id);
 		if(
@@ -64,8 +66,9 @@ export class OrderController {
 		return this.orderService.edit(id, dto);
 	}
 
-	@HttpCode(200)
 	@Get()
+	@HttpCode(200)
+	@UseGuards(JwtAuthGuard)
 	async getAll(
 		@Body() dto: FindOrdersDto,
 		@UserGuard() {role}: {role: string}) {
@@ -76,6 +79,7 @@ export class OrderController {
 	}
 
 	@Get('userId/:id')
+	@UseGuards(JwtAuthGuard)
 	async getByUserId(
 		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {
@@ -86,6 +90,7 @@ export class OrderController {
 	}
 
 	@Get(':id')
+	@UseGuards(JwtAuthGuard)
 	async getById(
 		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {

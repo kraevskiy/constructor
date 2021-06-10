@@ -7,7 +7,7 @@ export class LayoutsOrderModel {
 	title: string;
 
 	@prop()
-	_id: Types.ObjectId;
+	_id: string;
 }
 
 export interface OrderModel extends Base {
@@ -20,7 +20,7 @@ export class OrderModel extends TimeStamps {
 	@prop({type: () => [LayoutsOrderModel]})
 	layouts: LayoutsOrderModel[];
 
-	@prop({type: () => Types.ObjectId})
+	@prop()
 	user: Types.ObjectId;
 
 	@prop()

@@ -25,7 +25,7 @@ export class OrderService {
 		return this.orderModel.findByIdAndRemove(id).exec();
 	}
 
-	async edit(id: string, dto: Omit<OrderModel, '_id'>): Promise<DocumentType<OrderModel> | null> {
+	async edit(id: string, dto: OrderDto): Promise<DocumentType<OrderModel> | null> {
 		return this.orderModel.findByIdAndUpdate(id, dto, {new: true}).exec();
 	}
 
@@ -36,19 +36,30 @@ export class OrderService {
 	async findAll(dto: FindOrdersDto): Promise<OrderModel[] | null> {
 		const limit: number = dto.limit ?? 4;
 		const page: number = dto.page ?? 0;
-		function generatePage (): number {
-			if (page===0) { return 0; }
-			if (page===1) { return 0; }
+
+		function generatePage(): number {
+			if (page === 0) {
+				return 0;
+			}
+			if (page === 1) {
+				return 0;
+			}
 			return limit * page - 1;
 		}
-		function generateMatch(){
-			const newMatch: {[key: string] : string} = {};
-			if(dto.user) { newMatch['user'] = dto.user; }
-			if(dto.status) { newMatch['status'] = dto.status; }
+
+		function generateMatch() {
+			const newMatch: { [key: string]: string } = {};
+			if (dto.user) {
+				newMatch['user'] = dto.user;
+			}
+			if (dto.status) {
+				newMatch['status'] = dto.status;
+			}
 			return {
 				$match: newMatch
 			};
 		}
+
 		this.orderModel.aggregate([
 			{
 				$facet: {
