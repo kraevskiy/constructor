@@ -16,7 +16,13 @@ export class LayoutModel extends TimeStamps {
 	slash: string;
 
 	@prop()
-	data: string;
+	config: string;
+
+	@prop({type: ()=> [String]})
+	files: string[];
+
+	@prop()
+	instance: string;
 
 	@prop()
 	preview?: string;
