@@ -61,7 +61,7 @@ export class LayoutController {
 		return findLayout;
 	}
 
-	@Get('user/:id')
+	@Get('userId/:id')
 	@UseGuards(JwtAuthGuard)
 	async findByUser(@Param('id', IdValidationPipe) id: string) {
 		const findLayouts = await this.layoutService.findByUser(id);
