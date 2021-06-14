@@ -1,4 +1,3 @@
-import { Types } from 'mongoose';
 import { IsString, IsOptional, IsArray } from 'class-validator';
 
 export class LayoutsUserDto {
@@ -6,20 +5,20 @@ export class LayoutsUserDto {
 	title: string;
 
 	@IsString()
-	_id: Types.ObjectId;
+	_id: string;
 }
 
 export class OrderDto {
+	@IsOptional()
+	@IsString()
+	status: 'accepted' | 'new' | 'progress' | 'completed';
+
 	@IsArray()
 	layouts: LayoutsUserDto[];
 
 	@IsOptional()
 	@IsString()
-	status: 'accepted' | 'new' | 'progress' | 'completed';
-
-	@IsOptional()
-	@IsString()
-	user: Types.ObjectId;
+	user: string;
 
 	@IsOptional()
 	@IsString()

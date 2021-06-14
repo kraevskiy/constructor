@@ -100,8 +100,10 @@ export class AuthService {
 					foreignField: 'user',
 					as: 'orders'
 				}
-			}
-		]);
+			},
+		]).exec();
+
+		console.log(data);
 
 		const payload = {
 			email: data[0].email,

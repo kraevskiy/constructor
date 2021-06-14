@@ -20,15 +20,16 @@ import { transliterate } from './helpers/transliter';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
+import { Types } from 'mongoose';
 
 @Controller('layout')
-@UseGuards(JwtAuthGuard)
 export class LayoutController {
 	constructor(private readonly layoutService: LayoutService) {
 	}
 
-	@UsePipes(new ValidationPipe())
 	@Post('create')
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(new ValidationPipe())
 	async create(
 		@Body() dto: CreateLayoutDto,
 		@UserGuard() guard: { _id: string }) {
@@ -37,6 +38,7 @@ export class LayoutController {
 	}
 
 	@Delete(':id')
+	@UseGuards(JwtAuthGuard)
 	async delete(
 		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() guard: { _id: string, email: string }) {
@@ -48,6 +50,7 @@ export class LayoutController {
 	}
 
 	@Get(':id')
+	@UseGuards(JwtAuthGuard)
 	async get(
 		@Param('id', IdValidationPipe) id: string,
 		@UserGuard() guard: { _id: string, email: string }) {
@@ -59,6 +62,7 @@ export class LayoutController {
 	}
 
 	@Get('user/:id')
+	@UseGuards(JwtAuthGuard)
 	async findByUser(@Param('id', IdValidationPipe) id: string) {
 		const findLayouts = await this.layoutService.findByUser(id);
 		if (!findLayouts) {
@@ -68,6 +72,7 @@ export class LayoutController {
 	}
 
 	@Get()
+	@UseGuards(JwtAuthGuard)
 	async findAll(
 		@Body() dto: FindLayoutsDto,
 		@UserGuard() guard: { email: string, _id: string, role: string }) {
@@ -77,18 +82,19 @@ export class LayoutController {
 		return this.layoutService.findAll(dto);
 	}
 
-	@UsePipes(new ValidationPipe())
 	@Patch(':id')
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(new ValidationPipe())
 	async patch(
 		@Param('id', IdValidationPipe) id: string,
 		@Body() dto: CreateLayoutDto,
-		@UserGuard() guard: { _id: string }) {
+		@UserGuard() guard: { _id: Types.ObjectId }) {
 		const editLayout = await this.layoutService.edit(id, dto);
 		if (!editLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);
 		}
 
-		if (editLayout.user !== guard._id) {
+		if (editLayout.user != guard._id) {
 			throw new HttpException(LAYOUT_NOT_USER, HttpStatus.BAD_REQUEST);
 		}
 		return editLayout;

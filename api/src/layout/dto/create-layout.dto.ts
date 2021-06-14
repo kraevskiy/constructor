@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsArray, IsOptional, IsString } from 'class-validator';
 
 export class CreateLayoutDto {
 	@IsOptional()
@@ -13,7 +13,13 @@ export class CreateLayoutDto {
 	slash?: string;
 
 	@IsString()
-	data: string;
+	config: string;
+
+	@IsArray()
+	files: string[];
+
+	@IsString()
+	instance: string;
 
 	@IsOptional()
 	@IsString()
