@@ -15,3 +15,11 @@ export class AuthDto {
 	@IsString()
 	login?: string;
 }
+
+export class AuthDtoAutologin {
+	@IsString()
+	email: string;
+
+	@IsString()
+	token: string;
+}

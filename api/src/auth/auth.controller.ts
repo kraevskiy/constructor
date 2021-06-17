@@ -11,7 +11,7 @@ import {
 	UsePipes,
 	ValidationPipe
 } from '@nestjs/common';
-import { AuthDto } from './dto/auth.dto';
+import { AuthDto, AuthDtoAutologin } from './dto/auth.dto';
 import { EditDto } from './dto/edit.dto';
 import { AuthService } from './auth.service';
 import { ALREADY_REGISTERED_ERROR } from './auth.constans';
@@ -41,6 +41,14 @@ export class AuthController {
 	async login(@Body() {email, password}: AuthDto) {
 		const user = await this.authService.validateUser(email, password);
 		return this.authService.login(user);
+	}
+
+	@Post('autologin')
+	@HttpCode(200)
+	@UseGuards(JwtAuthGuard)
+	@UsePipes(new ValidationPipe())
+	async autoLogin(@Body() dto: AuthDtoAutologin) {
+		return this.authService.autoLogin(dto.email);
 	}
 
 	@Post('edit')
