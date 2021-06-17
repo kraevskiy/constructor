@@ -103,16 +103,58 @@ export class AuthService {
 			},
 		]).exec();
 
-		console.log(data);
+		const payload = {
+			email: data[0].email,
+			_id: data[0]._id,
+			role: data[0].role
+		};
+		const token = await this.jwtService.signAsync(payload);
+		return {
+			access_token: token,
+			user: {
+				email: data[0].email,
+				_id: data[0]._id,
+				role: data[0].role,
+				login: data[0].login
+			},
+			orders: data[0].orders,
+			layouts: data[0].layouts
+		};
+	}
+
+	async autoLogin(email: string) {
+		const data = await this.userModel.aggregate([
+			{
+				$match: {
+					email: email
+				}
+			},
+			{
+				$lookup: {
+					from: 'Layout',
+					localField: '_id',
+					foreignField: 'user',
+					as: 'layouts'
+				}
+			},
+			{
+				$lookup: {
+					from: 'Order',
+					localField: '_id',
+					foreignField: 'user',
+					as: 'orders'
+				}
+			},
+		]).exec();
 
 		const payload = {
 			email: data[0].email,
 			_id: data[0]._id,
 			role: data[0].role
 		};
-
+		const token = await this.jwtService.signAsync(payload);
 		return {
-			access_token: await this.jwtService.signAsync(payload),
+			access_token: token,
 			user: {
 				email: data[0].email,
 				_id: data[0]._id,

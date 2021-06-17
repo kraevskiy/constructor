@@ -2,6 +2,8 @@ import React from 'react';
 import { LayoutProp } from './Layout.prop';
 import {NavLink} from 'react-router-dom';
 import { routes } from '../../routes/routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Layout = ({children}: LayoutProp):JSX.Element => {
 
@@ -15,6 +17,7 @@ const Layout = ({children}: LayoutProp):JSX.Element => {
 			<NavLink to={routes.pages}>pages</NavLink>
 			<NavLink to={routes.profile}>profile</NavLink>
 			{children}
+			<ToastContainer />
 		</>
 	);
 };
