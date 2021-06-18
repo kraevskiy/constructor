@@ -10,6 +10,7 @@ export const EditUserForm = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const {register, handleSubmit} = useForm<IEditUserFormInterface>();
 	const {user} = useSelector((state: RootState) => state.user);
+
 	const handleSubmitForm = async (data: IEditUserFormInterface) => {
 		dispatch(showLoader());
 		dispatch(editUser(data));
@@ -17,23 +18,32 @@ export const EditUserForm = (): JSX.Element => {
 	};
 
 	return (
-		<form onSubmit={handleSubmit(handleSubmitForm)}>
-			<input
-				{...register('email', {value: user.email})}
-				type="text"
-				placeholder={'email'}/>
-			<br/>
-			<input
-				{...register('password')}
-				type="text"
-				placeholder={'password'}/>
-			<br/>
-			<input
-				{...register('login', {value: user.login})}
-				type="text"
-				placeholder={'login'}/>
-			<br/>
-			<button>sub</button>
+		<form className="col-md-6 m-auto" onSubmit={handleSubmit(handleSubmitForm)}>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+				<input
+					{...register('email', {value: user.email})}
+					type="text"
+					className="form-control"
+					placeholder="name@example.com"/>
+			</div>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
+				<input
+					{...register('password')}
+					type="text"
+					className="form-control"
+					placeholder="****"/>
+			</div>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+				<input
+					{...register('login', {value: user.login})}
+					type="text"
+					className="form-control"
+					placeholder="user"/>
+			</div>
+			<button className="btn btn-primary">Edit</button>
 		</form>
 	);
 };

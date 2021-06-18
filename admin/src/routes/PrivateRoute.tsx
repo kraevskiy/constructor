@@ -1,10 +1,9 @@
 import React, { Suspense } from 'react';
 import { RoutesProps } from './routeProps';
 import { Redirect, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { paths } from './paths';
-import { logout } from '../redux/user/userActions';
 
 const PrivateRoute = (
 	{
@@ -15,7 +14,6 @@ const PrivateRoute = (
 ): JSX.Element => {
 	const {isLoggedIn, user: {role}} = useSelector((state: RootState) => state.user);
 	const protectRole = roleProps ? roleProps === role : true;
-	const dispatch = useDispatch();
 	return (
 		<Route {...rest} render={props => (
 			isLoggedIn
@@ -23,7 +21,6 @@ const PrivateRoute = (
 					protectRole
 						? (
 							<Suspense fallback={<p>loading</p>}>
-								<div onClick={() => dispatch(logout())}>logout</div>
 								<Component {...props}/>
 							</Suspense>
 						)

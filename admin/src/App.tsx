@@ -22,7 +22,9 @@ const App = (): JSX.Element => {
 
 	return (
 		<Layout>
-			{app.loading && <p>loading</p>}
+			{app.loading && <div className="spinner-border text-info" role="status">
+        <span className="visually-hidden">Loading...</span>
+      </div>}
 			{initAutologin &&
       <Suspense fallback={<p>loading</p>}>
         <Routes/>

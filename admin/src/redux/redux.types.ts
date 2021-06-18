@@ -10,6 +10,9 @@ export interface StateUserOrders {
 	layouts: StateUserOrdersLayout[];
 	user: string;
 	paymentIntent?: 'hold' | 'succeeded';
+	_id: string;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export interface StateUserLayouts {
@@ -20,6 +23,9 @@ export interface StateUserLayouts {
 	files: string[];
 	instance: string;
 	preview?: string;
+	_id: string;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
 export type RolesUser = 'admin' | 'user' | 'visitor';

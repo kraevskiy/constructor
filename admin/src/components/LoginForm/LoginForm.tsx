@@ -17,17 +17,24 @@ export const LoginForm = (): JSX.Element => {
 
 
 	return (
-			<form onSubmit={handleSubmit(handleSubmitForm)}>
+		<form className="col-md-6 m-auto" onSubmit={handleSubmit(handleSubmitForm)}>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
 				<input
 					{...register('email')}
 					type="text"
-					placeholder={'em'}/>
-
+					className="form-control"
+					placeholder="name@example.com"/>
+			</div>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
 				<input
 					{...register('password')}
 					type="text"
-					placeholder={'pass'}/>
-				<button>sub</button>
-			</form>
-	);
+					className="form-control"
+					placeholder="****"/>
+			</div>
+			<button className="btn btn-primary">Login</button>
+		</form>
+);
 };
