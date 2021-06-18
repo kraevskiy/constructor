@@ -5,6 +5,7 @@ import { LoginForm } from '../../components';
 const LoginPage = (): JSX.Element => {
 	return (
 		<div>
+			Login (visitor)
 			<LoginForm/>
 		</div>
 	);

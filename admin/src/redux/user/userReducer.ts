@@ -28,6 +28,10 @@ export const userReducer = (state = initialState, action: ActionType): StateUser
 			return {
 				...state, ...action.payload, isLoggedIn: true, initAutologin: true
 			};
+		case TypesUser.editUser:
+			return {
+				...state, ...action.payload, isLoggedIn: true, initAutologin: true
+			};
 		case TypesUser.logout:
 			return {
 				...initialState, initAutologin: true

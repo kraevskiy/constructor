@@ -1,4 +1,4 @@
-export const routes = {
+export const paths = {
 	index: '/',
 	constructor: '/constructor',
 	login: '/login',

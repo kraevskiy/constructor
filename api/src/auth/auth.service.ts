@@ -167,7 +167,13 @@ export class AuthService {
 	}
 
 	async editUser(user: EditUserModel, _id: string) {
-		const newUser = await this.userModel.findOneAndUpdate({_id}, user, {new: true}).exec();
+		const editUser = user;
+		if(editUser.password){
+			const salt = await genSalt(10);
+			editUser.passwordHash = await hash(editUser.password, salt);
+		}
+		delete editUser.password;
+		const newUser = await this.userModel.findOneAndUpdate({_id}, editUser, {new: true}).exec();
 		if (!newUser) {
 			throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
 		}

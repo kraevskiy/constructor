@@ -4,7 +4,7 @@ const ConstructorPage = (): JSX.Element => {
 
 	return (
 		<div>
-			ConstructorPage
+			ConstructorPage (all)
 		</div>
 	);
 };

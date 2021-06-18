@@ -4,7 +4,7 @@ const OrdersPage = (): JSX.Element => {
 
 	return (
 		<div>
-			OrdersPage
+			OrdersPage (logged)
 		</div>
 	);
 };

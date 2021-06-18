@@ -4,7 +4,7 @@ const PagesPage = (): JSX.Element => {
 
   return (
     <div>
-      PagesPage
+      PagesPage (admin)
     </div>
   );
 };

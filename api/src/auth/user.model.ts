@@ -1,5 +1,6 @@
 import { prop } from '@typegoose/typegoose';
 import { TimeStamps, Base } from '@typegoose/typegoose/lib/defaultClasses';
+import { IsOptional } from 'class-validator';
 
 export interface UserModel extends Base {
 }
@@ -26,7 +27,10 @@ export class EditUserModel {
 	@prop()
 	password?: string;
 
-
 	@prop()
 	login?: string;
+
+	@IsOptional()
+	@prop()
+	passwordHash?: string;
 }

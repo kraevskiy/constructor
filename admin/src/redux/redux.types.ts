@@ -22,15 +22,17 @@ export interface StateUserLayouts {
 	preview?: string;
 }
 
+export type RolesUser = 'admin' | 'user' | 'visitor';
+
 export interface StateUser {
 	access_token: string,
 	isLoggedIn: boolean,
 	initAutologin: boolean,
 	user: {
-		email: string,
-		_id: string,
-		role: 'user' | 'admin' | 'visitor',
-		login: string
+		email: string;
+		_id: string;
+		role: RolesUser;
+		login: string;
 	},
 	orders: StateUserOrders[],
 	layouts: StateUserLayouts[]
@@ -49,7 +51,7 @@ export interface DecodeTokenTypes {
 	email: string;
 	expiresIn: string | number;
 	iat: number;
-	role: 'user' | 'admin' | 'visitor';
+	role: RolesUser;
 	user: string;
 	_id: string;
 }
