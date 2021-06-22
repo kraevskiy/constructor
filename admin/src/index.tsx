@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { compose, createStore, applyMiddleware } from 'redux';
 import { rootReducer } from './redux/rootReducer';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
+import i18n from './i18n';
 import thunk from 'redux-thunk';
 // import reportWebVitals from './reportWebVitals';
 
@@ -14,8 +15,10 @@ declare global {
 	}
 }
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+import { Loader } from './components/Loader';
+import { I18nextProvider } from 'react-i18next';
 
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const store = createStore(rootReducer, compose(
 	applyMiddleware(
@@ -24,14 +27,17 @@ export const store = createStore(rootReducer, compose(
 	composeEnhancers()
 ));
 
-
 ReactDOM.render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<Router>
-				<App/>
-			</Router>
-		</Provider>
+		<I18nextProvider i18n={i18n}>
+			<Suspense fallback={<Loader/>}>
+				<Provider store={store}>
+					<Router>
+						<App/>
+					</Router>
+				</Provider>
+			</Suspense>
+		</I18nextProvider>
 	</React.StrictMode>,
 	document.getElementById('root')
 );

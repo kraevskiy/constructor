@@ -1,18 +1,21 @@
-import { TypesApp, TypesUser } from './types';
+import { TypesApp, TypesLayout, TypesOrder, TypesUser } from './types';
 
-export interface StateUserOrdersLayout {
+export interface StateUserOrderLayout {
 	title: string;
 	_id: string;
 }
 
-export interface StateUserOrders {
+export interface StateUserOrder {
 	status: 'accepted' | 'new' | 'progress' | 'completed';
-	layouts: StateUserOrdersLayout[];
+	layouts: StateUserOrderLayout[];
 	user: string;
 	paymentIntent?: 'hold' | 'succeeded';
+	_id: string;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
-export interface StateUserLayouts {
+export interface StateUserLayout {
 	user?: string;
 	title: string;
 	slash?: string;
@@ -20,20 +23,26 @@ export interface StateUserLayouts {
 	files: string[];
 	instance: string;
 	preview?: string;
+	_id: string;
+	createdAt: Date;
+	updatedAt: Date;
 }
 
+export type RolesUser = 'admin' | 'user' | 'visitor';
+
 export interface StateUser {
-	access_token: string,
-	isLoggedIn: boolean,
-	initAutologin: boolean,
-	user: {
-		email: string,
-		_id: string,
-		role: 'user' | 'admin' | 'visitor',
-		login: string
-	},
-	orders: StateUserOrders[],
-	layouts: StateUserLayouts[]
+	access_token: string;
+	isLoggedIn: boolean;
+	initAutologin: boolean;
+	passwordHash?: string;
+	// user: {
+		email: string;
+		_id: string;
+		role: RolesUser;
+		login: string;
+	// },
+	// orders: StateUserOrder[],
+	// layouts: StateUserLayout[]
 }
 
 export interface StateApp {
@@ -42,14 +51,12 @@ export interface StateApp {
 
 export interface ActionType<T = TypesUser | TypesApp, P = StateUser | StateApp> {
 	type: T;
-	payload?: P | null;
+	payload?: P;
 }
 
 export interface DecodeTokenTypes {
 	email: string;
-	expiresIn: string | number;
 	iat: number;
-	role: 'user' | 'admin' | 'visitor';
-	user: string;
+	role: RolesUser;
 	_id: string;
 }

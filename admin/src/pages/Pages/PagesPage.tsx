@@ -4,7 +4,7 @@ const PagesPage = (): JSX.Element => {
 
   return (
     <div>
-      PagesPage
+      <h1 className="text-center col-12 mb-5">PagesPage (admin)</h1>
     </div>
   );
 };

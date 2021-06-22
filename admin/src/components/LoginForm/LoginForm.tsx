@@ -1,36 +1,41 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
-import { ActionType, StateUser } from '../../redux/redux.types';
 import { useForm } from 'react-hook-form';
-import { ILoginFormInterface } from '../../pages/login/LoginForm.interface';
-import { hideLoader, showLoader } from '../../redux/app/appActions';
-import { autoLogin, login } from '../../redux/user/userActions';
+import { ILoginFormInterface } from './LoginForm.interface';
+import { login, hideLoader, showLoader } from '../../redux/actions';
+import { useTranslation } from 'react-i18next';
 
 export const LoginForm = (): JSX.Element => {
-	const dispatch = useDispatch<ThunkDispatch<StateUser, null, ActionType>>();
+	const {t} = useTranslation();
+	const dispatch = useDispatch();
 	const {register, handleSubmit} = useForm<ILoginFormInterface>();
 
 	const handleSubmitForm = async (data: ILoginFormInterface) => {
 		dispatch(showLoader());
-		await dispatch(login(data));
+		dispatch(login(data));
 		dispatch(hideLoader());
 	};
 
 
 	return (
-			<form onSubmit={handleSubmit(handleSubmitForm)}>
-				<div onClick={()=> dispatch(autoLogin())}>asdasdasd</div>
+		<form className="col-md-6 m-auto" onSubmit={handleSubmit(handleSubmitForm)}>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">{t('login.email')}</label>
 				<input
 					{...register('email')}
 					type="text"
-					placeholder={'em'}/>
-
+					className="form-control"
+					placeholder="name@example.com"/>
+			</div>
+			<div className="mb-3">
+				<label htmlFor="exampleFormControlInput1" className="form-label">{t('login.password')}</label>
 				<input
 					{...register('password')}
 					type="text"
-					placeholder={'pass'}/>
-				<button>sub</button>
-			</form>
+					className="form-control"
+					placeholder="****"/>
+			</div>
+			<button className="btn btn-primary">{t('login.button')}</button>
+		</form>
 	);
 };

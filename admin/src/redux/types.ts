@@ -1,19 +1,26 @@
 export enum TypesUser {
-	createUser = 'CREATE_USER',
-	editUser = 'EDIT_USER',
-	login = 'LOGIN',
-	autologin = 'AUTOLOGIN',
-	logout = 'LOGOUT',
-	createOrder = 'CREATE_ORDER',
-	deleteOrder = 'DELETE_ORDER',
-	editOrder = 'EDIT_ORDER',
-	createLayout = 'CREATE_LAYOUT',
-	deleteLayout = 'DELETE_LAYOUT',
-	editLayout = 'EDIT_LAYOUT'
+	createUser = 'USER/CREATE_USER',
+	editUser = 'USER/EDIT_USER',
+	login = 'USER/LOGIN',
+	autologin = 'USER/AUTOLOGIN',
+	logout = 'USER/LOGOUT'
 }
 
+export enum TypesOrder {
+	getOrders = 'ORDER/GET_ORDERS',
+	createOrder = 'ORDER/CREATE_ORDER',
+	deleteOrder = 'ORDER/DELETE_ORDER',
+	editOrder = 'ORDER/EDIT_ORDER',
+}
+
+export enum TypesLayout {
+	getLayouts = 'LAYOUT/GET',
+	createLayout = 'LAYOUT/CREATE_LAYOUT',
+	deleteLayout = 'LAYOUT/DELETE_LAYOUT',
+	editLayout = 'LAYOUT/EDIT_LAYOUT'
+}
 
 export enum TypesApp {
-	showLoader = 'SHOW_LOADER',
-	hideLoader = 'HIDE_LOADER'
+	showLoader = 'APP/SHOW_LOADER',
+	hideLoader = 'APP/HIDE_LOADER'
 }
