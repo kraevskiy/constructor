@@ -12,7 +12,7 @@ const PrivateRoute = (
 		...rest
 	}: RoutesProps
 ): JSX.Element => {
-	const {isLoggedIn, user: {role}} = useSelector((state: RootState) => state.user);
+	const {isLoggedIn, role} = useSelector((state: RootState) => state.user);
 	const protectRole = roleProps ? roleProps === role : true;
 	return (
 		<Route {...rest} render={props => (

@@ -6,17 +6,15 @@ const initialState: StateUser = {
 	access_token: '',
 	isLoggedIn: false,
 	initAutologin: false,
-	user: {
+	// user: {
 		email: '',
 		_id: '',
 		role: 'visitor',
 		login: ''
-	},
-	orders: [],
-	layouts: []
+	// },
+	// orders: [],
+	// layouts: []
 };
-
-
 
 export const userReducer = (state = initialState, action: ActionType): StateUser => {
 	switch (action.type) {

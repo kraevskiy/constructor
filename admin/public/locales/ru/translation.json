@@ -1,0 +1,14 @@
+{
+  "page.index": "индекс",
+  "page.constructor": "конструктор",
+  "page.login": "авторизоваться",
+  "page.orders": "заказы",
+  "page.layouts": "макеты",
+  "page.pages": "страницы",
+  "page.profile": "профиль",
+  "login.title": "Авториз",
+  "login.email": "Адрес электронной почты",
+  "login.password": "Пароль",
+  "login.button": "Войти",
+  "logout.button": "Выйти"
+}

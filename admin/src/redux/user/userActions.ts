@@ -46,6 +46,7 @@ export const autoLogin = () => {
 							}
 						});
 					localStorage.setItem('auth-token', user.data.access_token);
+					delete user.data.passwordHash;
 					return dispatch({
 						type: TypesUser.autologin,
 						payload: user.data

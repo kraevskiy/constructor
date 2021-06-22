@@ -4,29 +4,35 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { ActionType } from './redux/redux.types';
-import { autoLogin } from './redux/user/userActions';
-import { hideLoader, showLoader } from './redux/app/appActions';
+import { getOrders, showLoader, hideLoader, getLayouts, autoLogin } from './redux/actions';
+import { Loader } from './components/Loader';
 
 const Routes = lazy(() => import('./routes/Routes'));
 
 const App = (): JSX.Element => {
-	const {app, user: {isLoggedIn, initAutologin}} = useSelector((state: RootState) => state);
+	const {app, user: {isLoggedIn, initAutologin, _id}} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch<ThunkDispatch<RootState, null, ActionType>>();
 
 	useEffect(() => {
-		showLoader();
 		if (initAutologin) return;
+		dispatch(showLoader());
 		dispatch(autoLogin());
-		hideLoader();
+		dispatch(hideLoader());
 	}, [isLoggedIn, initAutologin]);
+
+	useEffect(() => {
+		if (!isLoggedIn) return;
+		dispatch(showLoader());
+		dispatch(getLayouts(_id));
+		dispatch(getOrders(_id));
+		dispatch(hideLoader());
+	}, [isLoggedIn]);
 
 	return (
 		<Layout>
-			{app.loading && <div className="spinner-border text-info" role="status">
-        <span className="visually-hidden">Loading...</span>
-      </div>}
+			{app.loading && <Loader/>}
 			{initAutologin &&
-      <Suspense fallback={<p>loading</p>}>
+      <Suspense fallback={<Loader/>}>
         <Routes/>
       </Suspense>
 			}

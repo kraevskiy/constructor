@@ -25,12 +25,12 @@ export class AuthService {
 		return newUser.save();
 	}
 
-	async findUser(email: string): Promise<DocumentType<UserModel>[] | []> {
+	async findUserByEmail(email: string): Promise<DocumentType<UserModel>[] | []> {
 		return this.userModel.find({email}).exec();
 	}
 
 	async validateUser(email: string, password: string): Promise<DocumentType<UserModel>> {
-		const user = await this.findUser(email);
+		const user = await this.findUserByEmail(email);
 		if (!user?.length) {
 			throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
 		}
@@ -79,90 +79,36 @@ export class AuthService {
 	}
 
 	async login(user: UserModel) {
-		const data = await this.userModel.aggregate([
-			{
-				$match: {
-					_id: user._id
-				}
-			},
-			{
-				$lookup: {
-					from: 'Layout',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'layouts'
-				}
-			},
-			{
-				$lookup: {
-					from: 'Order',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'orders'
-				}
-			},
-		]).exec();
-
 		const payload = {
-			email: data[0].email,
-			_id: data[0]._id,
-			role: data[0].role
+			email: user.email,
+			_id: user._id,
+			role: user.role
 		};
 		const token = await this.jwtService.signAsync(payload);
 		return {
 			access_token: token,
-			user: {
-				email: data[0].email,
-				_id: data[0]._id,
-				role: data[0].role,
-				login: data[0].login
-			},
-			orders: data[0].orders,
-			layouts: data[0].layouts
+			email: user.email,
+			_id: user._id,
+			role: user.role,
+			login: user.login
 		};
 	}
 
 	async autoLogin(email: string) {
-		const data = await this.userModel.aggregate([
-			{
-				$match: {
-					email: email
-				}
-			},
-			{
-				$lookup: {
-					from: 'Layout',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'layouts'
-				}
-			},
-			{
-				$lookup: {
-					from: 'Order',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'orders'
-				}
-			},
-		]).exec();
+		const user = await this.findUserByEmail(email);
 
 		const payload = {
-			email: data[0].email,
-			_id: data[0]._id,
-			role: data[0].role
+			email: user[0].email,
+			_id: user[0]._id,
+			role: user[0].role
 		};
 		const token = await this.jwtService.signAsync(payload);
 		return {
 			access_token: token,
-			user: {
-				email: data[0].email,
-				_id: data[0]._id,
-				role: data[0].role,
-				login: data[0].login
-			},
-			orders: data[0].orders,
-			layouts: data[0].layouts
+			email: user[0].email,
+			_id: user[0]._id,
+			role: user[0].role,
+			login: user[0].login
 		};
 	}
 
@@ -177,7 +123,20 @@ export class AuthService {
 		if (!newUser) {
 			throw new UnauthorizedException(USER_NOT_FOUND_ERROR);
 		}
-		return this.generateUserData(newUser);
+
+		const payload = {
+			email: newUser.email,
+			_id: newUser._id,
+			role: newUser.role
+		};
+		const token = await this.jwtService.signAsync(payload);
+		return {
+			access_token: token,
+			email: newUser.email,
+			_id: newUser._id,
+			role: newUser.role,
+			login: newUser.login
+		};
 	}
 
 	async getAll(): Promise<UserModel[] | null> {

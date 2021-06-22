@@ -1,15 +1,14 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import { hideLoader, showLoader } from '../../redux/app/appActions';
 import React from 'react';
 import { IEditUserFormInterface } from './EditUserForm.interface';
 import { RootState } from '../../redux/rootReducer';
-import { editUser } from '../../redux/user/userActions';
+import { editUser, hideLoader, showLoader } from '../../redux/actions';
 
 export const EditUserForm = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const {register, handleSubmit} = useForm<IEditUserFormInterface>();
-	const {user} = useSelector((state: RootState) => state.user);
+	const user = useSelector((state: RootState) => state.user);
 
 	const handleSubmitForm = async (data: IEditUserFormInterface) => {
 		dispatch(showLoader());
