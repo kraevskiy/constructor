@@ -1,7 +1,5 @@
-import React from 'react';
 import { LoginForm } from '../../components';
 import { useTranslation } from 'react-i18next';
-
 
 const LoginPage = (): JSX.Element => {
 	const {t} = useTranslation();

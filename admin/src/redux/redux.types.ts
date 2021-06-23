@@ -1,4 +1,4 @@
-import { TypesApp, TypesLayout, TypesOrder, TypesUser } from './types';
+import { TypesApp, TypesUser } from './types';
 
 export interface StateUserOrderLayout {
 	title: string;
@@ -28,6 +28,13 @@ export interface StateUserLayout {
 	updatedAt: Date;
 }
 
+export interface RegisterUserModel {
+	email: string;
+	_id: string;
+	createdAt: Date;
+	updatedAt: Date;
+}
+
 export type RolesUser = 'admin' | 'user' | 'visitor';
 
 export interface StateUser {
@@ -35,14 +42,10 @@ export interface StateUser {
 	isLoggedIn: boolean;
 	initAutologin: boolean;
 	passwordHash?: string;
-	// user: {
-		email: string;
-		_id: string;
-		role: RolesUser;
-		login: string;
-	// },
-	// orders: StateUserOrder[],
-	// layouts: StateUserLayout[]
+	email: string;
+	_id: string;
+	role: RolesUser;
+	login: string;
 }
 
 export interface StateApp {

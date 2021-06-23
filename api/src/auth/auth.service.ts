@@ -41,41 +41,9 @@ export class AuthService {
 		return user[0];
 	}
 
-	async generateUserData(user: UserModel) {
-		const data = await this.userModel.aggregate([
-			{
-				$match: {
-					_id: user._id
-				}
-			},
-			{
-				$lookup: {
-					from: 'Layout',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'layouts'
-				}
-			},
-			{
-				$lookup: {
-					from: 'Order',
-					localField: '_id',
-					foreignField: 'user',
-					as: 'orders'
-				}
-			}
-		]);
+	async delete(guard: { _id: string, email: string }) {
 
-		return {
-			user: {
-				email: data[0].email,
-				_id: data[0]._id,
-				role: data[0].role,
-				login: data[0].login
-			},
-			orders: data[0].orders,
-			layouts: data[0].layouts
-		};
+		return this.userModel.findOneAndDelete(guard);
 	}
 
 	async login(user: UserModel) {
@@ -114,7 +82,7 @@ export class AuthService {
 
 	async editUser(user: EditUserModel, _id: string) {
 		const editUser = user;
-		if(editUser.password){
+		if (editUser.password) {
 			const salt = await genSalt(10);
 			editUser.passwordHash = await hash(editUser.password, salt);
 		}

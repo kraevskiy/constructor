@@ -2,6 +2,7 @@
   "page.index": "индекс",
   "page.constructor": "конструктор",
   "page.login": "авторизоваться",
+  "page.registration": "регистрация",
   "page.orders": "заказы",
   "page.layouts": "макеты",
   "page.pages": "страницы",
