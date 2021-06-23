@@ -7,6 +7,7 @@ import { toast } from 'react-toastify';
 import { decode } from 'jsonwebtoken';
 import { IEditUserFormInterface } from '../../components/EditUserForm/EditUserForm.interface';
 import { ILoginFormInterface } from '../../components/LoginForm/LoginForm.interface';
+import { IRegistrationFormInterface } from '../../components/RegistrationForm/RegistrationForm.interface';
 
 export const login = (data: ILoginFormInterface) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
@@ -85,6 +86,47 @@ export const editUser = (data: IEditUserFormInterface ) => {
 				type: TypesUser.login,
 				payload: user.data
 			});
+		} catch (e) {
+			console.log(e);
+			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			return null;
+		}
+	};
+};
+
+export const registrationUser = (data: IRegistrationFormInterface ) => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+		try {
+			const user = await axios.post<StateUser>(process.env.REACT_APP_AUTH_REGISTER as string, data);
+			return dispatch({
+				type: TypesUser.createUser,
+				payload: user.data
+			});
+		} catch (e) {
+			console.log(e);
+			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			return null;
+		}
+	};
+};
+
+export const deleteUser = () => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+		try {
+			const token = localStorage.getItem('auth-token');
+			if(token){
+				const decodeToken = decode(token) as DecodeTokenTypes;
+				await axios.delete(`${process.env.REACT_APP_AUTH_DELETE}/${decodeToken._id}`, {
+					headers: {
+						Authorization: `Bearer ${token}`
+					}
+				});
+				localStorage.clear();
+				return dispatch({
+					type: TypesUser.delete,
+				});
+			}
+			return null;
 		} catch (e) {
 			console.log(e);
 			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);

@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import Layout from './hoc/layout/Layout';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/rootReducer';
@@ -26,7 +26,7 @@ const App = (): JSX.Element => {
 		dispatch(getLayouts(_id));
 		dispatch(getOrders(_id));
 		dispatch(hideLoader());
-	}, [isLoggedIn]);
+	}, [isLoggedIn, initAutologin]);
 
 	return (
 		<Layout>

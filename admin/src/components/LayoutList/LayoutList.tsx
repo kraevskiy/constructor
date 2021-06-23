@@ -16,7 +16,7 @@ export const LayoutList = (): JSX.Element => {
 
 	return (
 		<div className="row ali">
-			{layouts?.length && layouts.map(l => (
+			{layouts?.length ? layouts.map(l => (
 				<div className="col-md-4" key={l._id}>
 					<div className="card m-1">
 						<div className="card-body">
@@ -37,7 +37,9 @@ export const LayoutList = (): JSX.Element => {
 						</div>
 					</div>
 				</div>
-			))}
+			))
+				: <p>You don't have layouts</p>
+			}
 		</div>
 	);
 };

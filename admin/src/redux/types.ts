@@ -3,7 +3,8 @@ export enum TypesUser {
 	editUser = 'USER/EDIT_USER',
 	login = 'USER/LOGIN',
 	autologin = 'USER/AUTOLOGIN',
-	logout = 'USER/LOGOUT'
+	logout = 'USER/LOGOUT',
+	delete = 'USER/DELETE',
 }
 
 export enum TypesOrder {

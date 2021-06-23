@@ -1,4 +1,3 @@
-import React from 'react';
 import { LayoutProp } from './Layout.prop';
 import { NavLink } from 'react-router-dom';
 import { paths } from '../../routes/paths';
@@ -26,6 +25,9 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 						</li>
 						<li className="nav-item">
 							<NavLink className="nav-link" to={paths.login}>{t('page.login')}</NavLink>
+						</li>
+						<li className="nav-item">
+							<NavLink className="nav-link" to={paths.registration}>{t('page.registration')}</NavLink>
 						</li>
 						<li className="nav-item">
 							<NavLink className="nav-link" to={paths.orders}>{t('page.orders')}</NavLink>

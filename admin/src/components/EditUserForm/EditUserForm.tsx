@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useForm } from 'react-hook-form';
-import React from 'react';
 import { IEditUserFormInterface } from './EditUserForm.interface';
 import { RootState } from '../../redux/rootReducer';
 import { editUser, hideLoader, showLoader } from '../../redux/actions';

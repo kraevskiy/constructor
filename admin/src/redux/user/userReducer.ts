@@ -6,14 +6,10 @@ const initialState: StateUser = {
 	access_token: '',
 	isLoggedIn: false,
 	initAutologin: false,
-	// user: {
-		email: '',
-		_id: '',
-		role: 'visitor',
-		login: ''
-	// },
-	// orders: [],
-	// layouts: []
+	email: '',
+	_id: '',
+	role: 'visitor',
+	login: ''
 };
 
 export const userReducer = (state = initialState, action: ActionType): StateUser => {
@@ -26,6 +22,10 @@ export const userReducer = (state = initialState, action: ActionType): StateUser
 			return {
 				...state, ...action.payload, isLoggedIn: true, initAutologin: true
 			};
+		case TypesUser.createUser:
+			return {
+				...state, ...action.payload
+			};
 		case TypesUser.editUser:
 			return {
 				...state, ...action.payload, isLoggedIn: true, initAutologin: true
@@ -34,7 +34,8 @@ export const userReducer = (state = initialState, action: ActionType): StateUser
 			return {
 				...initialState, initAutologin: true
 			};
-
+		case TypesUser.delete:
+			return initialState;
 		default:
 			return state;
 	}

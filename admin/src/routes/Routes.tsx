@@ -3,7 +3,7 @@ import PublicRoute from './PublicRoute';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { paths } from './paths';
-import { ConstructorPage, ProfilePage, LayoutsPage, PagesPage, LoginPage, OrdersPage } from '../pages';
+import { ConstructorPage, ProfilePage, LayoutsPage, PagesPage, LoginPage, OrdersPage, RegistrationPage } from '../pages';
 
 const Routes = (): JSX.Element => {
 	return (
@@ -18,6 +18,12 @@ const Routes = (): JSX.Element => {
 				<PublicRoute
 					path={paths.login}
 					component={LoginPage}
+					hideLoggedUser
+					exact
+				/>
+				<PublicRoute
+					path={paths.registration}
+					component={RegistrationPage}
 					hideLoggedUser
 					exact
 				/>

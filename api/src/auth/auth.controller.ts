@@ -1,7 +1,7 @@
 import {
 	BadRequestException,
 	Body,
-	Controller,
+	Controller, Delete,
 	Get,
 	HttpCode,
 	HttpException,
@@ -41,6 +41,13 @@ export class AuthController {
 	async login(@Body() {email, password}: AuthDto) {
 		const user = await this.authService.validateUser(email, password);
 		return this.authService.login(user);
+	}
+
+	@Delete('delete/:id')
+	@HttpCode(200)
+	@UsePipes(new ValidationPipe())
+	async delete(@UserGuard() guard: { _id: string, email: string }) {
+		return this.authService.delete(guard);
 	}
 
 	@Post('autologin')
