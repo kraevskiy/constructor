@@ -1,6 +1,6 @@
 import { LayoutList } from '../../components';
-import { useDispatch, useSelector } from 'react-redux';
-import { createLayouts, getLayouts } from '../../redux/layouts/layoutsActions';
+import { useDispatch } from 'react-redux';
+import { createLayouts } from '../../redux/layouts/layoutsActions';
 import { useState } from 'react';
 
 const LayoutsPage = (): JSX.Element => {
@@ -13,7 +13,6 @@ const LayoutsPage = (): JSX.Element => {
 
 	const addLayoutSimple = async () => {
 		await dispatch(createLayouts({title, config, files, instance}));
-		await dispatch(getLayouts());
 		setTitle('');
 	};
 

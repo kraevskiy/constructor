@@ -17,6 +17,7 @@ export const EditUserForm = (): JSX.Element => {
 
 	return (
 		<form className="col-md-6 m-auto" onSubmit={handleSubmit(handleSubmitForm)}>
+			<h6>{user.role}</h6>
 			<div className="mb-3">
 				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
 				<input
