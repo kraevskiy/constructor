@@ -1,0 +1,15 @@
+{
+  "page.index": "index",
+  "page.constr": "constructor",
+  "page.login": "login",
+  "page.registration": "registration",
+  "page.orders": "orders",
+  "page.layouts": "layouts",
+  "page.pages": "pages",
+  "page.profile": "profile",
+  "login.title": "Login",
+  "login.email": "Email address",
+  "login.password": "Password",
+  "login.button": "Login",
+  "logout.button": "Logout"
+}

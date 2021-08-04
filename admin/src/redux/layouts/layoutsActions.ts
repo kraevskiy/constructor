@@ -93,7 +93,7 @@ export const createLayouts = (data: {
 
 			return dispatch({
 				type: TypesLayout.createLayout,
-				payload: layout.data
+				payload: [layout.data]
 			});
 
 		} catch (e) {
