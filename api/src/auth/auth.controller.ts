@@ -19,8 +19,10 @@ import { JwtAuthGuard } from './guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
 import { isAdmin } from '../order/helpers/checkRoles';
 import { ORDER_PERMISSION } from '../order/order.constans';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('auth')
+@ApiTags('Auth')
 export class AuthController {
 	constructor(private readonly authService: AuthService) {
 	}

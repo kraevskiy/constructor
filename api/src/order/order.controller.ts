@@ -20,8 +20,10 @@ import { OrderDto } from './dto/order.dto';
 import { ORDER_NOT_FOUND, ORDER_PERMISSION } from './order.constans';
 import { isAdmin } from './helpers/checkRoles';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('order')
+@ApiTags('Order')
 export class OrderController {
 	constructor(private readonly orderService: OrderService) {
 	}

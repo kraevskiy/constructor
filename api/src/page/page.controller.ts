@@ -19,8 +19,10 @@ import { isAdmin } from '../order/helpers/checkRoles';
 import { PAGE_NOT_FOUND, PAGE_PERMISSION } from './page.constans';
 import { PageService } from './page.service';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('page')
+@ApiTags('Page')
 export class PageController {
 	constructor(private readonly pageService: PageService) {
 	}

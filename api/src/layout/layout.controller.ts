@@ -21,8 +21,10 @@ import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { UserGuard } from '../decorators/user.decorator';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
 import { Types } from 'mongoose';
+import { ApiTags } from '@nestjs/swagger';
 
 @Controller('layout')
+@ApiTags('Layout')
 export class LayoutController {
 	constructor(private readonly layoutService: LayoutService) {
 	}
