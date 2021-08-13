@@ -1,0 +1,46 @@
+.header {
+  padding: 15px 0;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 190px 1fr auto;
+  grid-gap: 25px;
+  grid-template-areas:
+      "logo catalog menu"
+}
+
+.logo {
+  grid-area: logo;
+  align-self: center;
+}
+
+.catalog {
+  grid-area: catalog;
+  align-self: center;
+  display: grid;
+  grid-template-columns: 25px 1fr;
+  grid-gap: 10px;
+  font-weight: bold;
+
+  button {
+    height: 20px;
+    width: 25px;
+    align-self: center;
+
+    i {
+      width: 100%;
+    }
+  }
+
+  span {
+    align-self: center;
+  }
+}
+
+.menu {
+  grid-area: menu;
+  align-self: center;
+  grid-gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  align-items: center;
+}

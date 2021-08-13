@@ -50,6 +50,8 @@ export interface StateUser {
 
 export interface StateApp {
 	loading: boolean;
+	isOpenCatalog: boolean;
+	isOpenMenu: boolean;
 }
 
 export interface ActionType<T = TypesUser | TypesApp, P = StateUser | StateApp> {

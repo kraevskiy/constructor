@@ -23,5 +23,7 @@ export enum TypesLayout {
 
 export enum TypesApp {
 	showLoader = 'APP/SHOW_LOADER',
-	hideLoader = 'APP/HIDE_LOADER'
+	hideLoader = 'APP/HIDE_LOADER',
+	toggleCatalog = 'APP/TOGGLE_CATALOG',
+	toggleMenu = 'APP/TOGGLE_MENU'
 }

@@ -7,6 +7,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import i18n from './i18n';
 import thunk from 'redux-thunk';
+import './styles/index.scss';
 // import reportWebVitals from './reportWebVitals';
 
 declare global {
