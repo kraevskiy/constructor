@@ -13,3 +13,15 @@ export const hideLoader = () => {
 		return dispatch({type: TypesApp.hideLoader});
 	};
 };
+
+export const toggleCatalog = () => {
+	return (dispatch: Dispatch<ActionType<TypesApp, StateApp>>): ActionType<TypesApp, StateApp> => {
+		return dispatch({type: TypesApp.toggleCatalog});
+	};
+};
+
+export const toggleMenu = () => {
+	return (dispatch: Dispatch<ActionType<TypesApp, StateApp>>): ActionType<TypesApp, StateApp> => {
+		return dispatch({type: TypesApp.toggleMenu});
+	};
+};
