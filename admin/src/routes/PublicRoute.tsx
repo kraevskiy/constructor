@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { RoutesProps } from './routeProps';
 import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';

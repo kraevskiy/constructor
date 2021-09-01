@@ -11,7 +11,9 @@
   width: 100%;
   display: grid;
   align-items: center;
+  z-index: 5;
 }
+
 
 .body {
   width: 1386px;
@@ -70,10 +72,12 @@
   display: grid;
   grid-gap: 30px;
   grid-template-columns: 1fr 1fr;
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
+
     li, a {
       font-weight: normal;
       font-size: 27px;

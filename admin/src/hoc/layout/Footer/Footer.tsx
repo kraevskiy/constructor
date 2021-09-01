@@ -1,14 +1,13 @@
-import React from 'react';
 import cn from 'classnames';
 import { FooterProps } from './Footer.props';
-import styles from './Footer.module.scss';
+import cls from './Footer.module.scss';
 import { logo } from '../../../images';
 import { NavLink } from 'react-router-dom';
 import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/rootReducer';
-import {mail, phone, globe} from './../../../images/icons';
+import { mail, phone, globe, facebook, instagram, youtube } from './../../../images/icons';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 	const {t} = useTranslation();
@@ -17,24 +16,24 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 
 	const userLink = () => {
 		return (
-			<ul className={styles.list}>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} exact to={paths.index}>{t('page.index')}</NavLink>
+			<ul className={cls.list}>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} exact to={paths.index}>{t('page.index')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.constructor}>{t('page.constr')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.orders}>{t('page.orders')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.orders}>{t('page.orders')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.pages}>{t('page.pages')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.pages}>{t('page.pages')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.profile}>{t('page.profile')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.profile}>{t('page.profile')}</NavLink>
 				</li>
 			</ul>
 		);
@@ -42,18 +41,18 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 
 	const visitorLink = () => {
 		return (
-			<ul className={styles.list}>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} exact to={paths.index}>{t('page.index')}</NavLink>
+			<ul className={cls.list}>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} exact to={paths.index}>{t('page.index')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.constructor}>{t('page.constr')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.login}>{t('page.login')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.login}>{t('page.login')}</NavLink>
 				</li>
-				<li className={styles.item}>
-					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.registration}>{t('page.registration')}</NavLink>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.registration}>{t('page.registration')}</NavLink>
 				</li>
 			</ul>
 		);
@@ -62,25 +61,25 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 
 	return (
 		<footer
-			className={cn(className, styles.footer)}
+			className={cn(className, cls.footer)}
 			{...props}
 		>
-			<div className={styles.top}>
-				<div className={styles.info}>
+			<div className={cls.top}>
+				<div className={cls.info}>
 					<NavLink to="/">
 						<img src={logo} alt=""/>
 					</NavLink>
-					<div className={styles.text}>
+					<div className={cls.text}>
 						Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
 						Cum
 						sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 					</div>
 				</div>
 				<span/>
-				<div className={styles.nav}>
+				<div className={cls.nav}>
 					{isLoggedIn ? userLink() : visitorLink()}
 				</div>
-				<div className={styles.email}>
+				<div className={cls.email}>
 					<ul>
 						<li>
 							<img src={mail} alt=""/>info@arter.com
@@ -93,9 +92,9 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 						</li>
 					</ul>
 				</div>
-				<div className={styles.phone}>
+				<div className={cls.phone}>
 					<ul>
-						<li className={styles.phoneList}>
+						<li className={cls.phoneList}>
 							<img src={phone} alt=""/> +380 093 414 20 16
 						</li>
 						<li>
@@ -107,7 +106,27 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					</ul>
 				</div>
 			</div>
-			<div className={styles.bottom}>
+			<div className={cls.bottom}>
+				<div className={cls.copyright}>
+					Copyright © 2021 Arter Все права защищены.
+				</div>
+				<ul className={cls.socials}>
+					<li>
+						<a target="_blank" href="/">
+							<img src={instagram} alt=""/>
+						</a>
+					</li>
+					<li>
+						<a target="_blank" href="/">
+							<img src={facebook} alt=""/>
+						</a>
+					</li>
+					<li>
+						<a target="_blank" href="/">
+							<img src={youtube} alt=""/>
+						</a>
+					</li>
+				</ul>
 			</div>
 		</footer>
 	);

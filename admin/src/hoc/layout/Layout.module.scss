@@ -27,6 +27,10 @@
   }
 }
 
+.overflow {
+  overflow: hidden;
+  max-height: 100vh;
+}
 
 .header {
   grid-area: header;

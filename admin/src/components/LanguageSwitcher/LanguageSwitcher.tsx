@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { LanguageSwitcherProps } from './LanguageSwitcher.props';
 import { en, ru } from './../../images/flags';
 import { arrow } from './../../images/icons/';
-import styles from './LanguageSwitcher.module.scss';
+import cls from './LanguageSwitcher.module.scss';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { LanguageList } from './LanguageList';
@@ -25,11 +25,11 @@ export const LanguageSwitcher = ({languages, onClick}: LanguageSwitcherProps): J
 
 	return (
 		<button
-			className={cn(styles.wrapper, 'switcher', {
-				[styles.opened]: isOpen
+			className={cn(cls.wrapper, 'switcher', {
+				[cls.opened]: isOpen
 			})}
 			onClick={handleClickBtn}>
-			<div className={styles.current}>
+			<div className={cls.current}>
 				<img src={i[icon as string]} alt=""/>
 				<i><img src={arrow} alt=""/></i>
 			</div>
