@@ -1,16 +1,14 @@
-import React from 'react';
 import { logout } from '../../../redux/user/userActions';
 import { NavLink } from 'react-router-dom';
 import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import cn from 'classnames';
-import styles from './Header.module.scss';
+import cls from './Header.module.scss';
 import { RootState } from '../../../redux/rootReducer';
 import { HeaderProps } from './Header.props';
-import { LanguageSwitcher } from '../../../components/';
+import { LanguageSwitcher, Burger } from '../../../components/';
 import { logo } from '../../../images';
-import { Burger } from '../../../components/Burger/Burger';
 import { toggleCatalog, toggleMenu } from '../../../redux/app/appActions';
 
 const Header = ({className, ...props}: HeaderProps): JSX.Element => {
@@ -25,17 +23,17 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 
 	return (
 		<header
-			className={cn(className, styles.header)}
+			className={cn(className, cls.header)}
 			{...props}
 		>
-			<NavLink className={styles.logo} to={paths.index}>
+			<NavLink className={cls.logo} to={paths.index}>
 				<img src={logo} alt=""/>
 			</NavLink>
-			<div className={styles.catalog}>
+			<div className={cls.catalog}>
 				<Burger active={isOpenCatalog} onClick={handleShowCatalog}/>
 				<span>КАТАЛОГ</span>
 			</div>
-			<div className={styles.menu}>
+			<div className={cls.menu}>
 				<Burger active={isOpenMenu} onClick={handleShowMenu}/>
 				{isLoggedIn &&
         <button className="btn btn-secondary" onClick={() => dispatch(logout())}>{t('logout.button')}</button>}

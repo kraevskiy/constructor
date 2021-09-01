@@ -1,4 +1,4 @@
-import { CreatePageForm } from '../../components/';
+import { CreatePageForm, PageHead } from '../../components/';
 import useFetch from '../../hooks/useFetch';
 import { ICreatePageFormInterface } from '../../components/CreatePageForm/CreatePageForm.interface';
 import { useEffect } from 'react';
@@ -13,7 +13,7 @@ const PagesPage = (): JSX.Element => {
 
   return (
     <div>
-      <h1 className="text-center col-12 mb-5">PagesPage (admin)</h1>
+      <PageHead paddingTop="small">PagesPage (admin)</PageHead>
       {response && !isLoading && <CreatePageForm defaultData={response}/>}
     </div>
   );

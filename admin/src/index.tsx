@@ -16,7 +16,7 @@ declare global {
 	}
 }
 
-import { Loader } from './components/Loader';
+import { Loader } from './components/';
 import { I18nextProvider } from 'react-i18next';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { withLayout } from '../HOC/layout/Layout';
-import styles from '../styles/Home.module.css';
+import cls from '../styles/Home.module.css';
 
 function Home(): JSX.Element {
 	return (

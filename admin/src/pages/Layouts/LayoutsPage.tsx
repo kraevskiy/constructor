@@ -1,9 +1,11 @@
-import { LayoutList } from '../../components';
+import { LayoutList, PageHead } from '../../components';
 import { useDispatch } from 'react-redux';
 import { createLayouts } from '../../redux/layouts/layoutsActions';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const LayoutsPage = (): JSX.Element => {
+	const {t} = useTranslation();
 	const dispatch = useDispatch();
 
 	const [title, setTitle] = useState('');
@@ -18,7 +20,9 @@ const LayoutsPage = (): JSX.Element => {
 
 	return (
 		<div className="row">
-			<h1 className="text-center col-12 mb-5">LayoutsPage (logged)</h1>
+			<PageHead
+				text={t('layout.text')}
+			>{t('layout.title')}</PageHead>
 			<LayoutList/>
 			<br/>
 			<input type="text" className="col-6" placeholder="title" value={title} onChange={(e) => setTitle((e.target.value))}/>

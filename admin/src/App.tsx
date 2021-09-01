@@ -5,7 +5,7 @@ import { RootState } from './redux/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { ActionType } from './redux/redux.types';
 import { getOrders, showLoader, hideLoader, getLayouts, autoLogin } from './redux/actions';
-import { Loader } from './components/Loader';
+import { Loader } from './components/';
 
 const Routes = lazy(() => import('./routes/Routes'));
 

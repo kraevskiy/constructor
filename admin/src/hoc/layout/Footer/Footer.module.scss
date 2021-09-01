@@ -1,21 +1,11 @@
 .footer {
   padding: 25px 0 15px 0;
   display: grid;
+
   ul {
     list-style: none;
     padding: 0;
     margin: 0;
-    li {
-      white-space: nowrap;
-      font-size: 20px;
-      display: grid;
-      align-items: center;
-      grid-auto-flow: column;
-      justify-content: start;
-      img {
-        margin-right: 12px;
-      }
-    }
   }
 }
 
@@ -23,9 +13,13 @@
   display: grid;
   grid-template-columns: 350px repeat(4, auto);
   grid-gap: 35px;
+  margin-bottom: 10px;
 }
 
 .bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
 
 }
 
@@ -40,14 +34,38 @@
 .phone, .email, .nav {
   display: grid;
   justify-content: end;
+
+  li {
+    white-space: nowrap;
+    font-size: 20px;
+    display: grid;
+    align-items: center;
+    grid-auto-flow: column;
+    justify-content: start;
+
+    img {
+      margin-right: 12px;
+    }
+  }
 }
 
 .copyright {
-
+  color: var(--c-grey);
 }
 
 .socials {
-
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  a {
+    display: inline-block;
+  }
+  img {
+    margin-right: 0;
+  }
 }
 
 .item {

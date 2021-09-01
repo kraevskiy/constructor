@@ -1,7 +1,6 @@
-import React from 'react';
 import { LanguageListProps } from './LanguageSwitcher.props';
 import cn from 'classnames';
-import styles from './LanguageSwitcher.module.scss';
+import cls from './LanguageSwitcher.module.scss';
 import { motion } from 'framer-motion';
 import { en, ru } from '../../images/flags';
 import { useEventListener } from '../../hooks/useEventListener';
@@ -29,7 +28,7 @@ export const LanguageList = ({languages, handlerClick, setIsOpen}:LanguageListPr
 			variants={container}
 			initial={'hidden'}
 			animate={'show'}
-			className={cn(styles.list, styles.open)}
+			className={cn(cls.list, cls.open)}
 		>
 			{
 				languages.map(l => (
