@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { LanguageSwitcherProps } from './LanguageSwitcher.props';
 import { en, ru } from './../../images/flags';
-import arrow from './../../images/icons/arrow.svg';
+import { arrow } from './../../images/icons/';
 import styles from './LanguageSwitcher.module.scss';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';

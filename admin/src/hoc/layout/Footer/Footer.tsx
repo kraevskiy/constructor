@@ -1,38 +1,40 @@
 import React from 'react';
-import { logout } from '../../../redux/user/userActions';
+import cn from 'classnames';
+import { FooterProps } from './Footer.props';
+import styles from './Footer.module.scss';
+import { logo } from '../../../images';
 import { NavLink } from 'react-router-dom';
 import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
-import { useDispatch, useSelector } from 'react-redux';
-import cn from 'classnames';
+import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/rootReducer';
-import { FooterProps } from './Footer.props';
+import {mail, phone, globe} from './../../../images/icons';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
-	const {t, i18n} = useTranslation();
-	const {isLoggedIn} = useSelector((state: RootState) => state.user);
-	const dispatch = useDispatch();
+	const {t} = useTranslation();
+	const {user: {isLoggedIn}} = useSelector((state: RootState) => state);
+
 
 	const userLink = () => {
 		return (
-			<ul className="navbar-nav me-auto mb-2 mb-lg-0">
-				<li className="nav-item">
-					<NavLink className="nav-link" exact to={paths.index}>{t('page.index')}</NavLink>
+			<ul className={styles.list}>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} exact to={paths.index}>{t('page.index')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.constructor}>{t('page.constr')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.orders}>{t('page.orders')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.orders}>{t('page.orders')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.layouts}>{t('page.layouts')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.pages}>{t('page.pages')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.pages}>{t('page.pages')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.profile}>{t('page.profile')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.profile}>{t('page.profile')}</NavLink>
 				</li>
 			</ul>
 		);
@@ -40,42 +42,74 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 
 	const visitorLink = () => {
 		return (
-			<ul className="navbar-nav me-auto mb-2 mb-lg-0">
-				<li className="nav-item">
-					<NavLink className="nav-link" exact to={paths.index}>{t('page.index')}</NavLink>
+			<ul className={styles.list}>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} exact to={paths.index}>{t('page.index')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.constructor}>{t('page.constr')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.login}>{t('page.login')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.login}>{t('page.login')}</NavLink>
 				</li>
-				<li className="nav-item">
-					<NavLink className="nav-link" to={paths.registration}>{t('page.registration')}</NavLink>
+				<li className={styles.item}>
+					<NavLink activeClassName={styles.activeLink} className={styles.link} to={paths.registration}>{t('page.registration')}</NavLink>
 				</li>
 			</ul>
 		);
 	};
 
+
 	return (
-		<header
-			className={cn(className)}
+		<footer
+			className={cn(className, styles.footer)}
 			{...props}
 		>
-			<nav className="navbar navbar-expand-lg navbar-light bg-light mb-5">
-				<div className="container-fluid">
-					{isLoggedIn ? userLink() : visitorLink()}
-					<div className="me-3">
-						<select className="form-select" onChange={(e) => i18n.changeLanguage(e.target.value)}>
-							<option value="en">En</option>
-							<option value="ru">Ru</option>
-						</select>
+			<div className={styles.top}>
+				<div className={styles.info}>
+					<NavLink to="/">
+						<img src={logo} alt=""/>
+					</NavLink>
+					<div className={styles.text}>
+						Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
+						Cum
+						sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
 					</div>
-					{isLoggedIn &&
-          <button className="btn btn-secondary" onClick={() => dispatch(logout())}>{t('logout.button')}</button>}
 				</div>
-			</nav>
-		</header>
+				<span/>
+				<div className={styles.nav}>
+					{isLoggedIn ? userLink() : visitorLink()}
+				</div>
+				<div className={styles.email}>
+					<ul>
+						<li>
+							<img src={mail} alt=""/>info@arter.com
+						</li>
+						<li>
+							<img src={mail} alt=""/>support@arter.com
+						</li>
+						<li>
+							<img src={globe} alt=""/>www.arter.com
+						</li>
+					</ul>
+				</div>
+				<div className={styles.phone}>
+					<ul>
+						<li className={styles.phoneList}>
+							<img src={phone} alt=""/> +380 093 414 20 16
+						</li>
+						<li>
+							<img src={phone} alt=""/> +380 093 414 20 16
+						</li>
+						<li>
+							<img src={phone} alt=""/> +380 093 414 20 16
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div className={styles.bottom}>
+			</div>
+		</footer>
 	);
 };
 

@@ -5,7 +5,7 @@ import styles from './Burger.module.scss';
 export const Burger = (props:BurgerProps): JSX.Element => {
 	return (
 		<button
-			{...props}
+			onClick={props.onClick}
 			className={cn(styles.burger, {
 				[styles.active]: props.active
 			})}
