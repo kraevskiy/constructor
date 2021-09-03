@@ -9,6 +9,10 @@
   padding-bottom: 45px;
   position: relative;
   font-weight: normal;
+  display: grid;
+  justify-content: space-between;
+  align-items: center;
+  grid-template-columns: auto 200px;
   margin: 0;
   &:after {
     position: absolute;

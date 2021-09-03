@@ -1,0 +1,17 @@
+.btn {
+  width: 170px;
+  background: var(--grad-blue);
+  text-align: center;
+  color: var(--c-white);
+  box-shadow: none;
+  border: none;
+  display: inline-grid;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  max-width: 100%;
+  border-radius: 50px;
+  @include sm {
+    width: 100%;
+  }
+}

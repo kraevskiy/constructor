@@ -38,6 +38,11 @@ const Routes = (): JSX.Element => {
 					exact
 				/>
 				<PrivateRoute
+					path={paths.layout}
+					component={LayoutsPage}
+					exact
+				/>
+				<PrivateRoute
 					path={paths.pages}
 					component={PagesPage}
 					role={'admin'}

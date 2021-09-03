@@ -3,6 +3,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/rootReducer';
 import { hideLoader, showLoader } from '../../redux/actions';
 import { deleteLayout } from '../../redux/actions';
+import cls from './LayoutList.module.scss';
+import { NavLink } from 'react-router-dom';
+import { paths } from '../../routes/paths';
+import Item from './Item/Item';
+import Header from './Header/Header';
 
 export const LayoutList = (): JSX.Element => {
 	const layouts = useSelector((state: RootState) => state.layouts);
@@ -15,30 +20,36 @@ export const LayoutList = (): JSX.Element => {
 	};
 
 	return (
-		<div className="row ali">
-			{layouts?.length ? layouts.map(l => (
-				<div className="col-md-4" key={l._id}>
-					<div className="card m-1">
-						<div className="card-body">
-							<h5 className="card-title d-flex justify-content-between">
-								<span>{l.title}</span>
-								<button
-									type="button"
-									onClick={()=>deleteLayoutHandler(l._id)}
-									className="btn btn-info text-white"
-									aria-label="Close"><small>X</small></button>
-							</h5>
-							<h6
-								className="card-subtitle mb-2 text-muted">createdAt: <small>{format(new Date(l.createdAt), 'yyyy/MM/dd hh:mm')}</small>
-							</h6>
-							<h6
-								className="card-subtitle mb-2 text-muted">updatedAt: <small>{format(new Date(l.updatedAt), 'yyyy/MM/dd hh:mm')}</small>
-							</h6>
-						</div>
-					</div>
+		<div className={cls.wrapper}>
+			{layouts?.length
+				? <>
+					<Header
+						titles={['Name', 'Create', 'Update']}
+					/>
+					{
+						layouts.map(l => (
+							<Item
+								key={l._id}
+								title={l.title}
+								id={l._id}
+								handleDelete={deleteLayoutHandler}
+								linkText="Open"
+								deleteText="Delete"
+								createdAt={l.createdAt}
+								updatedAt={l.updatedAt}
+							/>
+						))
+					}
+				</>
+				: <div className={cls.not_found}>
+					<p>You don't have layouts</p>
+					<NavLink
+						to={paths.constructor}
+						className="btn"
+					>
+						Create New
+					</NavLink>
 				</div>
-			))
-				: <p>You don't have layouts</p>
 			}
 		</div>
 	);

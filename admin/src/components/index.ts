@@ -9,3 +9,4 @@ export * from './Burger/Burger';
 export * from './PageHead/PageHead';
 export * from './BlockHead/BlockHead';
 export * from './Loader';
+export * from './Button/Button';

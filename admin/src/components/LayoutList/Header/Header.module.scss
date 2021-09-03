@@ -1,0 +1,15 @@
+.head {
+  display: grid;
+  padding: 20px 30px;
+  grid-template-columns: repeat(3, 1fr) repeat(2, 180px);
+  grid-gap: 10px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--c-white);
+  &:not(:first-child) {
+    text-align: center;
+  }
+}

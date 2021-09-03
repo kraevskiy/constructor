@@ -5,6 +5,7 @@ export const paths = {
 	registration: '/registration',
 	orders: '/orders',
 	layouts: '/layouts',
+	layout: '/layout/:id',
 	pages: '/pages',
 	profile: '/profile'
 };
