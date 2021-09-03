@@ -1,0 +1,15 @@
+.item {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) repeat(2, 180px);
+  grid-gap: 10px;
+  align-items: center;
+  background: var(--c-darker);
+  box-sizing: border-box;
+  padding: 35px 30px;
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+  &>*:not(:first-child) {
+    text-align: center;
+  }
+}

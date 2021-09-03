@@ -71,7 +71,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 				[cls.show]: isOpenMenu
 			})}
 		>
-			<div className={cn(cls.body)}>
+			<div {...props} className={cn(cls.body)}>
 				<nav className={cls.nav}>
 					{isLoggedIn ? userLink() : visitorLink()}
 				</nav>

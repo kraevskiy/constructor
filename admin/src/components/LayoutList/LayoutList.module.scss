@@ -1,0 +1,15 @@
+.wrapper {
+
+}
+
+.not_found {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 30%;
+  p {
+    font-size: 24px;
+    margin: 0;
+    padding: 0;
+    font-weight: bold;
+  }
+}

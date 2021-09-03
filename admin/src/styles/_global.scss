@@ -1,13 +1,21 @@
 :root {
+  --c-darker: #343434;
   --c-dark: #2E232A;
   --c-white: #ffffff;
   --c-grey: #A8A8A8;
   --c-light-dark: #343434;
   --c-orange: #FE6305;
+  --c-yellow: #FFA006;
+  --c-red: #c22929;
+  --c-dark-red: #7b2b2b;
   --c-blue: #0077F0;
   --c-green: #3BC229;
+  --c-dark-green: #2B7B2B;
   --c-violet: #7600FF;
-  --grad-default: linear-gradient(to right, var(--c-violet) 50%, var(--c-blue));
+  --grad-blue: linear-gradient(to right, var(--c-violet) 50%, var(--c-blue));
+  --grad-green: linear-gradient(to right, var(--c-dark-green) 50%, var(--c-green));
+  --grad-red: linear-gradient(to right, var(--c-dark-red) 50%, var(--c-red));
+  --grad-orange: linear-gradient(to right, var(--c-yellow) 50%, var(--c-orange));
 }
 
 html,
