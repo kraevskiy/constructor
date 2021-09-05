@@ -6,13 +6,45 @@ export interface StateUserOrderLayout {
 }
 
 export interface StateUserOrder {
-	status: 'accepted' | 'new' | 'progress' | 'completed';
+	status: 'new' | 'progress' | 'completed';
 	layouts: StateUserOrderLayout[];
 	user: string;
 	paymentIntent?: 'hold' | 'succeeded';
 	_id: string;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface TotalCount {
+	totalCount: number;
+}
+
+export interface OrderAllLayout {
+	_id: string;
+	title: string;
+}
+
+export interface StateAllOrders {
+	totalCount: TotalCount[];
+	orders: StateUserOrder[];
+}
+
+export interface User {
+	_id: string;
+	email: string;
+	passwordHash: string;
+	role: string;
+	login: string;
+	createdAt: Date;
+	updatedAt: Date;
+	__v: number;
+	layouts: StateUserLayout[];
+	orders: StateUserOrder[];
+}
+
+export interface StateAllUsers {
+	totalCount: TotalCount[];
+	users: User[];
 }
 
 export interface StateUserLayout {

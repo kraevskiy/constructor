@@ -1,6 +1,11 @@
 @import "./../../styles/mixins";
 
 .wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.container {
   display: grid;
   min-height: 100vh;
   grid-template-rows: auto 1fr auto;
@@ -13,6 +18,7 @@
   max-width: 1386px;
   margin: 0 auto;
   box-sizing: border-box;
+  position: relative;
   @include sm {
     max-width: 540px
   }
@@ -25,11 +31,19 @@
   @include xl {
     max-width: 1140px
   }
+
 }
 
 .overflow {
   overflow: hidden;
   max-height: 100vh;
+}
+
+.bg {
+  position: absolute;
+  right: -5vw;
+  bottom: -33vh;
+  z-index: 0;
 }
 
 .header {

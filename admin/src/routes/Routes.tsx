@@ -1,9 +1,9 @@
 import { Suspense } from 'react';
 import PublicRoute from './PublicRoute';
-import { Route, Switch } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { paths } from './paths';
-import { ConstructorPage, ProfilePage, LayoutsPage, PagesPage, LoginPage, OrdersPage, RegistrationPage } from '../pages';
+import { ConstructorPage, ProfilePage, LayoutsPage, SettingPage, LoginPage, OrdersPage, RegistrationPage, OrderAllPage, LayoutsAllPage } from '../pages';
 
 const Routes = (): JSX.Element => {
 	return (
@@ -43,8 +43,20 @@ const Routes = (): JSX.Element => {
 					exact
 				/>
 				<PrivateRoute
-					path={paths.pages}
-					component={PagesPage}
+					path={paths.setting}
+					component={SettingPage}
+					role={'admin'}
+					exact
+				/>
+				<PrivateRoute
+					path={paths.ordersAll}
+					component={OrderAllPage}
+					role={'admin'}
+					exact
+				/>
+				<PrivateRoute
+					path={paths.layoutsAll}
+					component={LayoutsAllPage}
 					role={'admin'}
 					exact
 				/>
@@ -53,6 +65,7 @@ const Routes = (): JSX.Element => {
 					component={ProfilePage}
 					exact
 				/>
+				<Redirect to="/"/>
 			</Suspense>
 		</Switch>
 	);

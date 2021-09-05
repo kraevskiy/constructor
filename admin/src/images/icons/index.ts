@@ -5,6 +5,7 @@ import phone from './phone.svg';
 import facebook from './facebook.png';
 import instagram from './instagram.png';
 import youtube from './youtube.png';
+import ok from './ok.svg';
 
 
-export {arrow, globe, mail, phone, facebook, instagram, youtube};
+export {arrow, globe, mail, phone, facebook, instagram, youtube, ok};

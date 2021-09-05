@@ -38,12 +38,8 @@ export class OrderService {
 		const page: number = dto.page ?? 0;
 
 		function generatePage(): number {
-			if (page === 0) {
-				return 0;
-			}
-			if (page === 1) {
-				return 0;
-			}
+			if (page===0) { return 0; }
+			if (page===1) { return 0; }
 			return limit * page - 1;
 		}
 
@@ -60,10 +56,10 @@ export class OrderService {
 			};
 		}
 
-		this.orderModel.aggregate([
+		return this.orderModel.aggregate([
 			{
 				$facet: {
-					count: [
+					totalCount: [
 						{
 							$count: 'totalCount'
 						}
@@ -84,8 +80,8 @@ export class OrderService {
 					]
 				}
 			}
-		]).exec()
-		return this.orderModel.find().exec();
+		]).exec();
+		// return this.orderModel.find().exec();
 	}
 
 	async getByUserId(_id: string): Promise<DocumentType<OrderModel>[] | null> {

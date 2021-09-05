@@ -4,8 +4,10 @@ export const paths = {
 	login: '/login',
 	registration: '/registration',
 	orders: '/orders',
+	ordersAll: '/ordersAll',
 	layouts: '/layouts',
+	layoutsAll: '/layoutsAll',
 	layout: '/layout/:id',
-	pages: '/pages',
+	setting: '/setting',
 	profile: '/profile'
 };

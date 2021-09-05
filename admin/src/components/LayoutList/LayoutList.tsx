@@ -1,4 +1,3 @@
-import { format } from 'date-fns';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/rootReducer';
 import { hideLoader, showLoader } from '../../redux/actions';

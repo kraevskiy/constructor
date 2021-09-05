@@ -11,7 +11,7 @@ export class LayoutsUserDto {
 export class OrderDto {
 	@IsOptional()
 	@IsString()
-	status: 'accepted' | 'new' | 'progress' | 'completed';
+	status: 'new' | 'progress' | 'completed';
 
 	@IsArray()
 	layouts: LayoutsUserDto[];

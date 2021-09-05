@@ -3,7 +3,7 @@ import { IsNumber, IsOptional, IsString } from 'class-validator';
 export class FindOrdersDto {
 	@IsOptional()
 	@IsString()
-	status?:  'accepted' | 'new' | 'progress' | 'completed';
+	status?:  'new' | 'progress' | 'completed';
 
 	@IsOptional()
 	@IsString()
