@@ -8,5 +8,5 @@ export interface ItemProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivEleme
 	createdAt: Date;
 	layouts: StateUserOrderLayout[];
 	typeAction?: OrderListProps['typeAction'];
-	userName?: string;
+	userName?: string | null;
 }

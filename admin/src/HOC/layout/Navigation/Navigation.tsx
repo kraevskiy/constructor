@@ -44,7 +44,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile}>{t('page.profile')}</NavLink>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
 				</li>
 			</ul>
 		);
@@ -69,7 +69,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile}>{t('page.profile')}</NavLink>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
 				</li>
 			</ul>
 		);

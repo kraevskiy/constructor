@@ -3,9 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { NavLink } from 'react-router-dom';
 import { paths } from '../../routes/paths';
 import cls from './LayoutAllPage.module.scss';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/rootReducer';
 
 
 const LayoutsAllPage = (): JSX.Element => {
+	const layouts = useSelector((state: RootState) => state.layoutsAll);
 	const {t} = useTranslation();
 
 	return (
@@ -19,7 +22,11 @@ const LayoutsAllPage = (): JSX.Element => {
 					Create new
 				</NavLink>
 			</PageHead>
-			<LayoutList/>
+			{
+				layouts?.length
+					? <LayoutList layouts={layouts[0].layouts} isShowName={true}/>
+					: <p>Don't have layouts</p>
+			}
 		</div>
 	);
 };

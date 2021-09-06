@@ -2,7 +2,8 @@ import { ItemProps } from './Item.props';
 import cls from './Item.module.scss';
 import { CorrectDate } from '../../../helpers';
 import { ok } from '../../../images/icons';
-import { Button, Loader } from '../../';
+import { Button } from '../../';
+import Loader from '../../Loader/Loader';
 
 const Item = ({
 	id,
@@ -10,13 +11,13 @@ const Item = ({
 	createdAt,
 	typeAction,
 	layouts,
-	userName
+	userName = null
 }: ItemProps): JSX.Element => {
 	return (
 		<div className={cls.item}>
 			<div className={cls.id}>
-				{id} /<br/>
-				{!!userName && userName}
+				{id}
+				{userName && (<> / <br/>{userName}</>)}
 			</div>
 			<div  className={cls.create}>
 				{CorrectDate(createdAt)}

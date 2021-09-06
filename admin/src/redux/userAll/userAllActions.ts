@@ -3,13 +3,13 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import { ActionType } from './userAllReducer';
 import { toast } from 'react-toastify';
-import { StateAllUsers } from '../redux.types';
+import { User } from '../redux.types';
 
 export const getAllUsers = () => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const token = localStorage.getItem('auth-token');
-			const user = await axios.post<StateAllUsers[]>(process.env.REACT_APP_AUTH_USERS as string, {}, {
+			const user = await axios.post<User[]>(process.env.REACT_APP_AUTH_USERS as string, {}, {
 				headers: {
 					Authorization: `Bearer ${token}`
 				}

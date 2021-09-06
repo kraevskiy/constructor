@@ -42,11 +42,6 @@ export interface User {
 	orders: StateUserOrder[];
 }
 
-export interface StateAllUsers {
-	totalCount: TotalCount[];
-	users: User[];
-}
-
 export interface StateUserLayout {
 	user?: string;
 	title: string;
@@ -58,6 +53,11 @@ export interface StateUserLayout {
 	_id: string;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface StateAllLayouts {
+	totalCount: TotalCount[];
+	layouts: StateUserLayout[];
 }
 
 export interface RegisterUserModel {

@@ -2,7 +2,7 @@ import { BurgerProps } from './Burger.props';
 import cn from 'classnames';
 import cls from './Burger.module.scss';
 
-export const Burger = (props:BurgerProps): JSX.Element => {
+const Burger = (props:BurgerProps): JSX.Element => {
 	return (
 		<button
 			onClick={props.onClick}
@@ -14,3 +14,5 @@ export const Burger = (props:BurgerProps): JSX.Element => {
 		</button>
 	);
 };
+
+export default Burger;

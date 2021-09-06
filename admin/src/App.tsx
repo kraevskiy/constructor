@@ -4,11 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { ActionType } from './redux/redux.types';
-import { getOrders, showLoader, hideLoader, getLayouts, autoLogin } from './redux/actions';
-import { Loader } from './components/';
-import { getAllLayouts } from './redux/layoutsAll/layoutsAllActions';
-import { getAllOrders } from './redux/ordersAll/ordersAllActions';
-import { getAllUsers } from './redux/userAll/userAllActions';
+import { getOrders, showLoader, hideLoader, getLayouts, autoLogin, getAllLayouts, getAllOrders, getAllUsers } from './redux/actions';
+import Loader from './components/Loader/Loader';
 
 const Routes = lazy(() => import('./routes/Routes'));
 
@@ -39,7 +36,7 @@ const App = (): JSX.Element => {
 	return (
 		<Layout>
 			{app.loading && <Loader/>}
-			{initAutologin && !app.loading &&
+			{initAutologin &&
       <Suspense fallback={<Loader/>}>
         <Routes/>
       </Suspense>

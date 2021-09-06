@@ -1,11 +1,9 @@
-import { BlockHead, OrderList } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import { createOrders } from '../../redux/orders/ordersActions';
 import { PageHead } from '../../components/';
 import { RootState } from '../../redux/rootReducer';
-import { StateUserOrder } from '../../redux/redux.types';
 import { useTranslation } from 'react-i18next';
-import cls from './OrderPage.module.scss';
+import { GetBodyOrders } from '../../helpers';
 
 const OrdersPage = (): JSX.Element => {
 	const orders = useSelector((state: RootState) => state.orders);
@@ -23,61 +21,6 @@ const OrdersPage = (): JSX.Element => {
 		}));
 	};
 
-	const getNewOrders = (newOrders: StateUserOrder[]) => {
-		return (
-			<div className={cls.typeWrapper}>
-				<BlockHead>
-					New orders
-				</BlockHead>
-				<OrderList typeAction="delete" orders={newOrders}/>
-			</div>
-		);
-	};
-
-	const getProgressOrders = (newOrders: StateUserOrder[]) => {
-		return (
-			<div className={cls.typeWrapper}>
-				<BlockHead line="orange">
-					Orders in progress
-				</BlockHead>
-				<OrderList typeAction="progress" orders={newOrders}/>
-			</div>
-		);
-	};
-
-	const getCompletedOrders = (newOrders: StateUserOrder[]) => {
-		return (
-			<div className={cls.typeWrapper}>
-				<BlockHead line="green">
-					Completed orders
-				</BlockHead>
-				<OrderList orders={newOrders}/>
-			</div>
-		);
-	};
-
-	const getBodyOrders = () => {
-		const listOrders: {
-			[key in StateUserOrder['status']]: StateUserOrder[] | []
-		} = {
-			new: [],
-			progress: [],
-			completed: []
-		};
-		orders?.forEach((o) => {
-			const linkToArray: StateUserOrder[] = listOrders[o.status];
-			return linkToArray.push(o);
-		});
-		console.log(listOrders);
-		return (
-			<>
-				{!!listOrders.new.length && getNewOrders(listOrders.new)}
-				{!!listOrders.progress.length && getProgressOrders(listOrders.progress)}
-				{!!listOrders.completed.length && getCompletedOrders(listOrders.completed)}
-			</>
-		);
-	};
-
 	return (
 		<div className="row">
 			<PageHead>
@@ -85,7 +28,7 @@ const OrdersPage = (): JSX.Element => {
 			</PageHead>
 			{
 				orders?.length
-					? getBodyOrders()
+					? <GetBodyOrders orders={orders}/>
 					: <p>You don't have orders</p>
 			}
 			<br/>

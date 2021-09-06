@@ -44,7 +44,7 @@ const GetFields = memo(({
 });
 
 
-export const CreatePageForm = ({defaultData}: { defaultData: ICreatePageFormInterface }): JSX.Element => {
+const CreatePageForm = ({defaultData}: { defaultData: ICreatePageFormInterface }): JSX.Element => {
 	const formMethods = useForm<ICreatePageFormInterface>({
 		defaultValues: defaultData
 	});
@@ -390,3 +390,5 @@ export const CreatePageForm = ({defaultData}: { defaultData: ICreatePageFormInte
 		</form>
 	);
 };
+
+export default CreatePageForm;

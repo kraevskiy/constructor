@@ -7,7 +7,7 @@ export interface ActionType {
 	payload: StateAllOrders[];
 }
 
-export const orderAllReducer = (state = initialState, action: ActionType): StateAllOrders[] => {
+export const orderAllReducer = (state = initialState, action: ActionType): StateAllOrders[] | undefined => {
 	switch (action.type) {
 		case TypesOrderAll.getOrdersAll:
 			return action.payload;

@@ -1,8 +1,8 @@
 import { ItemProps } from './Item.props';
 import cls from './Item.module.scss';
 import { NavLink } from 'react-router-dom';
-import { Button } from '../../Button/Button';
 import { CorrectDate } from '../../../helpers/';
+import { Button } from '../..';
 
 const Item = ({
 	id,
@@ -11,13 +11,15 @@ const Item = ({
 	linkText,
 	deleteText,
 	createdAt,
-	updatedAt
+	updatedAt,
+	userName = null
 }: ItemProps): JSX.Element => {
 
 	return (
 		<div className={cls.item}>
 			<div className={cls.title}>
 				{title}
+				{userName && (<> / <br/>{userName}</>)}
 			</div>
 			<div className={cls.create}>
 				{CorrectDate(createdAt)}

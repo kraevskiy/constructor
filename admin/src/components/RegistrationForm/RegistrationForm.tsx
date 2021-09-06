@@ -7,7 +7,7 @@ import { ActionType, RegisterUserModel } from '../../redux/redux.types';
 import { TypesUser } from '../../redux/types';
 import { useHistory } from 'react-router-dom';
 
-export const RegistrationForm = (): JSX.Element => {
+const RegistrationForm = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const {register, handleSubmit} = useForm<IRegistrationFormInterface>();
 	const history = useHistory();
@@ -49,3 +49,5 @@ export const RegistrationForm = (): JSX.Element => {
 		</form>
 	);
 };
+
+export default RegistrationForm;

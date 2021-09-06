@@ -8,4 +8,5 @@ export interface ItemProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivEleme
 	linkText: string;
 	createdAt: Date;
 	updatedAt: Date;
+	userName?: string | null;
 }

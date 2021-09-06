@@ -1,14 +1,14 @@
-import { StateUserLayout } from '../redux.types';
+import { StateAllLayouts } from '../redux.types';
 import { TypesLayoutAll } from '../types';
 
-const initialState: StateUserLayout[] = [];
+const initialState: StateAllLayouts[] = [];
 
 export interface ActionType {
 	type: TypesLayoutAll
-	payload: StateUserLayout[];
+	payload: StateAllLayouts[];
 }
 
-export const layoutsAllReducer = (state = initialState, action: ActionType): StateUserLayout[] | undefined => {
+export const layoutsAllReducer = (state = initialState, action: ActionType): StateAllLayouts[] | undefined=> {
 	switch (action.type) {
 		case TypesLayoutAll.getLayoutsAll:
 			return action.payload;

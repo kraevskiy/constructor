@@ -9,5 +9,8 @@ export const paths = {
 	layoutsAll: '/layoutsAll',
 	layout: '/layout/:id',
 	setting: '/setting',
-	profile: '/profile'
+	profile: {
+		index: '/profile',
+		form: '/profile/form'
+	}
 };

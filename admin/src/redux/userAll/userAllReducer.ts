@@ -1,14 +1,14 @@
-import { StateAllUsers } from '../redux.types';
+import { User } from '../redux.types';
 import { TypesAllUsers } from '../types';
 
-const initialState: StateAllUsers[] | [] = [];
+const initialState: User[] | [] = [];
 
 export interface ActionType {
 	type: TypesAllUsers;
-	payload: StateAllUsers[];
+	payload: User[];
 }
 
-export const userAllReducer = (state = initialState, action: ActionType): StateAllUsers[] => {
+export const userAllReducer = (state = initialState, action: ActionType): User[] => {
 	switch (action.type) {
 		case TypesAllUsers.usersGetAll:
 			return action.payload;
