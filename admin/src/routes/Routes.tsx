@@ -3,12 +3,14 @@ import PublicRoute from './PublicRoute';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { paths } from './paths';
-import { ConstructorPage, ProfilePage, LayoutsPage, PagesPage, LoginPage, OrdersPage, RegistrationPage } from '../pages';
+import { ConstructorPage, ProfilePage, LayoutsPage, SettingPage, LoginPage, OrdersPage, RegistrationPage, OrderAllPage, LayoutsAllPage } from '../pages';
+import Loader from '../components/Loader/Loader';
 
 const Routes = (): JSX.Element => {
 	return (
+		<>
 		<Switch>
-			<Suspense fallback={<div>loading</div>}>
+			<Suspense fallback={<Loader/>}>
 				<PublicRoute
 					path={paths.index}
 					component={ConstructorPage}
@@ -43,18 +45,36 @@ const Routes = (): JSX.Element => {
 					exact
 				/>
 				<PrivateRoute
-					path={paths.pages}
-					component={PagesPage}
+					path={paths.setting}
+					component={SettingPage}
 					role={'admin'}
 					exact
 				/>
 				<PrivateRoute
-					path={paths.profile}
+					path={paths.ordersAll}
+					component={OrderAllPage}
+					role={'admin'}
+					exact
+				/>
+				<PrivateRoute
+					path={paths.layoutsAll}
+					component={LayoutsAllPage}
+					role={'admin'}
+					exact
+				/>
+				<PrivateRoute
+					path={paths.profile.index}
+					component={ProfilePage}
+					exact
+				/>
+				<PrivateRoute
+					path={paths.profile.index+'/:slug'}
 					component={ProfilePage}
 					exact
 				/>
 			</Suspense>
 		</Switch>
+	</>
 	);
 };
 

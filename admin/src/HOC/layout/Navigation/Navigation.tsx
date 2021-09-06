@@ -11,12 +11,43 @@ import { motion } from 'framer-motion';
 
 const Navigation = ({...props}: NavigationProps): JSX.Element => {
 	const {t} = useTranslation();
-	const {user: {isLoggedIn}, app: {isOpenMenu}} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn, role}, app: {isOpenMenu}} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
 
 	const variants = {
 		hidden: { opacity: 0},
 		visible: { opacity: 1}
+	};
+
+	const adminLink = () => {
+		return (
+			<ul className={cls.list}>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} exact to={paths.index}>{t('page.index')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.orders}>{t('page.orders')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.ordersAll}>{t('page.ordersAll')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.layoutsAll}>{t('page.layoutsAll')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
+				</li>
+			</ul>
+		);
 	};
 
 	const userLink = () => {
@@ -35,10 +66,10 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.pages}>{t('page.pages')}</NavLink>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile}>{t('page.profile')}</NavLink>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
 				</li>
 			</ul>
 		);
@@ -73,7 +104,11 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 		>
 			<div {...props} className={cn(cls.body)}>
 				<nav className={cls.nav}>
-					{isLoggedIn ? userLink() : visitorLink()}
+					{isLoggedIn
+						? role === 'admin'
+							? adminLink()
+							: userLink()
+						: visitorLink()}
 				</nav>
 				<div className={cls.address}>
 					<ul className={cls.emailList}>

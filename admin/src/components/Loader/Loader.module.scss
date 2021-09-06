@@ -1,0 +1,145 @@
+.loader {
+  display: grid;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+
+.load{
+  position: relative;
+  width: 5px;
+  height: 5px;
+
+  top: 49%;
+  top: calc(50% - 2.5px);
+  left: 49%;
+  left: calc(50% - 2.5px);
+
+  border-radius: 50px;
+}
+
+.load:before{
+  content: "";
+  position: absolute;
+  top: -14px;
+  border-radius: 0 50px 0px  0;
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 255, 255, .1);
+  transform-origin:  0% 100% ;
+  animation: load 1.5s linear infinite;
+}
+
+.load:after{
+  content: "";
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  border-radius: 0 0px 0px  50px;
+  width: 15px;
+  height: 15px;
+  background-color: rgba(255, 255, 255, .1);
+  transform-origin:  100% 0% ;
+  animation: load 1.5s linear infinite;
+}
+
+
+.blue {
+  background-color: var(--c-blue);
+}
+.blue:before {
+  border-top: 3px solid var(--c-blue);
+  border-right: 3px solid var(--c-blue);
+}
+.blue:after {
+  border-bottom: 3px solid var(--c-blue);
+  border-left: 3px solid var(--c-blue);
+}
+.orange {
+  background-color: var(--c-orange);
+}
+.orange:before {
+  border-top: 3px solid var(--c-orange);
+  border-right: 3px solid var(--c-orange);
+}
+.orange:after {
+  border-bottom: 3px solid var(--c-orange);
+  border-left: 3px solid var(--c-orange);
+}
+.yellow {
+  background-color: var(--c-yellow);
+}
+.yellow:before {
+  border-top: 3px solid var(--c-yellow);
+  border-right: 3px solid var(--c-yellow);
+}
+.yellow:after {
+  border-bottom: 3px solid var(--c-yellow);
+  border-left: 3px solid var(--c-yellow);
+}
+.red {
+  background-color: var(--c-red);
+}
+.red:before {
+  border-top: 3px solid var(--c-red);
+  border-right: 3px solid var(--c-red);
+}
+.red:after {
+  border-bottom: 3px solid var(--c-red);
+  border-left: 3px solid var(--c-red);
+}
+.green {
+  background-color: var(--c-green);
+}
+.green:before {
+  border-top: 3px solid var(--c-green);
+  border-right: 3px solid var(--c-green);
+}
+.green:after {
+  border-bottom: 3px solid var(--c-green);
+  border-left: 3px solid var(--c-green);
+}
+.violet {
+  background-color: var(--c-violet);
+}
+.violet:before {
+  border-top: 3px solid var(--c-violet);
+  border-right: 3px solid var(--c-violet);
+}
+.violet:after {
+  border-bottom: 3px solid var(--c-violet);
+  border-left: 3px solid var(--c-violet);
+}
+.white {
+  background-color: var(--c-white);
+}
+.white:before {
+  border-top: 3px solid var(--c-white);
+  border-right: 3px solid var(--c-white);
+}
+.white:after {
+  border-bottom: 3px solid var(--c-white);
+  border-left: 3px solid var(--c-white);
+}
+.dark {
+  background-color: var(--c-dark);
+}
+.dark:before {
+  border-top: 3px solid var(--c-dark);
+  border-right: 3px solid var(--c-dark);
+}
+.dark:after {
+  border-bottom: 3px solid var(--c-dark);
+  border-left: 3px solid var(--c-dark);
+}
+
+@-webkit-keyframes load{
+  0%{-webkit-transform:rotate(0deg);}
+  100%{-webkit-transform:rotate(360deg);}
+}
+
+@keyframes load{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}

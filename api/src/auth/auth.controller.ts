@@ -70,7 +70,7 @@ export class AuthController {
 		return this.authService.editUser(dto, guard._id);
 	}
 
-	@Get('users')
+	@Post('users')
 	@UseGuards(JwtAuthGuard)
 	async fetAll(@UserGuard() {role}: { role: string }) {
 		if (!isAdmin(role)) {

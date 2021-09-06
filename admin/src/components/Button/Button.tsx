@@ -2,7 +2,7 @@ import { ButtonProps } from './Button.props';
 import cn from 'classnames';
 import cls from './Button.module.scss';
 
-export const Button = ({color, className, children, ...props}: ButtonProps): JSX.Element => {
+const Button = ({color, className, children, ...props}: ButtonProps): JSX.Element => {
 
 	return (
 		<button
@@ -17,3 +17,6 @@ export const Button = ({color, className, children, ...props}: ButtonProps): JSX
 		</button>
 	);
 };
+
+
+export default Button;

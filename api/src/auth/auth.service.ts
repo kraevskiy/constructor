@@ -110,31 +110,12 @@ export class AuthService {
 	async getAll(): Promise<UserModel[] | null> {
 		return this.userModel.aggregate([
 			{
-				$facet: {
-					count: [
-						{
-							$count: 'totalCount'
-						}
-					],
-					users: [
-						{
-							$lookup: {
-								from: 'Layout',
-								localField: '_id',
-								foreignField: 'user',
-								as: 'layouts'
-							}
-						},
-						{
-							$lookup: {
-								from: 'Order',
-								localField: '_id',
-								foreignField: 'user',
-								as: 'orders'
-							}
-						}
-					]
+				$sort: {
+					_id: 1
 				}
+			},
+			{
+				$unset: 'passwordHash'
 			}
 		]).exec();
 	}

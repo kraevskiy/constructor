@@ -2,8 +2,7 @@ import { PageHeadProps } from './PageHead.props';
 import cls from './PageHead.module.scss';
 import cn from 'classnames';
 
-export const PageHead = ({children, paddingTop, line, text, className}: PageHeadProps): JSX.Element => {
-
+const PageHead = ({children, paddingTop, line, text, className}: PageHeadProps): JSX.Element => {
 	return (
 		<div className={cn(cls.wr, className, {
 			[cls.paddingBig]: paddingTop === 'big',
@@ -21,3 +20,5 @@ export const PageHead = ({children, paddingTop, line, text, className}: PageHead
 		</div>
 	);
 };
+
+export default PageHead;

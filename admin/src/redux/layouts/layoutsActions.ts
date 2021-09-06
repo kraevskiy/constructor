@@ -2,9 +2,11 @@ import { Dispatch } from 'redux';
 import axios from 'axios';
 import { TypesLayout } from '../types';
 import { ActionType } from './layoutsReducer';
+// import { ActionType as ActionTypeLayoutsAll} from '../layoutsAll/layoutsAllReducer';
 import { toast } from 'react-toastify';
 import { decode } from 'jsonwebtoken';
 import { DecodeTokenTypes } from '../redux.types';
+// import { getAllLayouts } from '../layoutsAll/layoutsAllActions';
 
 export const deleteLayout = (id: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
@@ -18,6 +20,7 @@ export const deleteLayout = (id: string) => {
 					}
 				}
 			);
+			// dispatch(getAllLayouts({limit: 100}));
 			return dispatch({
 				type: TypesLayout.deleteLayout,
 				payload: [deletedLayout.data]

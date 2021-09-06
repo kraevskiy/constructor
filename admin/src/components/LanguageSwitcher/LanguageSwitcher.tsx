@@ -7,7 +7,7 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { LanguageList } from './LanguageList';
 
-export const LanguageSwitcher = ({languages, onClick}: LanguageSwitcherProps): JSX.Element => {
+const LanguageSwitcher = ({languages, onClick}: LanguageSwitcherProps): JSX.Element => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const tr = useTranslation();
 	const [icon, setIcon] = useState<string | undefined>(tr.i18n.options.lng);
@@ -43,3 +43,5 @@ export const LanguageSwitcher = ({languages, onClick}: LanguageSwitcherProps): J
 		</button>
 	);
 };
+
+export default LanguageSwitcher;

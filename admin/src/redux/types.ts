@@ -7,6 +7,14 @@ export enum TypesUser {
 	delete = 'USER/DELETE',
 }
 
+export enum TypesAllUsers {
+	usersGetAll = 'USERS/GET_ALL'
+}
+
+export enum TypesOrderAll {
+	getOrdersAll = 'ORDERS/GET_ALL',
+}
+
 export enum TypesOrder {
 	getOrders = 'ORDER/GET_ORDERS',
 	createOrder = 'ORDER/CREATE_ORDER',
@@ -19,6 +27,10 @@ export enum TypesLayout {
 	createLayout = 'LAYOUT/CREATE_LAYOUT',
 	deleteLayout = 'LAYOUT/DELETE_LAYOUT',
 	editLayout = 'LAYOUT/EDIT_LAYOUT'
+}
+
+export enum TypesLayoutAll {
+	getLayoutsAll = 'LAYOUTS/GET_ALL'
 }
 
 export enum TypesApp {

@@ -68,7 +68,7 @@ export class OrderController {
 		return this.orderService.edit(id, dto);
 	}
 
-	@Get()
+	@Post()
 	@HttpCode(200)
 	@UseGuards(JwtAuthGuard)
 	async getAll(

@@ -4,7 +4,7 @@ import { ILoginFormInterface } from './LoginForm.interface';
 import { login, hideLoader, showLoader } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
 
-export const LoginForm = (): JSX.Element => {
+const LoginForm = (): JSX.Element => {
 	const {t} = useTranslation();
 	const dispatch = useDispatch();
 	const {register, handleSubmit} = useForm<ILoginFormInterface>();
@@ -38,3 +38,5 @@ export const LoginForm = (): JSX.Element => {
 		</form>
 	);
 };
+
+export default LoginForm;

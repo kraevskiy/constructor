@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { paths } from './paths';
+import Loader from '../components/Loader/Loader';
 
 const PrivateRoute = (
 	{
@@ -20,7 +21,7 @@ const PrivateRoute = (
 				? (
 					protectRole
 						? (
-							<Suspense fallback={<p>loading</p>}>
+							<Suspense fallback={<Loader/>}>
 								<Component {...props}/>
 							</Suspense>
 						)

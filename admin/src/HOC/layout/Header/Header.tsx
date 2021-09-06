@@ -17,7 +17,10 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 	const {user: {isLoggedIn}, app: {isOpenCatalog, isOpenMenu}} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
 
-	const handleChangeLanguage = (lang: string) => i18n.changeLanguage(lang);
+	const handleChangeLanguage = (lang: string) => {
+		localStorage.setItem('userLanguage', lang);
+		return i18n.changeLanguage(lang);
+	};
 	const handleShowCatalog = () => dispatch(toggleCatalog());
 	const handleShowMenu = () => dispatch(toggleMenu());
 
