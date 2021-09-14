@@ -12,6 +12,8 @@ const PageHead = lazy(()=>import('./PageHead/PageHead'));
 const BlockHead = lazy(()=>import('./BlockHead/BlockHead'));
 const Button = lazy(()=>import('./Button/Button'));
 const Input = lazy(()=>import('./Input/Input'));
+const Textarea = lazy(()=>import('./Textarea/Textarea'));
+const InputFile = lazy(()=>import('./InputFile/InputFile'));
 
 
 export {
@@ -26,5 +28,7 @@ export {
 	PageHead,
 	BlockHead,
 	Button,
-	Input
+	Input,
+	Textarea,
+	InputFile
 };

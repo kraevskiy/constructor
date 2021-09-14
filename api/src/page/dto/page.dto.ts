@@ -1,11 +1,11 @@
 import { IsArray, IsObject, IsOptional, IsString } from 'class-validator';
 
 export class SeoPageDto {
-	@IsString()
-	seoTitle: string;
+	@IsObject()
+	seoTitle: { [key: string]: string };
 
-	@IsString()
-	seoDescription: string;
+	@IsObject()
+	seoDescription: { [key: string]: string };
 
 	@IsOptional()
 	@IsString()
@@ -13,11 +13,11 @@ export class SeoPageDto {
 }
 
 export class HeaderPageDto {
-	@IsString()
-	seoTitle: string;
+	@IsObject()
+	seoTitle: { [key: string]: string };
 
-	@IsString()
-	seoDescription: string;
+	@IsObject()
+	seoDescription: { [key: string]: string };
 
 	@IsOptional()
 	@IsString()
@@ -30,12 +30,12 @@ export class SliderPageDto {
 	image?: string;
 
 	@IsOptional()
-	@IsString()
-	title?: string;
+	@IsObject()
+	title?: { [key: string]: string };
 
 	@IsOptional()
-	@IsString()
-	text?: string;
+	@IsObject()
+	text?: { [key: string]: string };
 
 	@IsOptional()
 	@IsString()
@@ -44,17 +44,17 @@ export class SliderPageDto {
 
 export class FaqItemsPageDto {
 	@IsOptional()
-	@IsString()
-	title?: string;
+	@IsObject()
+	title?: { [key: string]: string };
 
 	@IsOptional()
-	@IsString()
-	text?: string;
+	@IsObject()
+	text?: { [key: string]: string };
 }
 
 export class FaqPageDto {
-	@IsString()
-	title: string;
+	@IsObject()
+	title: { [key: string]: string };
 
 	@IsArray()
 	items: FaqItemsPageDto[];
@@ -66,8 +66,8 @@ export class FaqPageDto {
 
 export class ContactsPageItemsDto {
 	@IsOptional()
-	@IsString()
-	name?: string;
+	@IsObject()
+	name?: { [key: string]: string };
 
 	@IsOptional()
 	@IsString()
@@ -84,7 +84,7 @@ export class ContactsPageItemsDto {
 
 export class ContactsPageDto {
 	@IsString()
-	title: string;
+	title: { [key: string]: string };
 
 	@IsArray()
 	items: ContactsPageItemsDto[];
@@ -96,12 +96,12 @@ export class ContactsPageDto {
 
 export class AdvantagesPageItemsDto {
 	@IsOptional()
-	@IsString()
-	title?: string;
+	@IsObject()
+	title?: { [key: string]: string };
 
 	@IsOptional()
-	@IsString()
-	text?: string;
+	@IsObject()
+	text?: { [key: string]: string };
 
 	@IsOptional()
 	@IsString()
@@ -109,8 +109,8 @@ export class AdvantagesPageItemsDto {
 }
 
 export class AdvantagesPageDto {
-	@IsString()
-	title: string;
+	@IsObject()
+	title: { [key: string]: string };
 
 	@IsArray()
 	items: AdvantagesPageItemsDto[];
@@ -124,13 +124,13 @@ export class PicturesPageItemsDto {
 	@IsString()
 	image: string;
 
-	@IsString()
-	title: string;
+	@IsObject()
+	title: { [key: string]: string };
 }
 
 export class PicturesPageDto {
-	@IsString()
-	title: string;
+	@IsObject()
+	title: { [key: string]: string };
 
 	@IsArray()
 	items: PicturesPageItemsDto[];
@@ -144,13 +144,13 @@ export class SouvenirsPageItemsDto {
 	@IsString()
 	image: string;
 
-	@IsString()
-	title: string;
+	@IsObject()
+	title: { [key: string]: string };
 }
 
 export class SouvenirsPageDto {
-	@IsString()
-	title: string;
+	@IsObject()
+	title: { [key: string]: string };
 
 	@IsArray()
 	items: SouvenirsPageItemsDto[];

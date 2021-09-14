@@ -14,4 +14,9 @@
   @include sm {
     width: 100%;
   }
+  &-icon {
+    max-width: unset;
+    width: 40px;
+    background: none;
+  }
 }

@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { TypegooseModuleOptions } from 'nestjs-typegoose';
+import { Severity } from '@typegoose/typegoose/lib/internal/constants';
 
 export const getMongoConfig = async (configService: ConfigService): Promise<TypegooseModuleOptions> => {
 	return {
