@@ -9,19 +9,19 @@ import { RootState } from '../../../redux/rootReducer';
 import { HeaderProps } from './Header.props';
 import { LanguageSwitcher, Burger } from '../../../components/';
 import { logo } from '../../../images';
-import { toggleCatalog, toggleMenu } from '../../../redux/app/appActions';
+import { logout as logoutIcon } from '../../../images/icons';
+import { toggleMenu } from '../../../redux/app/appActions';
 
 const Header = ({className, ...props}: HeaderProps): JSX.Element => {
-	const {t} = useTranslation();
 	const {i18n} = useTranslation();
-	const {user: {isLoggedIn}, app: {isOpenCatalog, isOpenMenu}} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn}, app: {isOpenMenu}} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
 
 	const handleChangeLanguage = (lang: string) => {
 		localStorage.setItem('userLanguage', lang);
 		return i18n.changeLanguage(lang);
 	};
-	const handleShowCatalog = () => dispatch(toggleCatalog());
+	// const handleShowCatalog = () => dispatch(toggleCatalog());
 	const handleShowMenu = () => dispatch(toggleMenu());
 
 	return (
@@ -32,14 +32,16 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 			<NavLink className={cls.logo} to={paths.index}>
 				<img src={logo} alt=""/>
 			</NavLink>
-			<div className={cls.catalog}>
-				<Burger active={isOpenCatalog} onClick={handleShowCatalog}/>
-				<span>КАТАЛОГ</span>
-			</div>
+			{/*<div className={cls.catalog}>*/}
+			{/*	<Burger active={isOpenCatalog} onClick={handleShowCatalog}/>*/}
+			{/*	<span>КАТАЛОГ</span>*/}
+			{/*</div>*/}
 			<div className={cls.menu}>
 				<Burger active={isOpenMenu} onClick={handleShowMenu}/>
 				{isLoggedIn &&
-        <button className="btn btn-secondary" onClick={() => dispatch(logout())}>{t('logout.button')}</button>}
+        <button className="btn btn-icon" onClick={() => dispatch(logout())}>
+          <img src={logoutIcon} alt=""/>
+				</button>}
 				<LanguageSwitcher languages={['en', 'ru']} onClick={handleChangeLanguage}/>
 			</div>
 		</header>

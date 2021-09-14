@@ -2,10 +2,8 @@ import { FunctionComponent } from 'react';
 import { LayoutProps } from './Layout.props';
 
 const Layout = (props: LayoutProps):JSX.Element => {
-	console.log('lay', props);
 	return (
 		<>
-			lay
 			{props.children}
 		</>
 	);

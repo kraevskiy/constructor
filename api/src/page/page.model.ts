@@ -4,15 +4,15 @@ import { TimeStamps, Base } from '@typegoose/typegoose/lib/defaultClasses';
 
 export class FaqItemsPageModel {
 	@prop()
-	title?: string;
+	title?: { [key: string]: string };
 
 	@prop()
-	text?: string;
+	text?: { [key: string]: string };
 }
 
 export class FaqPageModel {
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 
 	@prop({type: () => [FaqItemsPageModel]})
 	items: FaqItemsPageModel[];
@@ -23,7 +23,7 @@ export class FaqPageModel {
 
 export class ContactsPageItemsModel {
 	@prop()
-	name?: string;
+	name?: { [key: string]: string };
 
 	@prop()
 	icon?: string;
@@ -37,9 +37,9 @@ export class ContactsPageItemsModel {
 
 export class ContactsPageModel {
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 
-	@prop({type: ()=> [ContactsPageItemsModel]})
+	@prop({type: () => [ContactsPageItemsModel]})
 	items: ContactsPageItemsModel[];
 
 	@prop()
@@ -48,10 +48,10 @@ export class ContactsPageModel {
 
 export class AdvantagesPageItemsModel {
 	@prop()
-	title?: string;
+	title?: { [key: string]: string };
 
 	@prop()
-	text?: string;
+	text?: { [key: string]: string };
 
 	@prop()
 	icon?: string;
@@ -59,9 +59,9 @@ export class AdvantagesPageItemsModel {
 
 export class AdvantagesPageModel {
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 
-	@prop({type: ()=> [AdvantagesPageItemsModel]})
+	@prop({type: () => [AdvantagesPageItemsModel]})
 	items: AdvantagesPageItemsModel[];
 
 	@prop()
@@ -73,12 +73,12 @@ export class PicturesPageItemsModel {
 	image: string;
 
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 }
 
 export class PicturesPageModel {
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 
 	@prop({type: () => [PicturesPageItemsModel]})
 	items: PicturesPageItemsModel[];
@@ -92,12 +92,12 @@ export class SouvenirsPageItemsModel {
 	image: string;
 
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 }
 
 export class SouvenirsPageModel {
 	@prop()
-	title: string;
+	title: { [key: string]: string };
 
 	@prop({type: () => [SouvenirsPageItemsModel]})
 	items: SouvenirsPageItemsModel[];
@@ -108,10 +108,10 @@ export class SouvenirsPageModel {
 
 export class SeoPageModel {
 	@prop()
-	seoTitle: string;
+	seoTitle: { [key: string]: string };
 
 	@prop()
-	seoDescription: string;
+	seoDescription: { [key: string]: string };
 
 	@prop()
 	additional?: string;
@@ -119,10 +119,10 @@ export class SeoPageModel {
 
 export class HeaderPageModel {
 	@prop()
-	seoTitle: string;
+	seoTitle: { [key: string]: string };
 
 	@prop()
-	seoDescription: string;
+	seoDescription: { [key: string]: string };
 
 	@prop()
 	additional?: string;
@@ -133,10 +133,10 @@ export class SliderPageModel {
 	image?: string;
 
 	@prop()
-	title?: string;
+	title?: { [key: string]: string };
 
 	@prop()
-	text?: string;
+	text?: { [key: string]: string };
 
 	@prop()
 	additional?: string;
