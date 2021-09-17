@@ -19,8 +19,8 @@ export const login = (data: ILoginFormInterface) => {
 				payload: user.data
 			});
 		} catch (e) {
-			console.log(e);
-			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			// console.log(e);
+			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
 			return null;
 		}
 	};
@@ -60,7 +60,7 @@ export const autoLogin = () => {
 			}
 		} catch (e) {
 			console.log(e);
-			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
 			return null;
 		}
 	};
@@ -88,7 +88,7 @@ export const editUser = (data: IEditUserFormInterface ) => {
 			});
 		} catch (e) {
 			console.log(e);
-			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
 			return null;
 		}
 	};
@@ -104,7 +104,7 @@ export const registrationUser = (data: IRegistrationFormInterface ) => {
 			});
 		} catch (e) {
 			console.log(e);
-			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
 			return null;
 		}
 	};
@@ -129,7 +129,7 @@ export const deleteUser = () => {
 			return null;
 		} catch (e) {
 			console.log(e);
-			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
 			return null;
 		}
 	};

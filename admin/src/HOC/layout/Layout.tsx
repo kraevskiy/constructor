@@ -14,19 +14,17 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 	const {app: {isOpenMenu}} = useSelector((state: RootState) => state);
 
 	return (
-		<div className={cls.wrapper}>
+		<div className={cn(cls.wrapper, {
+			[cls.overflow]: isOpenMenu
+		})}>
 			<img src={bg} className={cls.bg} alt=""/>
-			<div className={cn(cls.container, {
-				[cls.overflow]: isOpenMenu
-			})}>
-				<Header className={cls.header}/>
-				<Navigation />
-				<main className={cls.body}>
-					{children}
-				</main>
-				<ToastContainer/>
-				<Footer className={cls.footer}/>
-			</div>
+			<Header className={cn(cls.container, cls.header)}/>
+			<Navigation/>
+			<main className={cls.body}>
+				{children}
+			</main>
+			<ToastContainer/>
+			<Footer className={cn(cls.container, cls.footer)}/>
 		</div>
 	);
 };

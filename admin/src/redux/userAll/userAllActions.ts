@@ -20,7 +20,7 @@ export const getAllUsers = () => {
 			});
 		} catch (e) {
 			console.log(e);
-			toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
 			return null;
 		}
 	};

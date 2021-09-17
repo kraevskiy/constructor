@@ -1,19 +1,26 @@
-import { Suspense } from 'react';
 import PublicRoute from './PublicRoute';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { paths } from './paths';
-import { ConstructorPage, ProfilePage, LayoutsPage, SettingPage, LoginPage, OrdersPage, RegistrationPage, OrderAllPage, LayoutsAllPage } from '../pages';
-import Loader from '../components/Loader/Loader';
+import { NotFound,
+	Home,
+	ConstructorPage,
+	ProfilePage,
+	LayoutsPage,
+	SettingPage,
+	LoginPage,
+	OrdersPage,
+	RegistrationPage,
+	OrderAllPage,
+	LayoutsAllPage } from '../pages';
 
 const Routes = (): JSX.Element => {
 	return (
 		<>
-		<Switch>
-			<Suspense fallback={<Loader/>}>
+			<Switch>
 				<PublicRoute
 					path={paths.index}
-					component={ConstructorPage}
+					component={Home}
 					exact
 				/>
 				<Route path={paths.constructor} component={ConstructorPage} exact/>
@@ -68,13 +75,13 @@ const Routes = (): JSX.Element => {
 					exact
 				/>
 				<PrivateRoute
-					path={paths.profile.index+'/:slug'}
+					path={paths.profile.index + '/:slug'}
 					component={ProfilePage}
 					exact
 				/>
-			</Suspense>
-		</Switch>
-	</>
+				<Route component={NotFound}/>
+			</Switch>
+		</>
 	);
 };
 

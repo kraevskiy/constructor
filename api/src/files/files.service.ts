@@ -15,8 +15,11 @@ export class FilesService {
 		await ensureDir(uploadFolder);
 		const res: FileElementResponse[] = [];
 		for(const file of files) {
-			await writeFile(`${uploadFolder}/${file.originalname}`, file.buffer);
-			res.push({url: `${dateFolder}/${file.originalname}`, name: file.originalname});
+			const name = file.originalname
+				.replace(/ /g,'_')
+				.replace(/[{()}]/g,'_');
+			await writeFile(`${uploadFolder}/${name}`, file.buffer);
+			res.push({url: `/uploads/${id}/${dateFolder}/${name}`, name: name});
 		}
 		return res;
 	}

@@ -40,7 +40,7 @@ export const getOrders = (id?: string) => {
 			});
 
 		}	catch (e) {
-			console.log(e.response);
+			// console.log(e.response);
 			return null;
 		}
 	};
@@ -71,7 +71,7 @@ export const createOrders = (data: {
 			});
 
 		}	catch (e) {
-			console.log(e.response);
+			// console.log(e.response);
 			return null;
 		}
 	};
@@ -96,7 +96,7 @@ export const deleteOrders = (id: string) => {
 			});
 
 		}	catch (e) {
-			console.log(e.response);
+			// console.log(e.response);
 			return null;
 		}
 	};
