@@ -9,4 +9,6 @@ export const OrderAllPage = lazy(() => import('./OrderAll/OrderAllPage'));
 export const SettingPage = lazy(() => import('./Setting/SettingPage'));
 export const ProfilePage = lazy(() => import('./Profile/ProfilePage'));
 export const RegistrationPage = lazy(() => import('./Registration/RegistrationPage'));
+export const NotFound = lazy(() => import('./NotFound/NotFound'));
+export const Home = lazy(() => import('./Home/Home'));
 

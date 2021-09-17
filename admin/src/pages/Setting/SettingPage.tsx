@@ -27,7 +27,7 @@ const SettingPage = (): JSX.Element => {
 		doFetch({
 			method: 'POST'
 		});
-	}, [doFetch]);
+	}, [doFetch, langField]);
 
 	const handleChangeEditLanguage = (e: LanguagesTypes) => setLangField(e);
 
@@ -38,7 +38,7 @@ const SettingPage = (): JSX.Element => {
 		</>
 	);
 
-
+	// +380 093 414 20 16 +380 093 414 20 16 +380 093 414 20 16 info@arter.com support@arter.com www.arter.com
 	return (
 		<SettingPageContext.Provider
 			value={{langField, setLangField}}

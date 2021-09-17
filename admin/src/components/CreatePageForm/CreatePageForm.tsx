@@ -1,64 +1,15 @@
-import { Dispatch, memo, SetStateAction, useContext, useState } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { ICreatePageFormInterface } from './CreatePageForm.interface';
 import axios from 'axios';
 import { Input, Textarea } from '../';
 import { CreatePageFormTypes } from './CreatePageForm.types';
 import { SettingPageContext } from '../../pages/Setting/SettingPage';
-import { LanguagesTypes } from '../../types/languages';
 import cls from './CreatePageForm.module.scss';
 import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
-
-const getLanguageField = (k: string, l: LanguagesTypes) => `${k}.${l}` as keyof ICreatePageFormInterface;
-
-const GetFields = memo(({
-	fields,
-	nameKey,
-	count
-}: {
-	nameKey: string;
-	fields: string[];
-	count: number[]
-}): JSX.Element => {
-	const {t} = useTranslation('setting');
-	const {langField} = useContext(SettingPageContext);
-	const {register} = useFormContext();
-
-	if (!count.length) {
-		return <p>added {t(nameKey)} please</p>;
-	}
-
-	return (
-		<>
-			{count.map(s => (
-				<div
-					className={cls.full}
-					key={Math.random() + s}>
-					<div>
-						<small>{nameKey} #{s + 1}</small>
-					</div>
-					{fields.map(field => (
-						<div key={`${nameKey}.${s}.${field}`}>
-							<label className={cls.label}>
-								{t(`${nameKey}.${field}`)}
-								{field === 'text' || field === 'title' || field === 'name'
-									? <Input
-										{...register(getLanguageField(`${nameKey}.${s}.${field}`, langField))}
-									/>
-									: <Input
-										{...register(`${nameKey}.${s}.${field}`)}
-									/>
-								}
-							</label>
-						</div>
-					))}
-				</div>
-			))}
-		</>
-	);
-});
-
+import { getLanguageField } from './getLanguageField';
+import { GetFields } from './GetFields/GetFields';
 
 const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 	const {t} = useTranslation('setting');
@@ -98,7 +49,7 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 		return a;
 	});
 
-	const handleSubmitForm = async (data: ICreatePageFormInterface) => {
+	const onSubmit = async (data: ICreatePageFormInterface) => {
 		const token = localStorage.getItem('auth-token');
 		const page = await axios.patch(`${process.env.REACT_APP_PAGE}/614072583baa6f1f75b9e10d`, data, {
 			headers: {
@@ -106,6 +57,7 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 			}
 		});
 		console.log(page);
+		console.log(data);
 	};
 
 	const pushCount = (name: number[], setName: Dispatch<SetStateAction<number[]>>) => {
@@ -115,7 +67,7 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 	};
 
 	return (
-		<form onSubmit={formMethods.handleSubmit(handleSubmitForm)}>
+		<form onSubmit={formMethods.handleSubmit(onSubmit)}>
 			<FormProvider {...formMethods}>
 				<div className={cls.field}>
 					<div className={cls.full}>
@@ -186,9 +138,11 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 						<div className={cls.title}>
 							{t('slides')}
 						</div>
-						<div>
-							<GetFields nameKey="slides" fields={['image', 'title', 'text', 'additional']} count={sliders}/>
-						</div>
+						<GetFields
+							formMethods={formMethods}
+							nameKey="slides"
+							fields={['image', 'title', 'text', 'additional']}
+							count={sliders}/>
 						<div>
 							<button
 								type="button"
@@ -218,10 +172,14 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 								/>
 							</label>
 							<div className={cn(cls.full, cls.col13)}>
-								<label className={cls.label}>
-									{t('souvenirs.items')}
-									<GetFields nameKey="souvenirs.items" fields={['image', 'title']} count={SouvenirsPage}/>
-								</label>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('souvenirs.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="souvenirs.items"
+										fields={['image', 'title']}
+										count={SouvenirsPage}/>
+								</div>
 								<div>
 									<button
 										type="button"
@@ -253,10 +211,14 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 								/>
 							</label>
 							<div className={cn(cls.full, cls.col13)}>
-								<label className={cls.label}>
-									{t('pictures.items')}
-									<GetFields nameKey="pictures.items" fields={['image', 'title']} count={PicturesPageItems}/>
-								</label>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('pictures.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="pictures.items"
+										fields={['image', 'title']}
+										count={PicturesPageItems}/>
+								</div>
 								<div>
 									<button
 										type="button"
@@ -288,10 +250,14 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 								/>
 							</label>
 							<div className={cn(cls.full, cls.w13)}>
-								<label className={cls.label}>
-									{t('advantages.items')}
-									<GetFields nameKey="advantages.items" fields={['text', 'title', 'icon']} count={AdvantagesPageItems}/>
-								</label>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('advantages.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="advantages.items"
+										fields={['text', 'title', 'icon']}
+										count={AdvantagesPageItems}/>
+								</div>
 								<div>
 									<button
 										type="button"
@@ -323,13 +289,14 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 								/>
 							</label>
 							<div className={cn(cls.full, cls.w13)}>
-								<label className={cls.label}>
-									{t('contacts.items')}
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('contacts.items')}</span>
 									<GetFields
+										formMethods={formMethods}
 										nameKey="contacts.items"
 										fields={['name', 'icon', 'link', 'showLink']}
 										count={ContactsPageItems}/>
-								</label>
+								</div>
 								<div>
 									<button
 										type="button"
@@ -360,10 +327,15 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 									{...formMethods.register('faqs.additional')}
 								/>
 							</label>
-							<div className={cn(cls.full, cls.w13)}><label className={cls.label}>
-								{t('faqs.items')}
-								<GetFields nameKey="faqs.items" fields={['title', 'text']} count={FaqItemsPage}/>
-							</label>
+							<div className={cn(cls.full, cls.w13)}>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('faqs.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="faqs.items"
+										fields={['title', 'text']}
+										count={FaqItemsPage}/>
+								</div>
 								<div>
 									<button
 										type="button"

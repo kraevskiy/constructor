@@ -27,7 +27,7 @@ export const deleteLayout = (id: string) => {
 			});
 
 		} catch (e) {
-			console.log(e.response);
+			console.log(e);
 			return null;
 		}
 	};
@@ -68,7 +68,6 @@ export const getLayouts = (id?: string) => {
 			});
 
 		} catch (e) {
-			console.log(e.response);
 			return null;
 		}
 	};
@@ -100,10 +99,9 @@ export const createLayouts = (data: {
 			});
 
 		} catch (e) {
-			console.log(e.response);
-			e.response.data.message.map((m: string) => {
-				toast.error(m);
-			});
+			// e.response.data.message.map((m: string) => {
+			// 	toast.error(m);
+			// });
 			return null;
 		}
 	};
