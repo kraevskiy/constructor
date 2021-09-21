@@ -26,7 +26,7 @@ const ProfilePage = (): JSX.Element => {
 	};
 
 	return (
-		<div className="row">
+		<div className="container">
 			<PageHead>Profile Page</PageHead>
 			<div className={cls.content}>
 				<div className={cls.sidebar}>

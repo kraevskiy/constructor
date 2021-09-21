@@ -22,7 +22,7 @@ const OrdersPage = (): JSX.Element => {
 	};
 
 	return (
-		<div className="row">
+		<div className="container">
 			<PageHead>
 				{t('order.title')}
 			</PageHead>
