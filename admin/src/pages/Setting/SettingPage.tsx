@@ -2,7 +2,6 @@ import { CreatePageForm, PageHead } from '../../components/';
 import useFetch from '../../hooks/useFetch';
 import { ICreatePageFormInterface } from '../../components/CreatePageForm/CreatePageForm.interface';
 import { createContext, Dispatch, SetStateAction, useEffect, useState } from 'react';
-import cls from './SettingPage.module.scss';
 import { LanguagesTypes } from '../../types/languages';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
@@ -43,7 +42,7 @@ const SettingPage = (): JSX.Element => {
 		<SettingPageContext.Provider
 			value={{langField, setLangField}}
 		>
-			<div className={cls.wr}>
+			<div className="container">
 				<PageHead
 					paddingTop="small"
 					text={<GetHandlerChangeLanguage/>}

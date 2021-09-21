@@ -1,3 +1,5 @@
+@import "mixins";
+
 .btn {
   width: 170px;
   background: var(--grad-blue);
@@ -20,3 +22,39 @@
     background: none;
   }
 }
+
+.container {
+  padding: 0 10px;
+  width: 100%;
+  max-width: 1386px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  @include sm {
+    max-width: 540px
+  }
+  @include md {
+    max-width: 720px
+  }
+  @include lg {
+    max-width: 960px
+  }
+  @include xl {
+    max-width: 1140px
+  }
+
+}
+
+
+.container .carousel .control-dots {
+  margin: 0;
+  .dot {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+.carousel.carousel-slider {
+  padding-bottom: 50px;
+}
+

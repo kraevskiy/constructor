@@ -11,7 +11,7 @@ const LayoutsPage = (): JSX.Element => {
 	const {t} = useTranslation();
 
 	return (
-		<div className="row">
+		<div className="container">
 			<PageHead
 				className={cls.head}
 				text={t('layout.text')}

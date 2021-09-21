@@ -5,5 +5,8 @@ import reg2 from './reg2.svg';
 import reg3 from './reg3.svg';
 import reg4 from './reg4.svg';
 import regsl from './regsl.svg';
+import mug from './mug.png';
+import picture from './picture.png';
+import vizitka from './vizitka.png';
 
-export { logo, bg, reg1, reg2, reg3, reg4, regsl };
+export { logo, bg, reg1, reg2, reg3, reg4, regsl, mug, picture, vizitka };

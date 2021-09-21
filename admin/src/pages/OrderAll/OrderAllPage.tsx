@@ -22,7 +22,7 @@ const OrderAllPage = (): JSX.Element => {
 	};
 
 	return (
-		<div className="row">
+		<div className="container">
 			<PageHead>
 				{t('orderAll.title')}
 			</PageHead>

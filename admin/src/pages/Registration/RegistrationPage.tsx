@@ -2,7 +2,7 @@ import { PageHead, RegistrationForm } from '../../components';
 
 const RegistrationPage = (): JSX.Element => {
 	return (
-		<div className="row">
+		<div className="container">
 			<PageHead paddingTop="small">RegistrationPage</PageHead>
 			<RegistrationForm/>
 		</div>
