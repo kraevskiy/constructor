@@ -29,6 +29,7 @@ export interface FaqPage {
 }
 
 interface ContactsPageItems {
+	_id: string;
 	name?: { [key: string]: string };
 	icon?: string;
 	link?: string;
@@ -42,6 +43,7 @@ export interface ContactsPage {
 }
 
 interface AdvantagesPageItems {
+	_id: string;
 	title?: { [key: string]: string };
 	text?: { [key: string]: string };
 	icon?: string;
@@ -54,6 +56,7 @@ export interface AdvantagesPage {
 }
 
 interface PicturesPageItems {
+	_id: string;
 	image: string;
 	title: { [key: string]: string };
 }
@@ -65,6 +68,7 @@ export interface PicturesPage {
 }
 
 interface SouvenirsPageItems {
+	_id: string;
 	image: string;
 	title: { [key: string]: string };
 }

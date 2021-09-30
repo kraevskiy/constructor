@@ -17,11 +17,11 @@ const Home = (): JSX.Element => {
 	const Body = ({res}: { res: PageResponse }) => (
 		<>
 			<Intro lang={i18n.language} data={res.slides}/>
-			<Souvenirs data={res.souvenirs}/>
-			<Pictures data={res.pictures}/>
-			<Advantages data={res.advantages}/>
-			<Contacts data={res.contacts}/>
-			<Faqs data={res.faqs}/>
+			<Souvenirs lang={i18n.language} data={res.souvenirs}/>
+			<Pictures lang={i18n.language} data={res.pictures}/>
+			<Advantages lang={i18n.language} data={res.advantages}/>
+			<Contacts lang={i18n.language} data={res.contacts}/>
+			<Faqs lang={i18n.language} data={res.faqs}/>
 		</>
 	);
 
