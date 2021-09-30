@@ -4,6 +4,8 @@
   font-weight: normal;
   position: relative;
   margin-bottom: 70px;
+  margin-top: 0;
+  text-transform: capitalize;
   &:after {
     position: absolute;
     content: '';

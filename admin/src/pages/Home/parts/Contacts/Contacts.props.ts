@@ -3,4 +3,5 @@ import { ContactsPage } from '../../../../types/page';
 
 export interface ContactsProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	data: ContactsPage;
+	lang: string;
 }
