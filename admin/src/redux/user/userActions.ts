@@ -1,6 +1,6 @@
 import { TypesUser } from '../types';
 import { Dispatch } from 'redux';
-import axios from 'axios';
+import Axios from '../../helpers/Axios';
 import { DecodeTokenTypes, StateUser } from '../redux.types';
 import { ActionType } from '../redux.types';
 import { toast } from 'react-toastify';
@@ -12,7 +12,7 @@ import { IRegistrationFormInterface } from '../../components/RegistrationForm/Re
 export const login = (data: ILoginFormInterface) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const user = await axios.post<StateUser>(process.env.REACT_APP_AUTH_LOGIN as string, data);
+			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_LOGIN as string, data);
 			localStorage.setItem('auth-token', user.data.access_token);
 			return dispatch({
 				type: TypesUser.login,
@@ -35,16 +35,11 @@ export const autoLogin = () => {
 				const nowDate = Math.round(new Date().getTime()/1000);
 				const isExpired = decodeToken.iat < nowDate;
 				if(isExpired) {
-					const user = await axios.post<StateUser>(
+					const user = await Axios.post<StateUser>(
 						process.env.REACT_APP_AUTH_AUTOLOGIN as string,
 						{
 							email: decodeToken.email,
 							token
-						},
-						{
-							headers: {
-								Authorization: `Bearer ${token}`
-							}
 						});
 					localStorage.setItem('auth-token', user.data.access_token);
 					delete user.data.passwordHash;
@@ -76,12 +71,7 @@ export const logout = () => {
 export const editUser = (data: IEditUserFormInterface ) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const token = localStorage.getItem('auth-token');
-			const user = await axios.post<StateUser>(process.env.REACT_APP_AUTH_EDIT as string, data, {
-				headers: {
-					Authorization: `Bearer ${token}`
-				}
-			});
+			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_EDIT as string, data);
 			return dispatch({
 				type: TypesUser.login,
 				payload: user.data
@@ -97,7 +87,7 @@ export const editUser = (data: IEditUserFormInterface ) => {
 export const registrationUser = (data: IRegistrationFormInterface ) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const user = await axios.post<StateUser>(process.env.REACT_APP_AUTH_REGISTER as string, data);
+			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_REGISTER as string, data);
 			return dispatch({
 				type: TypesUser.createUser,
 				payload: user.data
@@ -116,11 +106,7 @@ export const deleteUser = () => {
 			const token = localStorage.getItem('auth-token');
 			if(token){
 				const decodeToken = decode(token) as DecodeTokenTypes;
-				await axios.delete(`${process.env.REACT_APP_AUTH_DELETE}/${decodeToken._id}`, {
-					headers: {
-						Authorization: `Bearer ${token}`
-					}
-				});
+				await Axios.delete(`${process.env.REACT_APP_AUTH_DELETE}/${decodeToken._id}`);
 				localStorage.clear();
 				return dispatch({
 					type: TypesUser.delete,

@@ -1,0 +1,123 @@
+import { TypesEditor } from "../types";
+import { Editor, CanConfig, Prefab, Canvas, Image } from "../redux.types";
+
+const initialState: Editor = {
+  instance: undefined,
+  cover_instance: undefined,
+  canvasConfig: {
+    width: 700,
+    height: 500,
+    backgroundColor: "transparent",
+    // selectionColor: 'blue',
+    selectionLineWidth: 2,
+  },
+  prefabs: [],
+  images: [],
+  loading_images: true,
+  scaleRatio: 1,
+  prefabsLoading: true,
+  history: [],
+  history_n: 0,
+};
+
+export interface ActionType {
+  type: TypesEditor;
+  payload:
+    | fabric.Canvas
+    | CanConfig
+    | number
+    | Prefab[]
+    | string
+    | Image[]
+    | string[];
+}
+
+export const editorReducer = (
+  state = initialState,
+  action: ActionType
+): Editor => {
+  switch (action.type) {
+    case TypesEditor.set_editor: {
+      return {
+        ...state,
+        instance: action.payload as Canvas,
+      };
+    }
+    case TypesEditor.set_config: {
+      return {
+        ...state,
+        canvasConfig: action.payload as CanConfig,
+      };
+    }
+    case TypesEditor.set_cover_editor: {
+      return {
+        ...state,
+        cover_instance: action.payload as Canvas,
+      };
+    }
+    case TypesEditor.set_prefab: {
+      return {
+        ...state,
+        prefabs: action.payload as Prefab[],
+        prefabsLoading: false,
+      };
+    }
+    case TypesEditor.get_images: {
+      return {
+        ...state,
+        images: action.payload as Image[],
+        loading_images: false,
+      };
+    }
+    case TypesEditor.delete_prefab: {
+      return {
+        ...state,
+        prefabs: state.prefabs.filter(
+          (item) => item.uuid !== (action.payload as string)
+        ),
+        loading_images: false,
+      };
+    }
+    case TypesEditor.set_scale: {
+      const { cover_instance, instance, canvasConfig } = state;
+
+      let scaleRatio = 1;
+      const scale = action.payload as number;
+
+      if (scale > 50)
+        scaleRatio = parseFloat(
+          ((scale - 50) / canvasConfig.height).toFixed(2)
+        );
+      else scaleRatio = scale ? state.scaleRatio + scale : 1;
+
+      instance?.setDimensions({
+        width: canvasConfig.width * scaleRatio,
+        height: canvasConfig.height * scaleRatio,
+      });
+      cover_instance?.setDimensions({
+        width: canvasConfig.width * scaleRatio,
+        height: canvasConfig.height * scaleRatio,
+      });
+
+      instance?.setZoom(scaleRatio);
+      cover_instance?.setZoom(scaleRatio);
+
+      return {
+        ...state,
+        instance: instance,
+        cover_instance: cover_instance,
+        scaleRatio: scaleRatio,
+      };
+    }
+    case TypesEditor.change_history: {
+      const hs = action.payload as string[];
+      return { ...state, history: hs, history_n: hs.length };
+    }
+    case TypesEditor.set_history_moment: {
+      return { ...state, history_n: action.payload as number };
+    }
+
+    default:
+      return state;
+  }
+};

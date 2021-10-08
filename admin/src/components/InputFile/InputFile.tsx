@@ -3,7 +3,7 @@ import cls from './InputFile.module.scss';
 import cn from 'classnames';
 import { ForwardedRef, forwardRef, useState } from 'react';
 import ImageUploading from 'react-images-uploading';
-import axios from 'axios';
+import Axios from '../../helpers/Axios';
 import { ImageListType } from 'react-images-uploading/dist/typings';
 import { logout as logoutIcon } from '../../images/icons';
 // export const Input = (props: InputProps): JSX.Element => {
@@ -24,16 +24,11 @@ const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: F
 	};
 
 	const uploadImg = () => {
-		const token = localStorage.getItem('auth-token');
 		const formData = new FormData();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		formData.append('files', img[0].file);
-		axios.post<TypeResponseUpload[]>(`${process.env.REACT_APP_FILES_UPLOAD}`, formData, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		})
+		Axios.post<TypeResponseUpload[]>(`${process.env.REACT_APP_FILES_UPLOAD}`, formData)
 			.then(({data}) => {
 				console.log(img);
 				setValue(data[0].url);
