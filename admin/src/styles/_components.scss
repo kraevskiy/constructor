@@ -21,6 +21,20 @@
     width: 40px;
     background: none;
   }
+
+  &:hover {
+    color: black;
+  }
+}
+
+.second {
+  background: var(--grad-orange);
+
+  &:hover {
+    color: black;
+    background: var(--grad-black);
+    background-color: green;
+  }
 }
 
 .container {
@@ -31,20 +45,18 @@
   box-sizing: border-box;
   position: relative;
   @include sm {
-    max-width: 540px
+    max-width: 540px;
   }
   @include md {
-    max-width: 720px
+    max-width: 720px;
   }
   @include lg {
-    max-width: 960px
+    max-width: 960px;
   }
   @include xl {
-    max-width: 1140px
+    max-width: 1140px;
   }
-
 }
-
 
 .container .carousel .control-dots {
   margin: 0;
@@ -57,4 +69,3 @@
 .carousel.carousel-slider {
   padding-bottom: 50px;
 }
-
