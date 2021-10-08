@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
 import { logout } from '../../../redux/user/userActions';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,11 +12,14 @@ import { LanguageSwitcher, Burger } from '../../../components/';
 import { logo } from '../../../images';
 import { logout as logoutIcon } from '../../../images/icons';
 import { toggleMenu } from '../../../redux/app/appActions';
+import download from "downloadjs";
 
 const Header = ({className, ...props}: HeaderProps): JSX.Element => {
+  const history = useHistory();
 	const {i18n} = useTranslation();
-	const {user: {isLoggedIn}, app: {isOpenMenu}} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn}, app: {isOpenMenu}, editor: { instance }} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
+  const [hasDownload, setHasDownload] = useState<boolean>(false);
 
 	const handleChangeLanguage = (lang: string) => {
 		localStorage.setItem('userLanguage', lang);
@@ -23,6 +27,24 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 	};
 	// const handleShowCatalog = () => dispatch(toggleCatalog());
 	const handleShowMenu = () => dispatch(toggleMenu());
+
+  const DownloadCanvas = () => {
+    if (!instance) return;
+    const data = instance.toDataURL();
+    if (data) {
+      const mimeType = data.split(";")[0];
+      const extension = data.split(";")[0].split("/")[1];
+      download(data, `image.${extension}`, mimeType);
+    }
+  };
+
+  history.listen((location) => {    
+    setHasDownload(location.pathname === paths.constructor);
+  });
+
+  useEffect(() => {    
+    setHasDownload(history.location.pathname === paths.constructor);
+  }, [history.location]);
 
 	return (
 		<header
@@ -42,6 +64,12 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
         <button className="btn btn-icon" onClick={() => dispatch(logout())}>
           <img src={logoutIcon} alt=""/>
 				</button>}
+        {(isLoggedIn && hasDownload) && (
+          <button className="btn second" onClick={() => DownloadCanvas()}>
+            {/* {t("logout.button")} */}
+            {"Download"}
+          </button>
+        )}
 				<LanguageSwitcher languages={['en', 'ru']} onClick={handleChangeLanguage}/>
 			</div>
 		</header>

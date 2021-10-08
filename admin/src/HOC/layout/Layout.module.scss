@@ -7,31 +7,31 @@
   min-height: 100vh;
   grid-template-rows: auto 1fr auto;
   grid-template-areas:
-      "header"
-      "body"
-      "footer";
+    "header"
+    "body"
+    "footer";
 }
 
 .container {
   padding: 0 10px;
+  // background-color: green;
   width: 100%;
-  max-width: 1386px;
+  // max-width: 1386px;
   margin: 0 auto;
   box-sizing: border-box;
   position: relative;
   @include sm {
-    max-width: 540px
+    max-width: 540px;
   }
   @include md {
-    max-width: 720px
+    max-width: 720px;
   }
   @include lg {
-    max-width: 960px
+    max-width: 960px;
   }
   @include xl {
-    max-width: 1140px
+    max-width: 1140px;
   }
-
 }
 
 .overflow {

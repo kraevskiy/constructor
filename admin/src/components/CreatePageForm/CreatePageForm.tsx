@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ICreatePageFormInterface } from './CreatePageForm.interface';
-import axios from 'axios';
+import Axios from '../../helpers/Axios';
 import { Input, Textarea } from '../';
 import { CreatePageFormTypes } from './CreatePageForm.types';
 import { SettingPageContext } from '../../pages/Setting/SettingPage';
@@ -50,12 +50,7 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 	});
 
 	const onSubmit = async (data: ICreatePageFormInterface) => {
-		const token = localStorage.getItem('auth-token');
-		const page = await axios.patch(`${process.env.REACT_APP_PAGE}/614072583baa6f1f75b9e10d`, data, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		});
+		const page = await Axios.patch(`${process.env.REACT_APP_PAGE}/614072583baa6f1f75b9e10d`, data);
 		console.log(page);
 		console.log(data);
 	};

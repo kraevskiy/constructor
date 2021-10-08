@@ -78,6 +78,7 @@ export interface StateUser {
 	_id: string;
 	role: RolesUser;
 	login: string;
+  canEdit: boolean;
 }
 
 export interface StateApp {
@@ -97,3 +98,53 @@ export interface DecodeTokenTypes {
 	role: RolesUser;
 	_id: string;
 }
+
+//EDITOR////
+export interface CanConfig {
+  width: number;
+  height: number;
+  backgroundColor: string;
+  // selectionColor: string,
+  selectionLineWidth: number;
+}
+
+export interface Prefab {
+  uuid: string;
+  instance: string;
+  user_id: string;
+  files: any[];
+  type: "card" | "picture" | "banner";
+  width: number;
+  height: number;
+  preview_uuid: string;
+  canvas_conf: CanConfig;
+}
+
+export interface Editor {
+  instance?: Canvas;
+  cover_instance?: Canvas;
+  canvasConfig: CanConfig;
+  prefabs: Prefab[];
+  images: Image[];
+  loading_images: boolean;
+  scaleRatio: number;
+  prefabsLoading: boolean;
+  history: string[];
+  history_n: number;
+}
+
+export interface Image {
+  name: string;
+  type: string;
+}
+
+export interface FileC extends File {
+  custom_name: string;
+}
+
+export interface Canvas extends fabric.Canvas {
+  width_mm: number;
+  height_mm: number;
+}
+
+///==≠

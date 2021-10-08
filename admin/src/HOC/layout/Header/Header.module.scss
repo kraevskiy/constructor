@@ -1,13 +1,12 @@
 .header {
-  padding: 15px 10px;
+  padding: 10px 10px;
   box-sizing: border-box;
   position: relative;
   z-index: 6;
   display: grid;
   grid-template-columns: 190px 1fr auto;
   grid-gap: 25px;
-  grid-template-areas:
-      "logo catalog menu"
+  grid-template-areas: "logo catalog menu";
 }
 
 .logo {

@@ -1,0 +1,19 @@
+.layerWrapper {
+  width: 100%;
+  overflow: hidden;
+  background-size: cover;
+  position: relative;
+  background-color: white;
+
+  .layerTitleBar {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    background-color: rgba(0, 0, 0, 0.226);
+    padding-left: 8px;
+  }
+}

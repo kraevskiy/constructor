@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback, EffectCallback } from 'react';
-import axios from 'axios';
+import Axios from '../helpers/Axios';
 import { doFetchFn, UseFetchData } from './useFetch.types';
 
 export default <ExampleResponseData>(url: string): [UseFetchData<ExampleResponseData>, doFetchFn] => {
@@ -20,7 +20,7 @@ export default <ExampleResponseData>(url: string): [UseFetchData<ExampleResponse
 			...options
 		};
 		if (!isLoading) return;
-		axios(baseUrl + url, requestOptions)
+		Axios(baseUrl + url, requestOptions)
 			.then(res => {
 				if (!skipGetResponseAfterDestroy) {
 					setIsLoading(false);
