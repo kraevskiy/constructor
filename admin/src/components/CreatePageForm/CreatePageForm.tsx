@@ -50,7 +50,7 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 	});
 
 	const onSubmit = async (data: ICreatePageFormInterface) => {
-		const page = await Axios.patch(`${process.env.REACT_APP_PAGE}/614072583baa6f1f75b9e10d`, data);
+		const page = await Axios.patch(`${process.env.REACT_APP_PAGE}/616d544c5c80eb002b186be0`, data);
 		console.log(page);
 		console.log(data);
 	};
