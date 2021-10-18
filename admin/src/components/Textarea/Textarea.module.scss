@@ -16,3 +16,12 @@
   resize: none;
 
 }
+
+.error {
+  color: var(--c-red);
+  border-bottom: 2px solid var(--c-red);
+
+  &::placeholder {
+    color: var(--c-red) !important;
+  }
+}

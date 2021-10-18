@@ -38,6 +38,8 @@ export enum TypesApp {
   hideLoader = "APP/HIDE_LOADER",
   toggleCatalog = "APP/TOGGLE_CATALOG",
   toggleMenu = "APP/TOGGLE_MENU",
+  showFooter = "APP/SHOW_FOOTER",
+  hideFooter = "APP/HIDE_FOOTER"
 }
 
 export enum TypesEditor {

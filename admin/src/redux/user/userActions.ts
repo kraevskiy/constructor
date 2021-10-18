@@ -35,19 +35,24 @@ export const autoLogin = () => {
 				const nowDate = Math.round(new Date().getTime()/1000);
 				const isExpired = decodeToken.iat < nowDate;
 				if(isExpired) {
-					const user = await Axios.post<StateUser>(
-						process.env.REACT_APP_AUTH_AUTOLOGIN as string,
-						{
-							email: decodeToken.email,
-							token
+					try {
+						const user = await Axios.post<StateUser>(
+							process.env.REACT_APP_AUTH_AUTOLOGIN as string,
+							{
+								email: decodeToken.email,
+								token
+							});
+						localStorage.setItem('auth-token', user.data.access_token);
+						delete user.data.passwordHash;
+						return dispatch({
+							type: TypesUser.autologin,
+							payload: user.data
 						});
-					localStorage.setItem('auth-token', user.data.access_token);
-					delete user.data.passwordHash;
-					return dispatch({
-						type: TypesUser.autologin,
-						payload: user.data
-					});
+					} catch (e){
+						return dispatch({type: TypesUser.logout});
+					}
 				} else {
+					console.log(111111);
 					return dispatch({type: TypesUser.logout});
 				}
 			} else {

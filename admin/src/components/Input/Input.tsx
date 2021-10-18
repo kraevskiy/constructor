@@ -8,9 +8,11 @@ import { ForwardedRef, forwardRef } from 'react';
 // };
 
 
-const Input = forwardRef(({className, ...props}: InputProps, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
+const Input = forwardRef(({className, error, ...props}: InputProps, ref: ForwardedRef<HTMLInputElement>): JSX.Element => {
 	return (
-			<input className={cn(className, cls.input)} ref={ref} {...props}/>
+			<input className={cn(className, cls.input, {
+				[cls.error]: !!error
+			})} ref={ref} {...props}/>
 	);
 });
 
