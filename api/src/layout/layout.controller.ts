@@ -73,7 +73,7 @@ export class LayoutController {
 		return findLayouts;
 	}
 
-	@Get()
+	@Post()
 	@UseGuards(JwtAuthGuard)
 	async findAll(
 		@Body() dto: FindLayoutsDto,

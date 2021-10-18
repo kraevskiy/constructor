@@ -1,0 +1,33 @@
+.wrapper {
+  max-width: 140px;
+  min-height: 65px;
+}
+
+.body {
+  border: 1px dashed var(--c-violet);
+  padding: 15px;
+  position: relative;
+  max-width: 140px;
+  min-height: 65px;
+}
+
+.btn {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background: var(--grad-green);
+  transform: rotate(-90deg);
+}
+
+.input {
+  box-sizing: border-box;
+  box-shadow: none;
+  border: none;
+  font-size: 19px;
+  color: var(--c-white);
+  background: none;
+  border-bottom: 2px solid var(--c-white);
+  width: 100%;
+  padding: 10px 0;
+  outline: var(--c-violet);
+}

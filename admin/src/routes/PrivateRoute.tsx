@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { paths } from './paths';
+import Loader from '../components/Loader/Loader';
 
 const PrivateRoute = (
 	{
@@ -14,13 +15,14 @@ const PrivateRoute = (
 ): JSX.Element => {
 	const {isLoggedIn, role} = useSelector((state: RootState) => state.user);
 	const protectRole = roleProps ? roleProps === role : true;
+	console.log('isLoggedIn', isLoggedIn);
 	return (
 		<Route {...rest} render={props => (
 			isLoggedIn
 				? (
 					protectRole
 						? (
-							<Suspense fallback={<p>loading</p>}>
+							<Suspense fallback={<Loader/>}>
 								<Component {...props}/>
 							</Suspense>
 						)

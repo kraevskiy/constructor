@@ -1,76 +1,114 @@
+import { LanguagesTypes } from '../../types/languages';
+
 export interface SeoPage {
-	seoTitle: string;
-	seoDescription: string;
+	seoTitle: {
+		[key in LanguagesTypes]: string;
+	};
+	seoDescription: {
+		[key in LanguagesTypes]: string;
+	};
 	additional?: string;
 }
 
 export interface HeaderPage {
-	seoTitle: string;
-	seoDescription: string;
+	seoTitle: {
+		[key in LanguagesTypes]: string;
+	};
+	seoDescription: {
+		[key in LanguagesTypes]: string;
+	};
 	additional?: string;
 }
 
 export interface SliderPage {
 	image?: string;
-	title?: string;
-	text?: string;
+	title?: {
+		[key in LanguagesTypes]: string;
+	};
+	text?: {
+		[key in LanguagesTypes]: string;
+	};
 	additional?: string;
 }
 
 export interface FaqItemsPage {
-	title?: string;
-	text?: string;
+	title?: {
+		[key in LanguagesTypes]: string;
+	};
+	text?: {
+		[key in LanguagesTypes]: string;
+	};
 }
 
 export interface FaqPage {
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 	items: FaqItemsPage[];
 	additional?: string;
 }
 
 export interface ContactsPageItems {
-	name?: string;
+	name?: {
+		[key in LanguagesTypes]: string;
+	};
 	icon?: string;
 	link?: string;
 	showLink?: string;
 }
 
 export interface ContactsPage {
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 	items: ContactsPageItems[];
 	additional?: string;
 }
 
 export interface AdvantagesPageItems {
-	title?: string;
-	text?: string;
+	title?: {
+		[key in LanguagesTypes]: string;
+	};
+	text?: {
+		[key in LanguagesTypes]: string;
+	};
 	icon?: string;
 }
 
 export interface AdvantagesPage {
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 	items: AdvantagesPageItems[];
 	additional?: string;
 }
 
 export interface PicturesPageItems {
 	image: string;
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 }
 
 export interface PicturesPage {
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 	items: PicturesPageItems[];
 	additional?: string;
 }
 
 export interface SouvenirsPageItems {
 	image: string;
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 }
 
 export interface SouvenirsPage {
-	title: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
 	items: SouvenirsPageItems[];
 	additional?: string;
 }

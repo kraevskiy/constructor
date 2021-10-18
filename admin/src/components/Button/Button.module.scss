@@ -1,7 +1,7 @@
 @import "src/styles/mixins";
 
 .btn {
-  width: 170px;
+  min-width: 170px;
   text-align: center;
   color: var(--c-white);
   box-shadow: none;
@@ -13,6 +13,8 @@
   max-width: 100%;
   border-radius: 50px;
   background: var(--grad-blue);
+  padding-left: 25px;
+  padding-right: 25px;
 
   @include sm {
     width: 100%;

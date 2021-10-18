@@ -6,6 +6,9 @@
   background: var(--c-darker);
   box-sizing: border-box;
   padding: 35px 30px;
+  &:nth-of-type(odd) {
+    background: var(--c-dark-grey);
+  }
   &:not(:last-child) {
     margin-bottom: 20px;
   }

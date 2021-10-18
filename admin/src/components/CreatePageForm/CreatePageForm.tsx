@@ -1,94 +1,58 @@
-import { Dispatch, memo, SetStateAction, useState } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { Dispatch, SetStateAction, useContext, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import { ICreatePageFormInterface } from './CreatePageForm.interface';
-import axios from 'axios';
+import Axios from '../../helpers/Axios';
+import { Input, Textarea } from '../';
+import { CreatePageFormTypes } from './CreatePageForm.types';
+import { SettingPageContext } from '../../pages/Setting/SettingPage';
+import cls from './CreatePageForm.module.scss';
+import cn from 'classnames';
+import { useTranslation } from 'react-i18next';
+import { getLanguageField } from './getLanguageField';
+import { GetFields } from './GetFields/GetFields';
 
-
-const GetFields = memo(({
-	fields,
-	nameKey,
-	count
-}: {
-	nameKey: string;
-	fields: string[];
-	count: number[]
-}): JSX.Element => {
-	const {register} = useFormContext();
-
-	if (!count.length) {
-		return <p>added {nameKey} please</p>;
-	}
-
-	return (
-		<>
-			{count.map(s => (
-				<div className="row" key={Math.random() + s}>
-					<div className="col-12">
-						<small>{nameKey}-{s}</small>
-					</div>
-					{fields.map(field => (
-						<div className="col-3" key={`${nameKey}.${s}.${field}`}>
-							<label className="form-label w-100">
-								{`${nameKey}.${s}.${field}`}
-								<input
-									{...register(`${nameKey}.${s}.${field}`)}
-									type="text"
-									className="form-control"/>
-							</label>
-						</div>
-					))}
-				</div>
-			))}
-		</>
-	);
-});
-
-
-export const CreatePageForm = ({defaultData}: { defaultData: ICreatePageFormInterface }): JSX.Element => {
+const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
+	const {t} = useTranslation('setting');
+	const {langField} = useContext(SettingPageContext);
 	const formMethods = useForm<ICreatePageFormInterface>({
-		defaultValues: defaultData
+		defaultValues: defaultData ? defaultData : {}
 	});
 
 	const [sliders, setSliders] = useState<number[]>(() => {
 		const a: number[] = [];
-		defaultData.slides?.map((_, idx) => a.push(idx));
+		defaultData?.slides?.map((_, idx) => a.push(idx));
 		return a;
 	});
 	const [SouvenirsPage, setSouvenirsPage] = useState<number[]>(() => {
 		const a: number[] = [];
-		defaultData.souvenirs?.items.map((_, idx) => a.push(idx));
+		defaultData?.souvenirs?.items.map((_, idx) => a.push(idx));
 		return a;
 	});
 	const [PicturesPageItems, setPicturesPageItems] = useState<number[]>(() => {
 		const a: number[] = [];
-		defaultData.pictures?.items.map((_, idx) => a.push(idx));
+		defaultData?.pictures?.items.map((_, idx) => a.push(idx));
 		return a;
 	});
 	const [AdvantagesPageItems, setAdvantagesPageItems] = useState<number[]>(() => {
 		const a: number[] = [];
-		defaultData.advantages?.items.map((_, idx) => a.push(idx));
+		defaultData?.advantages?.items.map((_, idx) => a.push(idx));
 		return a;
 	});
 	const [ContactsPageItems, setContactsPageItems] = useState<number[]>(() => {
 		const a: number[] = [];
-		defaultData.contacts?.items.map((_, idx) => a.push(idx));
+		defaultData?.contacts?.items.map((_, idx) => a.push(idx));
 		return a;
 	});
 	const [FaqItemsPage, setFaqItemsPage] = useState<number[]>(() => {
 		const a: number[] = [];
-		defaultData.faqs?.items.map((_, idx) => a.push(idx));
+		defaultData?.faqs?.items.map((_, idx) => a.push(idx));
 		return a;
 	});
 
-	const handleSubmitForm = async (data: ICreatePageFormInterface) => {
-		console.log(data);
-		const token = localStorage.getItem('auth-token');
-		const page = await axios.post(`${process.env.REACT_APP_PAGE_CREATE}`, data, {
-			headers: {
-				Authorization: `Bearer ${token}`
-			}
-		});
+	const onSubmit = async (data: ICreatePageFormInterface) => {
+		const page = await Axios.patch(`${process.env.REACT_APP_PAGE}/614072583baa6f1f75b9e10d`, data);
 		console.log(page);
+		console.log(data);
 	};
 
 	const pushCount = (name: number[], setName: Dispatch<SetStateAction<number[]>>) => {
@@ -98,295 +62,292 @@ export const CreatePageForm = ({defaultData}: { defaultData: ICreatePageFormInte
 	};
 
 	return (
-		<form className="col-12 m-auto pb-5" onSubmit={formMethods.handleSubmit(handleSubmitForm)}>
+		<form onSubmit={formMethods.handleSubmit(onSubmit)}>
 			<FormProvider {...formMethods}>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row">
-						<div className="mb-3 col-12">
-							<label htmlFor="exampleFormControlInput1" className="form-label w-100"><h5
-								className="text-center w-100">slag</h5></label>
-							<input
-								{...formMethods.register('slag')}
-								type="text"
-								className="form-control"/>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('slag')}
 						</div>
+						<Input
+							{...formMethods.register('slag')}
+						/>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							SEO
-						</h5>
-						<div className="col-4">
-							<label className="form-label w-100">
-								seo.seoTitle
-								<input
-									{...formMethods.register('seo.seoTitle')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('seo')}
 						</div>
-						<div className="col-4">
-							<label className="form-label w-100">
-								seo.seoDescription
-								<input
-									{...formMethods.register('seo.seoDescription')}
-									type="text"
-									className="form-control"/>
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cn(cls.label)}>
+								{t('seo.seoTitle')}
+								<Input
+									{...formMethods.register(getLanguageField('seo.seoTitle', langField))}
+								/>
 							</label>
-						</div>
-						<div className="col-4">
-							<label className="form-label w-100">
-								seo.additional
-								<input
+							<label className={cls.label}>
+								{t('seo.additional')}
+								<Input
 									{...formMethods.register('seo.additional')}
-									type="text"
-									className="form-control"/>
+								/>
+							</label>
+							<label className={cn(cls.label, cls.w13)}>
+								{t('seo.seoDescription')}
+								<Textarea
+									{...formMethods.register(getLanguageField('seo.seoDescription', langField))}
+								/>
 							</label>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							header
-						</h5>
-						<div className="col-4">
-							<label className="form-label w-100">
-								header.seoTitle
-								<input
-									{...formMethods.register('header.seoTitle')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('header')}
 						</div>
-						<div className="col-4">
-							<label className="form-label w-100">
-								header.seoDescription
-								<input
-									{...formMethods.register('header.seoDescription')}
-									type="text"
-									className="form-control"/>
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cls.label}>
+								{t('header.seoTitle')}
+								<Input
+									{...formMethods.register(getLanguageField('header.seoTitle', langField))}
+								/>
 							</label>
-						</div>
-						<div className="col-4">
-							<label className="form-label w-100">
-								header.additional
-								<input
+							<label className={cls.label}>
+								{t('header.additional')}
+								<Input
 									{...formMethods.register('header.additional')}
-									type="text"
-									className="form-control"/>
+								/>
+							</label>
+							<label className={cn(cls.label, cls.w13)}>
+								{t('header.seoDescription')}
+								<Textarea
+									{...formMethods.register(getLanguageField('header.seoDescription', langField))}
+								/>
 							</label>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							slides
-						</h5>
-						<div className="col-12">
-							<GetFields nameKey="slides" fields={['image', 'title', 'text', 'additional']} count={sliders}/>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('slides')}
 						</div>
-						<div className="col-3">
-							<button type="button" className="btn btn-primary" onClick={() => pushCount(sliders, setSliders)}>add
-								Slide
+						<GetFields
+							formMethods={formMethods}
+							nameKey="slides"
+							fields={['image', 'title', 'text', 'additional']}
+							count={sliders}/>
+						<div>
+							<button
+								type="button"
+								className="btn"
+								onClick={() => pushCount(sliders, setSliders)}>
+								{t('slides.add')}
 							</button>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							souvenirs
-						</h5>
-						<div className="col-6">
-							<label className="form-label w-100">
-								souvenirs.title
-								<input
-									{...formMethods.register('souvenirs.title')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('souvenirs')}
 						</div>
-						<div className="col-6">
-							<label className="form-label w-100">
-								souvenirs.additional
-								<input
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cls.label}>
+								{t('souvenirs.title')}
+								<Input
+									{...formMethods.register(getLanguageField('souvenirs.title', langField))}
+								/>
+							</label>
+							<label className={cls.label}>
+								{t('souvenirs.additional')}
+								<Input
 									{...formMethods.register('souvenirs.additional')}
-									type="text"
-									className="form-control"/>
+								/>
 							</label>
-						</div>
-
-						<div className="col-12">
-							<label className="form-label w-100">
-								souvenirs.items
-								<GetFields nameKey="souvenirs.items" fields={['image', 'title']} count={SouvenirsPage}/>
-							</label>
-						</div>
-						<div className="col-3">
-							<button type="button" className="btn btn-primary"
-											onClick={() => pushCount(SouvenirsPage, setSouvenirsPage)}>add
-								souvenirs.item
-							</button>
+							<div className={cn(cls.full, cls.col13)}>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('souvenirs.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="souvenirs.items"
+										fields={['image', 'title']}
+										count={SouvenirsPage}/>
+								</div>
+								<div>
+									<button
+										type="button"
+										className="btn"
+										onClick={() => pushCount(SouvenirsPage, setSouvenirsPage)}>
+										{t('souvenirs.add')}
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							pictures
-						</h5>
-						<div className="col-6">
-							<label className="form-label w-100">
-								pictures.title
-								<input
-									{...formMethods.register('pictures.title')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('pictures')}
 						</div>
-						<div className="col-6">
-							<label className="form-label w-100">
-								pictures.additional
-								<input
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cls.label}>
+								{t('pictures.title')}
+								<Input
+									{...formMethods.register(getLanguageField('pictures.title', langField))}
+								/>
+							</label>
+							<label className={cls.label}>
+								{t('pictures.additional')}
+								<Input
 									{...formMethods.register('pictures.additional')}
-									type="text"
-									className="form-control"/>
+								/>
 							</label>
-						</div>
-
-						<div className="col-12">
-							<label className="form-label w-100">
-								pictures.items
-								<GetFields nameKey="pictures.items" fields={['image', 'title']} count={PicturesPageItems}/>
-							</label>
-						</div>
-						<div className="col-3">
-							<button type="button" className="btn btn-primary"
-											onClick={() => pushCount(PicturesPageItems, setPicturesPageItems)}>add
-								pictures.item
-							</button>
+							<div className={cn(cls.full, cls.col13)}>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('pictures.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="pictures.items"
+										fields={['image', 'title']}
+										count={PicturesPageItems}/>
+								</div>
+								<div>
+									<button
+										type="button"
+										className="btn"
+										onClick={() => pushCount(PicturesPageItems, setPicturesPageItems)}>
+										{t('pictures.add')}
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							advantages
-						</h5>
-						<div className="col-6">
-							<label className="form-label w-100">
-								advantages.title
-								<input
-									{...formMethods.register('advantages.title')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('advantages')}
 						</div>
-						<div className="col-6">
-							<label className="form-label w-100">
-								advantages.additional
-								<input
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cls.label}>
+								{t('advantages.title')}
+								<Input
+									{...formMethods.register(getLanguageField('advantages.title', langField))}
+								/>
+							</label>
+							<label className={cls.label}>
+								{t('advantages.additional')}
+								<Input
 									{...formMethods.register('advantages.additional')}
-									type="text"
-									className="form-control"/>
+								/>
 							</label>
-						</div>
-
-						<div className="col-12">
-							<label className="form-label w-100">
-								advantages.items
-								<GetFields nameKey="advantages.items" fields={['text', 'title', 'icon']} count={AdvantagesPageItems}/>
-							</label>
-						</div>
-						<div className="col-3">
-							<button type="button" className="btn btn-primary"
-											onClick={() => pushCount(AdvantagesPageItems, setAdvantagesPageItems)}>add
-								advantages.item
-							</button>
+							<div className={cn(cls.full, cls.w13)}>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('advantages.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="advantages.items"
+										fields={['text', 'title', 'icon']}
+										count={AdvantagesPageItems}/>
+								</div>
+								<div>
+									<button
+										type="button"
+										className="btn"
+										onClick={() => pushCount(AdvantagesPageItems, setAdvantagesPageItems)}>
+										{t('advantages.add')}
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							contacts
-						</h5>
-						<div className="col-6">
-							<label className="form-label w-100">
-								contacts.title
-								<input
-									{...formMethods.register('contacts.title')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('contacts')}
 						</div>
-						<div className="col-6">
-							<label className="form-label w-100">
-								contacts.additional
-								<input
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cls.label}>
+								{t('contacts.title')}
+								<Input
+									{...formMethods.register(getLanguageField('contacts.title', langField))}
+								/>
+							</label>
+							<label className={cls.label}>
+								{t('contacts.additional')}
+								<Input
 									{...formMethods.register('contacts.additional')}
-									type="text"
-									className="form-control"/>
+								/>
 							</label>
-						</div>
-
-						<div className="col-12">
-							<label className="form-label w-100">
-								contacts.items
-								<GetFields nameKey="contacts.items" fields={['name', 'icon', 'link', 'showLink']} count={ContactsPageItems}/>
-							</label>
-						</div>
-						<div className="col-3">
-							<button type="button" className="btn btn-primary"
-											onClick={() => pushCount(ContactsPageItems, setContactsPageItems)}>add
-								contacts.item
-							</button>
+							<div className={cn(cls.full, cls.w13)}>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('contacts.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="contacts.items"
+										fields={['name', 'icon', 'link', 'showLink']}
+										count={ContactsPageItems}/>
+								</div>
+								<div>
+									<button
+										type="button"
+										className="btn"
+										onClick={() => pushCount(ContactsPageItems, setContactsPageItems)}>
+										{t('contacts.add')}
+									</button>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-				<div className="card p-2 mb-3 shadow">
-					<div className="row mb-3">
-						<h5 className="col-12 text-center">
-							faqs
-						</h5>
-						<div className="col-6">
-							<label className="form-label w-100">
-								faqs.title
-								<input
-									{...formMethods.register('faqs.title')}
-									type="text"
-									className="form-control"/>
-							</label>
+				<div className={cls.field}>
+					<div className={cls.full}>
+						<div className={cls.title}>
+							{t('faqs')}
 						</div>
-						<div className="col-6">
-							<label className="form-label w-100">
-								faqs.additional
-								<input
+						<div className={cn(cls.full, cls.col2)}>
+							<label className={cls.label}>
+								{t('faqs.title')}
+								<Input
+									{...formMethods.register(getLanguageField('faqs.title', langField))}
+								/>
+							</label>
+							<label className={cls.label}>
+								{t('faqs.additional')}
+								<Input
 									{...formMethods.register('faqs.additional')}
-									type="text"
-									className="form-control"/>
+								/>
 							</label>
+							<div className={cn(cls.full, cls.w13)}>
+								<div className={cls.label}>
+									<span className={cls.labelTitle}>{t('faqs.items')}</span>
+									<GetFields
+										formMethods={formMethods}
+										nameKey="faqs.items"
+										fields={['title', 'text']}
+										count={FaqItemsPage}/>
+								</div>
+								<div>
+									<button
+										type="button"
+										className="btn"
+										onClick={() => pushCount(FaqItemsPage, setFaqItemsPage)}>
+										{t('faqs.add')}
+									</button>
+								</div>
+							</div>
 						</div>
 
-						<div className="col-12">
-							<label className="form-label w-100">
-								faqs.items
-								<GetFields nameKey="faqs.items" fields={['title', 'text']} count={FaqItemsPage}/>
-							</label>
-						</div>
-						<div className="col-3">
-							<button type="button" className="btn btn-primary"
-											onClick={() => pushCount(FaqItemsPage, setFaqItemsPage)}>add
-								faqs.item
-							</button>
-						</div>
 					</div>
 				</div>
-				<button className="btn btn-primary">Save</button>
+				<button className="btn">{t('btn.save')}</button>
 			</FormProvider>
 		</form>
 	);
 };
+
+export default CreatePageForm;

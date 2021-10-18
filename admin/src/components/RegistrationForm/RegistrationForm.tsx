@@ -6,10 +6,25 @@ import { paths } from '../../routes/paths';
 import { ActionType, RegisterUserModel } from '../../redux/redux.types';
 import { TypesUser } from '../../redux/types';
 import { useHistory } from 'react-router-dom';
+import cls from './RegistrationForm.module.scss';
+import { useTranslation } from 'react-i18next';
+import { Button, Input } from '../';
+import { SchemaOf } from 'yup';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
-export const RegistrationForm = (): JSX.Element => {
+const schema: SchemaOf<IRegistrationFormInterface> = yup.object().shape({
+	login: yup.string().required().test('len', 'Must be exactly 3 characters', val => val?.length === 5),
+	email: yup.string().email().required(),
+	password: yup.string().required().test('len', 'Must be exactly 5 characters', val => val?.length === 5),
+});
+
+const RegistrationForm = (): JSX.Element => {
+	const {t} = useTranslation();
 	const dispatch = useDispatch();
-	const {register, handleSubmit} = useForm<IRegistrationFormInterface>();
+	const {register, handleSubmit, formState: {errors}} = useForm<IRegistrationFormInterface>({
+		resolver: yupResolver(schema)
+	});
 	const history = useHistory();
 
 	const handleSubmitForm = async (data: IRegistrationFormInterface) => {
@@ -20,32 +35,34 @@ export const RegistrationForm = (): JSX.Element => {
 	};
 
 	return (
-		<form className="col-md-6 m-auto" onSubmit={handleSubmit(handleSubmitForm)}>
-			<div className="mb-3">
+		<form className={cls.form} onSubmit={handleSubmit(handleSubmitForm)}>
+			<div className={cls.box}>
 				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-				<input
+				<Input
+					error={errors.email}
 					{...register('email')}
-					type="text"
-					className="form-control"
-					placeholder="name@example.com"/>
+					placeholder="name@example.com"
+				/>
 			</div>
-			<div className="mb-3">
+			<div className={cls.box}>
 				<label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
-				<input
+				<Input
+					error={errors.password}
 					{...register('password')}
-					type="text"
-					className="form-control"
-					placeholder="****"/>
+					placeholder="*****"
+				/>
 			</div>
-			<div className="mb-3">
+			<div className={cls.box}>
 				<label htmlFor="exampleFormControlInput1" className="form-label">Login</label>
-				<input
+				<Input
+					error={errors.login}
 					{...register('login')}
-					type="text"
-					className="form-control"
-					placeholder="user"/>
+					placeholder="user"
+				/>
 			</div>
-			<button className="btn btn-primary">Register</button>
+			<Button>{t('registration.button')}</Button>
 		</form>
 	);
 };
+
+export default RegistrationForm;

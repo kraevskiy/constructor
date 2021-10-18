@@ -6,13 +6,40 @@ export interface StateUserOrderLayout {
 }
 
 export interface StateUserOrder {
-	status: 'accepted' | 'new' | 'progress' | 'completed';
+	status: 'new' | 'progress' | 'completed';
 	layouts: StateUserOrderLayout[];
 	user: string;
 	paymentIntent?: 'hold' | 'succeeded';
 	_id: string;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface TotalCount {
+	totalCount: number;
+}
+
+export interface OrderAllLayout {
+	_id: string;
+	title: string;
+}
+
+export interface StateAllOrders {
+	totalCount: TotalCount[];
+	orders: StateUserOrder[];
+}
+
+export interface User {
+	_id: string;
+	email: string;
+	passwordHash: string;
+	role: string;
+	login: string;
+	createdAt: Date;
+	updatedAt: Date;
+	__v: number;
+	layouts: StateUserLayout[];
+	orders: StateUserOrder[];
 }
 
 export interface StateUserLayout {
@@ -26,6 +53,11 @@ export interface StateUserLayout {
 	_id: string;
 	createdAt: Date;
 	updatedAt: Date;
+}
+
+export interface StateAllLayouts {
+	totalCount: TotalCount[];
+	layouts: StateUserLayout[];
 }
 
 export interface RegisterUserModel {
@@ -46,12 +78,14 @@ export interface StateUser {
 	_id: string;
 	role: RolesUser;
 	login: string;
+  canEdit: boolean;
 }
 
 export interface StateApp {
 	loading: boolean;
 	isOpenCatalog: boolean;
 	isOpenMenu: boolean;
+	showFooter: boolean;
 }
 
 export interface ActionType<T = TypesUser | TypesApp, P = StateUser | StateApp> {
@@ -65,3 +99,53 @@ export interface DecodeTokenTypes {
 	role: RolesUser;
 	_id: string;
 }
+
+//EDITOR////
+export interface CanConfig {
+  width: number;
+  height: number;
+  backgroundColor: string;
+  // selectionColor: string,
+  selectionLineWidth: number;
+}
+
+export interface Prefab {
+  uuid: string;
+  instance: string;
+  user_id: string;
+  files: any[];
+  type: "card" | "picture" | "banner";
+  width: number;
+  height: number;
+  preview_uuid: string;
+  canvas_conf: CanConfig;
+}
+
+export interface Editor {
+  instance?: Canvas;
+  cover_instance?: Canvas;
+  canvasConfig: CanConfig;
+  prefabs: Prefab[];
+  images: Image[];
+  loading_images: boolean;
+  scaleRatio: number;
+  prefabsLoading: boolean;
+  history: string[];
+  history_n: number;
+}
+
+export interface Image {
+  name: string;
+  type: string;
+}
+
+export interface FileC extends File {
+  custom_name: string;
+}
+
+export interface Canvas extends fabric.Canvas {
+  width_mm: number;
+  height_mm: number;
+}
+
+///==≠

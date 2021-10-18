@@ -44,6 +44,11 @@ export class PageController {
 		return this.pageService.getById(id);
 	}
 
+	@Get('/slag/:slag')
+	async getBySlug(@Param('slag') slag: string) {
+		return this.pageService.getBySlug(slag);
+	}
+
 	@UseGuards(JwtAuthGuard)
 	@Delete(':id')
 	async delete(

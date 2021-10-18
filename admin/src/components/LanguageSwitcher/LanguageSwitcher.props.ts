@@ -2,7 +2,7 @@ import { DetailedHTMLProps, Dispatch, HTMLAttributes, SetStateAction } from 'rea
 
 export interface LanguageSwitcherProps extends Pick<DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>, any>{
 	languages: string[];
-	onClick: (lang: string)=>void;
+	onClick: (lang: any)=>void;
 }
 
 export interface LanguageListProps extends Pick<DetailedHTMLProps<HTMLAttributes<HTMLUListElement>, HTMLUListElement>, any>{

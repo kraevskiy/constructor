@@ -3,46 +3,66 @@ import { useForm } from 'react-hook-form';
 import { IEditUserFormInterface } from './EditUserForm.interface';
 import { RootState } from '../../redux/rootReducer';
 import { editUser, hideLoader, showLoader } from '../../redux/actions';
+import { yupResolver } from '@hookform/resolvers/yup';
+import cls from './EditUserForm.module.scss';
+import { Button, Input } from '..';
+import { SchemaOf } from 'yup';
+import * as yup from 'yup';
 
-export const EditUserForm = (): JSX.Element => {
+const schema: SchemaOf<IEditUserFormInterface> = yup.object().shape({
+	login: yup.string().required().test('len', 'Must be exactly 3 characters', val => val?.length === 5),
+	email: yup.string().email().required(),
+	password: yup.string().required().test('len', 'Must be exactly 5 characters', val => val?.length === 5),
+});
+
+const EditUserForm = (): JSX.Element => {
 	const dispatch = useDispatch();
-	const {register, handleSubmit} = useForm<IEditUserFormInterface>();
+	const {register, handleSubmit, formState: {errors}, setValue} = useForm<IEditUserFormInterface>({
+		resolver: yupResolver(schema)
+	});
+
 	const user = useSelector((state: RootState) => state.user);
 
 	const handleSubmitForm = async (data: IEditUserFormInterface) => {
 		dispatch(showLoader());
 		dispatch(editUser(data));
 		dispatch(hideLoader());
+		setValue('password', '');
 	};
 
 	return (
-		<form className="col-md-6 m-auto" onSubmit={handleSubmit(handleSubmitForm)}>
-			<h6>{user.role}</h6>
-			<div className="mb-3">
-				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-				<input
-					{...register('email', {value: user.email})}
-					type="text"
-					className="form-control"
-					placeholder="name@example.com"/>
+		<div className={cls.wrapper}>
+			<div className={cls.title}>
+				Моя информация
 			</div>
-			<div className="mb-3">
-				<label htmlFor="exampleFormControlInput1" className="form-label">Password</label>
-				<input
-					{...register('password')}
-					type="text"
-					className="form-control"
-					placeholder="****"/>
-			</div>
-			<div className="mb-3">
-				<label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-				<input
-					{...register('login', {value: user.login})}
-					type="text"
-					className="form-control"
-					placeholder="user"/>
-			</div>
-			<button className="btn btn-primary">Edit</button>
-		</form>
+			<form className={cls.form} onSubmit={handleSubmit(handleSubmitForm)}>
+				<div className={cls.box}>
+					<Input
+						error={errors.email}
+						{...register('email', {value: user.email})}
+						placeholder="name@example.com"
+					/>
+				</div>
+				<div className={cls.box}>
+					<Input
+						error={errors.password}
+						{...register('password')}
+						placeholder="****"
+					/>
+				</div>
+				<div className={cls.box}>
+					<Input
+						error={errors.login}
+						{...register('login', {value: user.login})}
+						placeholder="user"
+					/>
+				</div>
+				<Button className={cls.button}>
+					Edit
+				</Button>
+			</form>
+		</div>
 	);
 };
+
+export default EditUserForm;

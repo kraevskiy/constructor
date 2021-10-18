@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from '../redux/rootReducer';
 import { paths } from './paths';
+import Loader from '../components/Loader/Loader';
 
 const PublicRoute = (
 	{
@@ -18,7 +19,7 @@ const PublicRoute = (
 		<Route {...rest} render={props => (
 			hideLogged
 				? <Redirect to={paths.index}/>
-				: <Suspense fallback={<p>loading</p>}> <Component {...props}/> </Suspense>
+				: <Suspense fallback={<Loader/>}> <Component {...props}/> </Suspense>
 		)}/>
 	);
 };

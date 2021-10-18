@@ -1,0 +1,57 @@
+.wrapper {
+  position: relative;
+  min-height: 768px;
+  display: grid;
+  align-items: center;
+}
+
+.img {
+  position: absolute;
+  top: -490px;
+  right: 0px;
+  width: 850px;
+
+}
+
+.body {
+}
+
+.slide {
+  position: relative;
+  display: grid;
+  grid-template-columns: 535px 1fr;
+  grid-gap: 30px;
+
+  &Body {
+    height: 100%;
+    text-align: left;
+    &Title{
+      font-size: 86px;
+      position: relative;
+      padding: 55px 0;
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 225px;
+        height: 3px;
+        background: var(--c-blue);
+        content: '';
+      }
+    }
+    &Text{
+      font-size: 19px;
+      font-weight: 400;
+      padding-top: 56px;
+      line-height: 40px;
+    }
+  }
+
+  &Img {
+    display: grid;
+    justify-content: end;
+    img {
+      max-width: 589px;
+    }
+  }
+}

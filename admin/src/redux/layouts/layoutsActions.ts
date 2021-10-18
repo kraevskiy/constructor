@@ -1,30 +1,25 @@
 import { Dispatch } from 'redux';
-import axios from 'axios';
+import Axios from '../../helpers/Axios';
 import { TypesLayout } from '../types';
 import { ActionType } from './layoutsReducer';
+// import { ActionType as ActionTypeLayoutsAll} from '../layoutsAll/layoutsAllReducer';
 import { toast } from 'react-toastify';
 import { decode } from 'jsonwebtoken';
 import { DecodeTokenTypes } from '../redux.types';
+// import { getAllLayouts } from '../layoutsAll/layoutsAllActions';
 
 export const deleteLayout = (id: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
-		const token = localStorage.getItem('auth-token');
 		try {
-			const deletedLayout = await axios.delete(
-				`${process.env.REACT_APP_LAYOUT}/${id}`,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`
-					}
-				}
-			);
+			const deletedLayout = await Axios.delete(`${process.env.REACT_APP_LAYOUT}/${id}`);
+			// dispatch(getAllLayouts({limit: 100}));
 			return dispatch({
 				type: TypesLayout.deleteLayout,
 				payload: [deletedLayout.data]
 			});
 
 		} catch (e) {
-			console.log(e.response);
+			console.log(e);
 			return null;
 		}
 	};
@@ -33,30 +28,16 @@ export const deleteLayout = (id: string) => {
 export const getLayouts = (id?: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const token = localStorage.getItem('auth-token');
+      const token = localStorage.getItem('auth-token');
 			let layouts;
 			if (id) {
-				layouts = await axios.get(
-					`${process.env.REACT_APP_LAYOUT_USER}/${id}`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`
-						}
-					}
-				);
+				layouts = await Axios.get(`${process.env.REACT_APP_LAYOUT_USER}/${id}`);
 			} else {
 				let decodeToken = {_id: ''};
 				if (typeof token === 'string') {
 					decodeToken = decode(token) as DecodeTokenTypes;
 				}
-				layouts = await axios.get(
-					`${process.env.REACT_APP_LAYOUT_USER}/${decodeToken._id}`,
-					{
-						headers: {
-							Authorization: `Bearer ${token}`
-						}
-					}
-				);
+				layouts = await Axios.get(`${process.env.REACT_APP_LAYOUT_USER}/${decodeToken._id}`);
 			}
 
 			return dispatch({
@@ -65,7 +46,6 @@ export const getLayouts = (id?: string) => {
 			});
 
 		} catch (e) {
-			console.log(e.response);
 			return null;
 		}
 	};
@@ -78,16 +58,8 @@ export const createLayouts = (data: {
 	instance: string;
 }) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
-		const token = localStorage.getItem('auth-token');
 		try {
-			const layout = await axios.post(
-				`${process.env.REACT_APP_LAYOUT_CREATE}`, data,
-				{
-					headers: {
-						Authorization: `Bearer ${token}`
-					}
-				}
-			);
+			const layout = await Axios.post(`${process.env.REACT_APP_LAYOUT_CREATE}`, data);
 
 			console.log(layout);
 
@@ -97,10 +69,9 @@ export const createLayouts = (data: {
 			});
 
 		} catch (e) {
-			console.log(e.response);
-			e.response.data.message.map((m: string) => {
-				toast.error(m);
-			});
+			// e.response.data.message.map((m: string) => {
+			// 	toast.error(m);
+			// });
 			return null;
 		}
 	};

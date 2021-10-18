@@ -1,0 +1,21 @@
+.head {
+  display: grid;
+  padding: 20px 30px;
+  grid-template-columns: repeat(2, 280px) 1fr 200px;
+  grid-gap: 10px;
+}
+
+.title {
+  font-size: 15px;
+  font-weight: bold;
+  color: var(--c-white);
+  text-align: center;
+
+  &:first-child {
+    text-align: left;
+  }
+
+  &:last-child {
+    text-align: left;
+  }
+}

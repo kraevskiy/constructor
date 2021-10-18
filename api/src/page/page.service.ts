@@ -20,6 +20,10 @@ export class PageService {
 		return this.pageModel.findById(id).exec();
 	}
 
+	async getBySlug(slag: string): Promise<DocumentType<PageModel> | null> {
+		return this.pageModel.findOne({slag}).exec();
+	}
+
 	async create(dto: PageDto) {
 		const isExistPage = await this.getByFiler({slag: dto.slag});
 		if (isExistPage.length) {
