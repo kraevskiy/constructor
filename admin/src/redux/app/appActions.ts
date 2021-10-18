@@ -25,3 +25,15 @@ export const toggleMenu = () => {
 		return dispatch({type: TypesApp.toggleMenu});
 	};
 };
+
+export const showFooter = () => {
+	return (dispatch: Dispatch<ActionType<TypesApp, StateApp>>): ActionType<TypesApp, StateApp> => {
+		return dispatch({type: TypesApp.showFooter});
+	};
+};
+
+export const hideFooter = () => {
+	return (dispatch: Dispatch<ActionType<TypesApp, StateApp>>): ActionType<TypesApp, StateApp> => {
+		return dispatch({type: TypesApp.hideFooter});
+	};
+};

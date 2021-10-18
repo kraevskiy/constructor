@@ -13,6 +13,8 @@
   "login.email": "Адрес электронной почты",
   "login.password": "Пароль",
   "login.button": "Войти",
+  "registration.title": "Регистрация",
+  "registration.button": "Зарегистрироваться",
   "logout.button": "Выйти",
   "layout.title": "Мой Работы",
   "layoutAll.title": "Все Работы",

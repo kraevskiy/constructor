@@ -13,6 +13,8 @@
   "login.email": "Email address",
   "login.password": "Password",
   "login.button": "Login",
+  "registration.title": "Registration",
+  "registration.button": "Register",
   "logout.button": "Logout",
   "layout.title": "My layouts",
   "layoutAll.title": "All layouts",

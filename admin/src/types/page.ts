@@ -17,7 +17,8 @@ export interface SliderPage {
 	additional?: string;
 }
 
-interface FaqItemsPage {
+export interface FaqItemsPage {
+	_id: string;
 	title?: { [key: string]: string };
 	text?: { [key: string]: string };
 }

@@ -5,27 +5,53 @@ import cn from 'classnames';
 import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Navigation from './Navigation/Navigation';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/rootReducer';
+import { useHistory } from 'react-router-dom';
+import { useEffect } from 'react';
 import { bg } from '../../images';
-
 import cls from './Layout.module.scss';
+import { hideFooter, showFooter } from '../../redux/app/appActions';
+import { paths } from '../../routes/paths';
 
 const Layout = ({children}: LayoutProp): JSX.Element => {
-	const {app: {isOpenMenu}} = useSelector((state: RootState) => state);
+	const {app: {isOpenMenu, showFooter: showFooterState}} = useSelector((state: RootState) => state);
+	const {listen, location: {pathname}} = useHistory();
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (pathname.includes(paths.constructor)) {
+			dispatch(hideFooter());
+		}
+	}, []);
+
+	useEffect(() => {
+		return listen((location) => {
+			if (location.pathname.includes(paths.constructor)) {
+				dispatch(hideFooter());
+			} else {
+				dispatch(showFooter());
+			}
+		});
+	}, [history]);
+
 
 	return (
 		<div className={cn(cls.wrapper, {
 			[cls.overflow]: isOpenMenu
 		})}>
 			<img src={bg} className={cls.bg} alt=""/>
-			<Header className={cn(cls.container, cls.header)}/>
+			<div className="container">
+				<Header className={cn(cls.header)}/>
+			</div>
 			<Navigation/>
 			<main className={cls.body}>
 				{children}
 			</main>
 			<ToastContainer/>
-			<Footer className={cn(cls.container, cls.footer)}/>
+			{
+				showFooterState && <Footer className={cn(cls.footer)}/>
+			}
 		</div>
 	);
 };
