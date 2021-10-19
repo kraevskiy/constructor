@@ -12,10 +12,10 @@ async function bootstrap() {
 	app.setGlobalPrefix('api');
 
 	const config = new DocumentBuilder()
-		.setTitle('Eexample')
-		.setDescription('The API description')
+		.setTitle('Arter Swagger')
+		.setDescription('Swagger for Arter Constructor')
 		.setVersion('1.0')
-		.addTag('constructor')
+		.addTag('Arter')
 		.build();
 	const document = SwaggerModule.createDocument(app, config);
 	SwaggerModule.setup('api', app, document);

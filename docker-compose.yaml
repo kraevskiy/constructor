@@ -4,31 +4,31 @@ services:
     build:
       context: ./client
       dockerfile: Dockerfile
-    container_name: constructor_client
+    container_name: arter-client
     command: npm run start
     restart: unless-stopped
     depends_on:
       - mongo
     networks:
-      - constructor-network
+      - arter-network
 
   admin:
     build:
       context: ./admin
       dockerfile: Dockerfile
-    container_name: constructor_admin
+    container_name: arter-admin
     command: serve -s build -l 3001
     restart: unless-stopped
     depends_on:
       - mongo
     networks:
-      - constructor-network
+      - arter-network
 
   api:
     build:
       context: ./api
       dockerfile: Dockerfile
-    container_name: constructor_api
+    container_name: arter-api
     command: node ./dist/main.js
     restart: unless-stopped
     environment:
@@ -42,13 +42,13 @@ services:
     depends_on:
       - mongo
     networks:
-      - constructor-network
+      - arter-network
     volumes:
       - ./uploads:/opt/app/uploads
 
   mongo:
     image: mongo:4.4.4
-    container_name: constructor_mongo
+    container_name: arter-mongo
     restart: unless-stopped
     environment:
       - MONGO_INITDB_ROOT_USERNAME=admin
@@ -58,12 +58,12 @@ services:
     volumes:
       - ./mongo-data-4.4:/data/db
     networks:
-      - constructor-network
+      - arter-network
     command: --wiredTigerCacheSizeGB 1.5
 
   nginx:
     image: nginx:stable-alpine
-    container_name: constructor_nginx
+    container_name: arter-nginx
     ports:
       - "80:80"
       - "90:90"
@@ -76,11 +76,11 @@ services:
       - client
       - api
     networks:
-      - constructor-network
+      - arter-network
 
 volumes:
   mongodb_api:
 
 networks:
-  constructor-network:
+  arter-network:
     driver: bridge

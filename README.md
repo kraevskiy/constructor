@@ -12,9 +12,9 @@
 
 ### DEV.LOCAL:
 added to `/etc/hosts`:
-* `127.0.0.1 constructor.local` - client(next)
-* `127.0.0.1 admin.constructor.local` -  - admin(react)
-* `127.0.0.1 image.constructor.local` -  - images
+* `127.0.0.1 arter.local` - client(next)
+* `127.0.0.1 admin.arter.local` -  - admin(react)
+* `127.0.0.1 image.arter.local` -  - images
 
 First run or after update packages: `docker-compose -f docker-compose.yaml -f docker-compose.development.yaml up --build`
 
@@ -23,9 +23,9 @@ Then run: `docker-compose -f docker-compose.yaml -f docker-compose.development.y
 ---
 
 ### Console
-docker exec -it constructor_api sh
-docker exec -it constructor_admin sh
-docker exec -it constructor_client sh
+docker exec -it arter-api sh
+docker exec -it arter-admin sh
+docker exec -it arter-client sh
 
 
 

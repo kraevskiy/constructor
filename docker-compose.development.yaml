@@ -21,7 +21,7 @@ services:
       - ./admin/src:/opt/app/src
     environment:
       - PORT=3001
-      - REACT_APP_IMAGE_DOMAIN=http://image.constructor.local
+      - REACT_APP_IMAGE_DOMAIN=http://image.arter.local
 
   api:
     build:

@@ -1,7 +1,7 @@
 server {
 	listen 80;
 
-	server_name constructor.local;
+	server_name arter.local;
 
 	location / {
 		proxy_pass http://client:3000;
@@ -18,8 +18,8 @@ server {
 
 server {
 	listen 80;
-	client_max_body_size 20M;
-	server_name admin.constructor.local;
+	client_max_body_size 50M;
+	server_name admin.arter.local;
 
 	location / {
 		proxy_pass http://admin:3001;
@@ -37,7 +37,7 @@ server {
 server {
 	listen 80;
 
-	server_name image.constructor.local;
+	server_name image.arter.local;
 
 	location / {
 		root /media/uploads;
