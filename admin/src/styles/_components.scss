@@ -25,6 +25,9 @@
   &:hover {
     color: black;
   }
+  @include xs{
+    width: 100%;
+  }
 }
 
 .second {
@@ -40,26 +43,52 @@
 .container {
   padding: 0 10px;
   width: 100%;
-  max-width: 1386px;
+  max-width: 1399px;
   margin: 0 auto;
   box-sizing: border-box;
   position: relative;
-  @include sm {
-    max-width: 540px;
-  }
-  @include md {
-    max-width: 720px;
-  }
-  @include lg {
-    max-width: 960px;
+  @include xxl {
+    max-width: 1199px;
   }
   @include xl {
-    max-width: 1140px;
+    max-width: 991px;
+  }
+  @include lg {
+    max-width: 767px;
+  }
+  @include md {
+    max-width: 575px;
+  }
+  @include sm {
+    max-width: 100vw;
+    width: 100vw;
+  }
+}
+
+.grid {
+  width: 100%;
+  max-width: 1399px;
+  box-sizing: border-box;
+  @include xxl {
+    max-width: 1199px;
+  }
+  @include xl {
+    max-width: 991px;
+  }
+  @include lg {
+    max-width: 767px;
+  }
+  @include md {
+    max-width: 575px;
+  }
+  @include sm {
+    max-width: 100%;
   }
 }
 
 .container .carousel .control-dots {
   margin: 0;
+  bottom: 10px;
   .dot {
     width: 11px;
     height: 11px;

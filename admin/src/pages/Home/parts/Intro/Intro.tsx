@@ -6,6 +6,7 @@ import { regsl } from '../../../../images';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { SliderPage } from '../../../../types/page';
+import { arrow_full } from '../../../../images/icons';
 
 
 export const Intro = ({data, lang}: IntroProps): JSX.Element => {
@@ -32,7 +33,33 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 			<div className={cn('container')}>
 				<Carousel
 					showThumbs={false}
-					showArrows={false}
+					// showArrows={false}
+					renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
+						(
+							<button
+								onClick={clickHandler}
+								className={cn(cls.arrow, cls.arrowPrev, {
+									[cls.fade]: !hasPrev
+								})}
+							>
+								<img
+									alt="slide previous"
+									src={arrow_full} />
+							</button>
+						)}
+					renderArrowNext={(clickHandler, hasNext, labelPrev) =>
+						(
+							<button
+								onClick={clickHandler}
+								className={cn(cls.arrow, cls.arrowNext, {
+									[cls.fade]: !hasNext
+								})}
+							>
+								<img
+									alt="slide next"
+									src={arrow_full} />
+							</button>
+						)}
 					emulateTouch={true}
 					showStatus={false}
 				>

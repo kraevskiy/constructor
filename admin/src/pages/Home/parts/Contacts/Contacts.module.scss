@@ -1,3 +1,5 @@
+@import "src/styles/mixins";
+
 .wrapper {
 
 }
@@ -5,12 +7,28 @@
 .title {
   span {
     font-size: 69px;
+    @include xl {
+      font-size: 50px;
+    }
+    @include md {
+      font-size: 40px;
+    }
+  }
+
+  @include xl {
+    margin-bottom: 15px;
   }
 }
 
 .subtitle {
   font-weight: 500;
   font-size: 35px;
+  @include xl {
+    font-size: 28px;
+  }
+  @include md {
+    font-size: 24px;
+  }
 }
 
 .body {
@@ -18,11 +36,22 @@
   grid-template-columns: auto 350px;
   grid-gap: 115px;
   align-items: center;
+  @include lg {
+    grid-gap: 20px;
+    grid-template-columns: auto 280px;
+  }
+  @include md {
+    grid-gap: 0;
+    grid-template-columns: 1fr;
+  }
 }
 
 .list {
   list-style: none;
   position: relative;
+  @include md {
+    display: none;
+  }
   &:before{
     position: absolute;
     content: '';
@@ -38,6 +67,9 @@
   a {
     font-size: 23px;
     font-weight: 500;
+    @include lg {
+      font-size: 18px;
+    }
   }
 }
 

@@ -1,3 +1,5 @@
+@import "src/styles/mixins";
+
 .wr {
   font-size: 34px;
   padding-bottom: 34px;
@@ -15,6 +17,32 @@
     bottom: 0;
     left: 0;
     z-index: 1;
+  }
+
+  @include xxl {
+    font-size: 32px;
+    padding-bottom: 32px;
+    margin-bottom: 65px;
+  }
+  @include xl {
+    font-size: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 58px;
+  }
+  @include lg {
+    font-size: 28px;
+    padding-bottom: 28px;
+    margin-bottom: 52px;
+  }
+  @include md {
+    font-size: 28px;
+    padding-bottom: 28px;
+    margin-bottom: 52px;
+  }
+  @include sm {
+    font-size: 27px;
+    padding-bottom: 24px;
+    margin-bottom: 42px;
   }
 }
 

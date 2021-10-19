@@ -41,9 +41,7 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 			[cls.overflow]: isOpenMenu
 		})}>
 			<img src={bg} className={cls.bg} alt=""/>
-			<div className="container">
-				<Header className={cn(cls.header)}/>
-			</div>
+			<Header className={cn(cls.header)}/>
 			<Navigation/>
 			<main className={cls.body}>
 				{children}

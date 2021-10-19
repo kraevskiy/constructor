@@ -10,7 +10,7 @@ import { ForwardedRef, forwardRef } from 'react';
 
 const Textarea = forwardRef(({className, error, ...props}: TextareaProps, ref: ForwardedRef<HTMLTextAreaElement>): JSX.Element => {
 	return (
-			<textarea rows={3} className={cn(className, cls.textarea, {
+			<textarea rows={7} className={cn(className, cls.textarea, {
 				[cls.error]: !!error
 			})} ref={ref} {...props}/>
 	);

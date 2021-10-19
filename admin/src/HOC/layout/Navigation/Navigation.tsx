@@ -99,7 +99,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 				[cls.show]: isOpenMenu
 			})}
 		>
-			<div {...props} className={cn(cls.body)}>
+			<div {...props} className={cn('grid', cls.body)}>
 				<nav className={cls.nav}>
 					{isLoggedIn
 						? role === 'admin'

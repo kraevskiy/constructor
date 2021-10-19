@@ -38,17 +38,17 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
     }
   };
 
-  history.listen((location) => {    
+  history.listen((location) => {
     setHasDownload(location.pathname === paths.constructor);
   });
 
-  useEffect(() => {    
+  useEffect(() => {
     setHasDownload(history.location.pathname === paths.constructor);
   }, [history.location]);
 
 	return (
 		<header
-			className={cn(className, cls.header)}
+			className={cn('grid', cls.header, className)}
 			{...props}
 		>
 			<NavLink className={cls.logo} to={paths.index}>

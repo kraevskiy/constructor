@@ -2,6 +2,13 @@
 
 .warpper {
   padding: 150px 0;
+  @include xl {
+    padding-bottom: 90px;
+  }
+  @include md {
+    padding-top: 90px;
+    padding-bottom: 50px;
+  }
 }
 
 .body {
@@ -9,6 +16,10 @@
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 30px;
   align-items: start;
+  @include md {
+    grid-template-columns: 1fr;
+    grid-gap: 20px;
+  }
 }
 
 .list {
@@ -24,6 +35,9 @@
 
   &:not(:last-child) {
     margin-bottom: 31px;
+    @include md {
+      margin-bottom: 20px;
+    }
   }
 }
 

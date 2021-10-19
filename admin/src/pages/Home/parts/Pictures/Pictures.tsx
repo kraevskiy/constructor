@@ -14,7 +14,7 @@ export const Pictures = ({data, lang}: PicturesProps): JSX.Element => {
 				<ul className={cls.list}>
 					{data.items.map(i => (
 						<li key={i._id}>
-							<img src={i.image} alt={i.title?.[lang]}/>
+							<img src={`${process.env.REACT_APP_IMAGE_DOMAIN}${i.image}`} alt={i.title?.[lang]}/>
 							<p>
 								{i.title[lang]}
 							</p>

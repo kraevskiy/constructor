@@ -1,3 +1,5 @@
+@import "src/styles/mixins";
+
 .item {
   display: grid;
   grid-template-columns: repeat(2, 280px) 1fr 200px;
@@ -14,29 +16,93 @@
   }
   &>*:not(:first-child) {
     text-align: center;
+    @include md {
+      text-align: left;
+    }
+  }
+  @include lg {
+    grid-template-columns: repeat(2, 30%) 40%;
+  }
+  @include md {
+    grid-template-columns: 1fr;
   }
 }
 
 .id {
-
+  @include lg {
+    grid-column: 1/2;
+  }
+  @include md {
+    grid-column: 1/2;
+    grid-row: 1/2;
+  }
 }
 
 .create {
+  @include lg {
+    grid-column: 2/3;
+    text-align: center;
 
+  }
+  @include md {
+    grid-column: 1/2;
+    grid-row: 2/3;
+    text-align: left;
+  }
 }
 
 .layouts {
   list-style: none;
   padding: 0;
   margin: 0;
+  @include lg {
+    grid-column: 3/4;
+  }
+  @include md {
+    grid-column: 1/2;
+    grid-row: 3/4;
+  }
   li {
     text-align: left;
+    @include lg {
+      text-align: center;
+    }
+    @include md {
+      text-align: left;
+    }
+  }
+}
+
+.fieldName {
+  display: none;
+  @include md {
+    display: block;
+    margin-right: 10px;
   }
 }
 
 .action {
   button:first-child{
     margin-bottom: 10px;
+    @include lg {
+      margin-bottom: 0;
+      margin-right: 15px;
+    }
+    @include sm {
+      margin-bottom: 15px;
+      margin-right: 0px;
+    }
+  }
+
+  @include lg {
+    padding-top: 20px;
+    grid-column: 1/4;
+    grid-row: 2/3;
+  }
+
+  @include md {
+    grid-column: 1/2;
+    grid-row: 4/5;
   }
 }
 

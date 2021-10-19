@@ -1,8 +1,16 @@
+@import "src/styles/mixins";
+
 .head {
   display: grid;
   padding: 20px 30px;
   grid-template-columns: repeat(2, 280px) 1fr 200px;
   grid-gap: 10px;
+  @include lg {
+    grid-template-columns: repeat(2, 30%) 40%;
+  }
+  @include md {
+    display: none;
+  }
 }
 
 .title {
@@ -13,9 +21,15 @@
 
   &:first-child {
     text-align: left;
+    @include lg {
+      text-align: center;
+    }
   }
 
   &:last-child {
     text-align: left;
+    @include lg {
+      text-align: center;
+    }
   }
 }

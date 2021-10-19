@@ -1,17 +1,33 @@
+@import "src/styles/mixins";
+
 .header {
   padding: 10px 10px;
-  box-sizing: border-box;
   position: relative;
+  margin: 0 auto;
   z-index: 6;
   display: grid;
   grid-template-columns: 190px 1fr auto;
   grid-gap: 25px;
   grid-template-areas: "logo catalog menu";
+  @include md {
+    //width: 100vw !important;
+    //margin: 0;
+    grid-template-columns: 138px 1fr auto;
+  }
+  @include xs {
+    //width: 100vw !important;
+    //margin: 0;
+    grid-gap: 15px;
+  }
 }
 
 .logo {
   grid-area: logo;
   align-self: center;
+  img {
+    display: block;
+    max-width: 100%;
+  }
 }
 
 .catalog {
@@ -44,4 +60,7 @@
   display: grid;
   grid-template-columns: repeat(4, auto);
   align-items: center;
+  @include xs {
+    grid-gap: 5px;
+  }
 }

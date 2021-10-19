@@ -45,7 +45,7 @@ export const GetFields = ({count, nameKey, fields, formMethods}: GetFieldsProps)
 											name={`${nameKey}.${s}.${field}` as keyof ICreatePageFormInterface}
 											render={({field}) => {
 												return <InputFile
-													url={field.value as string}
+													url={`${process.env.REACT_APP_IMAGE_DOMAIN}${field.value} `as string}
 													setValue={field.onChange}
 													ref={field.ref}
 												/>;

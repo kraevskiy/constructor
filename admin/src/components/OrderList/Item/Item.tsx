@@ -11,18 +11,29 @@ const Item = ({
 	createdAt,
 	typeAction,
 	layouts,
-	userName = null
+	userName = null,
+	titles
 }: ItemProps): JSX.Element => {
 	return (
 		<div className={cls.item}>
 			<div className={cls.id}>
-				{id}
-				{userName && (<> / <br/>{userName}</>)}
+				<span className={cls.fieldName}>
+					{titles[0]}:
+				</span>
+				<span>{id}{userName && (<> / <br/>{userName}</>)}</span>
 			</div>
-			<div  className={cls.create}>
+			<div className={cls.create}>
+				<span className={cls.fieldName}>
+					{titles[1]}:
+				</span>
+				<span>
 				{CorrectDate(createdAt)}
+				</span>
 			</div>
-			<ul  className={cls.layouts}>
+			<ul className={cls.layouts}>
+				<li className={cls.fieldName}>
+					{titles[2]}:
+				</li>
 				{
 					layouts.map((l, i) => (
 						<li key={l._id + i}>
@@ -37,13 +48,13 @@ const Item = ({
 				</span>}
 				{typeAction === 'progress' && <Loader color="orange" className={cls.progress}/>}
 				{typeAction === 'delete' && <>
-					<Button>
-						Accept
-					</Button>
-					<Button color="red" onClick={()=>handleDelete(id)}>
-						Delete
-					</Button>
-				</>}
+          <Button>
+            Accept
+          </Button>
+          <Button color="red" onClick={() => handleDelete(id)}>
+            Delete
+          </Button>
+        </>}
 			</div>
 		</div>
 	);

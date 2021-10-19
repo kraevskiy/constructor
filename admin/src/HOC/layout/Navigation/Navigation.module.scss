@@ -1,4 +1,4 @@
-@import './../../../styles/mixins';
+@import 'src/styles/mixins';
 
 .wr {
   background: var(--c-light-dark);
@@ -12,28 +12,22 @@
   display: grid;
   align-items: center;
   z-index: 5;
+  padding: 55px 10px 10px 10px;
 }
 
 
 .body {
-  width: 1386px;
-  margin: 0 auto;
   box-sizing: border-box;
   position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: 1fr auto;
-  @include sm {
-    max-width: 540px
-  }
-  @include md {
-    max-width: 720px
-  }
-  @include lg {
-    max-width: 960px
-  }
-  @include xl {
-    max-width: 1140px
+  margin: 0 auto;
+  align-items: center;
+  @include xs {
+    grid-template-columns: 1fr;
+    grid-gap: 35px;
+    text-align: center;
   }
 }
 
@@ -61,6 +55,12 @@
   font-weight: bold;
   font-size: 70px;
   text-transform: capitalize;
+  @include xl {
+    font-size: 45px;
+  }
+  @include lg {
+    font-size: 30px;
+  }
 }
 
 .activeLink {
@@ -72,6 +72,13 @@
   display: grid;
   grid-gap: 30px;
   grid-template-columns: 1fr 1fr;
+  @include xl {
+    grid-template-columns: 1fr;
+  }
+  @include xs {
+    grid-template-columns: 1fr 1fr;
+  }
+
 
   ul {
     list-style: none;
@@ -81,7 +88,14 @@
     li, a {
       font-weight: normal;
       font-size: 27px;
-      color: var(--c-white)
+      color: var(--c-white);
+      @include lg {
+        font-size: 17px;
+      }
+
+      @include xs {
+        font-size: 14px;
+      }
     }
   }
 }

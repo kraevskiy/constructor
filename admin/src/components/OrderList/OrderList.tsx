@@ -29,6 +29,7 @@ const OrderList = ({orders, typeAction, isShowName = false}: OrderListProps): JS
 			<Header titles={['Order ID/Username', 'Create', 'Layouts']}/>
 			{orders.map(o => (
 				<Item
+					titles={['Order ID/Username', 'Create', 'Layouts']}
 					userName={checkName(o.user)}
 					key={o._id}
 					id={o._id}
