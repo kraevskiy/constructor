@@ -1,0 +1,41 @@
+version: '3'
+services:
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile.dev
+    command: npm run dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./client/:/opt/app
+
+  admin:
+    build:
+      context: ./admin
+      dockerfile: Dockerfile.dev
+    command: npm run start
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./admin/src:/opt/app/src
+    environment:
+      - PORT=3001
+      - REACT_APP_IMAGE_DOMAIN=http://image.constructor.local
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    command: npm run start:dev
+    stdin_open: true
+    tty: true
+    volumes:
+      - ./api/src:/opt/app/src
+
+  nginx:
+    volumes:
+      - ./nginx/nginx.conf.dev:/etc/nginx/conf.d/nginx.conf
+
+volumes:
+  mongodb_api:

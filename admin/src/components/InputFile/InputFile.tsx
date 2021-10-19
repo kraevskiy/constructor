@@ -51,32 +51,35 @@ const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: F
 					onImageUpload,
 					isDragging,
 					dragProps,
-				}) => (
-					<div className={cls.body}>
-						{imageList.length < 1 && <>
-              <button
-                type="button"
-								className={cn('btn btn-icon', cls.btn)}
-                style={isDragging ? {color: 'red'} : undefined}
-                onClick={onImageUpload}
-								{...dragProps}
-              >
-                <img src={logoutIcon} alt=""/>
-              </button>
-						</>}
-						{
-							imageList.length === 0 && <img src={url} alt="" width="100"/>
-						}
-						{imageList.map((image, index) => (
-							<div key={index} className="image-item">
-								<img src={image['dataURL']} alt="" width="100"/>
-								<div className="image-item__btn-wrapper">
-									<button type="button" className={cn('btn btn-icon', cls.btn)} onClick={uploadImg}><img src={logoutIcon} alt=""/></button>
+				}) => {
+					console.log('imageList', imageList);
+					return (
+						<div className={cls.body}>
+							{imageList.length < 1 && <>
+                <button
+                  type="button"
+                  className={cn('btn btn-icon', cls.btn)}
+                  style={isDragging ? {color: 'red'} : undefined}
+                  onClick={onImageUpload}
+									{...dragProps}
+                >
+                  <img src={logoutIcon} alt=""/>
+                </button>
+              </>}
+							{
+								imageList.length === 0 && <img src={url} alt="" width="100"/>
+							}
+							{imageList.map((image, index) => (
+								<div key={index} className="image-item">
+									<img src={image['dataURL']} alt="" width="100"/>
+									<div className="image-item__btn-wrapper">
+										<button type="button" className={cn('btn btn-icon', cls.btn)} onClick={uploadImg}><img src={logoutIcon} alt=""/></button>
+									</div>
 								</div>
-							</div>
-						))}
-					</div>
-				)}
+							))}
+						</div>
+					);
+				}}
 			</ImageUploading>
 		</div>
 	);
