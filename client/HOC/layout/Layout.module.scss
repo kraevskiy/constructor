@@ -1,0 +1,74 @@
+@import "./../../styles/mixins";
+
+.wrapper {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header"
+    "body"
+    "footer";
+}
+
+.container {
+  padding: 0 10px;
+  // background-color: green;
+  width: 100%;
+  // max-width: 1386px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  position: relative;
+  @include sm {
+    max-width: 540px;
+  }
+  @include md {
+    max-width: 720px;
+  }
+  @include lg {
+    max-width: 960px;
+  }
+  @include xl {
+    max-width: 1140px;
+  }
+}
+
+.overflow {
+  overflow: hidden;
+  max-height: 100vh;
+}
+
+.bg {
+  position: absolute;
+  right: -5vw;
+  bottom: -33vh;
+  z-index: 0;
+  @include xl {
+    right: -15vw;
+    bottom: -43vh;
+    width: 65vw;
+  }
+  @include lg {
+    right: -15vw;
+    bottom: -43vh;
+    width: 80vw;
+  }
+  @include md {
+    right: -25vw;
+    bottom: -23vh;
+    width: 90vw;
+  }
+}
+
+.header {
+  grid-area: header;
+}
+
+.body {
+  grid-area: body;
+}
+
+.footer {
+  grid-area: footer;
+}

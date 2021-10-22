@@ -11,7 +11,7 @@ import { motion } from 'framer-motion';
 
 const Navigation = ({...props}: NavigationProps): JSX.Element => {
 	const {t} = useTranslation();
-	const {user: {isLoggedIn, role}, app: {isOpenMenu}} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn, role}, app: {isOpenMenu}, page: {contacts}} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
 
 	const variants = {
@@ -91,6 +91,13 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 		);
 	};
 
+	const getPartContacts = (items: typeof contacts['items'], part: 1 | 2 = 1): typeof contacts['items'] => {
+		const delimiter = Math.floor(items.length / 2);
+		return part === 1
+			? items.slice(part - 1, delimiter)
+			: items.slice(delimiter, items.length);
+	};
+
 	return (
 		<motion.div
 			variants={variants}
@@ -109,26 +116,26 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 				</nav>
 				<div className={cls.address}>
 					<ul className={cls.emailList}>
-						<li>
-							info@arter.com
-						</li>
-						<li>
-							support@arter.com
-						</li>
-						<li>
-							www.arter.com
-						</li>
+						{
+							contacts?.items && getPartContacts(contacts.items).map((item) =>
+								<li key={item._id}>
+									<a href={item.link}>
+										{item.showLink}
+									</a>
+								</li>
+							)
+						}
 					</ul>
 					<ul>
-						<li className={cls.phoneList}>
-							+380 093 414 20 16
-						</li>
-						<li>
-							+380 093 414 20 16
-						</li>
-						<li>
-							+380 093 414 20 16
-						</li>
+						{
+							contacts?.items && getPartContacts(contacts.items, 2).map((item) =>
+								<li key={item._id}>
+									<a href={item.link}>
+										{item.showLink}
+									</a>
+								</li>
+							)
+						}
 					</ul>
 				</div>
 			</div>

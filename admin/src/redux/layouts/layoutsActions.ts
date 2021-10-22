@@ -76,3 +76,12 @@ export const createLayouts = (data: {
 		}
 	};
 };
+
+export const clearLayouts = () => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+		return dispatch({
+			type: TypesLayout.clearLayout,
+			payload: []
+		});
+	};
+};

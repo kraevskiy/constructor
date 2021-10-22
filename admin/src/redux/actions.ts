@@ -6,3 +6,4 @@ export * from "./ordersAll/ordersAllActions";
 export * from "./layoutsAll/layoutsAllActions";
 export * from "./userAll/userAllActions";
 export * from "./editor/editorActions";
+export * from "./page/pageAction";

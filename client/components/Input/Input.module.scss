@@ -1,0 +1,25 @@
+.label {
+
+}
+
+.input {
+  box-sizing: border-box;
+  box-shadow: none;
+  border: none;
+  font-size: 19px;
+  color: var(--c-white);
+  background: none;
+  border-bottom: 2px solid var(--c-white);
+  width: 100%;
+  padding: 10px 0;
+  outline: var(--c-violet);
+}
+
+.error {
+  color: var(--c-red);
+  border-bottom: 2px solid var(--c-red);
+
+  &::placeholder {
+    color: var(--c-red) !important;
+  }
+}

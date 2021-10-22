@@ -19,7 +19,7 @@ export class FilesService {
 				.replace(/ /g,'_')
 				.replace(/[{()}]/g,'_');
 			await writeFile(`${uploadFolder}/${name}`, file.buffer);
-			res.push({url: `/${id}/${dateFolder}/${name}`, name: name});
+			res.push({url: `/uploads/${id}/${dateFolder}/${name}`, name: name});
 		}
 		return res;
 	}

@@ -1,6 +1,4 @@
-import { useState, useEffect } from 'react';
-import { logout } from '../../../redux/user/userActions';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,15 +9,13 @@ import { HeaderProps } from './Header.props';
 import { LanguageSwitcher, Burger } from '../../../components/';
 import { logo } from '../../../images';
 import { logout as logoutIcon } from '../../../images/icons';
-import { toggleMenu } from '../../../redux/app/appActions';
 import download from "downloadjs";
+import { clearOrders, clearLayouts, toggleMenu, logout, clearAllLayouts } from '../../../redux/actions';
 
 const Header = ({className, ...props}: HeaderProps): JSX.Element => {
-  const history = useHistory();
 	const {i18n} = useTranslation();
-	const {user: {isLoggedIn}, app: {isOpenMenu}, editor: { instance }} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn}, app: {isOpenMenu, showDownloadBtn}, editor: { instance }} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch();
-  const [hasDownload, setHasDownload] = useState<boolean>(false);
 
 	const handleChangeLanguage = (lang: string) => {
 		localStorage.setItem('userLanguage', lang);
@@ -38,14 +34,6 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
     }
   };
 
-  history.listen((location) => {
-    setHasDownload(location.pathname === paths.constructor);
-  });
-
-  useEffect(() => {
-    setHasDownload(history.location.pathname === paths.constructor);
-  }, [history.location]);
-
 	return (
 		<header
 			className={cn('grid', cls.header, className)}
@@ -61,10 +49,15 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 			<div className={cls.menu}>
 				<Burger active={isOpenMenu} onClick={handleShowMenu}/>
 				{isLoggedIn &&
-        <button className="btn btn-icon" onClick={() => dispatch(logout())}>
+        <button className="btn btn-icon" onClick={() => {
+					dispatch(logout());
+					dispatch(clearOrders());
+					dispatch(clearLayouts());
+					dispatch(clearAllLayouts());
+				}}>
           <img src={logoutIcon} alt=""/>
 				</button>}
-        {(isLoggedIn && hasDownload) && (
+        {(isLoggedIn && showDownloadBtn) && (
           <button className="btn second" onClick={() => DownloadCanvas()}>
             {/* {t("logout.button")} */}
             {"Download"}

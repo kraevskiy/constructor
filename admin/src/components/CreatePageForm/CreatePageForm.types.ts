@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
-import { ICreatePageFormInterface } from './CreatePageForm.interface';
+import { StatePage } from '../../redux/redux.types';
 
 export interface CreatePageFormTypes extends DetailedHTMLProps<HTMLAttributes<HTMLFormElement>, HTMLFormElement>{
-	defaultData?: ICreatePageFormInterface
+	defaultData: StatePage
 }

@@ -22,7 +22,7 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 					</div>
 				</div>
 				<div className={cls.slideImg}>
-					<img src={`${process.env.REACT_APP_IMAGE_DOMAIN}${slideData.image}`} alt={slideData.title?.[lang]}/>
+					<img src={slideData.image} alt={slideData.title?.[lang]}/>
 				</div>
 			</div>
 		);

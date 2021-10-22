@@ -1,0 +1,109 @@
+@import './../../../styles/mixins';
+
+.wr {
+  background: var(--c-light-dark);
+  //opacity: 0;
+  visibility: hidden;
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  align-items: center;
+  z-index: 5;
+  padding: 55px 10px 10px 10px;
+}
+
+
+.body {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  margin: 0 auto;
+  align-items: center;
+  @include xs {
+    grid-template-columns: 1fr;
+    grid-gap: 35px;
+    text-align: center;
+  }
+}
+
+.show {
+  //opacity: 1;
+  visibility: visible;
+}
+
+.nav {
+
+}
+
+
+.list {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.item {
+
+}
+
+.link {
+  font-weight: bold;
+  font-size: 70px;
+  text-transform: capitalize;
+  @include xl {
+    font-size: 45px;
+  }
+  @include lg {
+    font-size: 30px;
+  }
+}
+
+.activeLink {
+  color: var(--c-orange);
+}
+
+.address {
+  align-items: center;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: 1fr 1fr;
+  @include xl {
+    grid-template-columns: 1fr;
+  }
+  @include xs {
+    grid-template-columns: 1fr 1fr;
+  }
+
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li, a {
+      font-weight: normal;
+      font-size: 27px;
+      color: var(--c-white);
+      @include lg {
+        font-size: 17px;
+      }
+
+      @include xs {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.emailList {
+
+}
+
+.phoneList {
+
+}

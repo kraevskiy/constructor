@@ -1,5 +1,6 @@
 import { TypesUser } from '../types';
 import { Dispatch } from 'redux';
+import { useDispatch } from 'react-redux';
 import Axios from '../../helpers/Axios';
 import { DecodeTokenTypes, StateUser } from '../redux.types';
 import { ActionType } from '../redux.types';
@@ -8,6 +9,9 @@ import { decode } from 'jsonwebtoken';
 import { IEditUserFormInterface } from '../../components/EditUserForm/EditUserForm.interface';
 import { ILoginFormInterface } from '../../components/LoginForm/LoginForm.interface';
 import { IRegistrationFormInterface } from '../../components/RegistrationForm/RegistrationForm.interface';
+import { clearOrders } from '../orders/ordersActions';
+import { clearLayouts } from '../layouts/layoutsActions';
+import { clearAllLayouts } from '../layoutsAll/layoutsAllActions';
 
 export const login = (data: ILoginFormInterface) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {

@@ -1,4 +1,5 @@
 import { TypesApp, TypesUser } from './types';
+import { AdvantagesPage, ContactsPage, FaqPage, HeaderPage, PicturesPage, SeoPage, SliderPage, SouvenirsPage } from '../types/page';
 
 export interface StateUserOrderLayout {
 	title: string;
@@ -86,6 +87,20 @@ export interface StateApp {
 	isOpenCatalog: boolean;
 	isOpenMenu: boolean;
 	showFooter: boolean;
+	showDownloadBtn: boolean;
+}
+
+export interface StatePage {
+	_id: string;
+	slag: string;
+	seo: SeoPage;
+	header: HeaderPage;
+	slides: SliderPage[];
+	souvenirs: SouvenirsPage;
+	pictures: PicturesPage;
+	advantages: AdvantagesPage;
+	contacts: ContactsPage;
+	faqs: FaqPage;
 }
 
 export interface ActionType<T = TypesUser | TypesApp, P = StateUser | StateApp> {

@@ -39,13 +39,13 @@ export const GetFields = ({count, nameKey, fields, formMethods}: GetFieldsProps)
 									? <Input
 										{...register(getLanguageField(`${nameKey}.${s}.${field}`, langField))}
 									/>
-									: field === 'image'
+									: field === 'image' || field === 'icon'
 										? <Controller
 											control={control}
 											name={`${nameKey}.${s}.${field}` as keyof ICreatePageFormInterface}
 											render={({field}) => {
 												return <InputFile
-													url={`${process.env.REACT_APP_IMAGE_DOMAIN}${field.value} `as string}
+													url={field.value as string}
 													setValue={field.onChange}
 													ref={field.ref}
 												/>;

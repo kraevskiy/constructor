@@ -25,3 +25,12 @@ export const getAllLayouts = (filter?: {
 		}
 	};
 };
+
+export const clearAllLayouts = () => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+		return dispatch({
+			type: TypesLayoutAll.clearLayoutsAll,
+			payload: []
+		});
+	};
+};

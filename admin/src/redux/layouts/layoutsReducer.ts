@@ -16,6 +16,8 @@ export const layoutsReducer = (state = initialState, action: ActionType): StateU
 			return [...state, action.payload[0]];
 		case TypesLayout.getLayouts:
 			return action.payload;
+		case TypesLayout.clearLayout:
+			return [];
 		default:
 			return state;
 	}

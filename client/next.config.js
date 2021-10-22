@@ -1,5 +1,7 @@
 module.exports = {
-  webpack5: false,
+  images: {
+    domains: ['admin.arter.local'],
+  },
   i18n: {
     defaultLocale: 'ru',
     locales: ['en', 'ru'],

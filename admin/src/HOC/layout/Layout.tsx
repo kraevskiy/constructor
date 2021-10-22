@@ -11,7 +11,7 @@ import { useHistory } from 'react-router-dom';
 import { useEffect } from 'react';
 import { bg } from '../../images';
 import cls from './Layout.module.scss';
-import { hideFooter, showFooter } from '../../redux/app/appActions';
+import { hideDownloadBtn, hideFooter, showDownloadBtn, showFooter } from '../../redux/app/appActions';
 import { paths } from '../../routes/paths';
 
 const Layout = ({children}: LayoutProp): JSX.Element => {
@@ -20,20 +20,27 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
+		console.log(11111);
+
 		if (pathname.includes(paths.constructor)) {
+			console.log(2222);
 			dispatch(hideFooter());
+			dispatch(showDownloadBtn());
 		}
 	}, []);
 
 	useEffect(() => {
+		console.log(333333);
 		return listen((location) => {
 			if (location.pathname.includes(paths.constructor)) {
 				dispatch(hideFooter());
+				dispatch(showDownloadBtn());
 			} else {
 				dispatch(showFooter());
+				dispatch(hideDownloadBtn());
 			}
 		});
-	}, [history]);
+	}, [pathname]);
 
 
 	return (

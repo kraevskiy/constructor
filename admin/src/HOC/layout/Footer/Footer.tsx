@@ -7,11 +7,11 @@ import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../redux/rootReducer';
-import { mail, phone, globe, facebook, instagram, youtube } from './../../../images/icons';
+import { facebook, instagram, youtube } from './../../../images/icons';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 	const {t} = useTranslation();
-	const {user: {isLoggedIn}} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn}, page: {contacts}} = useSelector((state: RootState) => state);
 
 	const userLink = () => {
 		return (
@@ -57,7 +57,13 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 		);
 	};
 
-	console.log(className);
+	const getPartContacts = (items: typeof contacts['items'], part: 1 | 2 = 1): typeof contacts['items'] => {
+		const delimiter = Math.floor(items.length / 2);
+		return part === 1
+			? items.slice(part - 1, delimiter)
+			: items.slice(delimiter, items.length);
+	};
+
 	return (
 		<div className="container">
 			<footer
@@ -81,28 +87,28 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					</div>
 					<div className={cls.email}>
 						<ul>
-							<li>
-								<img src={mail} alt=""/>info@arter.com
-							</li>
-							<li>
-								<img src={mail} alt=""/>support@arter.com
-							</li>
-							<li>
-								<img src={globe} alt=""/>www.arter.com
-							</li>
+							{
+								contacts?.items && getPartContacts(contacts.items).map((item) =>
+									<li key={item._id}>
+										<a href={item.link}>
+											<img src={item.icon} alt=""/>{item.showLink}
+										</a>
+									</li>
+								)
+							}
 						</ul>
 					</div>
 					<div className={cls.phone}>
 						<ul>
-							<li className={cls.phoneList}>
-								<img src={phone} alt=""/> +380 093 414 20 16
-							</li>
-							<li>
-								<img src={phone} alt=""/> +380 093 414 20 16
-							</li>
-							<li>
-								<img src={phone} alt=""/> +380 093 414 20 16
-							</li>
+							{
+								contacts?.items && getPartContacts(contacts.items, 2).map((item) =>
+									<li key={item._id}>
+										<a href={item.link}>
+											<img src={item.icon} alt=""/>{item.showLink}
+										</a>
+									</li>
+								)
+							}
 						</ul>
 					</div>
 				</div>

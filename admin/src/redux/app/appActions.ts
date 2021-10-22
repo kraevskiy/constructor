@@ -37,3 +37,15 @@ export const hideFooter = () => {
 		return dispatch({type: TypesApp.hideFooter});
 	};
 };
+
+export const showDownloadBtn = () => {
+	return (dispatch: Dispatch<ActionType<TypesApp, StateApp>>): ActionType<TypesApp, StateApp> => {
+		return dispatch({type: TypesApp.showDownloadBtn});
+	};
+};
+
+export const hideDownloadBtn = () => {
+	return (dispatch: Dispatch<ActionType<TypesApp, StateApp>>): ActionType<TypesApp, StateApp> => {
+		return dispatch({type: TypesApp.hideDownloadBtn});
+	};
+};

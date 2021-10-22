@@ -15,6 +15,8 @@ export const orderReducer = (state = initialState, action: ActionType): StateUse
 			return [...state, action.payload[0]];
 		case TypesOrder.getOrders:
 			return action.payload;
+		case TypesOrder.clearOrder:
+			return [];
 		default:
 			return state;
 	}

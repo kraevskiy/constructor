@@ -71,3 +71,12 @@ export const deleteOrders = (id: string) => {
 	};
 };
 
+export const clearOrders = () => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+		return dispatch({
+			type: TypesOrder.clearOrder,
+			payload: []
+		});
+	};
+};
+

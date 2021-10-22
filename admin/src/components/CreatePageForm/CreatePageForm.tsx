@@ -10,8 +10,11 @@ import cn from 'classnames';
 import { useTranslation } from 'react-i18next';
 import { getLanguageField } from './getLanguageField';
 import { GetFields } from './GetFields/GetFields';
+import { useDispatch } from 'react-redux';
+import { editPageById } from '../../redux/page/pageAction';
 
 const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
+	const dispatch = useDispatch();
 	const {t} = useTranslation('setting');
 	const {langField} = useContext(SettingPageContext);
 	const formMethods = useForm<ICreatePageFormInterface>({
@@ -50,9 +53,7 @@ const CreatePageForm = ({defaultData}: CreatePageFormTypes): JSX.Element => {
 	});
 
 	const onSubmit = async (data: ICreatePageFormInterface) => {
-		const page = await Axios.patch(`${process.env.REACT_APP_PAGE}/616d544c5c80eb002b186be0`, data);
-		console.log(page);
-		console.log(data);
+		dispatch(editPageById(defaultData._id, data));
 	};
 
 	const pushCount = (name: number[], setName: Dispatch<SetStateAction<number[]>>) => {

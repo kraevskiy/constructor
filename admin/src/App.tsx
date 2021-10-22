@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './redux/rootReducer';
 import { ThunkDispatch } from 'redux-thunk';
 import { ActionType } from './redux/redux.types';
-import { getOrders, showLoader, hideLoader, getLayouts, autoLogin, getAllLayouts, getAllOrders, getAllUsers } from './redux/actions';
+import { getOrders, showLoader, hideLoader, getLayouts, autoLogin, getAllLayouts, getAllOrders, getAllUsers, getPageBySlug } from './redux/actions';
 import Loader from './components/Loader/Loader';
 
 const Routes = lazy(() => import('./routes/Routes'));
@@ -12,6 +12,11 @@ const Routes = lazy(() => import('./routes/Routes'));
 const App = (): JSX.Element => {
 	const {app, user: {isLoggedIn, initAutologin, _id, role}} = useSelector((state: RootState) => state);
 	const dispatch = useDispatch<ThunkDispatch<RootState, null, ActionType>>();
+
+	useEffect(() => {
+		dispatch(getPageBySlug('home'));
+	}, []);
+
 
 	useEffect(() => {
 		if (initAutologin) return;

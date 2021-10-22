@@ -1,18 +1,14 @@
-import useFetch from '../../hooks/useFetch';
-import { useEffect } from 'react';
 import cls from './Home.module.scss';
 import { PageResponse } from '../../types/page';
 import { Intro, Pictures, Souvenirs, Advantages, Contacts, Faqs } from './parts/';
 import Loader from '../../components/Loader/Loader';
 import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/rootReducer';
 
 const Home = (): JSX.Element => {
-	const [{response, isLoading}, doFetch] = useFetch<PageResponse>('/api/page/slag/home');
 	const {i18n} = useTranslation();
-
-	useEffect(() => {
-		doFetch();
-	}, [doFetch, i18n.language]);
+	const {page, app: {loading}} = useSelector((state: RootState) => state);
 
 	const Body = ({res}: { res: PageResponse }) => (
 		<>
@@ -25,12 +21,11 @@ const Home = (): JSX.Element => {
 		</>
 	);
 
-	console.log(response);
 
 	return (
 		<div className={cls.home}>
-			{isLoading && <Loader/>}
-			{response && Object.keys(response).length && !isLoading && <Body res={response}/>}
+			{loading && <Loader/>}
+			{(!loading && page.slag.length > 0) && <Body res={page}/>}
 		</div>
 	);
 };

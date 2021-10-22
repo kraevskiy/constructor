@@ -6,6 +6,7 @@ const initialState: StateApp = {
 	isOpenCatalog: false,
 	isOpenMenu: false,
 	showFooter: true,
+	showDownloadBtn: false
 };
 
 export const appReducer = (state = initialState, action: ActionType<TypesApp, StateApp>): StateApp => {
@@ -33,6 +34,14 @@ export const appReducer = (state = initialState, action: ActionType<TypesApp, St
 		case TypesApp.hideFooter:
 			return {
 				...state, showFooter: false
+			};
+		case TypesApp.showDownloadBtn:
+			return {
+				...state, showDownloadBtn: true
+			};
+		case TypesApp.hideDownloadBtn:
+			return {
+				...state, showDownloadBtn: false
 			};
 		default:
 			return state;

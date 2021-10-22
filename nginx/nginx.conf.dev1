@@ -1,0 +1,45 @@
+server {
+	listen 80;
+	server_name arter.local;
+
+
+
+	location /uploads {
+		root /media;
+		try_files $uri $uri/;
+	}
+
+
+	location / {
+		proxy_pass http://client:3000;
+		# Needed for sockets
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+	}
+}
+
+server {
+	listen 80;
+	client_max_body_size 50M;
+	server_name admin.arter.local;
+
+	location /api {
+		proxy_pass http://api:3002;
+	}
+
+	location /uploads {
+		root /media;
+		try_files $uri $uri/;
+	}
+
+	location / {
+		proxy_pass http://admin:3001;
+		# Needed for sockets
+		proxy_http_version 1.1;
+		proxy_set_header Upgrade $http_upgrade;
+		proxy_set_header Connection "upgrade";
+	}
+
+}
+

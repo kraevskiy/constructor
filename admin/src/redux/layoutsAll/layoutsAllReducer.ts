@@ -12,6 +12,8 @@ export const layoutsAllReducer = (state = initialState, action: ActionType): Sta
 	switch (action.type) {
 		case TypesLayoutAll.getLayoutsAll:
 			return action.payload;
+		case TypesLayoutAll.clearLayoutsAll:
+			return [];
 		default:
 			return state;
 	}

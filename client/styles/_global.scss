@@ -1,0 +1,288 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Bungee+Shade&family=Fredoka+One&family=Galada&family=Holtwood+One+SC&family=Indie+Flower&family=Modak&family=Montserrat+Subrayada:wght@400;700&family=MuseoModerno:wght@100;200;300;400;500;600;700;800;900&family=Orbitron:wght@400;500;600;700;800;900&family=Permanent+Marker&family=Yellowtail&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Gabriela&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ballet&family=Bebas+Neue&family=Oi&display=swap");
+
+:root {
+  --c-darker: #343434;
+  --c-dark: #2e232a;
+  --c-white: #ffffff;
+  --c-grey: #a8a8a8;
+  --c-dark-grey: #454545;
+  --c-light-dark: #343434;
+  --c-orange: #fe6305;
+  --c-yellow: #ffa006;
+  --c-red: #c22929;
+  --c-dark-red: #7b2b2b;
+  --c-blue: #0077f0;
+  --c-green: #3bc229;
+  --c-dark-green: #2b7b2b;
+  --c-violet: #7600ff;
+  --grad-blue: linear-gradient(to right, var(--c-violet) 50%, var(--c-blue));
+  --grad-green: linear-gradient(
+    to right,
+    var(--c-dark-green) 50%,
+    var(--c-green)
+  );
+  --grad-red: linear-gradient(to right, var(--c-dark-red) 50%, var(--c-red));
+  --grad-orange: linear-gradient(
+    to right,
+    var(--c-yellow) 50%,
+    var(--c-orange)
+  );
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+
+  background: #f1f1f1;
+
+  font-family: var(--f-main), sans-serif;
+  background: var(--c-dark);
+  color: var(--c-white);
+}
+
+a {
+  text-decoration: none;
+
+  color: inherit;
+}
+
+a,
+button {
+  &:hover {
+    @include md-min {
+      cursor: pointer;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.visualyHidden {
+  position: absolute;
+
+  overflow: hidden;
+
+  width: 0;
+  height: 0;
+}
+
+//:root {
+//  --black: #3B434E;
+//  --grey-light: #EBEBEB;
+//  --grey: #A4A4A4;
+//  --grey-dark: #696D74;
+//  --white: #FFF;
+//  --primary: #704FEF;
+//  --primary-hover: #4F20F3;
+//  --red: #FC836D;
+//  --red-light: rgba(250, 181, 168, 0.32);
+//  --green: #007B48;
+//  --green-light: #C8F8E4;
+//  --font-family: 'Noto Sans KR', sans-serif;
+//}
+
+main {
+  display: block;
+}
+
+h1 {
+  margin: 0.67em 0;
+
+  font-size: 2em;
+}
+
+hr {
+  overflow: visible; /* 2 */
+
+  box-sizing: content-box; /* 1 */
+  height: 0; /* 1 */
+}
+
+pre {
+  font-family: monospace; /* 1 */
+  font-size: 1em; /* 2 */
+}
+
+blockquote {
+  margin: 0;
+}
+
+abbr[title] {
+  text-decoration: underline; /* 2 */
+  text-decoration: underline dotted; /* 2 */
+
+  border-bottom: none; /* 1 */
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace; /* 1 */
+  font-size: 1em; /* 2 */
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+  font-family: "Bangers", cursive;
+  font-family: "Bungee Shade", cursive;
+  font-family: "Fredoka One", cursive;
+  font-family: "Galada", cursive;
+  font-family: "Holtwood One SC", serif;
+  font-family: "Indie Flower", cursive;
+  font-family: "Modak", cursive;
+  font-family: "Montserrat Subrayada", sans-serif;
+  font-family: "MuseoModerno", cursive;
+  font-family: "Permanent Marker", cursive;
+  font-family: "Yellowtail", cursive;
+  font-family: "Orbitron", sans-serif;
+  font-family: "Gabriela", serif;
+  font-family: "Oi", cursive;
+  font-family: "Ballet", cursive;
+  font-family: "Bebas Neue", cursive;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  position: relative;
+
+  vertical-align: baseline;
+
+  font-size: 75%;
+  line-height: 0;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+img {
+  border-style: none;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  margin: 0; /* 2 */
+
+  font-family: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  line-height: 1.15; /* 1 */
+}
+
+button,
+input {
+  /* 1 */
+  overflow: visible;
+}
+
+button,
+select {
+  /* 1 */
+  text-transform: none;
+}
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+
+  border-style: none;
+}
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
+
+fieldset {
+  padding: 0.35em 0.75em 0.625em;
+}
+
+legend {
+  display: table; /* 1 */
+
+  box-sizing: border-box; /* 1 */
+  max-width: 100%; /* 1 */
+  padding: 0; /* 3 */
+
+  white-space: normal; /* 1 */
+
+  color: inherit; /* 2 */
+}
+
+progress {
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type="checkbox"],
+[type="radio"] {
+  box-sizing: border-box; /* 1 */
+  padding: 0; /* 2 */
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type="search"] {
+  -webkit-appearance: textfield; /* 1 */
+
+  outline-offset: -2px; /* 2 */
+}
+
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+details {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+.flex1 {
+  flex: 1;
+}

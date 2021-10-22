@@ -7,8 +7,10 @@ import { layoutsAllReducer } from "./layoutsAll/layoutsAllReducer";
 import { orderAllReducer } from "./ordersAll/ordersAllReducer";
 import { userAllReducer } from "./userAll/userAllReducer";
 import { editorReducer } from "./editor/editorReducer";
+import { pageReducer } from './page/pageReducer';
 
 export const rootReducer = combineReducers({
+  page: pageReducer,
   user: userReducer,
   app: appReducer,
   layouts: layoutsReducer,

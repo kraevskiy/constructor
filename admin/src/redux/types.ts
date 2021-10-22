@@ -1,3 +1,6 @@
+import { hideDownloadBtn, showDownloadBtn } from './app/appActions';
+import { editPageById } from './page/pageAction';
+
 export enum TypesUser {
   createUser = "USER/CREATE_USER",
   editUser = "USER/EDIT_USER",
@@ -20,6 +23,7 @@ export enum TypesOrder {
   createOrder = "ORDER/CREATE_ORDER",
   deleteOrder = "ORDER/DELETE_ORDER",
   editOrder = "ORDER/EDIT_ORDER",
+  clearOrder = "ORDER/CLEAR_ORDER",
 }
 
 export enum TypesLayout {
@@ -27,10 +31,17 @@ export enum TypesLayout {
   createLayout = "LAYOUT/CREATE_LAYOUT",
   deleteLayout = "LAYOUT/DELETE_LAYOUT",
   editLayout = "LAYOUT/EDIT_LAYOUT",
+  clearLayout = "LAYOUT/CLEAR_LAYOUT",
 }
 
 export enum TypesLayoutAll {
   getLayoutsAll = "LAYOUTS/GET_ALL",
+  clearLayoutsAll = "LAYOUTS/CLEAR_ALL",
+}
+
+export enum TypesPage {
+  getBySlug = "PAGE/GET_BY_SLUG",
+  editById = "PAGE/EDIT_BY_ID"
 }
 
 export enum TypesApp {
@@ -39,7 +50,9 @@ export enum TypesApp {
   toggleCatalog = "APP/TOGGLE_CATALOG",
   toggleMenu = "APP/TOGGLE_MENU",
   showFooter = "APP/SHOW_FOOTER",
-  hideFooter = "APP/HIDE_FOOTER"
+  hideFooter = "APP/HIDE_FOOTER",
+  showDownloadBtn = "APP/SHOW_DOWNLOAD_BUTTON",
+  hideDownloadBtn = "APP/HIDE_DOWNLOAD_BUTTON"
 }
 
 export enum TypesEditor {

@@ -5,6 +5,8 @@ import { createContext, Dispatch, SetStateAction, useEffect, useState } from 're
 import { LanguagesTypes } from '../../types/languages';
 import { useTranslation } from 'react-i18next';
 import LanguageSwitcher from '../../components/LanguageSwitcher/LanguageSwitcher';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/rootReducer';
 
 const initialState: {
 	langField: LanguagesTypes,
@@ -19,14 +21,7 @@ export const SettingPageContext = createContext(initialState);
 const SettingPage = (): JSX.Element => {
 	const tr = useTranslation('setting');
 	const [langField, setLangField] = useState<LanguagesTypes>(tr.i18n.options.lng as LanguagesTypes);
-	const apiUrl = `${process.env.REACT_APP_PAGE}`;
-	const [{response, isLoading}, doFetch] = useFetch<ICreatePageFormInterface[]>(apiUrl);
-
-	useEffect(() => {
-		doFetch({
-			method: 'POST'
-		});
-	}, [doFetch, langField]);
+	const {page, app: {loading}} = useSelector((state: RootState) => state);
 
 	const handleChangeEditLanguage = (e: LanguagesTypes) => setLangField(e);
 
@@ -37,7 +32,6 @@ const SettingPage = (): JSX.Element => {
 		</>
 	);
 
-	// +380 093 414 20 16 +380 093 414 20 16 +380 093 414 20 16 info@arter.com support@arter.com www.arter.com
 	return (
 		<SettingPageContext.Provider
 			value={{langField, setLangField}}
@@ -47,7 +41,7 @@ const SettingPage = (): JSX.Element => {
 					paddingTop="small"
 					text={<GetHandlerChangeLanguage/>}
 				>Setting page </PageHead>
-				{response?.length && !isLoading && <CreatePageForm defaultData={response[0]}/>}
+				{(!loading && page.slag.length > 0) && <CreatePageForm defaultData={page}/>}
 			</div>
 		</SettingPageContext.Provider>
 	);
