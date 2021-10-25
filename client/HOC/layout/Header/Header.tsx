@@ -15,11 +15,13 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 		>
 			<Link href={'/'}>
 				<a className={cls.logo}>
+					<span>
+						home page
+					</span>
 					<Image
 						src={logo}
 						width={logo.width}
 						height={logo.height}
-						// objectFit={'fill'}
 						alt=''
 					/>
 				</a>

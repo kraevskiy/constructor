@@ -1,10 +1,8 @@
+const { i18n } = require('./next-i18next.config');
+
 module.exports = {
   images: {
     domains: ['admin.arter.local'],
   },
-  i18n: {
-    defaultLocale: 'ru',
-    locales: ['en', 'ru'],
-    localeDetection: false
-  }
+  i18n
 };

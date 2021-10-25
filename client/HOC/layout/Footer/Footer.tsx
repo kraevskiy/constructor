@@ -1,63 +1,23 @@
 import cn from 'classnames';
 import { FooterProps } from './Footer.props';
 import cls from './Footer.module.scss';
-// import { logo } from '../../../images';
-// import { NavLink } from 'react-router-dom';
-// import { paths } from '../../../routes/paths';
-// import { useTranslation } from 'react-i18next';
-// import { useSelector } from 'react-redux';
-// import { RootState } from '../../../redux/rootReducer';
-// import { facebook, instagram, youtube } from './../../../images/icons';
+import { useRouter } from 'next/router';
+import { useTranslation, i18n } from 'next-i18next';
+import { useContext } from 'react';
+import { AppContext } from '../../../context/app.context';
+import Link from 'next/link';
+import { logo } from '../../../public/static/images';
+import Image from 'next/image';
+import { paths } from '../../../helpers/paths';
+import { facebook, instagram, youtube } from '../../../public/static/images/icons';
+import { API } from '../../../helpers/api';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
+	const router = useRouter();
 	const {t} = useTranslation();
-	const {user: {isLoggedIn}, page: {contacts}} = useSelector((state: RootState) => state);
+	const {page} = useContext(AppContext);
 
-	const userLink = () => {
-		return (
-			<ul className={cls.list}>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} exact to={paths.index}>{t('page.index')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.orders}>{t('page.orders')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
-				</li>
-			</ul>
-		);
-	};
-
-	const visitorLink = () => {
-		return (
-			<ul className={cls.list}>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} exact to={paths.index}>{t('page.index')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.login}>{t('page.login')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.registration}>{t('page.registration')}</NavLink>
-				</li>
-			</ul>
-		);
-	};
-
-	const getPartContacts = (items: typeof contacts['items'], part: 1 | 2 = 1): typeof contacts['items'] => {
+	const getPartContacts = (items: typeof page.contacts.items, part: 1 | 2 = 1): typeof page.contacts.items => {
 		const delimiter = Math.floor(items.length / 2);
 		return part === 1
 			? items.slice(part - 1, delimiter)
@@ -72,9 +32,16 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 			>
 				<div className={cls.top}>
 					<div className={cls.info}>
-						<NavLink to="/">
-							<img src={logo} alt=""/>
-						</NavLink>
+						<Link href="/">
+							<a>
+								<Image
+									src={logo}
+									width={logo.width}
+									height={logo.height}
+									alt=""
+								/>
+							</a>
+						</Link>
 						<div className={cls.text}>
 							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
 							Cum
@@ -83,16 +50,55 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					</div>
 					<span/>
 					<div className={cls.nav}>
-						{isLoggedIn ? userLink() : visitorLink()}
+						<ul className={cls.list}>
+							<li className={cls.item}>
+								<Link href={paths.index}>
+									<a className={cn(cls.link, {
+										[cls.activeLink]: paths.index === router.pathname
+									})}>
+										{t('page.index')}
+									</a>
+								</Link>
+							</li>
+							<li className={cls.item}>
+								<Link href={paths.constructor}>
+									<a className={cn(cls.link, {
+										[cls.activeLink]: paths.constructor === router.pathname
+									})}>
+										{t('page.constr')}
+									</a>
+								</Link>
+							</li>
+							<li className={cls.item}>
+								<Link href={paths.login}>
+									<a className={cn(cls.link, {
+										[cls.activeLink]: paths.login === router.pathname
+									})}>
+										{t('page.login')}
+									</a>
+								</Link>
+							</li>
+							<li className={cls.item}>
+								<Link href={paths.registration}>
+									<a className={cn(cls.link, {
+										[cls.activeLink]: paths.registration === router.pathname
+									})}>
+										{t('page.registration')}
+									</a>
+								</Link>
+							</li>
+						</ul>
 					</div>
 					<div className={cls.email}>
 						<ul>
 							{
-								contacts?.items && getPartContacts(contacts.items).map((item) =>
+								page.contacts?.items && getPartContacts(page.contacts.items).map((item) =>
 									<li key={item._id}>
-										<a href={item.link}>
-											<img src={item.icon} alt=""/>{item.showLink}
-										</a>
+										<Link href={item.link as string}>
+											<a>
+												<img src={`${API.host}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
+											</a>
+										</Link>
 									</li>
 								)
 							}
@@ -101,11 +107,13 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					<div className={cls.phone}>
 						<ul>
 							{
-								contacts?.items && getPartContacts(contacts.items, 2).map((item) =>
+								page.contacts?.items && getPartContacts(page.contacts.items, 2).map((item) =>
 									<li key={item._id}>
-										<a href={item.link}>
-											<img src={item.icon} alt=""/>{item.showLink}
-										</a>
+										<Link href={item.link as string}>
+											<a>
+												<img src={`${API.host}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
+											</a>
+										</Link>
 									</li>
 								)
 							}
@@ -119,17 +127,32 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					<ul className={cls.socials}>
 						<li>
 							<a target="_blank" href="/">
-								<img src={instagram} alt=""/>
+								<Image
+									src={instagram.src}
+									width={instagram.width}
+									height={instagram.height}
+									alt="instagram"
+								/>
 							</a>
 						</li>
 						<li>
 							<a target="_blank" href="/">
-								<img src={facebook} alt=""/>
+								<Image
+									src={facebook.src}
+									width={facebook.width}
+									height={facebook.height}
+									alt="facebook"
+								/>
 							</a>
 						</li>
 						<li>
 							<a target="_blank" href="/">
-								<img src={youtube} alt=""/>
+								<Image
+									src={youtube.src}
+									width={youtube.width}
+									height={youtube.height}
+									alt="youtube"
+								/>
 							</a>
 						</li>
 					</ul>

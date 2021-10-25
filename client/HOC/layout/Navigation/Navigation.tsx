@@ -13,6 +13,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 	const router = useRouter();
 	const {t} = useTranslation();
 	const {page, isShowNavigation} = useContext(AppContext);
+
 	const variants = {
 		hidden: { opacity: 0},
 		visible: { opacity: 1}
@@ -24,7 +25,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 			? items.slice(part - 1, delimiter)
 			: items.slice(delimiter, items.length);
 	};
-	console.log('t', t);
+
 	return (
 		<motion.div
 			variants={variants}
@@ -50,7 +51,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 								<a className={cn(cls.link, {
 									[cls.activeLink]: paths.constructor === router.pathname
 								})}>
-									Constructor
+									{t('page.constr')}
 								</a>
 							</Link>
 						</li>
@@ -59,7 +60,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 								<a className={cn(cls.link, {
 									[cls.activeLink]: paths.login === router.pathname
 								})}>
-									Login
+									{t('page.login')}
 								</a>
 							</Link>
 						</li>
@@ -68,7 +69,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 								<a className={cn(cls.link, {
 									[cls.activeLink]: paths.registration === router.pathname
 								})}>
-									Registration
+									{t('page.registration')}
 								</a>
 							</Link>
 						</li>

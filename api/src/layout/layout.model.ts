@@ -7,13 +7,13 @@ export interface LayoutModel extends Base {
 
 export class LayoutModel extends TimeStamps {
 	@prop()
-	user: Types.ObjectId;
+	user?: Types.ObjectId;
 
 	@prop()
 	title: string;
 
 	@prop()
-	slash: string;
+	slash?: string;
 
 	@prop()
 	config: string;
@@ -26,4 +26,7 @@ export class LayoutModel extends TimeStamps {
 
 	@prop()
 	preview?: string;
+
+	@prop()
+	onOrder?: false;
 }

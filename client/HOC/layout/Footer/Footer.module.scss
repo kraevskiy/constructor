@@ -158,6 +158,9 @@
   font-weight: normal;
   font-size: 17px;
   text-transform: capitalize;
+  @include md {
+    font-size: 20px;
+  }
 }
 
 .activeLink {

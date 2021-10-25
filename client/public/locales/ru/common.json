@@ -1,6 +1,6 @@
 {
   "page.index": "индекс",
-  "page.constructor": "конструктор",
+  "page.constr": "конструктор",
   "page.login": "авторизоваться",
   "page.registration": "регистрация",
   "page.orders": "заказы",
@@ -11,5 +11,12 @@
   "login.email": "Адрес электронной почты",
   "login.password": "Пароль",
   "login.button": "Войти",
-  "logout.button": "Выйти"
+  "logout.button": "Выйти",
+  "form.name": "Ваше имя",
+  "form.phone": "Ваш телефон",
+  "form.email": "Ваш Email",
+  "form.message": "Ваше сообщение",
+  "form.send": "Отправить сообщение",
+  "registration.title": "Регистрация",
+  "registration.button": "Зарегистрироваться"
 }

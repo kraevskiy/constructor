@@ -11,5 +11,12 @@
   "login.email": "Email address",
   "login.password": "Password",
   "login.button": "Login",
-  "logout.button": "Logout"
+  "logout.button": "Logout",
+  "form.name": "Your name",
+  "form.phone": "Your phone",
+  "form.email": "Your email",
+  "form.message": "Message",
+  "form.send": "Send message",
+  "registration.title": "Registration",
+  "registration.button": "Register"
 }

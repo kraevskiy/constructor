@@ -1,4 +1,3 @@
-import { LanguageSwitcherProps } from './LanguageSwitcher.props';
 import { en, ru } from './../../public/static/images/flags';
 import { arrow } from './../../public/static/images/icons/';
 import cls from './LanguageSwitcher.module.scss';
@@ -8,7 +7,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { LanguageList } from './LanguageList';
 
-export const LanguageSwitcher = (props: LanguageSwitcherProps): JSX.Element => {
+export const LanguageSwitcher = (): JSX.Element => {
 	const router = useRouter();
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -24,6 +23,7 @@ export const LanguageSwitcher = (props: LanguageSwitcherProps): JSX.Element => {
 
 	return (
 		<button
+			aria-label="menu"
 			className={cn(cls.wrapper, 'switcher', {
 				[cls.opened]: isOpen
 			})}
@@ -33,7 +33,12 @@ export const LanguageSwitcher = (props: LanguageSwitcherProps): JSX.Element => {
 					src={i[router.locale as string]}
 					alt={router.locale}
 				/>
-				<i><img src={arrow.src} alt=""/></i>
+				<i><Image
+					src={arrow.src}
+					width={arrow.width}
+					height={arrow.height}
+					alt="arrow to button"
+				/></i>
 			</div>
 			{
 				isOpen && <LanguageList

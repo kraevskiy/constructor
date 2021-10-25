@@ -1,0 +1,163 @@
+@import "./../../../styles/mixins";
+
+.wrapper {
+  position: relative;
+  min-height: 768px;
+  display: grid;
+  align-items: center;
+  @include lg {
+    min-height: unset;
+    padding: 100px 0;
+  }
+  @include md {
+    padding-top: 0;
+  }
+}
+
+.img {
+  position: absolute;
+  top: -490px;
+  left: 52%;
+  width: 850px;
+  @include xxl {
+    width: 750px;
+    top: -51vh;
+  }
+  @include xl {
+    width: 680px;
+    top: -35vh;
+    left: 48%;
+  }
+  @include lg {
+    width: 680px;
+    top: -35vh;
+    left: 48%;
+  }
+  @include md {
+    left: 23%;
+    top: -400px;
+  }
+  @include sm {
+    left: 23%;
+    top: -250px;
+    width: 105vw;
+  }
+}
+
+.body {
+}
+
+.slide {
+  position: relative;
+  display: grid;
+  grid-template-columns: 535px 589px;
+  justify-content: space-between;
+  grid-gap: 30px;
+  @include xl {
+    grid-template-columns: 1fr 60%;
+  }
+  @include md {
+    grid-template-columns: 1fr;
+  }
+
+  &Body {
+    height: 100%;
+    text-align: left;
+    @include md {
+      grid-row: 2/3;
+    }
+
+    &Title {
+      font-size: 86px;
+      position: relative;
+      padding: 55px 0;
+      @include xl {
+        font-size: 66px;
+      }
+      @include lg {
+        font-size: 50px;
+        padding: 35px 0;
+      }
+      @include md {
+        font-size: 41px;
+        text-align: center;
+      }
+      @include md {
+        padding-bottom: 0;
+      }
+
+      &:after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 225px;
+        height: 3px;
+        background: var(--c-blue);
+        content: '';
+        @include md {
+          display: none;
+        }
+      }
+    }
+
+    &Text {
+      font-size: 19px;
+      font-weight: 400;
+      padding-top: 56px;
+      line-height: 40px;
+      @include lg {
+        line-height: 30px;
+        padding-top: 35px;
+      }
+      @include md {
+        display: none;
+      }
+    }
+  }
+
+  &Img {
+    display: grid;
+    justify-content: end;
+    position: relative;
+    height: 606px;
+    align-items: center;
+    @include md {
+      grid-row: 1/2;
+      margin-bottom: -90px;
+    }
+
+    img {
+
+    }
+  }
+
+}
+
+.arrow {
+  display: none;
+  position: absolute;
+  bottom: 0px;
+  background: none;
+  box-shadow: none;
+  border: none;
+  outline: none;
+  z-index: 2;
+  opacity: 1;
+  transition: all .5s;
+  @include md {
+    display: block;
+  }
+}
+
+.fade {
+  opacity: 0;
+}
+
+.arrowPrev {
+  left: 20px;
+  transform: rotate(180deg);
+}
+
+.arrowNext {
+  right: 20px;
+}

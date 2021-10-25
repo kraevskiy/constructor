@@ -24,6 +24,9 @@
 .logo {
   grid-area: logo;
   align-self: center;
+  span {
+    display: none;
+  }
   img {
     display: block;
     max-width: 100%;

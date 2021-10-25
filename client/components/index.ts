@@ -6,3 +6,5 @@ export * from './PageHead/PageHead';
 export * from './BlockHead/BlockHead';
 export * from './Button/Button';
 export * from './Input/Input';
+export * from './Textarea/Textarea';
+export * from './HomePage';
