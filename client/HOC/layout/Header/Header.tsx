@@ -14,15 +14,17 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 			{...props}
 		>
 			<Link href={'/'}>
-				<a className={cls.logo}>
+				<a
+					rel="noopener noreferrer"
+					className={cls.logo}>
 					<span>
 						home page
 					</span>
 					<Image
-						src={logo}
+						src={logo.src}
 						width={logo.width}
 						height={logo.height}
-						alt=''
+						alt="Logo main page"
 					/>
 				</a>
 			</Link>

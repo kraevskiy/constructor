@@ -37,6 +37,7 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 					renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
 						(
 							<button
+								aria-label={labelPrev}
 								onClick={clickHandler}
 								className={cn(cls.arrow, cls.arrowPrev, {
 									[cls.fade]: !hasPrev
@@ -47,9 +48,10 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 									src={arrow_full} />
 							</button>
 						)}
-					renderArrowNext={(clickHandler, hasNext, labelPrev) =>
+					renderArrowNext={(clickHandler, hasNext, labelNext) =>
 						(
 							<button
+								aria-label={labelNext}
 								onClick={clickHandler}
 								className={cn(cls.arrow, cls.arrowNext, {
 									[cls.fade]: !hasNext

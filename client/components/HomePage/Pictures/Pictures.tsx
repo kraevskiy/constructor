@@ -7,7 +7,6 @@ import { API } from '../../../helpers/api';
 import Image from 'next/image';
 
 export const Pictures = ({data, lang}: PicturesProps): JSX.Element => {
-	console.log('data', API.host + data.items[0].image);
 	return (
 		<section className={cn(clsParent.title, cls.warpper)}>
 			<div className="container">

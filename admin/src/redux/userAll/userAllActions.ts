@@ -2,8 +2,8 @@ import { TypesAllUsers } from '../types';
 import { Dispatch } from 'redux';
 import Axios from '../../helpers/Axios';
 import { ActionType } from './userAllReducer';
-import { toast } from 'react-toastify';
 import { User } from '../redux.types';
+import { errorHandler } from '../../helpers';
 
 export const getAllUsers = () => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
@@ -14,8 +14,7 @@ export const getAllUsers = () => {
 				payload: user.data
 			});
 		} catch (e) {
-			console.log(e);
-			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			errorHandler(e);
 			return null;
 		}
 	};

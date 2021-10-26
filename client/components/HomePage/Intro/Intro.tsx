@@ -41,6 +41,17 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 				<Carousel
 					showThumbs={false}
 					// showArrows={false}
+					renderIndicator={(
+						clickHandler: (e: React.MouseEvent | React.KeyboardEvent) => void,
+						isSelected: boolean,
+						index: number,
+						label: string
+						) => (
+						<li className={cls.indicator}>
+							<button aria-label={label} className={`dot${isSelected ? ' selected' : ''}`} onClick={clickHandler}/>
+						</li>
+						)}
+
 					renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
 						(
 							<button

@@ -1,50 +1,55 @@
 @import './../../../styles/mixins';
 
 .wr {
-  background: var(--c-light-dark);
-  //opacity: 0;
-  visibility: hidden;
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  display: grid;
-  align-items: center;
-  z-index: 5;
-  padding: 55px 10px 10px 10px;
+	position: fixed;
+	z-index: 5;
+	top: 0;
+	left: 0;
+
+	display: grid;
+	//opacity: 0;
+	visibility: hidden;
+	align-items: center;
+
+	width: 100%;
+	height: 100%;
+	padding: 55px 10px 10px 10px;
+
+	background: var(--c-light-dark);
 }
 
-
 .body {
-  box-sizing: border-box;
-  position: relative;
-  z-index: 2;
-  display: grid;
-  grid-template-columns: 1fr auto;
-  margin: 0 auto;
-  align-items: center;
-  @include xs {
-    grid-template-columns: 1fr;
-    grid-gap: 35px;
-    text-align: center;
-  }
+	position: relative;
+	z-index: 2;
+
+	display: grid;
+	align-items: center;
+
+	box-sizing: border-box;
+	margin: 0 auto;
+	grid-template-columns: 1fr auto;
+
+	@include xs {
+		text-align: center;
+		grid-template-columns: 1fr;
+		grid-gap: 35px;
+	}
 }
 
 .show {
-  //opacity: 1;
-  visibility: visible;
+	//opacity: 1;
+	visibility: visible;
 }
 
 .nav {
 
 }
 
-
 .list {
-  padding: 0;
-  margin: 0;
-  list-style: none;
+	margin: 0;
+	padding: 0;
+
+	list-style: none;
 }
 
 .item {
@@ -52,52 +57,60 @@
 }
 
 .link {
-  font-weight: bold;
-  font-size: 70px;
-  text-transform: capitalize;
-  @include xl {
-    font-size: 45px;
-  }
-  @include lg {
-    font-size: 30px;
-  }
+	text-transform: capitalize;
+
+	font-size: 70px;
+	font-weight: bold;
+
+	@include xl {
+		font-size: 45px;
+	}
+
+	@include lg {
+		font-size: 30px;
+	}
 }
 
 .activeLink {
-  color: var(--c-orange);
+	color: var(--c-orange);
 }
 
 .address {
-  align-items: center;
-  display: grid;
-  grid-gap: 30px;
-  grid-template-columns: 1fr 1fr;
-  @include xl {
-    grid-template-columns: 1fr;
-  }
-  @include xs {
-    grid-template-columns: 1fr 1fr;
-  }
+	display: grid;
+	align-items: center;
+	grid-gap: 30px;
+	grid-template-columns: 1fr 1fr;
 
+	@include xl {
+		grid-template-columns: 1fr;
+	}
 
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+	@include xs {
+		grid-template-columns: 1fr 1fr;
+	}
 
-    li, a {
-      font-weight: normal;
-      font-size: 27px;
-      color: var(--c-white);
-      @include lg {
-        font-size: 17px;
-      }
+	ul {
+		margin: 0;
+		padding: 0;
 
-      @include xs {
-        font-size: 14px;
-      }
-    }
-  }
+		list-style: none;
+
+		li,
+		a {
+			color: var(--c-white);
+
+			font-size: 27px;
+			font-weight: normal;
+
+			@include lg {
+				font-size: 17px;
+			}
+
+			@include xs {
+				font-size: 14px;
+			}
+		}
+	}
 }
 
 .emailList {

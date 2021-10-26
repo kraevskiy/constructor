@@ -12,7 +12,7 @@ import cls from './LoginForm.module.scss';
 
 const schema: SchemaOf<ILoginFormInterface> = yup.object().shape({
 	email: yup.string().email().required(),
-	password: yup.string().required().test('len', 'Must be exactly 5 characters', val => val?.length === 5),
+	password: yup.string().required().test('len', 'Must be exactly 5 characters', val => val ? val.length >= 5 : false),
 });
 
 const LoginForm = (): JSX.Element => {

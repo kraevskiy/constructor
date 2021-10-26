@@ -27,16 +27,13 @@ export const Faqs = ({data, lang}: FaqsProps): JSX.Element => {
 
 	const list: FaqItemsPage[][] = getCorrectList(data.items);
 
-	const handleChange = (items: string[]) => {
-		console.log(items);
-	};
 	return (
 		<section className={cn(clsParent.title, cls.warpper)}>
 			<div className="container">
 				<BlockHead className={cls.title}>
 					{data.title[lang as string]}
 				</BlockHead>
-				<Accordion allowZeroExpanded className={cls.body} onChange={handleChange}>
+				<Accordion allowZeroExpanded className={cls.body}>
 					<div className={cls.list}>
 						{
 							list[0].map(faq => {

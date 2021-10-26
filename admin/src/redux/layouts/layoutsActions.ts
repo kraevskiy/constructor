@@ -5,21 +5,23 @@ import { ActionType } from './layoutsReducer';
 // import { ActionType as ActionTypeLayoutsAll} from '../layoutsAll/layoutsAllReducer';
 import { toast } from 'react-toastify';
 import { decode } from 'jsonwebtoken';
-import { DecodeTokenTypes } from '../redux.types';
+import { DecodeTokenTypes, StateUserLayout } from '../redux.types';
+import { errorHandler } from '../../helpers';
 // import { getAllLayouts } from '../layoutsAll/layoutsAllActions';
 
 export const deleteLayout = (id: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const deletedLayout = await Axios.delete(`${process.env.REACT_APP_LAYOUT}/${id}`);
+			const deletedLayout = await Axios.delete<StateUserLayout>(`${process.env.REACT_APP_LAYOUT}/${id}`);
 			// dispatch(getAllLayouts({limit: 100}));
+			toast(`Successful delete ${deletedLayout.data.title}`);
 			return dispatch({
 				type: TypesLayout.deleteLayout,
 				payload: [deletedLayout.data]
 			});
 
 		} catch (e) {
-			console.log(e);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -46,6 +48,7 @@ export const getLayouts = (id?: string) => {
 			});
 
 		} catch (e) {
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -59,19 +62,14 @@ export const createLayouts = (data: {
 }) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const layout = await Axios.post(`${process.env.REACT_APP_LAYOUT_CREATE}`, data);
-
-			console.log(layout);
-
+			const layout = await Axios.post<StateUserLayout>(`${process.env.REACT_APP_LAYOUT_CREATE}`, data);
+			toast.success(`Successful create ${layout.data.title}`);
 			return dispatch({
 				type: TypesLayout.createLayout,
 				payload: [layout.data]
 			});
-
 		} catch (e) {
-			// e.response.data.message.map((m: string) => {
-			// 	toast.error(m);
-			// });
+			errorHandler(e);
 			return null;
 		}
 	};

@@ -1,163 +1,214 @@
 @import "./../../../styles/mixins";
 
 .wrapper {
-  position: relative;
-  min-height: 768px;
-  display: grid;
-  align-items: center;
-  @include lg {
-    min-height: unset;
-    padding: 100px 0;
-  }
-  @include md {
-    padding-top: 0;
-  }
+	position: relative;
+
+	display: grid;
+	align-items: center;
+
+	min-height: 768px;
+
+	@include lg {
+		min-height: unset;
+		padding: 100px 0;
+	}
+
+	@include md {
+		padding-top: 0;
+	}
 }
 
 .img {
-  position: absolute;
-  top: -490px;
-  left: 52%;
-  width: 850px;
-  @include xxl {
-    width: 750px;
-    top: -51vh;
-  }
-  @include xl {
-    width: 680px;
-    top: -35vh;
-    left: 48%;
-  }
-  @include lg {
-    width: 680px;
-    top: -35vh;
-    left: 48%;
-  }
-  @include md {
-    left: 23%;
-    top: -400px;
-  }
-  @include sm {
-    left: 23%;
-    top: -250px;
-    width: 105vw;
-  }
+	position: absolute;
+	top: -490px;
+	left: 52%;
+
+	width: 850px;
+
+	@include xxl {
+		top: -51vh;
+
+		width: 750px;
+	}
+
+	@include xl {
+		top: -35vh;
+		left: 48%;
+
+		width: 680px;
+	}
+
+	@include lg {
+		top: -35vh;
+		left: 48%;
+
+		width: 680px;
+	}
+
+	@include md {
+		top: -400px;
+		left: 23%;
+	}
+
+	@include sm {
+		top: -250px;
+		left: 23%;
+
+		width: 105vw;
+	}
 }
 
 .body {
 }
 
 .slide {
-  position: relative;
-  display: grid;
-  grid-template-columns: 535px 589px;
-  justify-content: space-between;
-  grid-gap: 30px;
-  @include xl {
-    grid-template-columns: 1fr 60%;
-  }
-  @include md {
-    grid-template-columns: 1fr;
-  }
+	position: relative;
 
-  &Body {
-    height: 100%;
-    text-align: left;
-    @include md {
-      grid-row: 2/3;
-    }
+	display: grid;
+	grid-template-columns: 535px 589px;
 
-    &Title {
-      font-size: 86px;
-      position: relative;
-      padding: 55px 0;
-      @include xl {
-        font-size: 66px;
-      }
-      @include lg {
-        font-size: 50px;
-        padding: 35px 0;
-      }
-      @include md {
-        font-size: 41px;
-        text-align: center;
-      }
-      @include md {
-        padding-bottom: 0;
-      }
+	justify-content: space-between;
+	grid-gap: 30px;
 
-      &:after {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 225px;
-        height: 3px;
-        background: var(--c-blue);
-        content: '';
-        @include md {
-          display: none;
-        }
-      }
-    }
+	@include xl {
+		grid-template-columns: 1fr 60%;
+	}
 
-    &Text {
-      font-size: 19px;
-      font-weight: 400;
-      padding-top: 56px;
-      line-height: 40px;
-      @include lg {
-        line-height: 30px;
-        padding-top: 35px;
-      }
-      @include md {
-        display: none;
-      }
-    }
-  }
+	@include md {
+		grid-template-columns: 1fr;
+	}
 
-  &Img {
-    display: grid;
-    justify-content: end;
-    position: relative;
-    height: 606px;
-    align-items: center;
-    @include md {
-      grid-row: 1/2;
-      margin-bottom: -90px;
-    }
+	&Body {
+		height: 100%;
 
-    img {
+		text-align: left;
 
-    }
-  }
+		@include md {
+			grid-row: 2/3;
+		}
 
+		&Title {
+			position: relative;
+
+			padding: 55px 0;
+
+			font-size: 86px;
+
+			@include xl {
+				font-size: 66px;
+			}
+
+			@include lg {
+				padding: 35px 0;
+
+				font-size: 50px;
+			}
+
+			@include md {
+				text-align: center;
+
+				font-size: 41px;
+			}
+
+			@include md {
+				padding-bottom: 0;
+			}
+
+			&::after {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+
+				width: 225px;
+				height: 3px;
+
+				content: '';
+
+				background: var(--c-blue);
+
+				@include md {
+					display: none;
+				}
+			}
+		}
+
+		&Text {
+			padding-top: 56px;
+
+			font-size: 19px;
+			font-weight: 400;
+			line-height: 40px;
+
+			@include lg {
+				padding-top: 35px;
+
+				line-height: 30px;
+			}
+
+			@include md {
+				display: none;
+			}
+		}
+	}
+
+	&Img {
+		position: relative;
+
+		display: grid;
+		align-items: center;
+		justify-content: end;
+
+		height: 606px;
+
+		@include md {
+			margin-bottom: -90px;
+			grid-row: 1/2;
+		}
+
+		img {
+
+		}
+	}
 }
 
 .arrow {
-  display: none;
-  position: absolute;
-  bottom: 0px;
-  background: none;
-  box-shadow: none;
-  border: none;
-  outline: none;
-  z-index: 2;
-  opacity: 1;
-  transition: all .5s;
-  @include md {
-    display: block;
-  }
+	position: absolute;
+	z-index: 2;
+	bottom: 0;
+
+	display: none;
+
+	transition: all 0.5s;
+
+	opacity: 1;
+	border: none;
+	outline: none;
+	background: none;
+	box-shadow: none;
+
+	@include md {
+		display: block;
+	}
 }
 
 .fade {
-  opacity: 0;
+	opacity: 0;
 }
 
 .arrowPrev {
-  left: 20px;
-  transform: rotate(180deg);
+	left: 20px;
+
+	transform: rotate(180deg);
 }
 
 .arrowNext {
-  right: 20px;
+	right: 20px;
+}
+
+.indicator {
+	display: inline-block;
+
+	button {
+		border: none;
+	}
 }

@@ -20,17 +20,13 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log(11111);
-
 		if (pathname.includes(paths.constructor)) {
-			console.log(2222);
 			dispatch(hideFooter());
 			dispatch(showDownloadBtn());
 		}
 	}, []);
 
 	useEffect(() => {
-		console.log(333333);
 		return listen((location) => {
 			if (location.pathname.includes(paths.constructor)) {
 				dispatch(hideFooter());

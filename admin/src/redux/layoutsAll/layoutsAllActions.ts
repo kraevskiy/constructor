@@ -3,6 +3,7 @@ import Axios from '../../helpers/Axios';
 import { TypesLayoutAll } from '../types';
 import { ActionType } from './layoutsAllReducer';
 import { StateAllLayouts } from '../redux.types';
+import { errorHandler } from '../../helpers';
 
 
 export const getAllLayouts = (filter?: {
@@ -20,7 +21,7 @@ export const getAllLayouts = (filter?: {
 			});
 
 		} catch (e) {
-			// console.log(e.response);
+			errorHandler(e);
 			return null;
 		}
 	};

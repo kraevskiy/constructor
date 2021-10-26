@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useContext, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import { ICreatePageFormInterface } from './CreatePageForm.interface';
-import Axios from '../../helpers/Axios';
 import { Input, Textarea } from '../';
 import { CreatePageFormTypes } from './CreatePageForm.types';
 import { SettingPageContext } from '../../pages/Setting/SettingPage';

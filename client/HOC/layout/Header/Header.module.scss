@@ -1,69 +1,80 @@
 @import "styles/mixins";
 
 .header {
-  padding: 10px 10px;
-  position: relative;
-  margin: 0 auto;
-  z-index: 6;
-  display: grid;
-  grid-template-columns: 190px 1fr auto;
-  grid-gap: 25px;
-  grid-template-areas: "logo catalog menu";
-  @include md {
-    //width: 100vw !important;
-    //margin: 0;
-    grid-template-columns: 138px 1fr auto;
-  }
-  @include xs {
-    //width: 100vw !important;
-    //margin: 0;
-    grid-gap: 15px;
-  }
+	position: relative;
+	z-index: 6;
+
+	display: grid;
+
+	margin: 0 auto;
+	padding: 10px 10px;
+	grid-template-columns: 190px 1fr auto;
+	grid-gap: 25px;
+	grid-template-areas: "logo catalog menu";
+
+	@include md {
+		//width: 100vw !important;
+		//margin: 0;
+		grid-template-columns: 138px 1fr auto;
+	}
+
+	@include xs {
+		//width: 100vw !important;
+		//margin: 0;
+		grid-gap: 15px;
+	}
 }
 
 .logo {
-  grid-area: logo;
-  align-self: center;
-  span {
-    display: none;
-  }
-  img {
-    display: block;
-    max-width: 100%;
-  }
+	grid-area: logo;
+
+	align-self: center;
+
+	span {
+		display: none;
+	}
+
+	img {
+		display: block;
+
+		max-width: 100%;
+	}
 }
 
 .catalog {
-  grid-area: catalog;
-  align-self: center;
-  display: grid;
-  grid-template-columns: 25px 1fr;
-  grid-gap: 10px;
-  font-weight: bold;
+	display: grid;
+	align-self: center;
 
-  button {
-    height: 20px;
-    width: 25px;
-    align-self: center;
+	font-weight: bold;
+	grid-area: catalog;
+	grid-template-columns: 25px 1fr;
+	grid-gap: 10px;
 
-    i {
-      width: 100%;
-    }
-  }
+	button {
+		align-self: center;
 
-  span {
-    align-self: center;
-  }
+		width: 25px;
+		height: 20px;
+
+		i {
+			width: 100%;
+		}
+	}
+
+	span {
+		align-self: center;
+	}
 }
 
 .menu {
-  grid-area: menu;
-  align-self: center;
-  grid-gap: 10px;
-  display: grid;
-  grid-template-columns: repeat(4, auto);
-  align-items: center;
-  @include xs {
-    grid-gap: 5px;
-  }
+	display: grid;
+	align-items: center;
+	align-self: center;
+	grid-area: menu;
+	grid-gap: 10px;
+	grid-template-columns: repeat(4, auto);
+
+	@include xs {
+		grid-gap: 5px;
+	}
 }

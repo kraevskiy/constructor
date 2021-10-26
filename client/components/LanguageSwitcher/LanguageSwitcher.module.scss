@@ -1,83 +1,84 @@
 @import "styles/mixins";
 
 .wrapper {
-  position: relative;
-  background: none;
-  box-shadow: none;
-  border: none;
-  padding: 2px 10px;
+	position: relative;
 
-  i {
-    transition: all .5s;
-  }
+	padding: 2px 10px;
 
-  @include xs {
-    padding: 2px 0px 2px 5px;
-  }
+	border: none;
+	background: none;
+	box-shadow: none;
 
-  &.opened {
-    i {
-      transform: rotate(180deg)
-    }
+	i {
+		transition: all 0.5s;
+	}
 
-    &:hover {
-      @include md-min {
+	@include xs {
+		padding: 2px 0 2px 5px;
+	}
 
-        i {
-          transform: rotate(180deg)
-        }
+	&.opened {
+		i {
+			transform: rotate(180deg);
+		}
 
-      }
-    }
-  }
+		&:hover {
+			@include md-min {
+				i {
+					transform: rotate(180deg);
+				}
+			}
+		}
+	}
 
-  &:hover {
-    @include md-min {
-      cursor: pointer;
-      i {
-        transform: rotate(90deg)
-      }
+	&:hover {
+		@include md-min {
+			cursor: pointer;
 
-    }
+			i {
+				transform: rotate(90deg);
+			}
+		}
+	}
 
-  }
-
-  img {
-    max-width: 100%;
-  }
+	img {
+		max-width: 100%;
+	}
 }
 
 .current {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 24px 20px;
-  grid-gap: 10px;
+	display: grid;
+	align-items: center;
+	grid-template-columns: 24px 20px;
+	grid-gap: 10px;
 }
 
 .open {
-  background: var(--c-dark);
-  border-radius: 5px;
-  border: 1px solid var(--c-white);
+	border: 1px solid var(--c-white);
+	border-radius: 5px;
+	background: var(--c-dark);
 }
 
 .list {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  list-style: none;
-  padding: 10px 10px;
-  margin: 0;
-  text-align: left;
-  margin-top: 5px;
+	position: absolute;
+	top: 100%;
+	left: 0;
 
-  &:hover {
-    @include md-min {
-      cursor: pointer;
+	margin: 0;
+	margin-top: 5px;
+	padding: 10px 10px;
 
-    }
-  }
+	list-style: none;
 
-  img {
-    max-width: 30px;
-  }
+	text-align: left;
+
+	&:hover {
+		@include md-min {
+			cursor: pointer;
+		}
+	}
+
+	img {
+		max-width: 30px;
+	}
 }

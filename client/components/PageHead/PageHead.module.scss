@@ -1,100 +1,122 @@
 @import "styles/mixins";
 
 .wr {
-  padding-top: 250px;
-  font-weight: normal;
-  margin-bottom: 100px;
-  @include xxl {
-    padding-top: 200px;
-    margin-bottom: 90px;
-  }
-  @include xl {
-    padding-top: 150px;
-    margin-bottom: 70px;
-  }
-  @include lg {
-    padding-top: 110px;
-    margin-bottom: 60px;
-  }
-  @include md {
-    padding-top: 90px;
-    margin-bottom: 45px;
-  }
-  @include sm {
-    padding-top: 50px;
-    margin-bottom: 20px;
-  }
+	margin-bottom: 100px;
+	padding-top: 250px;
+
+	font-weight: normal;
+
+	@include xxl {
+		margin-bottom: 90px;
+		padding-top: 200px;
+	}
+
+	@include xl {
+		margin-bottom: 70px;
+		padding-top: 150px;
+	}
+
+	@include lg {
+		margin-bottom: 60px;
+		padding-top: 110px;
+	}
+
+	@include md {
+		margin-bottom: 45px;
+		padding-top: 90px;
+	}
+
+	@include sm {
+		margin-bottom: 20px;
+		padding-top: 50px;
+	}
 }
 
 .title {
-  font-size: 69px;
-  padding-bottom: 45px;
-  position: relative;
-  font-weight: normal;
-  display: grid;
-  justify-content: space-between;
-  align-items: center;
-  grid-template-columns: auto 200px;
-  margin: 0;
-  &:after {
-    position: absolute;
-    content: '';
-    background: var(--c-blue);
-    height: 3px;
-    width: 225px;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-  }
+	position: relative;
 
-  @include xxl {
-    font-size: 62px;
-    padding-bottom: 40px;
-  }
-  @include xl {
-    font-size: 54px;
-    padding-bottom: 35px;
-  }
-  @include lg {
-    font-size: 49px;
-    padding-bottom: 30px;
-    grid-template-columns: 1fr;
-  }
-  @include md {
-    font-size: 45px;
-    padding-bottom: 25px;
-  }
-  @include sm {
-    font-size: 41px;
-    padding-bottom: 20px;
-  }
+	display: grid;
+	align-items: center;
+	justify-content: space-between;
+
+	margin: 0;
+	padding-bottom: 45px;
+
+	font-size: 69px;
+	font-weight: normal;
+	grid-template-columns: auto 200px;
+
+	&::after {
+		position: absolute;
+		z-index: 1;
+		bottom: 0;
+		left: 0;
+
+		width: 225px;
+		height: 3px;
+
+		content: '';
+
+		background: var(--c-blue);
+	}
+
+	@include xxl {
+		padding-bottom: 40px;
+
+		font-size: 62px;
+	}
+
+	@include xl {
+		padding-bottom: 35px;
+
+		font-size: 54px;
+	}
+
+	@include lg {
+		padding-bottom: 30px;
+
+		font-size: 49px;
+		grid-template-columns: 1fr;
+	}
+
+	@include md {
+		padding-bottom: 25px;
+
+		font-size: 45px;
+	}
+
+	@include sm {
+		padding-bottom: 20px;
+
+		font-size: 41px;
+	}
 }
 
-
 .lineOrange {
-  &:after {
-    background: var(--c-orange);
-  }
+	&::after {
+		background: var(--c-orange);
+	}
 }
 
 .lineGreen {
-  &:after {
-    background: var(--c-green);
-  }
+	&::after {
+		background: var(--c-green);
+	}
 }
 
 .paddingSmall {
-  padding-top: 80px;
+	padding-top: 80px;
 }
 
 .paddingBig {
-  padding-top: 270px;
+	padding-top: 270px;
 }
 
 .text {
-  margin: 0;
-  padding: 0;
-  padding-top: 50px;
-  font-weight: bold;
-  font-size: 16px;
+	margin: 0;
+	padding: 0;
+	padding-top: 50px;
+
+	font-size: 16px;
+	font-weight: bold;
 }

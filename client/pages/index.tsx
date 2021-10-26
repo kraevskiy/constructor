@@ -1,25 +1,20 @@
 import { useRouter } from 'next/router';
-import Head from 'next/head';
 import { withLayout } from '../HOC/layout/Layout';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
 import { API } from '../helpers/api';
 import { PageInterface } from '../interfaces/HomePropsInterface';
-import {serverSideTranslations} from 'next-i18next/serverSideTranslations';
-import { Advantages, Contacts, Faqs, Intro, Pictures, Souvenirs } from '../components';
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { Advantages, Contacts, Faqs, Intro, MetaHead, Pictures, Souvenirs } from '../components';
 
 function Home({page}: HomeProps): JSX.Element {
 	const router = useRouter();
 	return (
 		<>
-			<Head>
-				<title>{page.seo.seoTitle[router.locale as string]}</title>
-				<meta name="description" content={page.seo.seoTitle[router.locale as string]}/>
-				<link rel="icon" href="/favicon.ico"/>
-				<meta property="og:title" content={page.seo.seoTitle[router.locale as string]} />
-				<meta property="og:description" content={page.seo.seoDescription[router.locale as string]} />
-				<meta property="og:type" content="article" />
-			</Head>
+			<MetaHead
+				title={page.seo.seoTitle[router.locale as string]}
+				description={page.seo.seoDescription[router.locale as string]}
+			/>
 			<div>
 				<Intro lang={router.locale} data={page.slides}/>
 				<Souvenirs lang={router.locale} data={page.souvenirs}/>
@@ -34,15 +29,17 @@ function Home({page}: HomeProps): JSX.Element {
 
 export default withLayout(Home);
 
-export const getStaticProps: GetStaticProps<HomeProps> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<HomeProps> = async (prop) => {
 	const {data: page} = await axios.get<PageInterface>(`${API.host}/${API.pages.home}`);
 	return {
 		props: {
-			...(await serverSideTranslations(locale as string)), page,
+			...(await serverSideTranslations(prop.locale as string)), page,
 		}
 	};
 };
 
-interface HomeProps extends Record<string, unknown>{
+interface HomeProps extends Record
+	<string
+		, unknown> {
 	page: PageInterface
 }

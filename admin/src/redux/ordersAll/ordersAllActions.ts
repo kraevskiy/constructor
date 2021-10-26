@@ -3,6 +3,7 @@ import { TypesOrderAll } from '../types';
 import Axios from '../../helpers/Axios';
 import { ActionType } from './ordersAllReducer';
 import { StateAllOrders } from '../redux.types';
+import { errorHandler } from '../../helpers';
 
 export const getAllOrders = (filter: {
 	limit?: number,
@@ -19,7 +20,7 @@ export const getAllOrders = (filter: {
 			});
 
 		} catch (e) {
-			// console.log(e.response);
+			errorHandler(e);
 			return null;
 		}
 	};

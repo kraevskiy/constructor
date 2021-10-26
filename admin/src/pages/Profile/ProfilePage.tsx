@@ -17,7 +17,6 @@ const components: {
 const ProfilePage = (): JSX.Element => {
 	const dispatch = useDispatch();
 	const user = useSelector((state: RootState) => state.user);
-	console.log(user);
 	const {slug} = useParams<{ slug: string | undefined }>();
 
 	const GetComponentBySlug = (name: string): JSX.Element => {

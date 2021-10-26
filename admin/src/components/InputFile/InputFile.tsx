@@ -19,7 +19,6 @@ interface TypeResponseUpload {
 const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: ForwardedRef<HTMLDivElement>): JSX.Element => {
 	const [img, setImg] = useState<ImageListType>([]);
 	const onChange = (imageList: ImageListType) => {
-		console.log(imageList);
 		setImg(imageList);
 	};
 
@@ -30,7 +29,6 @@ const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: F
 		formData.append('files', img[0].file);
 		Axios.post<TypeResponseUpload[]>(`${process.env.REACT_APP_FILES_UPLOAD}`, formData)
 			.then(({data}) => {
-				console.log(img);
 				setValue(data[0].url);
 			});
 	};
@@ -52,7 +50,6 @@ const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: F
 					isDragging,
 					dragProps,
 				}) => {
-					console.log('imageList', imageList);
 					return (
 						<div className={cls.body}>
 							{imageList.length < 1 && <>

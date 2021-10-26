@@ -1,18 +1,24 @@
-import { withLayout } from "../HOC/layout/Layout";
+import { withLayout } from '../HOC/layout/Layout';
 import { GetStaticProps } from 'next';
 import axios from 'axios';
 import { PageInterface } from '../interfaces/HomePropsInterface';
 import { API } from '../helpers/api';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
-import { RegistrationForm } from '../components';
+import { MetaHead, RegistrationForm } from '../components';
 
 function Registration(): JSX.Element {
-	return <RegistrationForm/>;
+	return <>
+		<MetaHead
+			title="Registration"
+			description="Registration description"
+		/>
+		<RegistrationForm/>
+	</>;
 }
 
 export default withLayout(Registration);
 
-export const getStaticProps: GetStaticProps<RegistrationProps> = async ({ locale }) => {
+export const getStaticProps: GetStaticProps<RegistrationProps> = async ({locale}) => {
 	const {data: page} = await axios.get<PageInterface>(`${API.host}/${API.pages.home}`);
 	return {
 		props: {
@@ -21,6 +27,6 @@ export const getStaticProps: GetStaticProps<RegistrationProps> = async ({ locale
 	};
 };
 
-interface RegistrationProps extends Record<string, unknown>{
+interface RegistrationProps extends Record<string, unknown> {
 	page: PageInterface
 }

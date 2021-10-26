@@ -35,10 +35,10 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 						<Link href="/">
 							<a>
 								<Image
-									src={logo}
+									src={logo.src}
 									width={logo.width}
 									height={logo.height}
-									alt=""
+									alt="Logo main page"
 								/>
 							</a>
 						</Link>

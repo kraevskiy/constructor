@@ -1,9 +1,11 @@
 import { Dispatch } from 'redux';
-import { DecodeTokenTypes } from '../redux.types';
+import { DecodeTokenTypes, StateUserOrder } from '../redux.types';
 import { TypesOrder } from '../types';
 import Axios from '../../helpers/Axios';
 import { decode } from 'jsonwebtoken';
 import { ActionType } from './ordersReducer';
+import { errorHandler } from '../../helpers';
+import { toast } from 'react-toastify';
 
 export const getOrders = (id?: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
@@ -26,7 +28,7 @@ export const getOrders = (id?: string) => {
 			});
 
 		}	catch (e) {
-			// console.log(e.response);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -40,15 +42,15 @@ export const createOrders = (data: {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const normalData = {...data, status: 'new', user: '60d2e9f16861125fa26c8315'};
-			const orders = await Axios.post(`${process.env.REACT_APP_ORDER_CREATE}`,normalData);
-
+			const order = await Axios.post<StateUserOrder>(`${process.env.REACT_APP_ORDER_CREATE}`,normalData);
+			toast.success(`Order created: ${order.data._id}`);
 			return dispatch({
 				type: TypesOrder.createOrder,
-				payload: [orders.data]
+				payload: [order.data]
 			});
 
 		}	catch (e) {
-			// console.log(e.response);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -57,15 +59,15 @@ export const createOrders = (data: {
 export const deleteOrders = (id: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
-			const order = await Axios.delete(`${process.env.REACT_APP_ORDER}/${id}`);
-
+			const order = await Axios.delete<StateUserOrder>(`${process.env.REACT_APP_ORDER}/${id}`);
+			toast(`Successful delete ${order.data._id}`);
 			return dispatch({
 				type: TypesOrder.deleteOrder,
 				payload: [order.data]
 			});
 
 		}	catch (e) {
-			// console.log(e.response);
+			errorHandler(e);
 			return null;
 		}
 	};

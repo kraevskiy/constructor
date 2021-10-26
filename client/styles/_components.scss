@@ -1,100 +1,120 @@
 @import "mixins";
 
 .btn {
-  width: 170px;
-  background: var(--grad-blue);
-  text-align: center;
-  color: var(--c-white);
-  box-shadow: none;
-  border: none;
-  display: inline-grid;
-  align-items: center;
-  justify-content: center;
-  height: 40px;
-  max-width: 100%;
-  border-radius: 50px;
-  @include sm {
-    width: 100%;
-  }
-  &-icon {
-    max-width: unset;
-    width: 40px;
-    background: none;
-  }
+	display: inline-grid;
+	align-items: center;
+	justify-content: center;
 
-  &:hover {
-    color: black;
-  }
-  @include xs{
-    width: 100%;
-  }
+	width: 170px;
+	max-width: 100%;
+	height: 40px;
+
+	text-align: center;
+
+	color: var(--c-white);
+	border: none;
+	border-radius: 50px;
+	background: var(--grad-blue);
+	box-shadow: none;
+
+	@include sm {
+		width: 100%;
+	}
+
+	&-icon {
+		width: 40px;
+		max-width: unset;
+
+		background: none;
+	}
+
+	&:hover {
+		color: black;
+	}
+
+	@include xs {
+		width: 100%;
+	}
 }
 
 .second {
-  background: var(--grad-orange);
+	background: var(--grad-orange);
 
-  &:hover {
-    color: black;
-    background: var(--grad-black);
-    background-color: green;
-  }
+	&:hover {
+		color: black;
+		background: var(--grad-black);
+		background-color: green;
+	}
 }
 
 .container {
-  padding: 0 10px;
-  width: 100%;
-  max-width: 1399px;
-  margin: 0 auto;
-  box-sizing: border-box;
-  position: relative;
-  @include xxl {
-    max-width: 1199px;
-  }
-  @include xl {
-    max-width: 991px;
-  }
-  @include lg {
-    max-width: 767px;
-  }
-  @include md {
-    max-width: 575px;
-  }
-  @include sm {
-    max-width: 100vw;
-    width: 100vw;
-  }
+	position: relative;
+
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1399px;
+	margin: 0 auto;
+	padding: 0 10px;
+
+	@include xxl {
+		max-width: 1199px;
+	}
+
+	@include xl {
+		max-width: 991px;
+	}
+
+	@include lg {
+		max-width: 767px;
+	}
+
+	@include md {
+		max-width: 575px;
+	}
+
+	@include sm {
+		width: 100vw;
+		max-width: 100vw;
+	}
 }
 
 .grid {
-  width: 100%;
-  max-width: 1399px;
-  box-sizing: border-box;
-  @include xxl {
-    max-width: 1199px;
-  }
-  @include xl {
-    max-width: 991px;
-  }
-  @include lg {
-    max-width: 767px;
-  }
-  @include md {
-    max-width: 575px;
-  }
-  @include sm {
-    max-width: 100%;
-  }
+	box-sizing: border-box;
+	width: 100%;
+	max-width: 1399px;
+
+	@include xxl {
+		max-width: 1199px;
+	}
+
+	@include xl {
+		max-width: 991px;
+	}
+
+	@include lg {
+		max-width: 767px;
+	}
+
+	@include md {
+		max-width: 575px;
+	}
+
+	@include sm {
+		max-width: 100%;
+	}
 }
 
 .container .carousel .control-dots {
-  margin: 0;
-  bottom: 10px;
-  .dot {
-    width: 11px;
-    height: 11px;
-  }
+	bottom: 10px;
+
+	margin: 0;
+
+	.dot {
+		width: 11px;
+		height: 11px;
+	}
 }
 
 .carousel.carousel-slider {
-  padding-bottom: 50px;
+	padding-bottom: 50px;
 }

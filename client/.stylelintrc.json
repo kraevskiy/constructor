@@ -1,12 +1,15 @@
 {
   "extends": [
     "stylelint-config-standard",
-    "stylelint-order-config-standard"
+    "stylelint-order-config-standard",
+    "stylelint-scss"
   ],
   "plugins": [
     "stylelint-order"
   ],
   "rules": {
+    "at-rule-no-unknown": null,
+    "scss/at-rule-no-unknown": true,
     "indentation": [
       "tab"
     ],

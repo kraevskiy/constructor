@@ -1,30 +1,27 @@
 import { TypesUser } from '../types';
 import { Dispatch } from 'redux';
-import { useDispatch } from 'react-redux';
 import Axios from '../../helpers/Axios';
 import { DecodeTokenTypes, StateUser } from '../redux.types';
 import { ActionType } from '../redux.types';
-import { toast } from 'react-toastify';
 import { decode } from 'jsonwebtoken';
 import { IEditUserFormInterface } from '../../components/EditUserForm/EditUserForm.interface';
 import { ILoginFormInterface } from '../../components/LoginForm/LoginForm.interface';
 import { IRegistrationFormInterface } from '../../components/RegistrationForm/RegistrationForm.interface';
-import { clearOrders } from '../orders/ordersActions';
-import { clearLayouts } from '../layouts/layoutsActions';
-import { clearAllLayouts } from '../layoutsAll/layoutsAllActions';
+import { errorHandler } from '../../helpers';
+import { toast } from 'react-toastify';
 
 export const login = (data: ILoginFormInterface) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_LOGIN as string, data);
 			localStorage.setItem('auth-token', user.data.access_token);
+			toast.success(`Welcome ${user.data.login}`);
 			return dispatch({
 				type: TypesUser.login,
 				payload: user.data
 			});
 		} catch (e) {
-			// console.log(e);
-			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -56,15 +53,13 @@ export const autoLogin = () => {
 						return dispatch({type: TypesUser.logout});
 					}
 				} else {
-					console.log(111111);
 					return dispatch({type: TypesUser.logout});
 				}
 			} else {
 				return dispatch({type: TypesUser.logout});
 			}
 		} catch (e) {
-			console.log(e);
-			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -86,8 +81,7 @@ export const editUser = (data: IEditUserFormInterface ) => {
 				payload: user.data
 			});
 		} catch (e) {
-			console.log(e);
-			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -102,8 +96,7 @@ export const registrationUser = (data: IRegistrationFormInterface ) => {
 				payload: user.data
 			});
 		} catch (e) {
-			console.log(e);
-			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			errorHandler(e);
 			return null;
 		}
 	};
@@ -123,8 +116,7 @@ export const deleteUser = () => {
 			}
 			return null;
 		} catch (e) {
-			console.log(e);
-			// toast.error(`😒 Что-то пошло не так : ${e.response.data.message}`);
+			errorHandler(e);
 			return null;
 		}
 	};
