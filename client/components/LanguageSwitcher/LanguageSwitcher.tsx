@@ -18,7 +18,7 @@ export const LanguageSwitcher = (): JSX.Element => {
 	};
 
 	const handlerClick = (lang: string) => {
-		console.log(lang);
+		return router.push(router.pathname, router.pathname, {locale: lang});
 	};
 
 	return (

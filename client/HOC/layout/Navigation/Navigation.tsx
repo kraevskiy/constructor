@@ -56,7 +56,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 							</Link>
 						</li>
 						<li className={cls.item}>
-							<Link href={paths.login}>
+							<Link href={paths.login} locale={'ru'}>
 								<a className={cn(cls.link, {
 									[cls.activeLink]: paths.login === router.pathname
 								})}>

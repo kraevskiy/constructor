@@ -4,7 +4,7 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Navigation from './Navigation/Navigation';
 import { AppContext, AppContextProvider, IAppContext } from '../../context/app.context';
-import { bg } from './../../public/static/images';
+import { bg } from '../../public/static/images';
 import cls from './Layout.module.scss';
 import cn from 'classnames';
 
