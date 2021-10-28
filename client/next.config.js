@@ -16,7 +16,15 @@ function getConfig (processEnv) {
       images: {
         domains: ['admin.arter.local'],
       },
-      i18n
+      i18n,
+      async rewrites() {
+        return [
+          {
+            source: '/api/:path*',
+            destination: 'http://admin.arter.local/api/:path*',
+          },
+        ];
+      },
     };
   }
 }

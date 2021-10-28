@@ -8,6 +8,8 @@ import { Button } from './../';
 import cls from './LoginForm.module.scss';
 import { PageHead } from '../';
 import cn from 'classnames';
+import axios from 'axios';
+import { API } from '../../helpers/api';
 
 const schema: yup.SchemaOf<ILoginFormInterface> = yup.object().shape({
 	email: yup.string().email().required(),
@@ -21,7 +23,8 @@ export const LoginForm = (): JSX.Element => {
 	});
 
 	const handleSubmitForm = async (data: ILoginFormInterface) => {
-		console.log(data);
+		const res = await axios.post(`/${API.pages.login}`, data);
+		console.log(res);
 	};
 
 
