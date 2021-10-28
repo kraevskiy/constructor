@@ -1,4 +1,5 @@
 export const API = {
+	admin: 'http://admin.arter.local',
 	host: 'http://admin.arter.local',
 	pages: {
 		home: 'api/page/slag/home',

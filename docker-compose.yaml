@@ -9,6 +9,8 @@ services:
 #    restart: unless-stopped
 #    depends_on:
 #      - mongo
+#      - api
+#      - nginx
 #    networks:
 #      - arter-network
 
@@ -21,6 +23,7 @@ services:
     restart: unless-stopped
     depends_on:
       - mongo
+      - api
     networks:
       - arter-network
 
@@ -71,7 +74,6 @@ services:
       - ./uploads:/media/uploads
     depends_on:
       - admin
-#      - client
       - api
     networks:
       - arter-network
