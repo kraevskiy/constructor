@@ -8,6 +8,9 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { PageHead } from '../';
 import cn from 'classnames';
+import axios from 'axios';
+import { PageInterface } from '../../interfaces/HomePropsInterface';
+import { API } from '../../helpers/api';
 
 const schema: SchemaOf<IRegistrationFormInterface> = yup.object().shape({
 	login: yup.string().required().test('len', 'Must be exactly 3 characters', val => val?.length === 5),
@@ -22,7 +25,8 @@ export const RegistrationForm = (): JSX.Element => {
 	});
 
 	const handleSubmitForm = async (data: IRegistrationFormInterface) => {
-		console.log(data);
+		const res = await axios.post(`/${API.pages.registration}`, data);
+		console.log(res);
 	};
 
 	return (
