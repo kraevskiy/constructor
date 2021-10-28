@@ -30,7 +30,7 @@ function Home({page}: HomeProps): JSX.Element {
 export default withLayout(Home);
 
 export const getStaticProps: GetStaticProps<HomeProps> = async (prop) => {
-	const {data: page} = await axios.get<PageInterface>(`${API.host}/${API.pages.home}`);
+	const {data: page} = await axios.get<PageInterface>(`/${API.pages.home}`);
 	return {
 		props: {
 			...(await serverSideTranslations(prop.locale as string)), page,
@@ -38,8 +38,6 @@ export const getStaticProps: GetStaticProps<HomeProps> = async (prop) => {
 	};
 };
 
-interface HomeProps extends Record
-	<string
-		, unknown> {
+interface HomeProps extends Record<string, unknown> {
 	page: PageInterface
 }

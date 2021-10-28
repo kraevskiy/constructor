@@ -7,7 +7,8 @@ import { AppContext } from '../../../context/app.context';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { paths } from '../../../helpers/paths';
-import {useTranslation} from 'next-i18next';
+import { useTranslation } from 'next-i18next';
+import { API } from '../../../helpers/api';
 
 const Navigation = ({...props}: NavigationProps): JSX.Element => {
 	const router = useRouter();
@@ -15,8 +16,8 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 	const {page, isShowNavigation} = useContext(AppContext);
 
 	const variants = {
-		hidden: { opacity: 0},
-		visible: { opacity: 1}
+		hidden: {opacity: 0},
+		visible: {opacity: 1}
 	};
 
 	const getPartContacts = (items: typeof page.contacts.items, part: 1 | 2 = 1): typeof page.contacts.items => {
@@ -47,31 +48,19 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 							</Link>
 						</li>
 						<li className={cls.item}>
-							<Link href={paths.constructor}>
-								<a className={cn(cls.link, {
-									[cls.activeLink]: paths.constructor === router.pathname
-								})}>
-									{t('page.constr')}
-								</a>
-							</Link>
+							<a href={`${API.admin}/${paths.constructor}`} className={cn(cls.link)}>
+								{t('page.constr')}
+							</a>
 						</li>
 						<li className={cls.item}>
-							<Link href={paths.login} locale={'ru'}>
-								<a className={cn(cls.link, {
-									[cls.activeLink]: paths.login === router.pathname
-								})}>
-									{t('page.login')}
-								</a>
-							</Link>
+							<a href={`${API.admin}/${paths.login}`} className={cn(cls.link)}>
+								{t('page.login')}
+							</a>
 						</li>
 						<li className={cls.item}>
-							<Link href={paths.registration}>
-								<a className={cn(cls.link, {
-									[cls.activeLink]: paths.registration === router.pathname
-								})}>
-									{t('page.registration')}
-								</a>
-							</Link>
+							<a href={`${API.admin}/${paths.registration}`} className={cn(cls.link)}>
+								{t('page.registration')}
+							</a>
 						</li>
 					</ul>
 				</nav>

@@ -5,6 +5,7 @@ import Footer from './Footer/Footer';
 import Navigation from './Navigation/Navigation';
 import { AppContext, AppContextProvider, IAppContext } from '../../context/app.context';
 import { bg } from '../../public/static/images';
+import Image from 'next/image';
 import cls from './Layout.module.scss';
 import cn from 'classnames';
 
@@ -14,7 +15,13 @@ const Layout = ({children}: LayoutProps): JSX.Element => {
 		<div className={cn(cls.wrapper, {
 			[cls.overflow]: context.isShowNavigation
 		})}>
-			<img src={bg.src} className={cls.bg} alt=""/>
+			<Image
+				className={cls.bg}
+				src={bg.src}
+				width={bg.width}
+				alt="image"
+				height={bg.height}
+			/>
 			<Header/>
 			<Navigation />
 			<main>

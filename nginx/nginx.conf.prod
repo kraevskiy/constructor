@@ -1,6 +1,5 @@
-
 server {
-	listen 90;
+	listen 80;
 	client_max_body_size 20M;
 
 	server_name _;

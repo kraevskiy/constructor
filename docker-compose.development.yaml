@@ -3,9 +3,10 @@ services:
 #  client:
 #    build:
 #      context: ./client
-#      dockerfile: Dockerfile.dev
-#    command: npm run dev
+#      dockerfile: Dockerfile
+#    command: npm start
 #    stdin_open: true
+#    user: root
 #    tty: true
 #    volumes:
 #      - ./client/:/opt/app

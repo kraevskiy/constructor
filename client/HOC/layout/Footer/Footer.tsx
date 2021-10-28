@@ -61,28 +61,20 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 								</Link>
 							</li>
 							<li className={cls.item}>
-								<Link href={paths.constructor}>
-									<a className={cn(cls.link, {
-										[cls.activeLink]: paths.constructor === router.pathname
-									})}>
-										{t('page.constr')}
-									</a>
-								</Link>
+								<a href={`${API.admin}/${paths.constructor}`} className={cn(cls.link)}>
+									{t('page.constr')}
+								</a>
 							</li>
 							<li className={cls.item}>
 								<Link href={paths.login}>
-									<a className={cn(cls.link, {
-										[cls.activeLink]: paths.login === router.pathname
-									})}>
+									<a href={`${API.admin}/${paths.login}`} className={cn(cls.link)}>
 										{t('page.login')}
 									</a>
 								</Link>
 							</li>
 							<li className={cls.item}>
 								<Link href={paths.registration}>
-									<a className={cn(cls.link, {
-										[cls.activeLink]: paths.registration === router.pathname
-									})}>
+									<a href={`${API.admin}/${paths.registration}`} className={cn(cls.link)}>
 										{t('page.registration')}
 									</a>
 								</Link>
@@ -96,7 +88,7 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 									<li key={item._id}>
 										<Link href={item.link as string}>
 											<a>
-												<img src={`${API.host}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
+												<img src={`${API.admin}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
 											</a>
 										</Link>
 									</li>
@@ -111,7 +103,7 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 									<li key={item._id}>
 										<Link href={item.link as string}>
 											<a>
-												<img src={`${API.host}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
+												<img src={`${API.admin}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
 											</a>
 										</Link>
 									</li>
