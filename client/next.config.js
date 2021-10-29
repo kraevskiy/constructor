@@ -8,15 +8,7 @@ function getConfig (processEnv) {
       images: {
         domains: ['admin.arter.local'],
       },
-      i18n,
-      async rewrites() {
-        return [
-          {
-            source: '/api/:path*',
-            destination: 'http://admin.arter.local/api/:path*',
-          },
-        ];
-      },
+      i18n
     });
   } else {
     console.info('---->     Run development mode     <----');
@@ -24,15 +16,7 @@ function getConfig (processEnv) {
       images: {
         domains: ['admin.arter.local'],
       },
-      i18n,
-      async rewrites() {
-        return [
-          {
-            source: '/api/:path*',
-            destination: 'http://admin.arter.local/api/:path*',
-          },
-        ];
-      },
+      i18n
     };
   }
 }

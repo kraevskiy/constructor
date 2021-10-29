@@ -15,13 +15,15 @@ const Layout = ({children}: LayoutProps): JSX.Element => {
 		<div className={cn(cls.wrapper, {
 			[cls.overflow]: context.isShowNavigation
 		})}>
-			<Image
-				className={cls.bg}
-				src={bg.src}
-				width={bg.width}
-				alt="image"
-				height={bg.height}
-			/>
+			<div className={cls.bg}>
+				<Image
+					src={bg.src}
+					layout="responsive"
+					width={bg.width}
+					alt="image"
+					height={bg.height}
+				/>
+			</div>
 			<Header/>
 			<Navigation />
 			<main>

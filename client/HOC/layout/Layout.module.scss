@@ -52,6 +52,8 @@
 	z-index: 0;
 	right: -5vw;
 	bottom: -33vh;
+	width: 783px;
+	height: 1061px;
 
 	@include xl {
 		right: -15vw;
@@ -72,6 +74,12 @@
 		bottom: -23vh;
 
 		width: 90vw;
+		height: 80vh;
+	}
+
+	@include xs {
+		width: 90vw;
+		height: 70vh;
 	}
 }
 
