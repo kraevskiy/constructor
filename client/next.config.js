@@ -6,7 +6,7 @@ function getConfig (processEnv) {
     console.info('---->     Run production mode     <----');
     return withPWA({
       images: {
-        domains: ['admin.arter.local'],
+        domains: [`${process.env.NEXT_PUBLIC_DOMAIN}`],
       },
       i18n
     });
