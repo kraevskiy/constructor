@@ -29,7 +29,7 @@ export const GetFields = ({count, nameKey, fields, formMethods}: GetFieldsProps)
 					className={cn(cls.full, cls.item)}
 					key={Math.random() + s}>
 					<div className={cls.sub}>
-						<small>{nameKey} #{s + 1}</small>
+						<small>{t(`${nameKey}.item`)} #{s + 1}</small>
 					</div>
 					{fields.map(field => (
 						<label key={`${nameKey}.${s}.${field}`} className={cls.label}>

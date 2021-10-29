@@ -7,9 +7,11 @@ import Axios from '../../helpers/Axios';
 import { ICreatePageFormInterface } from '../../components/CreatePageForm/CreatePageForm.interface';
 import { errorHandler } from '../../helpers';
 import { toast } from 'react-toastify';
+import { PageResponse } from '../../types/page';
+import { pageIndexExample } from './page.index.example';
 
 export const getPageBySlug = (slug: string) => {
-	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | PageResponse | null> => {
 		try {
 			const res = await axios.get<StatePage>(`${process.env.REACT_APP_PAGE}/slag/${slug}`);
 			return dispatch({
@@ -18,7 +20,7 @@ export const getPageBySlug = (slug: string) => {
 			});
 		} catch (e) {
 			errorHandler(e);
-			return null;
+			return slug === 'home' ? pageIndexExample : null;
 		}
 	};
 };
@@ -27,7 +29,7 @@ export const editPageById = (id: string, data: StatePage | ICreatePageFormInterf
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const res = await Axios.patch<StatePage>(`${process.env.REACT_APP_PAGE}/${id}`, data);
-			toast.success(`Success edit ${id}`);
+			toast.success(`Success edit ${res.data.slag}`);
 			return dispatch({
 				type: TypesPage.editById,
 				payload: res.data
