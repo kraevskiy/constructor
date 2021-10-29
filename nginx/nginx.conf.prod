@@ -4,17 +4,17 @@ server {
 
 	server_name _;
 
-	location / {
-		proxy_pass http://admin:3001;
-	}
-
 	location /uploads {
-  		root /media/uploads;
+  		root /media;
   		try_files $uri $uri/;
   	}
 
 	location /api {
 		proxy_pass http://api:3002;
+	}
+
+	location / {
+		proxy_pass http://admin:3001;
 	}
 }
 

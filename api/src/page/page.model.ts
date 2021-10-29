@@ -148,7 +148,7 @@ export interface PageModel extends Base {
 
 export class PageModel extends TimeStamps {
 	@prop({unique: true})
-	slag: string;
+	slag?: string;
 
 	@prop({type: () => SeoPageModel})
 	seo?: SeoPageModel;
