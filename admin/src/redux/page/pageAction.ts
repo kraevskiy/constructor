@@ -14,10 +14,14 @@ export const getPageBySlug = (slug: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | PageResponse | null> => {
 		try {
 			const res = await axios.get<StatePage>(`${process.env.REACT_APP_PAGE}/slag/${slug}`);
-			return dispatch({
-				type: TypesPage.getBySlug,
-				payload: res.data
-			});
+			if(res.data.slag === slug){
+				return dispatch({
+					type: TypesPage.getBySlug,
+					payload: res.data
+				});
+			} else {
+				return pageIndexExample;
+			}
 		} catch (e) {
 			errorHandler(e);
 			return slug === 'home' ? pageIndexExample : null;
