@@ -48,17 +48,17 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 							</Link>
 						</li>
 						<li className={cls.item}>
-							<a href={`${API.admin}/${paths.constructor}`} className={cn(cls.link)}>
+							<a href={`${API.admin}${paths.constructor}`} className={cn(cls.link)}>
 								{t('page.constr')}
 							</a>
 						</li>
 						<li className={cls.item}>
-							<a href={`${API.admin}/${paths.login}`} className={cn(cls.link)}>
+							<a href={`${API.admin}${paths.login}`} className={cn(cls.link)}>
 								{t('page.login')}
 							</a>
 						</li>
 						<li className={cls.item}>
-							<a href={`${API.admin}/${paths.registration}`} className={cn(cls.link)}>
+							<a href={`${API.admin}${paths.registration}`} className={cn(cls.link)}>
 								{t('page.registration')}
 							</a>
 						</li>

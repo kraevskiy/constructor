@@ -61,20 +61,20 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 								</Link>
 							</li>
 							<li className={cls.item}>
-								<a href={`${API.admin}/${paths.constructor}`} className={cn(cls.link)}>
+								<a href={`${API.admin}${paths.constructor}`} className={cn(cls.link)}>
 									{t('page.constr')}
 								</a>
 							</li>
 							<li className={cls.item}>
 								<Link href={paths.login}>
-									<a href={`${API.admin}/${paths.login}`} className={cn(cls.link)}>
+									<a href={`${API.admin}${paths.login}`} className={cn(cls.link)}>
 										{t('page.login')}
 									</a>
 								</Link>
 							</li>
 							<li className={cls.item}>
 								<Link href={paths.registration}>
-									<a href={`${API.admin}/${paths.registration}`} className={cn(cls.link)}>
+									<a href={`${API.admin}${paths.registration}`} className={cn(cls.link)}>
 										{t('page.registration')}
 									</a>
 								</Link>

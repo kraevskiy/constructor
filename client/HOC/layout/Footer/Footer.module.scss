@@ -10,6 +10,14 @@
 		padding: 0;
 
 		list-style: none;
+
+		li {
+			a {
+				@include xs{
+					font-size: 19px;
+				}
+			}
+		}
 	}
 }
 
@@ -80,7 +88,11 @@
 
 		font-size: 20px;
 		grid-auto-flow: column;
-
+		a {
+			@include xs{
+				font-size: 19px;
+			}
+		}
 		img {
 			margin-right: 12px;
 		}
@@ -187,6 +199,14 @@
 
 	@include md {
 		font-size: 20px;
+	}
+	@include xs{
+		font-size: 19px;
+	}
+	a {
+		@include xs{
+			font-size: 19px;
+		}
 	}
 }
 

@@ -29,11 +29,11 @@ function Home({page}: HomeProps): JSX.Element {
 
 export default withLayout(Home);
 
-export const getStaticProps: GetStaticProps<HomeProps> = async (prop) => {
-	const {data: page} = await axios.get<PageInterface>(`/${API.pages.home}`);
+export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) => {
+	const {data: page} = await axios.get<PageInterface>(`${API.host}/${API.pages.home}`);
 	return {
 		props: {
-			...(await serverSideTranslations(prop.locale as string)), page,
+			...(await serverSideTranslations(locale as string, ['common'])), page,
 		}
 	};
 };
