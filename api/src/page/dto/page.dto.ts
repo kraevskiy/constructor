@@ -161,8 +161,9 @@ export class SouvenirsPageDto {
 }
 
 export class PageDto {
+	@IsOptional()
 	@IsString()
-	slag: string;
+	slag?: string;
 
 	@IsOptional()
 	@IsObject()
