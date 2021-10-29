@@ -8,7 +8,10 @@ function getConfig (processEnv) {
       images: {
         domains: ['admin.arter.local', 'constructor.chost.com.ua'],
       },
-      i18n
+      i18n,
+      pwa: {
+        dest: 'public'
+      }
     });
   } else {
     console.info('---->     Run development mode     <----');
