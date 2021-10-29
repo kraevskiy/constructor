@@ -11,7 +11,7 @@ import { errorHandler } from '../../helpers';
 import { toast } from 'react-toastify';
 
 export const login = (data: ILoginFormInterface) => {
-	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | unknown> => {
 		try {
 			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_LOGIN as string, data);
 			localStorage.setItem('auth-token', user.data.access_token);
@@ -22,7 +22,7 @@ export const login = (data: ILoginFormInterface) => {
 			});
 		} catch (e) {
 			errorHandler(e);
-			return null;
+			return e;
 		}
 	};
 };

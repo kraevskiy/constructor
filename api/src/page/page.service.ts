@@ -4,7 +4,6 @@ import { PageModel } from './page.model';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { PageDto } from './dto/page.dto';
 import { PAGE_EXIST } from './page.constans';
-import { Types } from 'mongoose';
 import { FindPagesDto } from './dto/find-pages.dto';
 
 @Injectable()
@@ -21,7 +20,8 @@ export class PageService {
 	}
 
 	async getBySlug(slag: string): Promise<DocumentType<PageModel> | null> {
-		return this.pageModel.findOne({slag}).exec();
+		const findPage = await this.pageModel.findOne({slag}).exec();
+		return findPage;
 	}
 
 	async create(dto: PageDto) {
