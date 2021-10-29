@@ -1,6 +1,6 @@
 export const API = {
-	admin: process.env.NODE_ENV === 'development' ? 'http://admin.arter.local' : process.env.NEXT_PUBLIC_DOMAIN,
-	host: process.env.NODE_ENV === 'development' ? 'http://admin.arter.local' : process.env.NEXT_PUBLIC_DOMAIN,
+	admin: process.env.NODE_ENV === 'development' ? 'http://admin.arter.local' : 'http://constructor.chost.com.ua',
+	host: process.env.NODE_ENV === 'development' ? 'http://admin.arter.local' : 'http://constructor.chost.com.ua',
 	pages: {
 		home: 'api/page/slag/home',
 		404: 'api/page/slag/404',
