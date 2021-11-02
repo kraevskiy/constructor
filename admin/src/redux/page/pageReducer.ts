@@ -25,6 +25,12 @@ const initialState: StatePage = {
 		},
 		items: []
 	},
+	others: {
+		title: {
+			ru: ''
+		},
+		items: []
+	},
 	advantages: {
 		title: {
 			ru: ''

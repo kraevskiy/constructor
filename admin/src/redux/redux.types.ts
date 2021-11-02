@@ -1,5 +1,5 @@
 import { TypesApp, TypesUser } from './types';
-import { AdvantagesPage, ContactsPage, FaqPage, HeaderPage, PicturesPage, SeoPage, SliderPage, SouvenirsPage } from '../types/page';
+import { AdvantagesPage, ContactsPage, FaqPage, HeaderPage, PicturesPage, OthersPage, SeoPage, SliderPage, SouvenirsPage } from '../types/page';
 
 export interface StateUserOrderLayout {
 	title: string;
@@ -98,6 +98,7 @@ export interface StatePage {
 	slides: SliderPage[];
 	souvenirs: SouvenirsPage;
 	pictures: PicturesPage;
+	others: OthersPage;
 	advantages: AdvantagesPage;
 	contacts: ContactsPage;
 	faqs: FaqPage;
@@ -162,5 +163,3 @@ export interface Canvas extends fabric.Canvas {
   width_mm: number;
   height_mm: number;
 }
-
-///==≠

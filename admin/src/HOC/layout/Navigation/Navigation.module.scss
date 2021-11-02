@@ -55,11 +55,17 @@
   font-weight: bold;
   font-size: 70px;
   text-transform: capitalize;
+  transition: all .4s;
   @include xl {
     font-size: 45px;
   }
   @include lg {
     font-size: 30px;
+  }
+  @include md-min{
+    &:hover {
+      color: var(--c-orange);
+    }
   }
 }
 

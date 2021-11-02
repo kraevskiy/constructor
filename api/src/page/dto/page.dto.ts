@@ -128,12 +128,32 @@ export class PicturesPageItemsDto {
 	title: { [key: string]: string };
 }
 
+export class OthersPageItemsDto {
+	@IsString()
+	image: string;
+
+	@IsObject()
+	title: { [key: string]: string };
+}
+
 export class PicturesPageDto {
 	@IsObject()
 	title: { [key: string]: string };
 
 	@IsArray()
 	items: PicturesPageItemsDto[];
+
+	@IsOptional()
+	@IsString()
+	additional?: string;
+}
+
+export class OthersPageDto {
+	@IsObject()
+	title: { [key: string]: string };
+
+	@IsArray()
+	items: OthersPageItemsDto[];
 
 	@IsOptional()
 	@IsString()
@@ -184,6 +204,10 @@ export class PageDto {
 	@IsOptional()
 	@IsObject()
 	pictures?: PicturesPageDto;
+
+	@IsOptional()
+	@IsObject()
+	others?: OthersPageDto;
 
 	@IsOptional()
 	@IsObject()

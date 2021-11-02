@@ -7,7 +7,7 @@ import cls from './Header.module.scss';
 import { RootState } from '../../../redux/rootReducer';
 import { HeaderProps } from './Header.props';
 import { LanguageSwitcher, Burger } from '../../../components/';
-import { logo } from '../../../images';
+import { logo1, logo2 } from '../../../images';
 import { logout as logoutIcon } from '../../../images/icons';
 import download from "downloadjs";
 import { clearOrders, clearLayouts, toggleMenu, logout, clearAllLayouts } from '../../../redux/actions';
@@ -18,7 +18,6 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 	const dispatch = useDispatch();
 
 	const handleChangeLanguage = (lang: string) => {
-		localStorage.setItem('userLanguage', lang);
 		return i18n.changeLanguage(lang);
 	};
 	// const handleShowCatalog = () => dispatch(toggleCatalog());
@@ -40,7 +39,8 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
 			{...props}
 		>
 			<NavLink className={cls.logo} to={paths.index}>
-				<img src={logo} alt=""/>
+				<img src={logo1} alt=""/>
+				<img src={logo2} alt=""/>
 			</NavLink>
 			{/*<div className={cls.catalog}>*/}
 			{/*	<Burger active={isOpenCatalog} onClick={handleShowCatalog}/>*/}
