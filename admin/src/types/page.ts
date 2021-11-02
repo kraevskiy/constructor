@@ -62,9 +62,33 @@ interface PicturesPageItems {
 	title: { [key: string]: string };
 }
 
+interface OthersPageItems {
+	_id: string;
+	image: string;
+	title: { [key: string]: string };
+}
+
+interface OthersPageItems {
+	_id: string;
+	image: string;
+	title: { [key: string]: string };
+}
+
 export interface PicturesPage {
 	title: { [key: string]: string };
 	items: PicturesPageItems[];
+	additional?: string;
+}
+
+export interface OthersPage {
+	title: { [key: string]: string };
+	items: OthersPageItems[];
+	additional?: string;
+}
+
+export interface OthersPage {
+	title: { [key: string]: string };
+	items: OthersPageItems[];
 	additional?: string;
 }
 
@@ -87,6 +111,7 @@ export interface PageResponse {
 	slides: SliderPage[];
 	souvenirs: SouvenirsPage;
 	pictures: PicturesPage;
+	others: OthersPage;
 	advantages: AdvantagesPage;
 	contacts: ContactsPage;
 	faqs: FaqPage;

@@ -11,8 +11,10 @@ import {
 	AccordionItemPanel
 } from 'react-accessible-accordion';
 import { FaqItemsPage } from '../../../../types/page';
+import { FadeInWhenVisible } from '../../../../components';
 
 export const Faqs = ({data, lang}: FaqsProps): JSX.Element => {
+	if (!data) return <></>;
 	const getCorrectList = (list: FaqItemsPage[]): FaqItemsPage[][] => {
 		const res: FaqItemsPage[][] = [[], []];
 		list.forEach((item, index) => {
@@ -30,25 +32,29 @@ export const Faqs = ({data, lang}: FaqsProps): JSX.Element => {
 	return (
 		<section className={cn(clsParent.title, cls.warpper)}>
 			<div className="container">
-				<BlockHead className={cls.title}>
-					{data.title[lang]}
-				</BlockHead>
-				<Accordion allowZeroExpanded className={cls.body} >
+				<FadeInWhenVisible>
+					<BlockHead className={cls.title}>
+						{data.title[lang]}
+					</BlockHead>
+				</FadeInWhenVisible>
+				<Accordion allowZeroExpanded className={cls.body}>
 					<div className={cls.list}>
 						{
 							list[0].map(faq => {
 								return (
-									<AccordionItem key={faq._id} className={cls.listItem}>
-										<AccordionItemHeading className={cls.listHeading}>
-											<AccordionItemButton className={cls.listButton}>
-												<span>{faq.title?.[lang]}</span>
-												<span className={cn(cls.plus, 'plus')}/>
-											</AccordionItemButton>
-										</AccordionItemHeading>
-										<AccordionItemPanel className={cls.listBody}>
-											{faq.text?.[lang]}
-										</AccordionItemPanel>
-									</AccordionItem>
+									<FadeInWhenVisible key={faq._id}>
+										<AccordionItem className={cls.listItem}>
+											<AccordionItemHeading className={cls.listHeading}>
+												<AccordionItemButton className={cls.listButton}>
+													<span>{faq.title?.[lang]}</span>
+													<span className={cn(cls.plus, 'plus')}/>
+												</AccordionItemButton>
+											</AccordionItemHeading>
+											<AccordionItemPanel className={cls.listBody}>
+												{faq.text?.[lang]}
+											</AccordionItemPanel>
+										</AccordionItem>
+									</FadeInWhenVisible>
 								);
 							})
 						}
@@ -57,17 +63,19 @@ export const Faqs = ({data, lang}: FaqsProps): JSX.Element => {
 						{
 							list[1].map(faq => {
 								return (
-									<AccordionItem key={faq._id} className={cls.listItem}>
-										<AccordionItemHeading className={cls.listHeading}>
-											<AccordionItemButton className={cls.listButton}>
-												<span>{faq.title?.[lang]}</span>
-												<span className={cn(cls.plus, 'plus')}/>
-											</AccordionItemButton>
-										</AccordionItemHeading>
-										<AccordionItemPanel className={cls.listBody}>
-											{faq.text?.[lang]}
-										</AccordionItemPanel>
-									</AccordionItem>
+									<FadeInWhenVisible key={faq._id}>
+										<AccordionItem className={cls.listItem}>
+											<AccordionItemHeading className={cls.listHeading}>
+												<AccordionItemButton className={cls.listButton}>
+													<span>{faq.title?.[lang]}</span>
+													<span className={cn(cls.plus, 'plus')}/>
+												</AccordionItemButton>
+											</AccordionItemHeading>
+											<AccordionItemPanel className={cls.listBody}>
+												{faq.text?.[lang]}
+											</AccordionItemPanel>
+										</AccordionItem>
+									</FadeInWhenVisible>
 								);
 							})
 						}

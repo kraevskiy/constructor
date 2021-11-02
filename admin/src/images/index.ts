@@ -8,5 +8,7 @@ import regsl from './regsl.svg';
 import mug from './mug.png';
 import picture from './picture.png';
 import vizitka from './vizitka.png';
+import logo1 from './logo1.png';
+import logo2 from './logo2.png';
 
-export { logo, bg, reg1, reg2, reg3, reg4, regsl, mug, picture, vizitka };
+export { logo, bg, reg1, reg2, reg3, reg4, regsl, mug, picture, vizitka, logo1, logo2 };

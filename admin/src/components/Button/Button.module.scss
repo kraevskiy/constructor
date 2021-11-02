@@ -12,21 +12,52 @@
   height: 40px;
   max-width: 100%;
   border-radius: 50px;
-  background: var(--grad-blue);
   padding-left: 25px;
   padding-right: 25px;
-
+  background: linear-gradient(to right,
+      var(--c-violet) 25%,
+      var(--c-blue) 50%,
+      var(--c-yellow) 50%,
+      var(--c-orange) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  transition: all .4s;
   @include sm {
     width: 100%;
+  }
+  @include md-min{
+    &:hover{
+      background-position: 100% 50%;
+      transform: scale(1.05);
+    }
   }
 }
 
 .green {
-  background: var(--grad-green);
+  background: linear-gradient(to right,
+      var(--c-dark-green) 25%,
+      var(--c-green) 50%,
+      var(--c-violet) 50%,
+      var(--c-blue) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
 }
 .red {
   background: var(--grad-red);
+  background: linear-gradient(to right,
+      var(--c-dark-red) 25%,
+      var(--c-red) 50%,
+      var(--c-violet) 50%,
+      var(--c-blue) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
 }
 .orange {
-  background: var(--grad-orange);
+  background: linear-gradient(to right,
+      var(--c-yellow) 25%,
+      var(--c-orange) 50%,
+      var(--c-dark-green) 50%,
+      var(--c-green) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
 }

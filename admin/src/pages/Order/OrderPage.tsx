@@ -29,10 +29,10 @@ const OrdersPage = (): JSX.Element => {
 			{
 				orders?.length
 					? <GetBodyOrders orders={orders}/>
-					: <p>You don't have orders</p>
+					: <p>{t('order.dont')}</p>
 			}
 			<br/>
-			<button className="btn btn-primary col-5 ms-auto" onClick={() => addOrderSimple()}>Add order</button>
+			<button className="btn" onClick={() => addOrderSimple()}>Add order</button>
 		</div>
 	);
 };

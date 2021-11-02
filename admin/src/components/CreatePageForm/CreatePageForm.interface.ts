@@ -90,11 +90,26 @@ export interface PicturesPageItems {
 	};
 }
 
+export interface OthersPageItems {
+	image: string;
+	title: {
+		[key in LanguagesTypes]: string;
+	};
+}
+
 export interface PicturesPage {
 	title: {
 		[key in LanguagesTypes]: string;
 	};
 	items: PicturesPageItems[];
+	additional?: string;
+}
+
+export interface OthersPage {
+	title: {
+		[key in LanguagesTypes]: string;
+	};
+	items: OthersPageItems[];
 	additional?: string;
 }
 
@@ -120,6 +135,7 @@ export interface ICreatePageFormInterface {
 	slides?: SliderPage[];
 	souvenirs?: SouvenirsPage;
 	pictures?: PicturesPage;
+	others?: OthersPage;
 	advantages?: AdvantagesPage;
 	contacts?: ContactsPage;
 	faqs?: FaqPage;
