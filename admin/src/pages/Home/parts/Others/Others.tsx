@@ -1,21 +1,12 @@
-import cls from './Advantages.module.scss';
+import cls from './Others.module.scss';
 import clsParent from '../../Home.module.scss';
-import { AdvantagesProps } from './Advantages.props';
+import { OthersProps } from './Others.props';
 import cn from 'classnames';
 import { BlockHead, FadeInWhenVisible } from '../../../../components';
+import { NavLink } from 'react-router-dom';
+import { paths } from '../../../../routes/paths';
 
-const colors: string[] = [
-	'var(--c-blue)',
-	'var(--c-yellow)',
-	'var(--c-green)',
-	'var(--c-violet)'
-];
-
-const generateRandomNumber = (min: number, max: number): number => {
-	return Math.floor(Math.random() * (max - min) + min);
-};
-
-export const Advantages = ({data, lang}: AdvantagesProps): JSX.Element => {
+export const Others = ({data, lang}: OthersProps): JSX.Element => {
 	if (!data) return <></>;
 	return (
 		<section className={cn(clsParent.title, cls.wrapper)}>
@@ -28,13 +19,12 @@ export const Advantages = ({data, lang}: AdvantagesProps): JSX.Element => {
 				<ul className={cls.list}>
 					{data.items.map(i => (
 						<FadeInWhenVisible tag="li" key={i._id}>
-							<p
-								style={{
-									borderLeftColor: colors[generateRandomNumber(0, colors.length - 1)]
-								}}
-							>
-								{i.title?.[lang]}
-							</p>
+							<NavLink to={paths.constructor}>
+								<img src={i.image} alt={i.title?.[lang]}/>
+								<p>
+									{i.title[lang]}
+								</p>
+							</NavLink>
 						</FadeInWhenVisible>
 					))}
 				</ul>

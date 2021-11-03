@@ -1,14 +1,15 @@
-import { NavLink } from "react-router-dom";
-import { paths } from "../../../routes/paths";
-import { useTranslation } from "react-i18next";
-import { useDispatch, useSelector } from "react-redux";
-import cn from "classnames";
-import cls from "./Header.module.scss";
-import { RootState } from "../../../redux/rootReducer";
-import { HeaderProps } from "./Header.props";
-import { LanguageSwitcher, Burger } from "../../../components/";
-import { logo } from "../../../images";
-import { logout as logoutIcon } from "../../../images/icons";
+import { NavLink } from 'react-router-dom';
+import { paths } from '../../../routes/paths';
+import { useTranslation } from 'react-i18next';
+import { useDispatch, useSelector } from 'react-redux';
+import cn from 'classnames';
+import cls from './Header.module.scss';
+import { RootState } from '../../../redux/rootReducer';
+import { HeaderProps } from './Header.props';
+import { LanguageSwitcher, Burger } from '../../../components/';
+import { logo1, logo2 } from '../../../images';
+import {} from '../../../images';
+import { logout as logoutIcon } from '../../../images/icons';
 import download from "downloadjs";
 import {
   clearOrders,
@@ -28,12 +29,11 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
-  const handleChangeLanguage = (lang: string) => {
-    localStorage.setItem("userLanguage", lang);
-    return i18n.changeLanguage(lang);
-  };
-  // const handleShowCatalog = () => dispatch(toggleCatalog());
-  const handleShowMenu = () => dispatch(toggleMenu());
+	const handleChangeLanguage = (lang: string) => {
+		return i18n.changeLanguage(lang);
+	};
+	// const handleShowCatalog = () => dispatch(toggleCatalog());
+	const handleShowMenu = () => dispatch(toggleMenu());
 
   const DownloadCanvas = () => {
     if (!instance) return;
@@ -45,36 +45,36 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
     }
   };
 
-  return (
-    <header className={cn("grid", cls.header, className)} {...props}>
-      <NavLink className={cls.logo} to={paths.index}>
-        <img src={logo} alt="" />
-      </NavLink>
-      {/*<div className={cls.catalog}>*/}
-      {/*	<Burger active={isOpenCatalog} onClick={handleShowCatalog}/>*/}
-      {/*	<span>КАТАЛОГ</span>*/}
-      {/*</div>*/}
-      <div className={cls.menu}>
-        <Burger active={isOpenMenu} onClick={handleShowMenu} />
-        {isLoggedIn && (
-          <button
-            className="btn btn-icon"
-            onClick={() => {
-              dispatch(logout());
-              dispatch(clearOrders());
-              dispatch(clearLayouts());
-              dispatch(clearAllLayouts());
-            }}
-          >
-            <img src={logoutIcon} alt="" />
-          </button>
-        )}
+	return (
+		<header
+			className={cn('grid', cls.header, className)}
+			{...props}
+		>
+			<NavLink className={cls.logo} to={paths.index}>
+				<img src={logo1} alt=""/>
+				<img src={logo2} alt=""/>
+			</NavLink>
+			{/*<div className={cls.catalog}>*/}
+			{/*	<Burger active={isOpenCatalog} onClick={handleShowCatalog}/>*/}
+			{/*	<span>КАТАЛОГ</span>*/}
+			{/*</div>*/}
+			<div className={cls.menu}>
+				<Burger active={isOpenMenu} onClick={handleShowMenu}/>
+				{isLoggedIn &&
+        <button className="btn btn-icon" onClick={() => {
+					dispatch(logout());
+					dispatch(clearOrders());
+					dispatch(clearLayouts());
+					dispatch(clearAllLayouts());
+				}}>
+          <img src={logoutIcon} alt=""/>
+				</button>}
         {isLoggedIn && showDownloadBtn && (
           <button className="btn" onClick={() =>  dispatch(createLayout())}>
             {t("constructor.save")}
           </button>
         )}
-        {isLoggedIn && showDownloadBtn && (
+        {(isLoggedIn && showDownloadBtn) && (
           <button className="btn second" onClick={() => DownloadCanvas()}>
             {t("constructor.download")}
           </button>

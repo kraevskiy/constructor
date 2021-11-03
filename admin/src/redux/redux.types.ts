@@ -5,6 +5,7 @@ import {
   FaqPage,
   HeaderPage,
   PicturesPage,
+  OthersPage,
   SeoPage,
   SliderPage,
   SouvenirsPage,
@@ -108,9 +109,18 @@ export interface StatePage {
   slides: SliderPage[];
   souvenirs: SouvenirsPage;
   pictures: PicturesPage;
+  others: OthersPage;
   advantages: AdvantagesPage;
   contacts: ContactsPage;
   faqs: FaqPage;
+}
+
+export interface ActionType<
+  T = TypesUser | TypesApp,
+  P = StateUser | StateApp
+> {
+  type: T;
+  payload?: P;
 }
 
 export interface ActionType<
@@ -178,5 +188,3 @@ export interface Canvas extends fabric.Canvas {}
 export interface FabImage extends fabric.Image {
   img_up?: File;
 }
-
-///==≠

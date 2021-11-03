@@ -16,31 +16,39 @@
 
 .img {
   position: absolute;
-  top: -490px;
-  left: 52%;
-  width: 850px;
-  @include xxl {
-    width: 750px;
-    top: -51vh;
-  }
+  left: calc(62% + 1vw);
+  top: -370px;
+  width: 430px;
+  height: 972px;
+  border-radius: 220px;
+  transform: rotate(24deg);
+  transition: all .4s;
+  background: linear-gradient(to right,
+      var(--c-violet),
+      var(--c-blue) 30%,
+      var(--c-dark-green),
+      var(--c-green) 60%,
+      var(--c-yellow),
+      var(--c-orange) 100%);
+  background-size: 400% 400%;
   @include xl {
-    width: 680px;
-    top: -35vh;
-    left: 48%;
+    width: 360px;
+    left: calc(58% + 1vw);
   }
   @include lg {
-    width: 680px;
-    top: -35vh;
-    left: 48%;
+    width: 330px;
+    left: calc(56% + 1vw);
+    top: -448px;
   }
   @include md {
-    left: 23%;
-    top: -400px;
+    top: -560px;
+    width: 340px;
   }
   @include sm {
-    left: 23%;
-    top: -250px;
-    width: 105vw;
+    height: 600px;
+    top: unset;
+    bottom: 50%;
+    width: 50vw;
   }
 }
 

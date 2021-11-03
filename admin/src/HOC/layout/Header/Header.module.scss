@@ -24,9 +24,23 @@
 .logo {
   grid-area: logo;
   align-self: center;
+  max-width: 189px;
+  display: grid;
+  align-items: center;
+  grid-gap: 8px;
+  grid-template-columns: 54px calc(189px - 54px - 8px);
+  @include xs {
+
+    grid-template-columns: 54px;
+  }
   img {
     display: block;
     max-width: 100%;
+    @include xs {
+      &:last-child{
+        display: none;
+      }
+    }
   }
 }
 

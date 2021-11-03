@@ -2,14 +2,27 @@ import cls from './Intro.module.scss';
 import clsParent from '../../Home.module.scss';
 import { IntroProps } from './Intro.props';
 import cn from 'classnames';
-import { regsl } from '../../../../images';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
 import { SliderPage } from '../../../../types/page';
 import { arrow_full } from '../../../../images/icons';
+import { useState } from 'react';
 
+const bgs: string[] = [
+	"0% 50%",
+	"60% 50%",
+	"100% 50%",
+	"0% 50%",
+	"60% 50%",
+	"100% 50%",
+	"0% 50%",
+	"60% 50%",
+	"100% 50%",
+];
 
 export const Intro = ({data, lang}: IntroProps): JSX.Element => {
+	if(!data) return <></>;
+	const [bg, setBg] = useState(0);
 	const Slide = (slideData: SliderPage) => {
 		return (
 			<div className={cls.slide}>
@@ -27,12 +40,18 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 			</div>
 		);
 	};
+
 	return (
 		<section className={cn(clsParent.intro, cls.wrapper)}>
-			<img src={regsl} alt="" className={cls.img}/>
+			<div className={cls.img} style={{
+				backgroundPosition: bgs[bg]
+			}}/>
 			<div className={cn('container')}>
 				<Carousel
 					showThumbs={false}
+					onChange={(index)=>{
+						setBg(index);
+					}}
 					// showArrows={false}
 					renderArrowPrev={(clickHandler, hasPrev, labelPrev) =>
 						(

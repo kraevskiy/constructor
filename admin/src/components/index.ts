@@ -14,9 +14,11 @@ const Button = lazy(()=>import('./Button/Button'));
 const Input = lazy(()=>import('./Input/Input'));
 const Textarea = lazy(()=>import('./Textarea/Textarea'));
 const InputFile = lazy(()=>import('./InputFile/InputFile'));
+const FadeInWhenVisible = lazy(()=>import('./FadeInWhenVisible/FadeInWhenVisible'));
 
 
 export {
+	FadeInWhenVisible,
 	EditUserForm,
 	LoginForm,
 	OrderList,

@@ -10,7 +10,7 @@ import { LanguageList } from './LanguageList';
 const LanguageSwitcher = ({languages, onClick}: LanguageSwitcherProps): JSX.Element => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const tr = useTranslation();
-	const [icon, setIcon] = useState<string | undefined>(tr.i18n.options.lng);
+	const [icon, setIcon] = useState<string | undefined>(tr.i18n.language);
 
 	const handlerClick = (lang: string) => {
 		setIcon(lang);

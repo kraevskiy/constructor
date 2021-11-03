@@ -76,12 +76,31 @@ export class PicturesPageItemsModel {
 	title: { [key: string]: string };
 }
 
+export class OthersPageItemsModel {
+	@prop()
+	image: string;
+
+	@prop()
+	title: { [key: string]: string };
+}
+
 export class PicturesPageModel {
 	@prop()
 	title: { [key: string]: string };
 
 	@prop({type: () => [PicturesPageItemsModel]})
 	items: PicturesPageItemsModel[];
+
+	@prop()
+	additional?: string;
+}
+
+export class OthersPageModel {
+	@prop()
+	title: { [key: string]: string };
+
+	@prop({type: () => [OthersPageItemsModel]})
+	items: OthersPageItemsModel[];
 
 	@prop()
 	additional?: string;
@@ -164,6 +183,9 @@ export class PageModel extends TimeStamps {
 
 	@prop({type: () => PicturesPageModel})
 	pictures?: PicturesPageModel;
+
+	@prop({type: () => OthersPageModel})
+	others?: OthersPageModel;
 
 	@prop({type: () => AdvantagesPageModel})
 	advantages?: AdvantagesPageModel;

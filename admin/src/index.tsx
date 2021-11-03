@@ -8,16 +8,14 @@ import App from './App';
 import i18n from './i18n';
 import thunk from 'redux-thunk';
 import './styles/index.scss';
-// import reportWebVitals from './reportWebVitals';
+import { I18nextProvider } from 'react-i18next';
+import Loader from './components/Loader/Loader';
 
 declare global {
 	interface Window {
 		__REDUX_DEVTOOLS_EXTENSION_COMPOSE__?: typeof compose;
 	}
 }
-
-import { I18nextProvider } from 'react-i18next';
-import Loader from './components/Loader/Loader';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

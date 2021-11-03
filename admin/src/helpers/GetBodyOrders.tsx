@@ -2,6 +2,7 @@ import { StateUserOrder } from '../redux/redux.types';
 import cls from '../pages/OrderAll/OrderAllPage.module.scss';
 import { BlockHead, OrderList } from '../components';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface GetBodyOrdersProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	orders: StateUserOrder[];
@@ -9,12 +10,13 @@ interface GetBodyOrdersProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivEle
 }
 
 export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps): JSX.Element => {
+	const {t} = useTranslation();
 
 	const getNewOrders = (newOrders: StateUserOrder[]) => {
 		return (
 			<div className={cls.typeWrapper}>
 				<BlockHead>
-					New orders
+					{t('order.new')}
 				</BlockHead>
 				<OrderList isShowName={isShowName} typeAction="delete" orders={newOrders}/>
 			</div>
@@ -25,7 +27,7 @@ export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps):
 		return (
 			<div className={cls.typeWrapper}>
 				<BlockHead line="orange">
-					Orders in progress
+					{t('order.progress')}
 				</BlockHead>
 				<OrderList isShowName={isShowName} typeAction="progress" orders={newOrders}/>
 			</div>
@@ -36,7 +38,7 @@ export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps):
 		return (
 			<div className={cls.typeWrapper}>
 				<BlockHead line="green">
-					Completed orders
+					{t('order.complete')}
 				</BlockHead>
 				<OrderList isShowName={isShowName} orders={newOrders}/>
 			</div>

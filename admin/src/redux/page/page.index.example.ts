@@ -206,6 +206,27 @@ export const pageIndexExample: PageResponse = {
 		"title": {"en": "Paintings", "ru": "Картины"},
 		"additional": ""
 	},
+	"others": {
+		"items": [{
+			"_id": "",
+			"title": {"en": "Paintings", "ru": "Картины"},
+			"image": "/uploads/616d4fbc5c80eb002b186bb2/2021-10-24/p1.svg"
+		}, {
+			"_id": "",
+			"title": {"en": "Modular pictures", "ru": "Модульные картины"},
+			"image": "/uploads/616d4fbc5c80eb002b186bb2/2021-10-24/p2.svg"
+		}, {
+			"_id": "",
+			"title": {"en": "Wooden paintings", "ru": "Деревянные картины"},
+			"image": "/uploads/616d4fbc5c80eb002b186bb2/2021-10-24/p3.svg"
+		}, {
+			"_id": "",
+			"title": {"en": "Paintings of a non-standard form", "ru": "Картины нестандартной формы"},
+			"image": "/uploads/616d4fbc5c80eb002b186bb2/2021-10-24/p4.svg"
+		}],
+		"title": {"en": "Paintings", "ru": "Картины"},
+		"additional": ""
+	},
 	"seo": {
 		"seoTitle": {"en": "SEO title 1", "ru": "SEO заголовок"},
 		"additional": "SEO описание",

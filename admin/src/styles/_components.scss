@@ -2,7 +2,13 @@
 
 .btn {
   width: 170px;
-  background: var(--grad-blue);
+  background: linear-gradient(to right,
+      var(--c-violet) 25%,
+      var(--c-blue) 50%,
+      var(--c-yellow) 50%,
+      var(--c-orange) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
   text-align: center;
   color: var(--c-white);
   box-shadow: none;
@@ -13,6 +19,8 @@
   height: 40px;
   max-width: 100%;
   border-radius: 50px;
+  transition: all .4s;
+
   @include sm {
     width: 100%;
   }
@@ -22,11 +30,15 @@
     background: none;
   }
 
-  &:hover {
-    color: black;
-  }
   @include xs{
     width: 100%;
+  }
+
+  @include md-min{
+    &:hover{
+      background-position: 100% 50%;
+      transform: scale(1.05);
+    }
   }
 }
 
