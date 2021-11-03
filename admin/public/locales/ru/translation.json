@@ -28,5 +28,7 @@
   "form.phone": "Ваш телефон",
   "form.email": "Ваш Email",
   "form.message": "Ваше сообщение",
-  "form.send": "Отправить сообщение"
+  "form.send": "Отправить сообщение",
+  "constructor.download": "Скачать",
+  "constructor.save": "Сохранить"
 }

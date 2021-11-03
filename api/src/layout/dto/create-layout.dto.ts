@@ -1,4 +1,4 @@
-import { IsArray, IsBoolean, IsOptional, IsString } from 'class-validator';
+import { IsArray, IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateLayoutDto {
 	@IsOptional()
@@ -28,4 +28,7 @@ export class CreateLayoutDto {
 	@IsOptional()
 	@IsBoolean()
 	onOrder?: false;
+
+  @IsString()
+	type: string;
 }

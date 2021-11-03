@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { Dispatch } from "redux";
 import { TypesEditor } from "../types";
 import { CanConfig, FileC, Prefab } from "../redux.types";
@@ -78,64 +77,6 @@ export const deletePrefab = (uuid: string) => {
   };
 };
 
-export const savePrefab = () => {
-  return async (
-    dispatch: Dispatch<ActionType>,
-    getState: () => RootState
-  ): Promise<ActionType | null> => {
-    const { editor } = getState();
-    const canvas = editor.instance;
-    const prefabs = editor.prefabs;
-
-    const files: FileC[] = [];
-    const files_n: FileC[] = [];
-
-    if (!canvas) return null;
-
-    for (const item of canvas.getObjects()) {
-      // if (item.type === "image") {
-      //   item.crossOrigin = "anonymous";
-      // }
-      // if (item.type === "image" && item.img_up) {
-      //   files.push(item.img_up);
-      //   files_n.push(item.img_up.name);
-      // }
-    }
-
-    const preview_uuid = uuidv4() + "_preview.png";
-
-    const req: Prefab = {
-      uuid: "",
-      instance: JSON.stringify(canvas),
-      user_id: "test_user",
-      files: files_n,
-      type: "card",
-      width: canvas.width_mm,
-      height: canvas.height_mm,
-      preview_uuid: preview_uuid,
-      canvas_conf: editor.canvasConfig,
-    };
-
-    try {
-      const res = await Axios.post(
-        "prefabs/save_pref",
-        createFormData(files, req, canvas.toDataURL(), preview_uuid)
-      );
-      if (res) {
-        // setPref(req);
-        prefabs.push(req);
-        alert("Сохранено!");
-        return dispatch(setPrefab(prefabs));
-      }
-    } catch (err) {
-      console.log(err);
-      return null;
-    }
-
-    return null;
-  };
-};
-
 export const createFormData = (
   files: FileC[],
   body: Prefab,
@@ -163,7 +104,7 @@ export const createFormData = (
   return data;
 };
 
-export const blobCreationFromURL = (dataURI: string): Blob => {
+const blobCreationFromURL = (dataURI: string): Blob => {
   // convert base64 to raw binary data held in a string
   // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
   const byteString = atob(dataURI.split(",")[1]);

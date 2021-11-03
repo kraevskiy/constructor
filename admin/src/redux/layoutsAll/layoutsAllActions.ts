@@ -15,6 +15,9 @@ export const getAllLayouts = (filter?: {
 		try {
 			const layoutsAll = await Axios.post<StateAllLayouts[]>(`${process.env.REACT_APP_LAYOUTS}`,filter);
 
+      console.log('layoutsAll');
+      console.log(layoutsAll.data[0].layouts);
+      
 			return dispatch({
 				type: TypesLayoutAll.getLayoutsAll,
 				payload: layoutsAll.data

@@ -63,7 +63,7 @@ const LayersSection: React.FC<Props> = ({
           style={{
             height:
               layer.type === "text" || layer.type === "textbox" ? 100 : 150,
-            backgroundImage: `url(${layer.src ? layer.src : layer.src_custom})`,
+            backgroundImage: `url(${layer.src})`,
           }}
         >
           {(layer.type === "text" || layer.type === "textbox") && (

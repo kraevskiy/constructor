@@ -54,6 +54,7 @@ import {
 import { RootState } from "../../redux/rootReducer";
 import theme from "./theme";
 import style from "./ConstructorPage.module.scss";
+import { Textbox } from "fabric/fabric-impl";
 
 const ConstructorPage = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -70,7 +71,7 @@ const ConstructorPage = (): JSX.Element => {
   const canvas = instance;
 
   useEffect(() => {
-    dispatch(getImages());
+    // dispatch(getImages());
   }, []);
 
   useEffect(() => {
@@ -179,18 +180,21 @@ const ConstructorPage = (): JSX.Element => {
   const attachListeners = (item: fabric.Object) => {
     // console.log('item', item);
     item.on("modified", () => dispatch(changeHistory()));
-    if (canvas)
+    if (canvas) {
       item.on("selected", () =>
         setItemIndex(canvas.getObjects().indexOf(item))
       );
-    // item.on("deselected", (e) => {
-    //   setItemIndex(-1);
-    //   if (
-    //     item.type === "textbox" ||
-    //     item.type === "text"
-    //   )
-    //     handleLayerTextChange(item.text, canvas.getObjects().indexOf(item));
-    // });
+      item.on("deselected", (e) => {
+        setItemIndex(-1);
+        if (item.type === "textbox" || item.type === "text") {
+          const textItem = item as fabric.Textbox;
+          handleLayerTextChange(
+            textItem.text ?? "",
+            canvas.getObjects().indexOf(textItem)
+          );
+        }
+      });
+    }
   };
 
   const clearCanvas = () => {
@@ -318,18 +322,20 @@ const ConstructorPage = (): JSX.Element => {
               deleteLayer={deleteLayer}
               copyLayer={copyLayer}
             />
-            <div />
+
+            <PrefabsSection attachListeners={attachListeners} />
+
             <ImagesSection
               setItemIndex={setItemIndex}
               attachListeners={attachListeners}
             />
+
             <FontsSection
               setItemIndex={setItemIndex}
               handleLayerTextChange={handleLayerTextChange}
             />
-            <SettingsSection />
 
-            <PrefabsSection />
+            <SettingsSection />
           </SwipeableViews>
 
           <div

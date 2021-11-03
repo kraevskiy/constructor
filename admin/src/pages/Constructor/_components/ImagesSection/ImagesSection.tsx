@@ -7,7 +7,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import Axios from "../../../../helpers/Axios";
-import { FileC, Image } from "../../../../redux/redux.types";
+import { FabImage, FileC, Image } from "../../../../redux/redux.types";
 
 //Images
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
@@ -20,10 +20,7 @@ import LabelIcon from "@material-ui/icons/Label";
 import ImagesList from "./ImagesList";
 
 import { RootState } from "../../../../redux/rootReducer";
-import {
-  changeHistory,
-  getImages,
-} from "../../../../redux/editor/editorActions";
+import { changeHistory, getImages } from "../../../../redux/actions";
 
 import style from "./ImagesSection.module.scss";
 
@@ -132,7 +129,6 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         const minDis = wightDis < heightDis ? wightDis : heightDis;
         if (minDis < 1) oImg.scale(minDis);
 
-        oImg.src_custom = input_img;
         oImg.img_up = img_up;
 
         canvas.add(oImg);
@@ -404,8 +400,3 @@ const createFormData = (files: FileC[], body: Body): FormData => {
 
   return data;
 };
-
-interface FabImage extends fabric.Image {
-  src_custom: string;
-  img_up: File;
-}

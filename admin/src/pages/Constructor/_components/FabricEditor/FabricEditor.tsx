@@ -12,7 +12,7 @@ import {
   setCoverEditor,
   setConfig,
 } from "../../../../redux/editor/editorActions";
-import { Canvas } from "../../../../redux/redux.types";
+import { CanConfig, Canvas } from "../../../../redux/redux.types";
 
 const defCardPropMM = {
   width: 160,
@@ -30,17 +30,17 @@ const FabricEditor: React.FC = () => {
     const converted_width = mm_px * defCardPropMM.width;
     const converted_heigh = mm_px * defCardPropMM.height;
 
-    const canConf = {
+    const canConf: CanConfig = {
       width: converted_width + 40,
       height: converted_heigh + 40,
+      width_mm: defCardPropMM.width,
+      height_mm: defCardPropMM.height,
       backgroundColor: "transparent",
       selectionLineWidth: 2,
     };
 
     const canvas = new fabric.Canvas(fabricRoot.current, canConf) as Canvas;
-    canvas.width_mm = defCardPropMM.width;
     canvas.enableRetinaScaling = true;
-    canvas.height_mm = defCardPropMM.height;
     dispatch(setEditor(canvas));
     dispatch(setConfig(canConf));
 

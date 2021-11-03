@@ -28,5 +28,7 @@
   "form.phone": "Your phone",
   "form.email": "Your email",
   "form.message": "Message",
-  "form.send": "Send message"
+  "form.send": "Send message",
+  "constructor.download": "Download",
+  "constructor.save": "Save"
 }

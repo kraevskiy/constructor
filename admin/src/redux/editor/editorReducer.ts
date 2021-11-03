@@ -7,6 +7,8 @@ const initialState: Editor = {
   canvasConfig: {
     width: 700,
     height: 500,
+    width_mm: 0,
+    height_mm: 0,
     backgroundColor: "transparent",
     // selectionColor: 'blue',
     selectionLineWidth: 2,
