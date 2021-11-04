@@ -1,5 +1,5 @@
 import { TypesEditor } from "../types";
-import { Editor, CanConfig, Prefab, Canvas, Image } from "../redux.types";
+import { Editor, CanConfig, Canvas, Image } from "../redux.types";
 
 const initialState: Editor = {
   instance: undefined,
@@ -13,7 +13,6 @@ const initialState: Editor = {
     // selectionColor: 'blue',
     selectionLineWidth: 2,
   },
-  prefabs: [],
   images: [],
   loading_images: true,
   scaleRatio: 1,
@@ -28,7 +27,6 @@ export interface ActionType {
     | fabric.Canvas
     | CanConfig
     | number
-    | Prefab[]
     | string
     | Image[]
     | string[];
@@ -57,26 +55,10 @@ export const editorReducer = (
         cover_instance: action.payload as Canvas,
       };
     }
-    case TypesEditor.set_prefab: {
-      return {
-        ...state,
-        prefabs: action.payload as Prefab[],
-        prefabsLoading: false,
-      };
-    }
     case TypesEditor.get_images: {
       return {
         ...state,
         images: action.payload as Image[],
-        loading_images: false,
-      };
-    }
-    case TypesEditor.delete_prefab: {
-      return {
-        ...state,
-        prefabs: state.prefabs.filter(
-          (item) => item.uuid !== (action.payload as string)
-        ),
         loading_images: false,
       };
     }

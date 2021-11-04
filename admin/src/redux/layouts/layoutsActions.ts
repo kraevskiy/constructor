@@ -3,13 +3,16 @@ import { v4 as uuidv4 } from "uuid";
 import Axios from "../../helpers/Axios";
 import { TypesLayout } from "../types";
 import { ActionType } from "./layoutsReducer";
-// import { ActionType as ActionTypeLayoutsAll} from '../layoutsAll/layoutsAllReducer';
 import { toast } from "react-toastify";
 import { decode } from "jsonwebtoken";
-import { DecodeTokenTypes, FabImage, StateUserLayout } from "../redux.types";
+import {
+  DecodeTokenTypes,
+  FabImage,
+  StateAllLayouts,
+  StateUserLayout,
+} from "../redux.types";
 import { errorHandler } from "../../helpers";
 import { RootState } from "../rootReducer";
-// import { getAllLayouts } from '../layoutsAll/layoutsAllActions';
 
 interface TypeResponseUpload {
   name: string;
@@ -60,6 +63,41 @@ export const getLayouts = (id?: string) => {
       errorHandler(e);
       return null;
     }
+  };
+};
+
+export const getAllLayouts = (filter?: {
+  limit?: number;
+  page?: number;
+  user?: string;
+}) => {
+  return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+    try {
+      const layoutsAll = await Axios.post<StateAllLayouts[]>(
+        `${process.env.REACT_APP_LAYOUTS}`,
+        filter
+      );
+
+      console.log("layoutsAll");
+      console.log(layoutsAll.data[0].layouts);
+
+      return dispatch({
+        type: TypesLayout.getAllLayouts,
+        payload: layoutsAll.data[0].layouts,
+      });
+    } catch (e) {
+      errorHandler(e);
+      return null;
+    }
+  };
+};
+
+export const clearAllLayouts = () => {
+  return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+    return dispatch({
+      type: TypesLayout.clearAllLayout,
+      payload: [],
+    });
   };
 };
 
@@ -138,10 +176,10 @@ export const createLayout = () => {
 
       toast.success(`Successful create ${layout.data.title}`);
       toast.success(layout);
-      // return dispatch({
-      //   type: TypesLayout.createLayout,
-      //   payload: [layout.data],
-      // });
+      return dispatch({
+        type: TypesLayout.createLayout,
+        payload: [layout.data],
+      });
     } catch (e) {
       errorHandler(e);
     }

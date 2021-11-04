@@ -149,23 +149,10 @@ export interface CanConfig {
   selectionLineWidth: number;
 }
 
-export interface Prefab {
-  uuid: string;
-  instance: string;
-  user_id: string;
-  files: string[];
-  type: "card" | "picture" | "banner";
-  width: number;
-  height: number;
-  preview_uuid: string;
-  canvas_conf: CanConfig;
-}
-
 export interface Editor {
   instance?: Canvas;
   cover_instance?: Canvas;
   canvasConfig: CanConfig;
-  prefabs: Prefab[];
   images: Image[];
   loading_images: boolean;
   scaleRatio: number;

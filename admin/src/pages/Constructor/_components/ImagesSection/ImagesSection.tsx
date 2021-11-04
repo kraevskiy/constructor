@@ -166,15 +166,15 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
       type: type,
     };
 
-    await Axios.post("prefabs/save_image", createFormData([file], req))
-      .then((res) => {
-        console.log("RES", res);
-        alert("Сохранено!");
-        dispatch(getImages());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // await Axios.post("prefabs/save_image", createFormData([file], req))
+    //   .then((res) => {
+    //     console.log("RES", res);
+    //     alert("Сохранено!");
+    //     dispatch(getImages());
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
   };
 
   const addTriangle = () => {

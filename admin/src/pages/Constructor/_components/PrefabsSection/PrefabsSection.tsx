@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
 
@@ -19,14 +19,10 @@ const PrefabsSection: React.FC<Props> = ({ attachListeners }) => {
   const dispatch = useDispatch();
   const {
     editor: { instance, cover_instance },
-    layoutsAll,
+    layouts: { allLayouts },
   } = useSelector((state: RootState) => state);
 
   const canvas = instance;
-
-  useEffect(() => {
-    // dispatch(preparePrefabs());
-  }, []);
 
   const loadPrefab = async (prefab: StateUserLayout) => {
     if (!canvas || !cover_instance) return null;
@@ -71,34 +67,33 @@ const PrefabsSection: React.FC<Props> = ({ attachListeners }) => {
 
   return (
     <>
-      {layoutsAll &&
-        layoutsAll[0].layouts.map((prefab, i) => (
-          <div
-            onMouseDown={() => loadPrefab(prefab)}
-            key={i}
-            style={{
-              height: 150,
-              width: "100%",
-              overflow: "hidden",
-              backgroundImage: `url(${
-                "http://admin.arter.local" + prefab.preview
-              })`,
-              backgroundSize: "cover",
-              position: "relative",
-              backgroundColor: "gray",
-            }}
-          >
-            <div className={style.layer_title_bar}>
-              <div className={style.opacity_caver} />
-              <IconButton
-                onClick={() => dispatch(deleteLayout(prefab._id))}
-                // aria-label={`star ${prefab.title}`}
-              >
-                <DeleteForever style={{ color: "orange" }} />
-              </IconButton>
-            </div>
+      {allLayouts.map((prefab, i) => (
+        <div
+          onMouseDown={() => loadPrefab(prefab)}
+          key={i}
+          style={{
+            height: 150,
+            width: "100%",
+            overflow: "hidden",
+            backgroundImage: `url(${
+              "http://admin.arter.local" + prefab.preview
+            })`,
+            backgroundSize: "cover",
+            position: "relative",
+            backgroundColor: "gray",
+          }}
+        >
+          <div className={style.layer_title_bar}>
+            <div className={style.opacity_caver} />
+            <IconButton
+              onClick={() => dispatch(deleteLayout(prefab._id))}
+              // aria-label={`star ${prefab.title}`}
+            >
+              <DeleteForever style={{ color: "orange" }} />
+            </IconButton>
           </div>
-        ))}
+        </div>
+      ))}
     </>
   );
 };
