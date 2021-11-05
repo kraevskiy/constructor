@@ -6,6 +6,7 @@ import { decode } from 'jsonwebtoken';
 import { ActionType } from './ordersReducer';
 import { errorHandler } from '../../helpers';
 import { toast } from 'react-toastify';
+import { OrderType } from '../../types/order';
 
 export const getOrders = (id?: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
@@ -34,11 +35,7 @@ export const getOrders = (id?: string) => {
 	};
 };
 
-export const createOrders = (data: {
-	status?: 'accepted' | 'new' | 'progress' | 'completed';
-	layouts: {title: string; _id: string}[]
-	user?: string
-}) => {
+export const createOrders = (data: OrderType) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const normalData = {...data, status: 'new', user: '60d2e9f16861125fa26c8315'};
@@ -47,6 +44,23 @@ export const createOrders = (data: {
 			return dispatch({
 				type: TypesOrder.createOrder,
 				payload: [order.data]
+			});
+
+		}	catch (e) {
+			errorHandler(e);
+			return null;
+		}
+	};
+};
+
+export const editStatusOrder = ({id, status}: {id: string; status: OrderType['status']}) => {
+	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+		try {
+			const editOrder = await Axios.patch<StateUserOrder>(`${process.env.REACT_APP_ORDER}/${id}`, {status});
+			toast.success(`Order: ${id} New status: ${status}`);
+			return dispatch({
+				type: TypesOrder.editStatusOrder,
+				payload: [editOrder.data]
 			});
 
 		}	catch (e) {

@@ -1,6 +1,5 @@
 import { lazy } from 'react';
 
-const EditUserForm = lazy(() => import('./EditUserForm/EditUserForm'));
 const LoginForm = lazy(()=>import('./LoginForm/LoginForm'));
 const OrderList = lazy(()=>import('./OrderList/OrderList'));
 const LayoutList = lazy(()=>import('./LayoutList/LayoutList'));
@@ -15,11 +14,14 @@ const Input = lazy(()=>import('./Input/Input'));
 const Textarea = lazy(()=>import('./Textarea/Textarea'));
 const InputFile = lazy(()=>import('./InputFile/InputFile'));
 const FadeInWhenVisible = lazy(()=>import('./FadeInWhenVisible/FadeInWhenVisible'));
+const InputLabel = lazy(()=>import('./InputLabel/InputLabel'));
+const Modal = lazy(()=>import('./Modal/Modal'));
 
 
 export {
+	Modal,
+	InputLabel,
 	FadeInWhenVisible,
-	EditUserForm,
 	LoginForm,
 	OrderList,
 	LayoutList,

@@ -4,9 +4,12 @@ export interface ItemProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivEleme
 	id: string;
 	title: string;
 	handleDelete: (id: string) => void;
-	deleteText: string;
-	linkText: string;
+	deleteText?: string | boolean;
+	linkText?: string | boolean;
+	addOrder?: string | boolean;
+	preview?: string;
 	createdAt: Date;
 	updatedAt: Date;
 	userName?: string | null;
+	onOrder?: boolean;
 }

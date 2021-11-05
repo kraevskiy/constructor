@@ -3,14 +3,22 @@ import cls from '../pages/OrderAll/OrderAllPage.module.scss';
 import { BlockHead, OrderList } from '../components';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { editStatusOrder } from '../redux/orders/ordersActions';
+import { getAllOrders } from '../redux/ordersAll/ordersAllActions';
 
 interface GetBodyOrdersProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	orders: StateUserOrder[];
-	isShowName?: boolean;
 }
 
-export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps): JSX.Element => {
+export const GetBodyOrders = ({orders}: GetBodyOrdersProps): JSX.Element => {
 	const {t} = useTranslation();
+	const dispatch = useDispatch();
+
+	const handleAction = async (id: string, status: 'new' | 'progress' | 'completed'): Promise<void> => {
+		await dispatch(editStatusOrder({id, status}));
+		dispatch(getAllOrders({limit: 100}));
+	};
 
 	const getNewOrders = (newOrders: StateUserOrder[]) => {
 		return (
@@ -18,7 +26,7 @@ export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps):
 				<BlockHead>
 					{t('order.new')}
 				</BlockHead>
-				<OrderList isShowName={isShowName} typeAction="delete" orders={newOrders}/>
+				<OrderList action={handleAction} orders={newOrders}/>
 			</div>
 		);
 	};
@@ -29,7 +37,7 @@ export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps):
 				<BlockHead line="orange">
 					{t('order.progress')}
 				</BlockHead>
-				<OrderList isShowName={isShowName} typeAction="progress" orders={newOrders}/>
+				<OrderList action={handleAction} orders={newOrders}/>
 			</div>
 		);
 	};
@@ -40,7 +48,7 @@ export const GetBodyOrders = ({orders, isShowName = false}: GetBodyOrdersProps):
 				<BlockHead line="green">
 					{t('order.complete')}
 				</BlockHead>
-				<OrderList isShowName={isShowName} orders={newOrders}/>
+				<OrderList action={handleAction} orders={newOrders}/>
 			</div>
 		);
 	};

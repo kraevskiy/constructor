@@ -19,13 +19,13 @@ const LayoutsAllPage = (): JSX.Element => {
 			>
 				<span>{t('layoutAll.title')}</span>
 				<NavLink className="btn" to={paths.constructor}>
-					Create new
+					{t('layout.create')}
 				</NavLink>
 			</PageHead>
 			{
 				layouts?.length
 					? <LayoutList layouts={layouts[0].layouts} isShowName={true}/>
-					: <p>Don't have layouts</p>
+					: <p>{t('layout.dont')}</p>
 			}
 		</div>
 	);

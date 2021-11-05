@@ -67,6 +67,11 @@ export class AuthController {
 	async edit(
 		@Body() dto: EditDto,
 		@UserGuard() guard: { _id: string, email: string }) {
+		if(!!dto.password){
+			if(dto.password?.length < 5){
+				delete dto.password;
+			}
+		}
 		return this.authService.editUser(dto, guard._id);
 	}
 

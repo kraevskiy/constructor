@@ -14,6 +14,16 @@ export interface StateUserOrder {
 	_id: string;
 	createdAt: Date;
 	updatedAt: Date;
+	delivery?: string;
+	paymentType?: string;
+	address?: string;
+	firstName?: string;
+	lastName?: string;
+	phone?: string;
+	email?: string;
+	comment?: string;
+	price?: string;
+	count?: string;
 }
 
 export interface TotalCount {
@@ -52,6 +62,7 @@ export interface StateUserLayout {
 	instance: string;
 	preview?: string;
 	_id: string;
+	onOrder?: false;
 	createdAt: Date;
 	updatedAt: Date;
 }
@@ -79,7 +90,12 @@ export interface StateUser {
 	_id: string;
 	role: RolesUser;
 	login: string;
-  canEdit: boolean;
+	canEdit: boolean;
+	address: string;
+	firstName: string;
+	lastName: string;
+	phone: string;
+	avatar: string;
 }
 
 export interface StateApp {
@@ -118,48 +134,48 @@ export interface DecodeTokenTypes {
 
 //EDITOR////
 export interface CanConfig {
-  width: number;
-  height: number;
-  backgroundColor: string;
-  // selectionColor: string,
-  selectionLineWidth: number;
+	width: number;
+	height: number;
+	backgroundColor: string;
+	// selectionColor: string,
+	selectionLineWidth: number;
 }
 
 export interface Prefab {
-  uuid: string;
-  instance: string;
-  user_id: string;
-  files: any[];
-  type: "card" | "picture" | "banner";
-  width: number;
-  height: number;
-  preview_uuid: string;
-  canvas_conf: CanConfig;
+	uuid: string;
+	instance: string;
+	user_id: string;
+	files: any[];
+	type: 'card' | 'picture' | 'banner';
+	width: number;
+	height: number;
+	preview_uuid: string;
+	canvas_conf: CanConfig;
 }
 
 export interface Editor {
-  instance?: Canvas;
-  cover_instance?: Canvas;
-  canvasConfig: CanConfig;
-  prefabs: Prefab[];
-  images: Image[];
-  loading_images: boolean;
-  scaleRatio: number;
-  prefabsLoading: boolean;
-  history: string[];
-  history_n: number;
+	instance?: Canvas;
+	cover_instance?: Canvas;
+	canvasConfig: CanConfig;
+	prefabs: Prefab[];
+	images: Image[];
+	loading_images: boolean;
+	scaleRatio: number;
+	prefabsLoading: boolean;
+	history: string[];
+	history_n: number;
 }
 
 export interface Image {
-  name: string;
-  type: string;
+	name: string;
+	type: string;
 }
 
 export interface FileC extends File {
-  custom_name: string;
+	custom_name: string;
 }
 
 export interface Canvas extends fabric.Canvas {
-  width_mm: number;
-  height_mm: number;
+	width_mm: number;
+	height_mm: number;
 }

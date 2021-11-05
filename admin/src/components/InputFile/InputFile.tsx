@@ -6,12 +6,8 @@ import ImageUploading from 'react-images-uploading';
 import Axios from '../../helpers/Axios';
 import { ImageListType } from 'react-images-uploading/dist/typings';
 import { logout as logoutIcon } from '../../images/icons';
-// export const Input = (props: InputProps): JSX.Element => {
-// 	return <input {...props} className={cn(props.className, cls.input)}/>;
-// };
 
-
-interface TypeResponseUpload {
+export interface TypeResponseUpload {
 	name: string;
 	url: string;
 }
@@ -80,11 +76,6 @@ const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: F
 			</ImageUploading>
 		</div>
 	);
-	// return (
-	// 		<>
-	// 			<input className={cn(className, cls.input)} ref={ref} {...props}/>
-	// 		</>
-	// );
 });
 
 export default InputFile;

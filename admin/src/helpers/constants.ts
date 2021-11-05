@@ -32,3 +32,5 @@ export const fonts = [
   "Ballet",
   "Bebas Neue",
 ];
+
+export const INITIAL_PRICE = 0.59;

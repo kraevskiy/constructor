@@ -11,6 +11,11 @@ const initialState: StateUser = {
   role: "visitor",
   login: "",
   canEdit: true,
+  address: '',
+  firstName: '',
+  lastName: '',
+  phone: '',
+  avatar: ''
 };
 
 export const userReducer = (

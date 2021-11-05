@@ -13,7 +13,7 @@ import {
 	ValidationPipe
 } from '@nestjs/common';
 import { FindLayoutsDto } from './dto/find-layouts.dto';
-import { CreateLayoutDto } from './dto/create-layout.dto';
+import { CreateLayoutDto, EditLayoutDto } from './dto/create-layout.dto';
 import { LayoutService } from './layout.service';
 import { LAYOUT_NOT_FOUND, LAYOUT_NOT_USER, NOT_ADMIN } from './layout.constans';
 import { transliterate } from './helpers/transliter';
@@ -22,6 +22,8 @@ import { UserGuard } from '../decorators/user.decorator';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
 import { Types } from 'mongoose';
 import { ApiTags } from '@nestjs/swagger';
+import { DocumentType } from '@typegoose/typegoose/lib/types';
+import { LayoutModel } from './layout.model';
 
 @Controller('layout')
 @ApiTags('Layout')
@@ -89,8 +91,8 @@ export class LayoutController {
 	@UsePipes(new ValidationPipe())
 	async patch(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: CreateLayoutDto,
-		@UserGuard() guard: { _id: Types.ObjectId }) {
+		@Body() dto: EditLayoutDto,
+		@UserGuard() guard: { _id: Types.ObjectId }): Promise<DocumentType<LayoutModel> | null> {
 		const editLayout = await this.layoutService.edit(id, dto);
 		if (!editLayout) {
 			throw new HttpException(LAYOUT_NOT_FOUND, HttpStatus.NOT_FOUND);

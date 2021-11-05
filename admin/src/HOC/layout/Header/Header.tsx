@@ -63,7 +63,7 @@ const Header = ({className, ...props}: HeaderProps): JSX.Element => {
             {"Download"}
           </button>
         )}
-				<LanguageSwitcher languages={['en', 'ru']} onClick={handleChangeLanguage}/>
+				<LanguageSwitcher languages={['en-US', 'ru-RU']} onClick={handleChangeLanguage}/>
 			</div>
 		</header>
 	);

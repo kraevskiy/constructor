@@ -23,7 +23,7 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.orders}>{t('page.orders')}</NavLink>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.orders.index}>{t('page.orders')}</NavLink>
 				</li>
 				<li className={cls.item}>
 					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>

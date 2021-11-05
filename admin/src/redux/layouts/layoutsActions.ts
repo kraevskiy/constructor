@@ -54,12 +54,7 @@ export const getLayouts = (id?: string) => {
 	};
 };
 
-export const createLayouts = (data: {
-	title: string;
-	config: string;
-	files: string[];
-	instance: string;
-}) => {
+export const createLayouts = (data: StateUserLayout) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const layout = await Axios.post<StateUserLayout>(`${process.env.REACT_APP_LAYOUT_CREATE}`, data);
