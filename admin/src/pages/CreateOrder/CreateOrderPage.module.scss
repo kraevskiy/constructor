@@ -11,7 +11,7 @@
   grid-gap: 30px;
   align-items: start;
   @include lg {
-    grid-template-columns: 1fr 250px;
+    grid-template-columns: 1fr;
     grid-gap: 20px;
   }
   @include md {

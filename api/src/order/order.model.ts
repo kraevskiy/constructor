@@ -17,6 +17,9 @@ export class OrderModel extends TimeStamps {
 	@prop()
 	status: string;
 
+	@prop()
+	orderID: number;
+
 	@prop({type: () => [LayoutsOrderModel]})
 	layouts: LayoutsOrderModel[];
 

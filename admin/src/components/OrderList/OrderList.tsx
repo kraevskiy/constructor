@@ -23,7 +23,6 @@ const OrderList = ({orders, action}: OrderListProps): JSX.Element => {
 					titles={COLUMNS_NAME}
 					{...o}
 					key={o._id}
-					id={o._id}
 					action={action}
 				/>
 			))}

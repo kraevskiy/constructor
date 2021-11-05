@@ -15,11 +15,13 @@ export class OrderService {
 	}
 
 	async createOrder(order: OrderDto, _id: string): Promise<DocumentType<OrderModel>> {
+		const allOrders = await this.findAll({});
 		const correctOrder = {
 			...order,
 			status: 'new',
 			user: _id,
 			paymentIntent: 'hold',
+			orderID: allOrders?.length
 		};
 		await this.layoutService.edit(order.layouts[0]._id, {onOrder: true});
 		return this.orderModel.create(correctOrder);
