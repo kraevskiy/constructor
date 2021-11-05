@@ -12,6 +12,7 @@ export interface StateUserOrder {
 	user: string;
 	paymentIntent?: 'hold' | 'succeeded';
 	_id: string;
+	orderID?: number | undefined;
 	createdAt: Date;
 	updatedAt: Date;
 	delivery?: string;

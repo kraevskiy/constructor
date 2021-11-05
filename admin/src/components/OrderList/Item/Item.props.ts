@@ -3,7 +3,7 @@ import { StateUserOrderLayout } from '../../../redux/redux.types';
 import { OrderListProps } from '../OrderList.props';
 
 export interface ItemProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
-	id: string;
+	orderID?: number | undefined;
 	action: OrderListProps['action'];
 	titles: string[];
 	status: 'new' | 'progress' | 'completed';

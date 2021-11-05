@@ -27,10 +27,10 @@ const Item = (props: ItemProps): JSX.Element => {
 			</div>
 			<div className={cls.create}>
 				<span className={cls.fieldName}>
-					{props.titles[1]}:
+					{props.titles[1]}/ID:
 				</span>
 				<span>
-				{props._id}
+				{props._id}/{props.orderID}
 				</span>
 			</div>
 			<div className={cls.layouts}>
@@ -59,10 +59,13 @@ const Item = (props: ItemProps): JSX.Element => {
 				</span>
 			</div>
 			<div className={cls.action}>
+				<span className={cls.fieldName}>
+					{props.titles[5]}:
+				</span>
 				<div className={cls.address}>
 					{props.address}
 				</div>
-				<div>
+				<div className={cls.actionBtn}>
 					{props.status === 'completed' && (
 						<span className={cls.icon}>
 						<img src={ok} alt=""/>
