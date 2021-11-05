@@ -1,12 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { Input, Textarea, Button } from '../../../../components/';
 import { useTranslation } from 'react-i18next';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
 import cls from './Contacts.module.scss';
-import { SchemaOf } from 'yup';
-
-const phoneRegEx = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+import { validate } from '../../../../helpers';
 
 interface IFormData {
 	name: string;
@@ -15,17 +11,8 @@ interface IFormData {
 	message: string;
 }
 
-const schema: SchemaOf<IFormData> = yup.object().shape({
-	name: yup.string().required().test('len', 'Must be exactly 3 characters', val => val?.length === 3),
-	phone: yup.string().matches(phoneRegEx, 'Phone number is not valid').required(),
-	email: yup.string().email().required(),
-	message: yup.string().required().test('len', 'Must be exactly 5 characters', val => val?.length === 5),
-});
-
 const Form = (): JSX.Element => {
-	const {register, handleSubmit, formState: {errors}} = useForm<IFormData>({
-		resolver: yupResolver(schema)
-	});
+	const {register, handleSubmit, formState: {errors}} = useForm<IFormData>();
 
 	const {t} = useTranslation();
 
@@ -39,19 +26,28 @@ const Form = (): JSX.Element => {
 				<Input
 					error={errors.name}
 					placeholder={t('form.name')}
-					{...register('name')}/>
+					{...register('name', {
+						required: true,
+						validate: value => validate.text(value)
+					})}/>
 			</label>
 			<label className={cls.label}>
 				<Input
 					error={errors.phone}
 					placeholder={t('form.phone')}
-					{...register('phone')}/>
+					{...register('phone', {
+						required: true,
+						validate: value => validate.phone(value)
+					})}/>
 			</label>
 			<label className={cls.label}>
 				<Input
 					error={errors.email}
 					placeholder={t('form.email')}
-					{...register('email')}/>
+					{...register('email', {
+						required: true,
+						validate: value => validate.email(value)
+					})}/>
 			</label>
 			<label className={cls.label}>
 				<Textarea
