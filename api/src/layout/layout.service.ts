@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { LayoutModel } from './layout.model';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
-import { CreateLayoutDto } from './dto/create-layout.dto';
+import { CreateLayoutDto, EditLayoutDto } from './dto/create-layout.dto';
 import { InjectModel } from 'nestjs-typegoose';
 import { FindLayoutsDto } from './dto/find-layouts.dto';
 
@@ -23,7 +23,7 @@ export class LayoutService {
 	}
 
 	async findByUser(id: string): Promise<DocumentType<LayoutModel>[] | null> {
-		return this.layoutModel.find({user: id}).exec();
+		return this.layoutModel.find({user: id}).sort({createdAt: -1}).exec();
 	}
 
 	async findAll(dto: FindLayoutsDto): Promise<DocumentType<LayoutModel>[] | null> {
@@ -55,7 +55,7 @@ export class LayoutService {
 						generateMatch(),
 						{
 							$sort: {
-								_id: 1
+								createdAt: -1
 							}
 						},
 						{
@@ -71,7 +71,7 @@ export class LayoutService {
 		// return this.layoutModel.find(dto).exec();
 	}
 
-	async edit(id: string, dto: CreateLayoutDto): Promise<DocumentType<LayoutModel> | null> {
+	async edit(id: string, dto: EditLayoutDto): Promise<DocumentType<LayoutModel> | null> {
 		return this.layoutModel.findByIdAndUpdate(id, dto, {new: true}).exec();
 	}
 }

@@ -20,6 +20,7 @@ export enum TypesOrder {
   createOrder = "ORDER/CREATE_ORDER",
   deleteOrder = "ORDER/DELETE_ORDER",
   editOrder = "ORDER/EDIT_ORDER",
+  editStatusOrder = "ORDER/EDIT_Status_ORDER",
   clearOrder = "ORDER/CLEAR_ORDER",
 }
 

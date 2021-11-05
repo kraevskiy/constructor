@@ -30,6 +30,13 @@
       background-position: 100% 50%;
       transform: scale(1.05);
     }
+    &:disabled {
+      &:hover {
+        cursor: not-allowed;
+        background-position: 0 50%;
+        transform: scale(1);
+      }
+    }
   }
 }
 

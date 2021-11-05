@@ -16,7 +16,7 @@ import { FindOrdersDto } from './dto/find-orders.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt.guard';
 import { OrderService } from './order.service';
 import { UserGuard } from '../decorators/user.decorator';
-import { OrderDto } from './dto/order.dto';
+import { EditOrderDto, OrderDto } from './dto/order.dto';
 import { ORDER_NOT_FOUND, ORDER_PERMISSION } from './order.constans';
 import { isAdmin } from './helpers/checkRoles';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
@@ -50,7 +50,7 @@ export class OrderController {
 	@UsePipes(new ValidationPipe())
 	async patch(
 		@Param('id', IdValidationPipe) id: string,
-		@Body() dto: OrderDto,
+		@Body() dto: EditOrderDto,
 		@UserGuard() {role, _id}: {role: string, _id: string}) {
 		const editedOrder = await this.orderService.findById(id);
 		if(

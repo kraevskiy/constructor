@@ -35,4 +35,21 @@ export class FilesController {
 
 		return this.filesService.saveFiles(saveArray, guard._id);
 	}
+
+	@Post('avatar')
+	@HttpCode(200)
+	@UseGuards(JwtAuthGuard)
+	@UseInterceptors(FilesInterceptor('files'))
+	async uploadAvatar(
+		@UploadedFiles() files: Express.Multer.File[],
+		@UserGuard() guard: { _id: string }
+	): Promise<FileElementResponse[]> {
+		const saveArray: MFile[] = [];
+		for (const file of files) {
+			const toArray = await new MFile(file);
+			saveArray.push(toArray);
+		}
+
+		return this.filesService.saveFiles(saveArray, guard._id, 'avatar');
+	}
 }

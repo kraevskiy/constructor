@@ -29,7 +29,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.orders}>{t('page.orders')}</NavLink>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.orders.index}>{t('page.orders')}</NavLink>
 				</li>
 				<li className={cls.item}>
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.ordersAll}>{t('page.ordersAll')}</NavLink>
@@ -60,7 +60,7 @@ const Navigation = ({...props}: NavigationProps): JSX.Element => {
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
 				</li>
 				<li className={cls.item}>
-					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.orders}>{t('page.orders')}</NavLink>
+					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.orders.index}>{t('page.orders')}</NavLink>
 				</li>
 				<li className={cls.item}>
 					<NavLink onClick={()=>dispatch(toggleMenu())} activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>

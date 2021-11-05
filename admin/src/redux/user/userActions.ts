@@ -4,11 +4,11 @@ import Axios from '../../helpers/Axios';
 import { DecodeTokenTypes, StateUser } from '../redux.types';
 import { ActionType } from '../redux.types';
 import { decode } from 'jsonwebtoken';
-import { IEditUserFormInterface } from '../../components/EditUserForm/EditUserForm.interface';
 import { ILoginFormInterface } from '../../components/LoginForm/LoginForm.interface';
 import { IRegistrationFormInterface } from '../../components/RegistrationForm/RegistrationForm.interface';
 import { errorHandler } from '../../helpers';
 import { toast } from 'react-toastify';
+import { IEditUserFormInterface } from '../../pages/Profile/EditUserForm.interface';
 
 export const login = (data: ILoginFormInterface) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | unknown> => {
@@ -33,9 +33,9 @@ export const autoLogin = () => {
 			const token = localStorage.getItem('auth-token');
 			if (token) {
 				const decodeToken = decode(token) as DecodeTokenTypes;
-				const nowDate = Math.round(new Date().getTime()/1000);
+				const nowDate = Math.round(new Date().getTime() / 1000);
 				const isExpired = decodeToken.iat < nowDate;
-				if(isExpired) {
+				if (isExpired) {
 					try {
 						const user = await Axios.post<StateUser>(
 							process.env.REACT_APP_AUTH_AUTOLOGIN as string,
@@ -49,7 +49,7 @@ export const autoLogin = () => {
 							type: TypesUser.autologin,
 							payload: user.data
 						});
-					} catch (e){
+					} catch (e) {
 						return dispatch({type: TypesUser.logout});
 					}
 				} else {
@@ -72,7 +72,7 @@ export const logout = () => {
 	};
 };
 
-export const editUser = (data: IEditUserFormInterface ) => {
+export const editUser = (data: IEditUserFormInterface | { avatar: string }) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_EDIT as string, data);
@@ -87,7 +87,7 @@ export const editUser = (data: IEditUserFormInterface ) => {
 	};
 };
 
-export const registrationUser = (data: IRegistrationFormInterface ) => {
+export const registrationUser = (data: IRegistrationFormInterface) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const user = await Axios.post<StateUser>(process.env.REACT_APP_AUTH_REGISTER as string, data);
@@ -106,7 +106,7 @@ export const deleteUser = () => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
 		try {
 			const token = localStorage.getItem('auth-token');
-			if(token){
+			if (token) {
 				const decodeToken = decode(token) as DecodeTokenTypes;
 				await Axios.delete(`${process.env.REACT_APP_AUTH_DELETE}/${decodeToken._id}`);
 				localStorage.clear();

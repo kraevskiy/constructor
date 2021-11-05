@@ -9,6 +9,7 @@ import Item from './Item/Item';
 import Header from './Header/Header';
 import { DetailedHTMLProps, HTMLAttributes } from 'react';
 import { StateUserLayout } from '../../redux/redux.types';
+import { useTranslation } from 'react-i18next';
 
 interface LayoutListProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	layouts: StateUserLayout[];
@@ -17,7 +18,7 @@ interface LayoutListProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElemen
 
 const LayoutList = ({layouts, isShowName = false}: LayoutListProps): JSX.Element => {
 	const users = useSelector((state: RootState) => state.userAll);
-
+	const {t} = useTranslation();
 	const dispatch = useDispatch();
 
 	const deleteLayoutHandler = async (id: string) => {
@@ -45,24 +46,25 @@ const LayoutList = ({layouts, isShowName = false}: LayoutListProps): JSX.Element
 							<Item
 								key={l._id}
 								userName={checkName(l.user)}
-								title={l.title}
+								{...l}
+								preview={'asdfa/asd.jpeg'}
 								id={l._id}
 								handleDelete={deleteLayoutHandler}
 								linkText="Open"
 								deleteText="Delete"
-								createdAt={l.createdAt}
-								updatedAt={l.updatedAt}
+								addOrder="Add to order"
+								{...l}
 							/>
 						))
 					}
 				</>
 				: <div className={cls.not_found}>
-					<p>Don't have layouts</p>
+					<p>{t('layout.dont')}</p>
 					<NavLink
 						to={paths.constructor}
 						className="btn"
 					>
-						Create New
+						{t('layout.create')}
 					</NavLink>
 				</div>
 			}

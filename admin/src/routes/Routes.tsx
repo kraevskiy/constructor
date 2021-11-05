@@ -2,7 +2,8 @@ import PublicRoute from './PublicRoute';
 import { Route, Switch } from 'react-router-dom';
 import PrivateRoute from './PrivateRoute';
 import { paths } from './paths';
-import { NotFound,
+import {
+	NotFound,
 	Home,
 	ConstructorPage,
 	ProfilePage,
@@ -12,7 +13,8 @@ import { NotFound,
 	OrdersPage,
 	RegistrationPage,
 	OrderAllPage,
-	LayoutsAllPage } from '../pages';
+	LayoutsAllPage, CreateOrderPage
+} from '../pages';
 
 const Routes = (): JSX.Element => {
 	return (
@@ -37,8 +39,13 @@ const Routes = (): JSX.Element => {
 					exact
 				/>
 				<PrivateRoute
-					path={paths.orders}
+					path={paths.orders.index}
 					component={OrdersPage}
+					exact
+				/>
+				<PrivateRoute
+					path={paths.orders.create}
+					component={CreateOrderPage}
 					exact
 				/>
 				<PrivateRoute

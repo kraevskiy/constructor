@@ -28,5 +28,5 @@ export class LayoutModel extends TimeStamps {
 	preview?: string;
 
 	@prop()
-	onOrder?: false;
+	onOrder?: boolean;
 }

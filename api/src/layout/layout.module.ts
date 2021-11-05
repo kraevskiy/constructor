@@ -16,6 +16,7 @@ import { LayoutService } from './layout.service';
 			}
 		])
 	],
+	exports:[LayoutService],
 	providers: [LayoutService]
 })
 export class LayoutModule {

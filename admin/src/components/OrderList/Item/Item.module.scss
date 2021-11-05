@@ -2,7 +2,7 @@
 
 .item {
   display: grid;
-  grid-template-columns: repeat(2, 280px) 1fr 200px;
+  grid-template-columns: 200px 230px repeat(3, calc((100% - 430px) / 6)) 1fr;
   grid-gap: 10px;
   align-items: center;
   background: var(--c-darker);
@@ -14,12 +14,7 @@
   &:not(:last-child) {
     margin-bottom: 20px;
   }
-  &>*:not(:first-child) {
-    text-align: center;
-    @include md {
-      text-align: left;
-    }
-  }
+  text-align: center;
   @include lg {
     grid-template-columns: repeat(2, 30%) 40%;
   }
@@ -29,6 +24,7 @@
 }
 
 .id {
+  text-align: left;
   @include lg {
     grid-column: 1/2;
   }
@@ -51,28 +47,6 @@
   }
 }
 
-.layouts {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  @include lg {
-    grid-column: 3/4;
-  }
-  @include md {
-    grid-column: 1/2;
-    grid-row: 3/4;
-  }
-  li {
-    text-align: left;
-    @include lg {
-      text-align: center;
-    }
-    @include md {
-      text-align: left;
-    }
-  }
-}
-
 .fieldName {
   display: none;
   @include md {
@@ -82,27 +56,15 @@
 }
 
 .action {
-  button:first-child{
-    margin-bottom: 10px;
-    @include lg {
-      margin-bottom: 0;
-      margin-right: 15px;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 170px;
+  align-items: center;
+  grid-gap: 10px;
+  &>div:last-child{
+    &>*:not(:first-child){
+      margin-top: 5px;
     }
-    @include sm {
-      margin-bottom: 15px;
-      margin-right: 0px;
-    }
-  }
-
-  @include lg {
-    padding-top: 20px;
-    grid-column: 1/4;
-    grid-row: 2/3;
-  }
-
-  @include md {
-    grid-column: 1/2;
-    grid-row: 4/5;
   }
 }
 

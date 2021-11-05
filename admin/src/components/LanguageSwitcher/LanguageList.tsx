@@ -16,7 +16,7 @@ export const LanguageList = ({languages, handlerClick, setIsOpen}:LanguageListPr
 		}
 	};
 	const i: { [key: string]: string } = {
-		en, ru
+		'en-US': en, 'ru-RU': ru
 	};
 
 	const handleClickBody = () => setIsOpen(false);

@@ -20,7 +20,12 @@ export class AuthService {
 			email: dto.email,
 			passwordHash: await hash(dto.password, salt),
 			role: dto.role ? dto.role : 'user',
-			login: dto.login ? dto.login : dto.email
+			login: dto.login ? dto.login : dto.email,
+			address: dto.address ? dto.address: '',
+			firstName: dto.firstName ? dto.firstName: '',
+			lastName: dto.lastName ? dto.lastName: '',
+			phone: dto.phone ? dto.phone: '',
+			avatar: dto.avatar ? dto.avatar: ''
 		});
 		return newUser.save();
 	}
@@ -58,7 +63,12 @@ export class AuthService {
 			email: user.email,
 			_id: user._id,
 			role: user.role,
-			login: user.login
+			login: user.login,
+			address: user.address,
+			firstName: user.firstName,
+			lastName: user.lastName,
+			phone: user.phone,
+			avatar: user.avatar
 		};
 	}
 
@@ -76,7 +86,12 @@ export class AuthService {
 			email: user[0].email,
 			_id: user[0]._id,
 			role: user[0].role,
-			login: user[0].login
+			login: user[0].login,
+			address: user[0].address,
+			firstName: user[0].firstName,
+			lastName: user[0].lastName,
+			phone: user[0].phone,
+			avatar: user[0].avatar
 		};
 	}
 
@@ -103,7 +118,12 @@ export class AuthService {
 			email: newUser.email,
 			_id: newUser._id,
 			role: newUser.role,
-			login: newUser.login
+			login: newUser.login,
+			address: newUser.address,
+			firstName: newUser.firstName,
+			lastName: newUser.lastName,
+			phone: newUser.phone,
+			avatar: newUser.avatar
 		};
 	}
 

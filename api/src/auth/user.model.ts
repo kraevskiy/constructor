@@ -15,8 +15,24 @@ export class UserModel extends TimeStamps {
 	@prop()
 	role?: string;
 
+	@prop({unique: true})
 	@prop()
 	login?: string;
+
+	@prop()
+	address?: string;
+
+	@prop()
+	firstName?: string;
+
+	@prop()
+	lastName?: string;
+
+	@prop()
+	phone?: string;
+
+	@prop()
+	avatar?: string;
 }
 
 
@@ -33,4 +49,19 @@ export class EditUserModel {
 	@IsOptional()
 	@prop()
 	passwordHash?: string;
+
+	@prop()
+	address?: string;
+
+	@prop()
+	firstName?: string;
+
+	@prop()
+	lastName?: string;
+
+	@prop()
+	phone?: string;
+
+	@prop()
+	avatar?: string;
 }
