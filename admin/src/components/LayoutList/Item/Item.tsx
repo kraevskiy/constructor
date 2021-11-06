@@ -9,6 +9,7 @@ import { paths } from '../../../routes/paths';
 const Item = ({
 	id,
 	title,
+	titles,
 	handleDelete,
 	linkText,
 	deleteText,
@@ -31,14 +32,19 @@ const Item = ({
 					alt=""/>
 			</div>
 			<div className={cls.title}>
-				{title}
-				{userName && (<> / <br/>{userName}</>)}
+				<span className={cls.fieldName}>{titles[0]}</span>
+				<span>
+					{title}
+					{userName && (<> / <br/>{userName}</>)}
+				</span>
 			</div>
 			<div className={cls.create}>
-				{CorrectDate(createdAt)}
+				<span className={cls.fieldName}>{titles[1]}</span>
+				<span>{CorrectDate(createdAt)}</span>
 			</div>
 			<div className={cls.update}>
-				{CorrectDate(updatedAt)}
+				<span className={cls.fieldName}>{titles[2]}</span>
+				<span>{CorrectDate(updatedAt)}</span>
 			</div>
 
 			<div className={cls.action}>

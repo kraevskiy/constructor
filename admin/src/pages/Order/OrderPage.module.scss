@@ -181,9 +181,16 @@
     @include lg {
       border-bottom: 1px solid var(--c-blue);
       padding-bottom: 2px;
+      &:last-child {
+        border-bottom: none;
+      }
     }
     span:last-child{
       text-align: right;
     }
   }
+}
+
+.modalTitle{
+  word-break: break-all;
 }

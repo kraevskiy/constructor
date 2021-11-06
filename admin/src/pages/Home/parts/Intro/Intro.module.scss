@@ -12,6 +12,11 @@
   @include md {
     padding-top: 0;
   }
+  @include xs {
+    .container {
+      overflow: hidden;
+    }
+  }
 }
 
 .img {

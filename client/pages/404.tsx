@@ -7,7 +7,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { MetaHead } from '../components';
 
 
-export function Error404(): JSX.Element {
+function Error404(): JSX.Element {
 	return (
 		<>
 			<MetaHead

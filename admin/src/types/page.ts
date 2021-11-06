@@ -68,12 +68,6 @@ interface OthersPageItems {
 	title: { [key: string]: string };
 }
 
-interface OthersPageItems {
-	_id: string;
-	image: string;
-	title: { [key: string]: string };
-}
-
 export interface PicturesPage {
 	title: { [key: string]: string };
 	items: PicturesPageItems[];

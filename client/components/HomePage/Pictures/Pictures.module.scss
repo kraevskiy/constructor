@@ -2,6 +2,7 @@
 
 .wrapper {
 	position: relative;
+	padding: 50px 0;
 
 	@include md {
 		padding-top: 90px;
@@ -59,11 +60,46 @@
 			margin-bottom: 30px;
 		}
 
+	}
+	a {
+		display: block;
+		padding: 0 15px;
+		transition: all .4s;
+		max-width: 395px;
+		margin-left: auto;
+		margin-right: auto;
+		@include lg-min {
+			&:hover {
+				p {
+					&:after {
+						left: 0;
+						right: 0;
+					}
+				}
+			}
+		}
+		img {
+			margin-bottom: 40px;
+			max-width: 100%;
+			@include lg {
+				margin-bottom: 20px;
+			}
+		}
 		p {
 			margin: 0;
 			padding: 0;
-
 			font-size: 34px;
+			position: relative;
+			&:after {
+				transition: all .4s;
+				position: absolute;
+				bottom: -15px;
+				content: '';
+				background: var(--grad-blue);
+				left: 50%;
+				right: 50%;
+				height: 2px;
+			}
 		}
 	}
 }

@@ -1,8 +1,8 @@
-const { i18n } = require('./next-i18next.config');
+const {i18n} = require('./next-i18next.config');
 const withPWA = require('next-pwa');
 
-function getConfig (processEnv) {
-  if(processEnv === 'production') {
+function getConfig(processEnv) {
+  if (processEnv === 'production') {
     console.info('---->     Run production mode     <----');
     return withPWA({
       images: {
@@ -11,7 +11,23 @@ function getConfig (processEnv) {
       i18n,
       pwa: {
         dest: 'public'
-      }
+      },
+      webpack(config, options) {
+        config.module.rules.push({
+          loader: '@svgr/webpack',
+          options: {
+            prettier: false,
+            svgo: true,
+            svgoConfig: {
+              plugins: [{removeViewBox: false}],
+            },
+            titleProp: true,
+          },
+          test: /\.svg$/,
+        });
+
+        return config;
+      },
     });
   } else {
     console.info('---->     Run development mode     <----');
@@ -19,7 +35,23 @@ function getConfig (processEnv) {
       images: {
         domains: ['admin.arter.local', 'constructor.chost.com.ua'],
       },
-      i18n
+      i18n,
+      webpack(config, options) {
+        config.module.rules.push({
+          loader: '@svgr/webpack',
+          options: {
+            prettier: false,
+            svgo: true,
+            svgoConfig: {
+              plugins: [{removeViewBox: false}],
+            },
+            titleProp: true,
+          },
+          test: /\.svg$/,
+        });
+
+        return config;
+      },
     };
   }
 }

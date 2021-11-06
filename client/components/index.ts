@@ -7,3 +7,4 @@ export * from './Input/Input';
 export * from './Textarea/Textarea';
 export * from './HomePage';
 export * from './MetaHead/MetaHead';
+export * from './FadeInWhenVisible/FadeInWhenVisible';

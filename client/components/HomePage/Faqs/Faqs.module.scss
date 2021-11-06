@@ -1,6 +1,6 @@
 @import "./../../../styles/mixins";
 
-.warpper {
+.wrapper {
 	padding: 150px 0;
 
 	@include xl {
@@ -29,6 +29,12 @@
 .list {
 	display: grid;
 	grid-template-columns: 1fr;
+	&>div:not(:last-child) {
+		margin-bottom: 31px;
+		@include md {
+			margin-bottom: 20px;
+		}
+	}
 }
 
 .listItem {
@@ -37,13 +43,6 @@
 	background: var(--c-dark-grey);
 	box-shadow: 0 3px 6px #00000029;
 
-	&:not(:last-child) {
-		margin-bottom: 31px;
-
-		@include md {
-			margin-bottom: 20px;
-		}
-	}
 }
 
 .listHeading {

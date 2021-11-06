@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { FooterProps } from './Footer.props';
 import cls from './Footer.module.scss';
-import { logo } from '../../../images';
+import { logo1, logo2 } from '../../../images';
 import { NavLink } from 'react-router-dom';
 import { paths } from '../../../routes/paths';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +11,38 @@ import { facebook, instagram, youtube } from './../../../images/icons';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 	const {t} = useTranslation();
-	const {user: {isLoggedIn}, page: {contacts}} = useSelector((state: RootState) => state);
+	const {user: {isLoggedIn, role}, page: {contacts}} = useSelector((state: RootState) => state);
+
+	const adminLink = () => {
+		return (
+			<ul className={cls.list}>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} exact to={paths.index}>{t('page.index')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.constructor}>{t('page.constr')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.orders.index}>{t('page.orders')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.ordersAll}>{t('page.ordersAll')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.layoutsAll}>{t('page.layoutsAll')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
+				</li>
+				<li className={cls.item}>
+					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
+				</li>
+			</ul>
+		);
+	};
 
 	const userLink = () => {
 		return (
@@ -27,9 +58,6 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 				</li>
 				<li className={cls.item}>
 					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.layouts}>{t('page.layouts')}</NavLink>
-				</li>
-				<li className={cls.item}>
-					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.setting}>{t('page.pages')}</NavLink>
 				</li>
 				<li className={cls.item}>
 					<NavLink activeClassName={cls.activeLink} className={cls.link} to={paths.profile.index}>{t('page.profile')}</NavLink>
@@ -72,8 +100,9 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 			>
 				<div className={cls.top}>
 					<div className={cls.info}>
-						<NavLink to="/">
-							<img src={logo} alt=""/>
+						<NavLink to="/" className={cls.logo}>
+							<img src={logo1} alt=""/>
+							<img src={logo2} alt=""/>
 						</NavLink>
 						<div className={cls.text}>
 							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
@@ -83,7 +112,11 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 					</div>
 					<span/>
 					<div className={cls.nav}>
-						{isLoggedIn ? userLink() : visitorLink()}
+						{isLoggedIn
+							? role === 'admin'
+								? adminLink()
+								: userLink()
+							: visitorLink()}
 					</div>
 					<div className={cls.email}>
 						<ul>

@@ -6,7 +6,7 @@ export const validate: {
 } = {
 	text: (value:string | undefined, minLength?: number): boolean => {
 		if(!value) return false;
-		if(minLength) return value.toString().length > minLength;
+		if(minLength) return value.toString().length >= minLength;
 		const regex = RegExp(/^.{3,}$/);
 		return regex.test(value);
 	},
