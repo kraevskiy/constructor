@@ -7,7 +7,7 @@ import { AppContext, AppContextProvider, IAppContext } from '../../context/app.c
 import Image from 'next/image';
 import cls from './Layout.module.scss';
 import cn from 'classnames';
-import { paths } from '../../../admin/src/routes/paths';
+import { paths } from '../../helpers/paths';
 import { API } from '../../helpers/api';
 import { bg } from '../../public/static/images';
 import { text } from '../../public/static/images/icons';
@@ -28,7 +28,7 @@ const Layout = ({children}: LayoutProps): JSX.Element => {
 				/>
 			</div>
 			<Header/>
-			{/*<Navigation/>*/}
+			<Navigation/>
 			<main>
 				{children}
 			</main>
