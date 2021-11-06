@@ -4,10 +4,13 @@ import Header from './Header/Header';
 import Footer from './Footer/Footer';
 import Navigation from './Navigation/Navigation';
 import { AppContext, AppContextProvider, IAppContext } from '../../context/app.context';
-import { bg } from '../../public/static/images';
 import Image from 'next/image';
 import cls from './Layout.module.scss';
 import cn from 'classnames';
+import { paths } from '../../../admin/src/routes/paths';
+import { API } from '../../helpers/api';
+import { bg } from '../../public/static/images';
+import { text } from '../../public/static/images/icons';
 
 const Layout = ({children}: LayoutProps): JSX.Element => {
 	const context = useContext(AppContext);
@@ -25,12 +28,21 @@ const Layout = ({children}: LayoutProps): JSX.Element => {
 				/>
 			</div>
 			<Header/>
-			<Navigation />
+			{/*<Navigation/>*/}
 			<main>
 				{children}
 			</main>
 
-			<Footer />
+			<Footer/>
+			<a href={`${API.admin}${paths.constructor}`} className={cls.linkToConstructor}>
+				<Image
+					src={text.src}
+					// layout="responsive"
+					width={41}
+					alt="path to constructor admin"
+					height={41}
+				/>
+			</a>
 		</div>
 	);
 };

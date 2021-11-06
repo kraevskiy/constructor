@@ -6,6 +6,7 @@ import ImageUploading from 'react-images-uploading';
 import Axios from '../../helpers/Axios';
 import { ImageListType } from 'react-images-uploading/dist/typings';
 import { logout as logoutIcon } from '../../images/icons';
+import { toast } from 'react-toastify';
 
 export interface TypeResponseUpload {
 	name: string;
@@ -18,14 +19,15 @@ const InputFile = forwardRef(({className, url, setValue}: InputFileProps, ref: F
 		setImg(imageList);
 	};
 
-	const uploadImg = () => {
+	const uploadImg = async () => {
 		const formData = new FormData();
 		// eslint-disable-next-line @typescript-eslint/ban-ts-comment
 		// @ts-ignore
 		formData.append('files', img[0].file);
-		Axios.post<TypeResponseUpload[]>(`${process.env.REACT_APP_FILES_UPLOAD}`, formData)
+		await Axios.post<TypeResponseUpload[]>(`${process.env.REACT_APP_FILES_UPLOAD}`, formData)
 			.then(({data}) => {
 				setValue(data[0].url);
+				toast.success('uploaded');
 			});
 	};
 

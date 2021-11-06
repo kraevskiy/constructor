@@ -3,5 +3,5 @@ import { SliderPage } from '../../../interfaces/HomePropsInterface';
 
 export interface IntroProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
 	data: SliderPage[];
-	lang: string | undefined;
+	lang: string;
 }

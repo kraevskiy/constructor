@@ -1,216 +1,214 @@
 @import "./../../../styles/mixins";
 
 .wrapper {
-	position: relative;
+  position: relative;
 
-	display: grid;
-	align-items: center;
+  display: grid;
+  align-items: center;
 
-	min-height: 768px;
+  min-height: 768px;
 
-	@include lg {
-		min-height: unset;
-		padding: 100px 0;
-	}
+  @include lg {
+    min-height: unset;
+    padding: 100px 0;
+  }
 
-	@include md {
-		padding-top: 0;
-	}
+  @include md {
+    padding-top: 0;
+  }
 }
 
 .img {
-	position: absolute;
-	top: -490px;
-	left: 52%;
-
-	width: 850px;
-
-	@include xxl {
-		top: -51vh;
-
-		width: 750px;
-	}
-
-	@include xl {
-		top: -35vh;
-		left: 48%;
-
-		width: 680px;
-	}
-
-	@include lg {
-		top: -35vh;
-		left: 48%;
-
-		width: 680px;
-	}
-
-	@include md {
-		top: -400px;
-		left: 23%;
-	}
-
-	@include sm {
-		top: -250px;
-		left: 23%;
-
-		width: 105vw;
-	}
+  position: absolute;
+  left: calc(62% + 1vw);
+  top: -370px;
+  width: 430px;
+  height: 972px;
+  border-radius: 220px;
+  transform: rotate(24deg);
+  transition: all .4s;
+  background: linear-gradient(to right,
+      var(--c-violet),
+      var(--c-blue) 30%,
+      var(--c-dark-green),
+      var(--c-green) 60%,
+      var(--c-yellow),
+      var(--c-orange) 100%);
+  background-size: 400% 400%;
+  @include xl {
+    width: 360px;
+    left: calc(58% + 1vw);
+  }
+  @include lg {
+    width: 330px;
+    left: calc(56% + 1vw);
+    top: -448px;
+  }
+  @include md {
+    top: -560px;
+    width: 340px;
+  }
+  @include sm {
+    height: 600px;
+    top: unset;
+    bottom: 50%;
+    width: 50vw;
+  }
 }
 
 .body {
 }
 
 .slide {
-	position: relative;
+  position: relative;
 
-	display: grid;
-	grid-template-columns: 535px 589px;
+  display: grid;
+  grid-template-columns: 535px 589px;
 
-	justify-content: space-between;
-	grid-gap: 30px;
+  justify-content: space-between;
+  grid-gap: 30px;
 
-	@include xl {
-		grid-template-columns: 1fr 60%;
-	}
+  @include xl {
+    grid-template-columns: 1fr 60%;
+  }
 
-	@include md {
-		grid-template-columns: 1fr;
-	}
+  @include md {
+    grid-template-columns: 1fr;
+  }
 
-	&Body {
-		height: 100%;
+  &Body {
+    height: 100%;
 
-		text-align: left;
+    text-align: left;
 
-		@include md {
-			grid-row: 2/3;
-		}
+    @include md {
+      grid-row: 2/3;
+    }
 
-		&Title {
-			position: relative;
+    &Title {
+      position: relative;
 
-			padding: 55px 0;
+      padding: 55px 0;
 
-			font-size: 86px;
+      font-size: 86px;
 
-			@include xl {
-				font-size: 66px;
-			}
+      @include xl {
+        font-size: 66px;
+      }
 
-			@include lg {
-				padding: 35px 0;
+      @include lg {
+        padding: 35px 0;
 
-				font-size: 50px;
-			}
+        font-size: 50px;
+      }
 
-			@include md {
-				text-align: center;
+      @include md {
+        text-align: center;
 
-				font-size: 41px;
-			}
+        font-size: 41px;
+      }
 
-			@include md {
-				padding-bottom: 0;
-			}
+      @include md {
+        padding-bottom: 0;
+      }
 
-			&::after {
-				position: absolute;
-				bottom: 0;
-				left: 0;
+      &::after {
+        position: absolute;
+        bottom: 0;
+        left: 0;
 
-				width: 225px;
-				height: 3px;
+        width: 225px;
+        height: 3px;
 
-				content: '';
+        content: '';
 
-				background: var(--c-blue);
+        background: var(--c-blue);
 
-				@include md {
-					display: none;
-				}
-			}
-		}
+        @include md {
+          display: none;
+        }
+      }
+    }
 
-		&Text {
-			padding-top: 56px;
+    &Text {
+      padding-top: 56px;
 
-			font-size: 19px;
-			font-weight: 400;
-			line-height: 40px;
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 40px;
 
-			@include lg {
-				padding-top: 35px;
+      @include lg {
+        padding-top: 35px;
 
-				line-height: 30px;
-			}
+        line-height: 30px;
+      }
 
-			@include md {
-				display: none;
-			}
-		}
-	}
+      @include md {
+        display: none;
+      }
+    }
+  }
 
-	&Img {
-		position: relative;
+  &Img {
+    position: relative;
 
-		display: grid;
-		align-items: center;
-		justify-content: end;
+    display: grid;
+    align-items: center;
+    justify-content: end;
 
-		height: 606px;
+    height: 606px;
 
-		@include md {
-			margin-bottom: -90px;
-			grid-row: 1/2;
+    @include md {
+      margin-bottom: -90px;
+      grid-row: 1/2;
 
-			height: 400px;
-		}
+      height: 400px;
+    }
 
-		img {
+    img {
 
-		}
-	}
+    }
+  }
 }
 
 .arrow {
-	position: absolute;
-	z-index: 2;
-	bottom: 0;
+  position: absolute;
+  z-index: 2;
+  bottom: 0;
 
-	display: none;
+  display: none;
 
-	transition: all 0.5s;
+  transition: all 0.5s;
 
-	opacity: 1;
-	border: none;
-	outline: none;
-	background: none;
-	box-shadow: none;
+  opacity: 1;
+  border: none;
+  outline: none;
+  background: none;
+  box-shadow: none;
 
-	@include md {
-		display: block;
-	}
+  @include md {
+    display: block;
+  }
 }
 
 .fade {
-	opacity: 0;
+  opacity: 0;
 }
 
 .arrowPrev {
-	left: 20px;
+  left: 20px;
 
-	transform: rotate(180deg);
+  transform: rotate(180deg);
 }
 
 .arrowNext {
-	right: 20px;
+  right: 20px;
 }
 
 .indicator {
-	display: inline-block;
+  display: inline-block;
 
-	button {
-		border: none;
-	}
+  button {
+    border: none;
+  }
 }

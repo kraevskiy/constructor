@@ -64,6 +64,12 @@ const initialState: IAppContext = {
 				ru: ''
 			},
 			items: []
+		},
+		others:{
+			title: {
+				ru: ''
+			},
+			items: []
 		}
 	}
 };
@@ -82,7 +88,6 @@ export const AppContextProvider = ({
 
 	const toggleNavigation = () => setNavigation(!navigation);
 	const toggleFooter = () => setFooter(!footer);
-
 	return <AppContext.Provider
 		value={{
 			isShowNavigation: navigation,

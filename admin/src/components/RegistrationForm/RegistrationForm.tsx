@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { IRegistrationFormInterface } from './RegistrationForm.interface';
-import { hideLoader, registrationUser, showLoader } from '../../redux/actions';
+import { hideLoader, login, registrationUser, showLoader } from '../../redux/actions';
 import { paths } from '../../routes/paths';
 import { ActionType, RegisterUserModel } from '../../redux/redux.types';
 import { TypesUser } from '../../redux/types';
@@ -20,8 +20,10 @@ const RegistrationForm = (): JSX.Element => {
 	const handleSubmitForm = async (data: IRegistrationFormInterface) => {
 		dispatch(showLoader());
 		const user = await dispatch(registrationUser(data)) as unknown as ActionType<TypesUser, RegisterUserModel>;
+		if(user?.payload?.createdAt){
+			dispatch(login(data));
+		}
 		dispatch(hideLoader());
-		if(user?.type === TypesUser.createUser) history.push(paths.login);
 	};
 
 	return (
@@ -54,7 +56,7 @@ const RegistrationForm = (): JSX.Element => {
 					error={errors.login}
 					{...register('login', {
 						required: true,
-						validate: value => validate.text(value, 5)
+						validate: value => validate.text(value, 3)
 					})}
 					placeholder="user"
 				/>

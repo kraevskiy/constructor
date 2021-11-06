@@ -5,6 +5,9 @@
   padding: 20px 30px;
   grid-template-columns: 150px repeat(3, 1fr) 180px;
   grid-gap: 10px;
+  @include lg {
+    display: none;
+  }
 }
 
 .title {

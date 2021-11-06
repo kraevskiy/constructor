@@ -18,7 +18,7 @@ const ModalBody = ({order}: ModalBodyProps): JSX.Element => {
 		<div
 			className={cn('container', cls.modalBody)}
 		>
-			<BlockHead>
+			<BlockHead className={cls.modalTitle}>
 				№ {order._id}
 			</BlockHead>
 			<ul className={cls.list}>

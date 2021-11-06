@@ -13,24 +13,25 @@ import {
 import { FaqItemsPage } from '../../../../types/page';
 import { FadeInWhenVisible } from '../../../../components';
 
+const getCorrectList = (list: FaqItemsPage[]): FaqItemsPage[][] => {
+	const res: FaqItemsPage[][] = [[], []];
+	list.forEach((item, index) => {
+		if (index % 2 == 0) {
+			res[0].push(item);
+		} else {
+			res[1].push(item);
+		}
+	});
+	return res;
+};
+
 export const Faqs = ({data, lang}: FaqsProps): JSX.Element => {
 	if (!data) return <></>;
-	const getCorrectList = (list: FaqItemsPage[]): FaqItemsPage[][] => {
-		const res: FaqItemsPage[][] = [[], []];
-		list.forEach((item, index) => {
-			if (index % 2 == 0) {
-				res[0].push(item);
-			} else {
-				res[1].push(item);
-			}
-		});
-		return res;
-	};
 
 	const list: FaqItemsPage[][] = getCorrectList(data.items);
 
 	return (
-		<section className={cn(clsParent.title, cls.warpper)}>
+		<section className={cn(clsParent.title, cls.wrapper)}>
 			<div className="container">
 				<FadeInWhenVisible>
 					<BlockHead className={cls.title}>

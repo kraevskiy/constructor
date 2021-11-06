@@ -31,7 +31,7 @@ const LayoutList = ({layouts, isShowName = false}: LayoutListProps): JSX.Element
 		if (!isShowName) return null;
 		const user = users.find(u => u._id === id);
 		if (!user) return null;
-		return `${user.login} - ${user.email}`;
+		return `${user.login} / ${user.email}`;
 	};
 
 	return (
@@ -39,11 +39,12 @@ const LayoutList = ({layouts, isShowName = false}: LayoutListProps): JSX.Element
 			{layouts?.length
 				? <>
 					<Header
-						titles={[isShowName ? 'Name / Username' : 'Name', 'Create', 'Update']}
+						titles={['Title/Login/Email', 'Create', 'Update']}
 					/>
 					{
 						layouts.map(l => (
 							<Item
+								titles={['Title/ Login/ Email', 'Create', 'Update']}
 								key={l._id}
 								userName={checkName(l.user)}
 								{...l}

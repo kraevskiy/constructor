@@ -94,3 +94,31 @@
 .footer {
 	grid-area: footer;
 }
+.linkToConstructor {
+	border-radius: 50%;
+	z-index: 10;
+	position: fixed;
+	left: 25px;
+	bottom: 25px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 83px;
+	height: 83px;
+	transition: all .4s;
+	box-shadow: 0px 3px 6px #00000029;
+	background: linear-gradient(to right,
+			var(--c-yellow) 25%,
+			var(--c-orange) 50%,
+			var(--c-violet) 50%,
+			var(--c-violet) 75%,
+			var(--c-blue) 100%);
+	background-size: 200% 200%;
+	background-position: 0% 50%;
+	@include md-min {
+		&:hover {
+			background-position: 100% 50%;
+			transform: scale(1.05);
+		}
+	}
+}

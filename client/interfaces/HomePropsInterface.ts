@@ -80,6 +80,18 @@ export interface SouvenirsPage {
 	additional?: string;
 }
 
+export interface OthersPage {
+	title: { [key: string]: string };
+	items: OthersPageItems[];
+	additional?: string;
+}
+
+interface OthersPageItems {
+	_id: string;
+	image: string;
+	title: { [key: string]: string };
+}
+
 export interface PageInterface {
 	_id: string;
 	slag: string;
@@ -87,6 +99,7 @@ export interface PageInterface {
 	header: HeaderPage;
 	slides: SliderPage[];
 	souvenirs: SouvenirsPage;
+	others: OthersPage;
 	pictures: PicturesPage;
 	advantages: AdvantagesPage;
 	contacts: ContactsPage;

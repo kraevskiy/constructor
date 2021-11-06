@@ -1,5 +1,5 @@
 import { en, ru } from './../../public/static/images/flags';
-import { arrow } from './../../public/static/images/icons/';
+import { Arrow } from './../../public/static/images/icons/';
 import cls from './LanguageSwitcher.module.scss';
 import cn from 'classnames';
 import { useRouter } from 'next/router';
@@ -30,15 +30,12 @@ export const LanguageSwitcher = (): JSX.Element => {
 			onClick={handleClickBtn}>
 			<div className={cls.current}>
 				<Image
-					src={i[router.locale as string]}
+					src={i[router.locale as string].src}
+					width={i[router.locale as string].width}
+					height={i[router.locale as string].height}
 					alt={router.locale}
 				/>
-				<i><Image
-					src={arrow.src}
-					width={arrow.width}
-					height={arrow.height}
-					alt="arrow to button"
-				/></i>
+				<Arrow />
 			</div>
 			{
 				isOpen && <LanguageList
