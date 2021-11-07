@@ -54,7 +54,6 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 			<div className={cn('container')}>
 				<Carousel
 					showThumbs={false}
-					// showArrows={false}
 					onChange={(index)=>{
 						setBg(index);
 					}}

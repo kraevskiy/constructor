@@ -38,6 +38,10 @@
       }
     }
   }
+  &:disabled {
+    color: var(--c-white);
+    background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+  }
 }
 
 .green {

@@ -1,0 +1,40 @@
+<style>
+  ul {
+
+  }
+
+  li {
+    display: block;
+  }
+
+  span:first-child {
+    width: 100px;
+  }
+
+  span:last-child {
+    font-weight: bold;
+  }
+</style>
+
+<h4>New message from index page form</h4>
+<ul>
+  <li>
+    <span>Name:</span>
+    <span>{{name}}</span>
+  </li>
+  <li>
+    <span>Phone:</span>
+    <span>{{phone}}</span>
+  </li>
+  <li>
+    <span>Email:</span>
+    <span>{{email}}</span>
+  </li>
+  {{#if message}}
+    <li>
+      <span>Message:</span>
+      <span>{{message}}</span>
+    </li>
+  {{/if}}
+</ul>
+
