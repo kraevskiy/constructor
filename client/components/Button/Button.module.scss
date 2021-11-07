@@ -19,6 +19,10 @@
 	background: var(--grad-blue);
 	box-shadow: none;
 
+	&:disabled {
+		color: var(--c-white);
+		background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+	}
 	@include sm {
 		width: 100%;
 	}
@@ -26,12 +30,27 @@
 
 .green {
 	background: var(--grad-green);
+
+	&:disabled {
+		color: var(--c-white);
+		background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+	}
 }
 
 .red {
 	background: var(--grad-red);
+
+	&:disabled {
+		color: var(--c-white);
+		background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+	}
 }
 
 .orange {
 	background: var(--grad-orange);
+
+	&:disabled {
+		color: var(--c-white);
+		background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+	}
 }
