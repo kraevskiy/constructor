@@ -1,8 +1,15 @@
-.home {
+@import "src/styles/mixins";
 
+.home {
+  max-width: 100%;
 }
 
 .intro {
+  @include xs {
+    .container {
+      overflow: hidden;
+    }
+  }
 
 }
 

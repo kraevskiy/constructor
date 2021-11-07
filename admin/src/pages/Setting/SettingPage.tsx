@@ -10,7 +10,7 @@ const initialState: {
 	langField: LanguagesTypes,
 	setLangField: Dispatch<SetStateAction<LanguagesTypes>> | null
 } = {
-	langField: 'en',
+	langField: 'en-US',
 	setLangField: null
 };
 
@@ -18,7 +18,7 @@ export const SettingPageContext = createContext(initialState);
 
 const SettingPage = (): JSX.Element => {
 	const tr = useTranslation('setting');
-	const [langField, setLangField] = useState<LanguagesTypes>(tr.i18n.options.lng as LanguagesTypes);
+	const [langField, setLangField] = useState<LanguagesTypes>(tr.i18n.language as LanguagesTypes);
 	const {page, app: {loading}} = useSelector((state: RootState) => state);
 
 	const handleChangeEditLanguage = (e: LanguagesTypes) => setLangField(e);
@@ -26,7 +26,7 @@ const SettingPage = (): JSX.Element => {
 	const GetHandlerChangeLanguage = () => (
 		<>
 			{tr.t('lang')}
-			<LanguageSwitcher languages={['en', 'ru']} onClick={handleChangeEditLanguage}/>
+			<LanguageSwitcher languages={['en-US', 'ru-RU']} onClick={handleChangeEditLanguage}/>
 		</>
 	);
 
@@ -38,7 +38,7 @@ const SettingPage = (): JSX.Element => {
 				<PageHead
 					paddingTop="small"
 					text={<GetHandlerChangeLanguage/>}
-				>Setting page </PageHead>
+				>{tr.t('title')} </PageHead>
 				{(!loading && page.slag.length > 0) && <CreatePageForm defaultData={page}/>}
 			</div>
 		</SettingPageContext.Provider>

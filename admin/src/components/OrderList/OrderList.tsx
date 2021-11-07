@@ -1,42 +1,30 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { hideLoader, showLoader } from '../../redux/app/appActions';
-import { deleteOrders } from '../../redux/orders/ordersActions';
 import { OrderListProps } from './OrderList.props';
 import cls from './OrderList.module.scss';
 import Header from './Header/Header';
 import Item from './Item/Item';
-import { RootState } from '../../redux/rootReducer';
+import { useTranslation } from 'react-i18next';
 
-const OrderList = ({orders, typeAction, isShowName = false}: OrderListProps): JSX.Element => {
-	const users = useSelector((state: RootState) => state.userAll);
-	const dispatch = useDispatch();
+const OrderList = ({orders, action}: OrderListProps): JSX.Element => {
+	const {t} = useTranslation();
 
-	const deleteOrderHandler = async (id: string) => {
-		dispatch(showLoader());
-		await dispatch(deleteOrders(id));
-		await dispatch(hideLoader());
-	};
-
-	const checkName = (id: string) => {
-		if (!isShowName) return null;
-		const user = users.find(u => u._id === id);
-		if (!user) return null;
-		return `${user.login} - ${user.email}`;
-	};
+	const COLUMNS_NAME = [
+		t('order.name'),
+		t('order.number'),
+		t('order.price'),
+		t('order.count'),
+		t('order.allPrice'),
+		t('user.address')];
 
 	return (
 		<div className={cls.wrapper}>
-			<Header titles={['Order ID/Username', 'Create', 'Layouts']}/>
+			<Header titles={COLUMNS_NAME}/>
 			{orders.map(o => (
 				<Item
-					titles={['Order ID/Username', 'Create', 'Layouts']}
-					userName={checkName(o.user)}
+					titles={COLUMNS_NAME}
+					{...o}
 					key={o._id}
-					id={o._id}
-					handleDelete={deleteOrderHandler}
-					createdAt={o.createdAt}
-					typeAction={typeAction}
-					layouts={o.layouts}/>
+					action={action}
+				/>
 			))}
 		</div>
 	);

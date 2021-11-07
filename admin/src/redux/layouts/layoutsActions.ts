@@ -188,6 +188,25 @@ export const createLayout = () => {
   };
 };
 
+export const createLayouts = (data: StateUserLayout) => {
+  return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+    try {
+      const layout = await Axios.post<StateUserLayout>(
+        `${process.env.REACT_APP_LAYOUT_CREATE}`,
+        data
+      );
+      toast.success(`Successful create ${layout.data.title}`);
+      return dispatch({
+        type: TypesLayout.createLayout,
+        payload: [layout.data],
+      });
+    } catch (e) {
+      errorHandler(e);
+      return null;
+    }
+  };
+};
+
 export const clearLayouts = () => {
   return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
     return dispatch({

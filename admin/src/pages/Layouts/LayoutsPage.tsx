@@ -9,7 +9,7 @@ import { RootState } from "../../redux/rootReducer";
 const LayoutsPage = (): JSX.Element => {
   const layouts = useSelector((state: RootState) => state.layouts.userLayouts);
   const { t } = useTranslation();
-
+  
   return (
     <div className="container">
       <PageHead className={cls.head} text={t("layout.text")}>

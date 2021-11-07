@@ -3,7 +3,10 @@ export const paths = {
 	constructor: '/constructor',
 	login: '/login',
 	registration: '/registration',
-	orders: '/orders',
+	orders: {
+		index: '/orders',
+		create: '/order/create'
+	},
 	ordersAll: '/ordersAll',
 	layouts: '/layouts',
 	layoutsAll: '/layoutsAll',

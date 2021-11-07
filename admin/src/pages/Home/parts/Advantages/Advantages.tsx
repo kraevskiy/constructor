@@ -3,16 +3,17 @@ import clsParent from '../../Home.module.scss';
 import { AdvantagesProps } from './Advantages.props';
 import cn from 'classnames';
 import { BlockHead, FadeInWhenVisible } from '../../../../components';
+import { CSSProperties } from 'react';
 
-const colors: string[] = [
-	'var(--c-blue)',
-	'var(--c-yellow)',
-	'var(--c-green)',
-	'var(--c-violet)'
+const colors: CSSProperties[] = [
+	{borderLeftColor: 'var(--c-blue)'},
+	{borderLeftColor: 'var(--c-yellow)'},
+	{borderLeftColor: 'var(--c-green)'},
+	{borderLeftColor: 'var(--c-violet)'}
 ];
 
-const generateRandomNumber = (min: number, max: number): number => {
-	return Math.floor(Math.random() * (max - min) + min);
+const generateRandomNumber = (min: number, max: number): CSSProperties =>  {
+	return colors[Math.floor(Math.random() * (max - min) + min)];
 };
 
 export const Advantages = ({data, lang}: AdvantagesProps): JSX.Element => {
@@ -29,9 +30,7 @@ export const Advantages = ({data, lang}: AdvantagesProps): JSX.Element => {
 					{data.items.map(i => (
 						<FadeInWhenVisible tag="li" key={i._id}>
 							<p
-								style={{
-									borderLeftColor: colors[generateRandomNumber(0, colors.length - 1)]
-								}}
+								style={generateRandomNumber(0, colors.length - 1)}
 							>
 								{i.title?.[lang]}
 							</p>

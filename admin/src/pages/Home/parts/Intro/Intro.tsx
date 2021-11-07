@@ -46,7 +46,7 @@ export const Intro = ({data, lang}: IntroProps): JSX.Element => {
 			<div className={cls.img} style={{
 				backgroundPosition: bgs[bg]
 			}}/>
-			<div className={cn('container')}>
+			<div className="container">
 				<Carousel
 					showThumbs={false}
 					onChange={(index)=>{

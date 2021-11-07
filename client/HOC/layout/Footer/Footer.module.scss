@@ -213,3 +213,34 @@
 .activeLink {
 	color: var(--c-orange);
 }
+
+.logo {
+	align-self: center;
+	max-width: 189px;
+	display: grid;
+	align-items: center;
+	grid-gap: 8px;
+	grid-template-columns: 54px calc(189px - 54px - 8px);
+	@include xs {
+
+		grid-template-columns: 54px;
+	}
+	&>div {
+		@include xs {
+
+			img {
+				display: block;
+				max-width: 100%;
+			}
+		}
+	}
+	span {
+		display: none;
+	}
+
+	img {
+		display: block;
+
+		max-width: 100%;
+	}
+}

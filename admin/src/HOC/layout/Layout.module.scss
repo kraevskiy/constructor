@@ -67,6 +67,9 @@
 
 .body {
   grid-area: body;
+  @include xs {
+    max-width: 100vw;
+  }
 }
 
 .footer {
@@ -75,6 +78,7 @@
 
 .linkToConstructor {
   border-radius: 50%;
+  z-index: 10;
   position: fixed;
   left: 25px;
   bottom: 25px;

@@ -3,37 +3,66 @@ import cls from './Item.module.scss';
 import { NavLink } from 'react-router-dom';
 import { CorrectDate } from '../../../helpers/';
 import { Button } from '../..';
+import { useState } from 'react';
+import { paths } from '../../../routes/paths';
 
 const Item = ({
 	id,
 	title,
+	titles,
 	handleDelete,
 	linkText,
 	deleteText,
 	createdAt,
 	updatedAt,
+	addOrder,
+	preview,
+	onOrder,
 	userName = null
 }: ItemProps): JSX.Element => {
-
+	const [url, setUrl] = useState(preview);
 	return (
 		<div className={cls.item}>
+			<div className={cls.preview}>
+				<img
+					src={url}
+					onError={() => {
+						setUrl('https://picsum.photos/200/200');
+					}}
+					alt=""/>
+			</div>
 			<div className={cls.title}>
-				{title}
-				{userName && (<> / <br/>{userName}</>)}
+				<span className={cls.fieldName}>{titles[0]}</span>
+				<span>
+					{title}
+					{userName && (<> / <br/>{userName}</>)}
+				</span>
 			</div>
 			<div className={cls.create}>
-				{CorrectDate(createdAt)}
+				<span className={cls.fieldName}>{titles[1]}</span>
+				<span>{CorrectDate(createdAt)}</span>
 			</div>
 			<div className={cls.update}>
-				{CorrectDate(updatedAt)}
+				<span className={cls.fieldName}>{titles[2]}</span>
+				<span>{CorrectDate(updatedAt)}</span>
 			</div>
 
-			<Button color="red" onClick={() => handleDelete(id)}>
-				{deleteText}
-			</Button>
-			<NavLink className="btn" to={`/layout/${id}`}>
-				{linkText}
-			</NavLink>
+			<div className={cls.action}>
+				{addOrder && !onOrder && <NavLink to={{
+					pathname: paths.orders.create,
+					state: {
+						layoutId: id
+					}
+				}} className="btn green">
+					{addOrder}
+        </NavLink>}
+				{linkText && <NavLink className="btn" to={`/layout/${id}`}>
+					{linkText}
+        </NavLink>}
+				{deleteText && !onOrder && <Button color="red" onClick={() => handleDelete(id)}>
+					{deleteText}
+        </Button>}
+			</div>
 		</div>
 	);
 };

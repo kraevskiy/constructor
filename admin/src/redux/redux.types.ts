@@ -22,8 +22,19 @@ export interface StateUserOrder {
   user: string;
   paymentIntent?: "hold" | "succeeded";
   _id: string;
+  orderID?: number | undefined;
   createdAt: Date;
   updatedAt: Date;
+  delivery?: string;
+  paymentType?: string;
+  address?: string;
+  firstName?: string;
+  lastName?: string;
+  phone?: string;
+  email?: string;
+  comment?: string;
+  price?: string;
+  count?: string;
 }
 
 export interface TotalCount {
@@ -62,6 +73,7 @@ export interface StateUserLayout {
   instance: string;
   preview?: string;
   _id: string;
+  onOrder?: false;
   createdAt: Date;
   updatedAt: Date;
   type: string;
@@ -91,6 +103,11 @@ export interface StateUser {
   role: RolesUser;
   login: string;
   canEdit: boolean;
+  address: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+  avatar: string;
 }
 
 export interface StateApp {

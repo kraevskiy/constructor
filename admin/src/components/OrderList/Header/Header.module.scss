@@ -3,12 +3,10 @@
 .head {
   display: grid;
   padding: 20px 30px;
-  grid-template-columns: repeat(2, 280px) 1fr 200px;
+  grid-template-columns:  200px 230px repeat(3, calc((100% - 430px) / 6)) 180px 1fr;
   grid-gap: 10px;
-  @include lg {
-    grid-template-columns: repeat(2, 30%) 40%;
-  }
-  @include md {
+
+  @include xl {
     display: none;
   }
 }
@@ -25,11 +23,6 @@
       text-align: center;
     }
   }
-
-  &:last-child {
-    text-align: left;
-    @include lg {
-      text-align: center;
-    }
-  }
 }
+
+

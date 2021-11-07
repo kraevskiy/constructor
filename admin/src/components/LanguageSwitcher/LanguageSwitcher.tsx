@@ -11,14 +11,13 @@ const LanguageSwitcher = ({languages, onClick}: LanguageSwitcherProps): JSX.Elem
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const tr = useTranslation();
 	const [icon, setIcon] = useState<string | undefined>(tr.i18n.language);
-
 	const handlerClick = (lang: string) => {
 		setIcon(lang);
 		onClick(lang);
 	};
 
 	const i: { [key: string]: string } = {
-		en, ru
+		'en-US': en, 'ru-RU': ru
 	};
 
 	const handleClickBtn = () => setIsOpen(!isOpen);

@@ -4,20 +4,26 @@ import { OrderModel } from './order.model';
 import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { OrderDto } from './dto/order.dto';
 import { FindOrdersDto } from './dto/find-orders.dto';
+import { LayoutService } from '../layout/layout.service';
 
 @Injectable()
 export class OrderService {
 	constructor(
-		@InjectModel(OrderModel) private readonly orderModel: ModelType<OrderModel>) {
+		@InjectModel(OrderModel) private readonly orderModel: ModelType<OrderModel>,
+		private readonly layoutService: LayoutService,
+	) {
 	}
 
-	async createOrder({layouts}: OrderDto, _id: string): Promise<DocumentType<OrderModel>> {
+	async createOrder(order: OrderDto, _id: string): Promise<DocumentType<OrderModel>> {
+		const allOrders = await this.findAll({});
 		const correctOrder = {
+			...order,
 			status: 'new',
 			user: _id,
 			paymentIntent: 'hold',
-			layouts
+			orderID: allOrders?.length
 		};
+		await this.layoutService.edit(order.layouts[0]._id, {onOrder: true});
 		return this.orderModel.create(correctOrder);
 	}
 
@@ -38,8 +44,12 @@ export class OrderService {
 		const page: number = dto.page ?? 0;
 
 		function generatePage(): number {
-			if (page===0) { return 0; }
-			if (page===1) { return 0; }
+			if (page === 0) {
+				return 0;
+			}
+			if (page === 1) {
+				return 0;
+			}
 			return limit * page - 1;
 		}
 
@@ -68,7 +78,7 @@ export class OrderService {
 						generateMatch(),
 						{
 							$sort: {
-								_id: 1
+								createdAt: -1
 							}
 						},
 						{

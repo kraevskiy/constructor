@@ -2,7 +2,7 @@
 
 .item {
   display: grid;
-  grid-template-columns: repeat(2, 280px) 1fr 200px;
+  grid-template-columns: 200px 230px repeat(3, calc((100% - 430px) / 6)) 1fr;
   grid-gap: 10px;
   align-items: center;
   background: var(--c-darker);
@@ -14,95 +14,86 @@
   &:not(:last-child) {
     margin-bottom: 20px;
   }
-  &>*:not(:first-child) {
-    text-align: center;
-    @include md {
-      text-align: left;
-    }
-  }
-  @include lg {
-    grid-template-columns: repeat(2, 30%) 40%;
-  }
-  @include md {
+  text-align: center;
+  @include xl {
     grid-template-columns: 1fr;
+    text-align: left;
   }
+
+
 }
 
 .id {
-  @include lg {
-    grid-column: 1/2;
+  text-align: left;
+  @include xl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
-  @include md {
-    grid-column: 1/2;
-    grid-row: 1/2;
-  }
-}
-
-.create {
-  @include lg {
-    grid-column: 2/3;
+  @include xs {
+    grid-template-columns: 1fr;
     text-align: center;
-
-  }
-  @include md {
-    grid-column: 1/2;
-    grid-row: 2/3;
-    text-align: left;
+    border-bottom: 1px solid var(--c-blue);
   }
 }
 
 .layouts {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  @include lg {
-    grid-column: 3/4;
+  text-align: left;
+  @include xl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
-  @include md {
-    grid-column: 1/2;
-    grid-row: 3/4;
+  @include xs {
+    grid-template-columns: 1fr;
+    text-align: center;
+    border-bottom: 1px solid var(--c-blue);
   }
-  li {
-    text-align: left;
-    @include lg {
-      text-align: center;
-    }
-    @include md {
-      text-align: left;
-    }
+}
+
+.create {
+
+  @include xl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @include xs {
+    grid-template-columns: 1fr;
+    text-align: center;
+    border-bottom: 1px solid var(--c-blue);
   }
 }
 
 .fieldName {
   display: none;
-  @include md {
+  @include xl {
     display: block;
     margin-right: 10px;
+    font-weight: bold;
   }
 }
 
 .action {
-  button:first-child{
-    margin-bottom: 10px;
-    @include lg {
-      margin-bottom: 0;
-      margin-right: 15px;
-    }
-    @include sm {
-      margin-bottom: 15px;
-      margin-right: 0px;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 170px;
+  align-items: center;
+  grid-gap: 10px;
+  &>div:last-child{
+    &>*:not(:first-child){
+      margin-top: 5px;
     }
   }
-
-  @include lg {
-    padding-top: 20px;
-    grid-column: 1/4;
-    grid-row: 2/3;
+  @include xl {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
   }
+  @include xs {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
 
-  @include md {
-    grid-column: 1/2;
-    grid-row: 4/5;
+.actionBtn {
+  @include xs {
   }
 }
 

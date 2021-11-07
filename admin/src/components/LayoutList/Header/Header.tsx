@@ -5,6 +5,9 @@ const Header = ({titles}: HeaderProps): JSX.Element => {
 
 	return (
 		<div className={cls.head}>
+			<div className={cls.title}>
+				{'Preview'}
+			</div>
 			{titles.map(t => (
 				<div className={cls.title} key={t}>
 					{t}

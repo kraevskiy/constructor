@@ -3,4 +3,7 @@ module.exports = {
 		defaultLocale: 'ru',
 		locales: ['en', 'ru']
 	},
+	otherLanguages: ['en', 'ru'],
+	defaultLanguage: 'ru',
+	fallbackLng: ['ru'],
 };

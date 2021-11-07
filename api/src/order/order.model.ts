@@ -17,11 +17,44 @@ export class OrderModel extends TimeStamps {
 	@prop()
 	status: string;
 
+	@prop()
+	orderID: number;
+
 	@prop({type: () => [LayoutsOrderModel]})
 	layouts: LayoutsOrderModel[];
 
 	@prop()
 	user: Types.ObjectId;
+
+	@prop()
+	paymentType?: string;
+
+	@prop()
+	delivery?: string;
+
+	@prop()
+	address?: string;
+
+	@prop()
+	firstName?: string;
+
+	@prop()
+	lastName?: string;
+
+	@prop()
+	phone?: string;
+
+	@prop()
+	price?: string;
+
+	@prop()
+	count?: string;
+
+	@prop()
+	email?: string;
+
+	@prop()
+	comment?: string;
 
 	@prop()
 	paymentIntent?: string;

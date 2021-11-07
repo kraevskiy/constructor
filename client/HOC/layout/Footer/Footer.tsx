@@ -2,11 +2,11 @@ import cn from 'classnames';
 import { FooterProps } from './Footer.props';
 import cls from './Footer.module.scss';
 import { useRouter } from 'next/router';
-import { useTranslation, i18n } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { useContext } from 'react';
 import { AppContext } from '../../../context/app.context';
 import Link from 'next/link';
-import { logo } from '../../../public/static/images';
+import { logo1, logo2 } from '../../../public/static/images';
 import Image from 'next/image';
 import { paths } from '../../../helpers/paths';
 import { facebook, instagram, youtube } from '../../../public/static/images/icons';
@@ -33,11 +33,17 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 				<div className={cls.top}>
 					<div className={cls.info}>
 						<Link href="/">
-							<a>
+							<a className={cls.logo}>
 								<Image
-									src={logo.src}
-									width={logo.width}
-									height={logo.height}
+									src={logo1.src}
+									width={logo1.width}
+									height={logo1.height}
+									alt="Logo main page"
+								/>
+								<Image
+									src={logo2.src}
+									width={logo2.width}
+									height={logo2.height}
 									alt="Logo main page"
 								/>
 							</a>
@@ -81,21 +87,21 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 							</li>
 						</ul>
 					</div>
-					<div className={cls.email}>
+					<nav className={cls.email}>
 						<ul>
 							{
 								page.contacts?.items && getPartContacts(page.contacts.items).map((item) =>
 									<li key={item._id}>
-										<Link href={item.link as string}>
+										<a href={item.link as string}>
 											<a>
 												<img src={`${API.admin}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
 											</a>
-										</Link>
+										</a>
 									</li>
 								)
 							}
 						</ul>
-					</div>
+					</nav>
 					<div className={cls.phone}>
 						<ul>
 							{
