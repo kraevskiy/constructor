@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { FooterProps } from './Footer.props';
 import cls from './Footer.module.scss';
 import { useRouter } from 'next/router';
-import { useTranslation, i18n } from 'next-i18next';
+import { useTranslation } from 'next-i18next';
 import { useContext } from 'react';
 import { AppContext } from '../../../context/app.context';
 import Link from 'next/link';
@@ -87,21 +87,21 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 							</li>
 						</ul>
 					</div>
-					<div className={cls.email}>
+					<nav className={cls.email}>
 						<ul>
 							{
 								page.contacts?.items && getPartContacts(page.contacts.items).map((item) =>
 									<li key={item._id}>
-										<Link href={item.link as string}>
+										<a href={item.link as string}>
 											<a>
 												<img src={`${API.admin}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
 											</a>
-										</Link>
+										</a>
 									</li>
 								)
 							}
 						</ul>
-					</div>
+					</nav>
 					<div className={cls.phone}>
 						<ul>
 							{
