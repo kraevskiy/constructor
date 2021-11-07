@@ -41,7 +41,7 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 
 
 	return (
-		<div className={cn(cls.wrapper, {
+		<div className={cn(cls.wrapper, cls.test, {
 			[cls.overflow]: isOpenMenu
 		})}>
 			<img src={bg} className={cls.bg} alt=""/>
