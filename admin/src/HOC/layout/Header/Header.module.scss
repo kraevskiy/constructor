@@ -21,6 +21,11 @@
   }
 }
 
+.constructor {
+  padding: 0px 0px;
+  // background-color: red;
+}
+
 .logo {
   grid-area: logo;
   align-self: center;
@@ -30,14 +35,13 @@
   grid-gap: 8px;
   grid-template-columns: 54px calc(189px - 54px - 8px);
   @include xs {
-
     grid-template-columns: 54px;
   }
   img {
     display: block;
     max-width: 100%;
     @include xs {
-      &:last-child{
+      &:last-child {
         display: none;
       }
     }
