@@ -149,10 +149,10 @@ export const createLayout = () => {
 
       for (let i = 0; i < files_n.length; i++) {
         const src = files_n[i];
-        if (final_instance.objects[i].src)
+        if (final_instance.objects[i].src && !final_instance.objects[i].src.includes("http://admin.arter.local"))
           final_instance.objects[i].src = "http://admin.arter.local" + src;
       }
-
+      
       const data = {
         title: "test_title",
         instance: JSON.stringify(final_instance),

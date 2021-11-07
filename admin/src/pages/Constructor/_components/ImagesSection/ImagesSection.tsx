@@ -210,8 +210,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
     setTabIndex(i);
   };
 
-  const selectElement = async (image: Image) => {
-    addImageMask(`http://admin.arter.local${image.url}`, setItemIndex);
+  const selectElement = async (url: string) => {
+    addImageMask(url, setItemIndex);
   };
 
   return (

@@ -13,7 +13,7 @@ import style from "./ImagesSection.module.scss";
 interface Props {
   type: string;
   images: Image[];
-  selectElement: (image: Image) => void;
+  selectElement: (url: string) => void;
 }
 const ImagesList: React.FC<Props> = ({ images, type, selectElement }) => {
   const dispatch = useDispatch();
@@ -40,7 +40,9 @@ const ImagesList: React.FC<Props> = ({ images, type, selectElement }) => {
           >
             <img
               src={`http://admin.arter.local${image.url}`}
-              onMouseDown={() => selectElement(image)}
+              onMouseDown={() =>
+                selectElement(`http://admin.arter.local${image.url}`)
+              }
               className={style.image_preview}
             />
             {canEdit && (
