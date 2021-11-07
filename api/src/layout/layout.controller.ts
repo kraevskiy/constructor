@@ -80,9 +80,9 @@ export class LayoutController {
 	async findAll(
 		@Body() dto: FindLayoutsDto,
 		@UserGuard() guard: { email: string, _id: string, role: string }) {
-		if (guard.role !== 'admin') {
-			throw new HttpException(NOT_ADMIN, HttpStatus.BAD_REQUEST);
-		}
+		// if (guard.role !== 'admin') {
+		// 	throw new HttpException(NOT_ADMIN, HttpStatus.BAD_REQUEST);
+		// }
 		return this.layoutService.findAll(dto);
 	}
 

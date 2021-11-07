@@ -6,7 +6,8 @@ import { orderReducer } from "./orders/ordersReducer";
 import { orderAllReducer } from "./ordersAll/ordersAllReducer";
 import { userAllReducer } from "./userAll/userAllReducer";
 import { editorReducer } from "./editor/editorReducer";
-import { pageReducer } from './page/pageReducer';
+import { pageReducer } from "./page/pageReducer";
+import { imagesReducer } from "./images/imagesReducer";
 
 export const rootReducer = combineReducers({
   page: pageReducer,
@@ -17,6 +18,7 @@ export const rootReducer = combineReducers({
   ordersAll: orderAllReducer,
   userAll: userAllReducer,
   editor: editorReducer,
+  images: imagesReducer,
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

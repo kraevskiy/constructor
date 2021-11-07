@@ -13,8 +13,6 @@ const initialState: Editor = {
     // selectionColor: 'blue',
     selectionLineWidth: 2,
   },
-  images: [],
-  loading_images: true,
   scaleRatio: 1,
   prefabsLoading: true,
   history: [],
@@ -53,13 +51,6 @@ export const editorReducer = (
       return {
         ...state,
         cover_instance: action.payload as Canvas,
-      };
-    }
-    case TypesEditor.get_images: {
-      return {
-        ...state,
-        images: action.payload as Image[],
-        loading_images: false,
       };
     }
     case TypesEditor.set_scale: {

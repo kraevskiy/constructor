@@ -84,6 +84,11 @@ export interface StateAllLayouts {
   layouts: StateUserLayout[];
 }
 
+export interface StateAllImages {
+  totalCount: TotalCount[];
+  images: Image[];
+}
+
 export interface RegisterUserModel {
   email: string;
   _id: string;
@@ -170,21 +175,21 @@ export interface Editor {
   instance?: Canvas;
   cover_instance?: Canvas;
   canvasConfig: CanConfig;
-  images: Image[];
-  loading_images: boolean;
   scaleRatio: number;
   prefabsLoading: boolean;
   history: string[];
   history_n: number;
 }
 
-export interface Image {
-  name: string;
-  type: string;
+export interface Images {
+  images: Image[];
+  loading: boolean;
 }
 
-export interface FileC extends File {
-  custom_name: string;
+export interface Image {
+  _id: string;
+  url: string;
+  type: string;
 }
 
 export interface Canvas extends fabric.Canvas {}

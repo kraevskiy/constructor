@@ -75,9 +75,7 @@ const PrefabsSection: React.FC<Props> = ({ attachListeners }) => {
             height: 150,
             width: "100%",
             overflow: "hidden",
-            backgroundImage: `url(${
-              "http://admin.arter.local" + prefab.preview
-            })`,
+            backgroundImage: `url(http://admin.arter.local${prefab.preview})`,
             backgroundSize: "cover",
             position: "relative",
             backgroundColor: "gray",

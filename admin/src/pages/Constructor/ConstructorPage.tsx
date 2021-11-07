@@ -46,7 +46,6 @@ import PrefabsSection from "./_components/PrefabsSection/PrefabsSection";
 
 //Helpers
 import {
-  getImages,
   changeHistory,
   setHistoryMoment,
   changeScale,
@@ -69,10 +68,6 @@ const ConstructorPage = (): JSX.Element => {
   const editorRef = useRef<HTMLDivElement>(null);
 
   const canvas = instance;
-
-  useEffect(() => {
-    // dispatch(getImages());
-  }, []);
 
   useEffect(() => {
     if (canvas) document.addEventListener("keydown", KeyPress, false);

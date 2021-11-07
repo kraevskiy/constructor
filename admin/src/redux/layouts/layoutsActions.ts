@@ -153,9 +153,6 @@ export const createLayout = () => {
           final_instance.objects[i].src = "http://admin.arter.local" + src;
       }
 
-      console.log("after huhuhuhuhuhuhuhuhuhu");
-      console.log(final_instance);
-
       const data = {
         title: "test_title",
         instance: JSON.stringify(final_instance),
@@ -175,7 +172,7 @@ export const createLayout = () => {
       console.log(layout);
 
       toast.success(`Successful create ${layout.data.title}`);
-      toast.success(layout);
+      // toast.success(layout);
       return dispatch({
         type: TypesLayout.createLayout,
         payload: [layout.data],

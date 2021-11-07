@@ -11,11 +11,11 @@ const initialState: StateUser = {
   role: "visitor",
   login: "",
   canEdit: true,
-  address: '',
-  firstName: '',
-  lastName: '',
-  phone: '',
-  avatar: ''
+  address: "",
+  firstName: "",
+  lastName: "",
+  phone: "",
+  avatar: "",
 };
 
 export const userReducer = (
@@ -23,19 +23,25 @@ export const userReducer = (
   action: ActionType
 ): StateUser => {
   switch (action.type) {
-    case TypesUser.login:
+    case TypesUser.login: {
+      const user = action.payload as StateUser;
       return {
         ...state,
         ...action.payload,
         isLoggedIn: true,
+        canEdit: user.role == "admin",
       };
-    case TypesUser.autologin:
+    }
+    case TypesUser.autologin: {
+      const user = action.payload as StateUser;
       return {
         ...state,
         ...action.payload,
         isLoggedIn: true,
         initAutologin: true,
+        canEdit: user.role == "admin",
       };
+    }
     case TypesUser.createUser:
       return {
         ...state,

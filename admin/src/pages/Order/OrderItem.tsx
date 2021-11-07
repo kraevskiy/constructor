@@ -18,7 +18,7 @@ interface OrderItemProps {
 
 const OrderItem = ({order, handleModal}: OrderItemProps): JSX.Element => {
 	const allLayouts = useSelector((state: RootState) => state.layouts);
-	const layout = allLayouts?.find(l => l._id === order.layouts[0]._id);
+	const layout = allLayouts?.allLayouts.find(l => l._id === order.layouts[0]._id);
 	if (!layout) {
 		return <></>;
 	}

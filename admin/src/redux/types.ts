@@ -59,8 +59,14 @@ export enum TypesEditor {
   set_editor = "EDITOR/SET_EDITOR",
   set_cover_editor = "EDITOR/SET_COVER_EDITOR",
   set_config = "EDITOR/SET_CONFIG",
-  get_images = "EDITOR/GET_IMAGES",
   set_scale = "EDITOR/SET_SCALE",
   change_history = "EDITOR/CHANGE_HISTORY",
   set_history_moment = "EDITOR/SET_HISTORY_MOMENT",
+}
+
+export enum TypesImages {
+  getImages = "IMAGES/GET_IMAGES",
+  setLoading = "IMAGES/SET_LOADING",
+  uploadImage = "IMAGES/UPLOAD_IMAGE",
+  deleteImage = "IMAGES/DELETE_IMAGE",
 }

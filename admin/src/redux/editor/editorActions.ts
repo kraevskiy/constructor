@@ -2,7 +2,6 @@ import { Dispatch } from "redux";
 import { TypesEditor } from "../types";
 import { CanConfig } from "../redux.types";
 import { ActionType } from "./editorReducer";
-import Axios from "../../helpers/Axios";
 import { RootState } from "../rootReducer";
 
 export const setEditor = (payload: fabric.Canvas): ActionType => ({
@@ -20,24 +19,7 @@ export const setCoverEditor = (payload: fabric.Canvas): ActionType => ({
   payload,
 });
 
-export const getImages = () => {
-  return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
-    try {
-      const res = await Axios.get("prefabs/get_images", {});
-      if (res) {
-        console.log("IMAGES WERE LOADED", res.data);
-        return dispatch({
-          type: TypesEditor.get_images,
-          payload: res.data,
-        });
-      }
-      return null;
-    } catch (e) {
-      console.log("GET IMAGES ERROR", e);
-      return null;
-    }
-  };
-};
+
 
 export const changeScale = (payload: number): ActionType => ({
   type: TypesEditor.set_scale,
