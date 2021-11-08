@@ -10,6 +10,7 @@ import { getCurrentLocale } from '../helpers/getCurrentLocale';
 
 function Home({page}: HomeProps): JSX.Element {
 	const router = useRouter();
+	console.log(router);
 	return (
 		<>
 			<MetaHead
