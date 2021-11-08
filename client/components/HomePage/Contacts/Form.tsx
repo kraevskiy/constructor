@@ -7,6 +7,7 @@ import { ResponseMail } from '../../../types/response-mail';
 import axios from 'axios';
 import { validate } from '../../../helpers/validation';
 import { API } from '../../../helpers/api';
+import {toast} from 'react-toastify';
 
 interface IFormData {
 	name: string;
@@ -24,9 +25,17 @@ const Form = (): JSX.Element => {
 
 	const handleSubmitForm = async (data: IFormData) => {
 		setLoading(true);
-		await axios.post<ResponseMail>(`${API.admin}${API.mail.message}`, data);
+		await axios.post<ResponseMail>(`${API.admin}${API.mail.message}`, data)
+			.then(res => {
+			setLoading(false);
+			toast.success('👌 Success');
+			reset();
+		})
+		.catch(errors => {
+			toast.error(`😓 Error`);
+			setLoading(false);
+		});
 		setLoading(false);
-		reset();
 	};
 
 	return (

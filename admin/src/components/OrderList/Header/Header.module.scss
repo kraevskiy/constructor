@@ -17,7 +17,8 @@
   color: var(--c-white);
   text-align: center;
 
-  &:first-child {
+  &:first-child,
+  &:last-child, {
     text-align: left;
     @include lg {
       text-align: center;
