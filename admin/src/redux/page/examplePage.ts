@@ -331,8 +331,8 @@ export const ExamplePage: PageResponse = {
     },
     "additional": "Header additional",
     "seoDescription": {
-      "en-US": "Header description",
-      "ru-RU": "Описание заголовка"
+      "en-US": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n",
+      "ru-RU": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.\n"
     }
   },
   "pictures": {
