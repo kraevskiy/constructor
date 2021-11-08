@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { paths } from '../../../helpers/paths';
 import { facebook, instagram, youtube } from '../../../public/static/images/icons';
 import { API } from '../../../helpers/api';
+import { getCurrentLocale } from '../../../helpers/getCurrentLocale';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 	const router = useRouter();
@@ -49,9 +50,7 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 							</a>
 						</Link>
 						<div className={cls.text}>
-							Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa.
-							Cum
-							sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+							{page.header.seoDescription[getCurrentLocale(router.locale)]}
 						</div>
 					</div>
 					<span/>
@@ -93,9 +92,7 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 								page.contacts?.items && getPartContacts(page.contacts.items).map((item) =>
 									<li key={item._id}>
 										<a href={item.link as string}>
-											<a>
-												<img src={`${API.admin}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
-											</a>
+											<img src={`${API.admin}${item.icon}`} width={16} height={16} alt={item.showLink}/>{item.showLink}
 										</a>
 									</li>
 								)
