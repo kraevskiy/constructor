@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { paths } from '../../../helpers/paths';
 import { facebook, instagram, youtube } from '../../../public/static/images/icons';
 import { API } from '../../../helpers/api';
+import { getCurrentLocale } from '../../../helpers/getCurrentLocale';
 
 const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 	const router = useRouter();
@@ -49,7 +50,7 @@ const Footer = ({className, ...props}: FooterProps): JSX.Element => {
 							</a>
 						</Link>
 						<div className={cls.text}>
-							{page.header.seoDescription}
+							{page.header.seoDescription[getCurrentLocale(router.locale)]}
 						</div>
 					</div>
 					<span/>
