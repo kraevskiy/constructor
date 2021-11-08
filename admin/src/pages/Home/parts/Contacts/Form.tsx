@@ -7,6 +7,7 @@ import axios from 'axios';
 import { ResponseMail } from '../../../../types/response-mail';
 import Loader from '../../../../components/Loader/Loader';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 interface IFormData {
 	name: string;
@@ -23,9 +24,17 @@ const Form = (): JSX.Element => {
 
 	const handleSubmitForm = async (data: IFormData) => {
 		setLoading(true);
-		await axios.post<ResponseMail>(process.env.REACT_APP_FEDDBACK_URL as string, data);
+		await axios.post<ResponseMail>(process.env.REACT_APP_FEDDBACK_URL as string, data)
+			.then(res => {
+				setLoading(false);
+				toast.success('👌 Success');
+				reset();
+			})
+			.catch(errors => {
+				toast.error(`😓 Error`);
+				setLoading(false);
+			});
 		setLoading(false);
-		reset();
 	};
 
 	return (
