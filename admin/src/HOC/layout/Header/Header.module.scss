@@ -21,6 +21,13 @@
   }
 }
 
+.constructor {
+  padding: 0px 10px;
+  margin: 0px;
+  background-color: black;
+  min-width: 100vw;
+}
+
 .logo {
   grid-area: logo;
   align-self: center;
@@ -30,14 +37,13 @@
   grid-gap: 8px;
   grid-template-columns: 54px calc(189px - 54px - 8px);
   @include xs {
-
     grid-template-columns: 54px;
   }
   img {
     display: block;
     max-width: 100%;
     @include xs {
-      &:last-child{
+      &:last-child {
         display: none;
       }
     }
@@ -72,7 +78,7 @@
   align-self: center;
   grid-gap: 10px;
   display: grid;
-  grid-template-columns: repeat(4, auto);
+  grid-template-columns: repeat(5, auto);
   align-items: center;
   @include xs {
     grid-gap: 5px;

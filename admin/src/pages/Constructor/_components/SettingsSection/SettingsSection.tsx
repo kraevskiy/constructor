@@ -3,25 +3,28 @@ import { Button, TextField, Typography } from "@material-ui/core";
 import { CirclePicker } from "react-color";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
-import { setConfig, setEditor } from "../../../../redux/editor/editorActions";
+import { setConfig, setEditor } from "../../../../redux/actions";
 
 //Helpers
 import { mm_px } from "../../../../helpers/constants";
 
 import style from "./SettingsSection.module.scss";
+import { CanConfig } from "../../../../redux/redux.types";
 
 const SettingsSection: React.FC = () => {
   const dispatch = useDispatch();
   const {
-    editor: { instance, cover_instance },
+    editor: { instance, cover_instance, canvasConfig },
   } = useSelector((state: RootState) => state);
 
   if (!instance) return <></>;
   const canvas = instance;
 
   const [backColor, setBackColor] = useState("transparent");
-  const [canvasWidth, setCanvasWidth] = useState<number>(instance?.width_mm);
-  const [canvasHeight, setCanvasHeight] = useState<number>(instance?.height_mm);
+  const [canvasWidth, setCanvasWidth] = useState<number>(canvasConfig.width_mm);
+  const [canvasHeight, setCanvasHeight] = useState<number>(
+    canvasConfig.height_mm
+  );
 
   const onChangeBackColorChange = (color: any) => {
     setBackColor(color.hex);
@@ -42,25 +45,25 @@ const SettingsSection: React.FC = () => {
   };
 
   useEffect(() => {
-    setCanvasWidth(canvas?.width_mm);
-    setCanvasHeight(canvas?.height_mm);
-  }, [canvas.width_mm, canvas.height_mm]);
+    setCanvasWidth(canvasConfig.width_mm);
+    setCanvasHeight(canvasConfig.height_mm);
+  }, [canvasConfig.width_mm, canvasConfig.height_mm]);
 
   const setUpCanvasRes = () => {
     const converted_width = mm_px * canvasWidth;
     const converted_heigh = mm_px * canvasHeight;
 
-    const canConf = {
+    const canConf: CanConfig = {
       width: converted_width + 40,
       height: converted_heigh + 40,
+      width_mm: canvasWidth,
+      height_mm: canvasHeight,
       backgroundColor: "transparent",
       selectionLineWidth: 2,
     };
 
     canvas.setWidth(converted_width + 40);
     canvas.setHeight(converted_heigh + 40);
-    canvas.width_mm = canvasWidth;
-    canvas.height_mm = canvasHeight;
     cover_instance?.setWidth(converted_width + 40);
     cover_instance?.setHeight(converted_heigh + 40);
 
@@ -74,7 +77,7 @@ const SettingsSection: React.FC = () => {
       fill: "rgba(0,0,200,0.0)",
     });
 
-    dispatch(setEditor(canvas));
+    // dispatch(setEditor(canvas));
     dispatch(setConfig(canConf));
 
     cover_instance?.requestRenderAll();

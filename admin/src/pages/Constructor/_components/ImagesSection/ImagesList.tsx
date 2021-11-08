@@ -1,24 +1,26 @@
 import React from "react";
 import { IconButton } from "@material-ui/core";
+import { useSelector, useDispatch } from "react-redux";
+import { RootState } from "../../../../redux/rootReducer";
+import { deleteImage } from "../../../../redux/actions";
+import { Image } from "../../../../redux/redux.types";
 
 //Images
 import ClearIcon from "@material-ui/icons/Clear";
-import { Image } from "../../../../redux/redux.types";
+
+import style from "./ImagesSection.module.scss";
 
 interface Props {
   type: string;
-  deleteImage: (name: string) => void;
-  canEdit: boolean;
   images: Image[];
-  selectElement: (image: Image) => void;
+  selectElement: (url: string) => void;
 }
-const ImagesList: React.FC<Props> = ({
-  images,
-  type,
-  selectElement,
-  deleteImage,
-  canEdit,
-}) => {
+const ImagesList: React.FC<Props> = ({ images, type, selectElement }) => {
+  const dispatch = useDispatch();
+  const {
+    user: { canEdit },
+  } = useSelector((state: RootState) => state);
+
   return (
     <>
       {images
@@ -37,13 +39,15 @@ const ImagesList: React.FC<Props> = ({
             }}
           >
             <img
-              src={`prefabs/${image.name}`}
-              onMouseDown={() => selectElement(image)}
-              className="image_preview"
+              src={`http://admin.arter.local${image.url}`}
+              onMouseDown={() =>
+                selectElement(`http://admin.arter.local${image.url}`)
+              }
+              className={style.image_preview}
             />
             {canEdit && (
               <IconButton
-                onClick={() => deleteImage(image.name)}
+                onClick={() => dispatch(deleteImage(image._id))}
                 color="inherit"
                 aria-label="upload picture"
                 component="span"

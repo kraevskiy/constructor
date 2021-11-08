@@ -1,60 +1,49 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
 
 import { IconButton } from "@material-ui/core";
 import { DeleteForever } from "@material-ui/icons";
-import {
-  changeHistory,
-  preparePrefabs,
-  deletePrefab,
-} from "../../../../redux/editor/editorActions";
-import { Prefab } from "../../../../redux/redux.types";
+import { changeHistory } from "../../../../redux/editor/editorActions";
+import { CanConfig, StateUserLayout } from "../../../../redux/redux.types";
 import { mm_px } from "../../../../helpers/constants";
+import { deleteLayout, setConfig } from "../../../../redux/actions";
 
-const PrefabsSection: React.FC = () => {
+import style from "./PrefabsSection.module.scss";
+
+interface Props {
+  attachListeners: (obj: fabric.Object) => void;
+}
+
+const PrefabsSection: React.FC<Props> = ({ attachListeners }) => {
   const dispatch = useDispatch();
   const {
-    editor: { instance, cover_instance, prefabs },
+    editor: { instance, cover_instance },
+    layouts: { allLayouts },
   } = useSelector((state: RootState) => state);
 
   const canvas = instance;
 
-  useEffect(() => {
-    dispatch(preparePrefabs());
-  }, []);
-
-  const loadPrefab = async (prefab: Prefab) => {
+  const loadPrefab = async (prefab: StateUserLayout) => {
     if (!canvas || !cover_instance) return null;
-    const cover_canvas = cover_instance;
 
-    const { width, height } = prefab;
+    console.log("prefab", prefab);
 
-    // console.log('prefab.instance)', prefab.instance);
     const obj = JSON.parse(prefab.instance);
 
     dispatch(changeHistory(true));
 
-    const converted_width = mm_px * width;
-    const converted_heigh = mm_px * height;
+    const canConf = JSON.parse(prefab.config) as CanConfig;
 
-    const canConf = {
-      width: converted_width + 40,
-      height: converted_heigh + 40,
-      backgroundColor: "transparent",
-      selectionLineWidth: 2,
-    };
+    const converted_width = mm_px * canConf.width_mm;
+    const converted_heigh = mm_px * canConf.height_mm;
 
-    canvas.width_mm = width;
-    canvas.height_mm = height;
     canvas.setWidth(converted_width + 40);
     canvas.setHeight(converted_heigh + 40);
-    cover_canvas.setWidth(converted_width + 40);
-    cover_canvas.setHeight(converted_heigh + 40);
+    cover_instance.setWidth(converted_width + 40);
+    cover_instance.setHeight(converted_heigh + 40);
 
-    const item = cover_canvas.item(0) as unknown as fabric.Object;
-
-    item.set({
+    (cover_instance?.item(0) as unknown as fabric.Object).set({
       width: converted_width,
       height: converted_heigh,
       left: canConf.width / 2 - converted_width / 2,
@@ -64,22 +53,21 @@ const PrefabsSection: React.FC = () => {
       fill: "rgba(0,0,200,0.0)",
     });
 
-    // console.log('obj', obj);
-
     const canvasLoaded = () => {
-      for (const object of obj.objects) {
+      for (const object of canvas.getObjects()) {
         // delete object.crossOrigin;
         console.log("object", object);
-        console.log("object.src", object.src);
+        attachListeners(object);
       }
     };
 
     canvas.loadFromJSON(obj, canvasLoaded);
+    dispatch(setConfig(canConf));
   };
 
   return (
     <>
-      {prefabs.map((prefab, i) => (
+      {allLayouts.map((prefab, i) => (
         <div
           onMouseDown={() => loadPrefab(prefab)}
           key={i}
@@ -87,18 +75,16 @@ const PrefabsSection: React.FC = () => {
             height: 150,
             width: "100%",
             overflow: "hidden",
-            backgroundImage: `url(${"public/" + prefab.preview_uuid})`,
+            backgroundImage: `url(http://admin.arter.local${prefab.preview})`,
             backgroundSize: "cover",
             position: "relative",
-            backgroundColor: "white",
+            backgroundColor: "gray",
           }}
         >
-          {/* <img src={HTTP_ADDRESS + 'public/' + prefab.preview_uuid} alt={'image'} /> */}
-
-          <div className="layer_title_bar">
-            <div className="opacity_caver" />
+          <div className={style.layer_title_bar}>
+            <div className={style.opacity_caver} />
             <IconButton
-              onClick={() => dispatch(deletePrefab(prefab.uuid))}
+              onClick={() => dispatch(deleteLayout(prefab._id))}
               // aria-label={`star ${prefab.title}`}
             >
               <DeleteForever style={{ color: "orange" }} />

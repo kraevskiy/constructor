@@ -26,10 +26,12 @@ export enum TypesOrder {
 
 export enum TypesLayout {
   getLayouts = "LAYOUT/GET",
+  getAllLayouts = "LAYOUT/GET_ALL",
   createLayout = "LAYOUT/CREATE_LAYOUT",
   deleteLayout = "LAYOUT/DELETE_LAYOUT",
   editLayout = "LAYOUT/EDIT_LAYOUT",
   clearLayout = "LAYOUT/CLEAR_LAYOUT",
+  clearAllLayout = "LAYOUT/CLEAR_ALL_LAYOUT",
 }
 
 export enum TypesLayoutAll {
@@ -39,7 +41,7 @@ export enum TypesLayoutAll {
 
 export enum TypesPage {
   getBySlug = "PAGE/GET_BY_SLUG",
-  editById = "PAGE/EDIT_BY_ID"
+  editById = "PAGE/EDIT_BY_ID",
 }
 
 export enum TypesApp {
@@ -50,17 +52,21 @@ export enum TypesApp {
   showFooter = "APP/SHOW_FOOTER",
   hideFooter = "APP/HIDE_FOOTER",
   showDownloadBtn = "APP/SHOW_DOWNLOAD_BUTTON",
-  hideDownloadBtn = "APP/HIDE_DOWNLOAD_BUTTON"
+  hideDownloadBtn = "APP/HIDE_DOWNLOAD_BUTTON",
 }
 
 export enum TypesEditor {
   set_editor = "EDITOR/SET_EDITOR",
   set_cover_editor = "EDITOR/SET_COVER_EDITOR",
   set_config = "EDITOR/SET_CONFIG",
-  set_prefab = "EDITOR/SET_PREFAB",
-  get_images = "EDITOR/GET_IMAGES",
-  delete_prefab = "EDITOR/DELETE_PREFAB",
   set_scale = "EDITOR/SET_SCALE",
   change_history = "EDITOR/CHANGE_HISTORY",
   set_history_moment = "EDITOR/SET_HISTORY_MOMENT",
+}
+
+export enum TypesImages {
+  getImages = "IMAGES/GET_IMAGES",
+  setLoading = "IMAGES/SET_LOADING",
+  uploadImage = "IMAGES/UPLOAD_IMAGE",
+  deleteImage = "IMAGES/DELETE_IMAGE",
 }

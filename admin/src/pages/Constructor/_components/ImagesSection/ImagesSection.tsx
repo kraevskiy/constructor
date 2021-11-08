@@ -5,9 +5,7 @@ import { Tabs, Tab } from "@material-ui/core";
 import SwipeableViews from "react-swipeable-views";
 import { withStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
-import Axios from "../../../../helpers/Axios";
-import { FileC, Image } from "../../../../redux/redux.types";
+import { FabImage, Image } from "../../../../redux/redux.types";
 
 //Images
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
@@ -20,10 +18,7 @@ import LabelIcon from "@material-ui/icons/Label";
 import ImagesList from "./ImagesList";
 
 import { RootState } from "../../../../redux/rootReducer";
-import {
-  changeHistory,
-  getImages,
-} from "../../../../redux/editor/editorActions";
+import { changeHistory, createImage } from "../../../../redux/actions";
 
 import style from "./ImagesSection.module.scss";
 
@@ -85,8 +80,9 @@ interface Props {
 const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
   const dispatch = useDispatch();
   const {
-    editor: { instance, images, canvasConfig },
+    editor: { instance, canvasConfig },
     user: { canEdit },
+    images: { images },
   } = useSelector((state: RootState) => state);
 
   const canvas = instance;
@@ -132,7 +128,6 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         const minDis = wightDis < heightDis ? wightDis : heightDis;
         if (minDis < 1) oImg.scale(minDis);
 
-        oImg.src_custom = input_img;
         oImg.img_up = img_up;
 
         canvas.add(oImg);
@@ -143,12 +138,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
   };
 
   const uploadImage = async (event: ChangeEvent<HTMLInputElement>) => {
-    const image_name = uuidv4() + "_img_sprite.png";
     if (!event.target.files) return;
-    const file = event.target.files[0] as FileC;
-    file.custom_name = image_name;
-
-    console.log("FILE", file);
+    console.log("FILE", event.target.files[0]);
     let type = "image";
     switch (tabIndex) {
       case 0:
@@ -165,20 +156,7 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         break;
     }
 
-    const req = {
-      name: image_name,
-      type: type,
-    };
-
-    await Axios.post("prefabs/save_image", createFormData([file], req))
-      .then((res) => {
-        console.log("RES", res);
-        alert("Сохранено!");
-        dispatch(getImages());
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    dispatch(createImage(type, event.target.files[0]));
   };
 
   const addTriangle = () => {
@@ -232,29 +210,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
     setTabIndex(i);
   };
 
-  const selectElement = async (image: Image) => {
-    // console.log('worked!', image);
-    // const res = await fetch(`${HTTP_ADDRESS}prefabs/${image.name}`);
-    // if(res){
-    //     console.log('input', `${HTTP_ADDRESS}prefabs/${image.name}`);
-    //     console.log('RES', res);
-    //     addImageMask(res.url, props, setItemIndex);
-    // }
-    addImageMask(`prefabs/${image.name}`, setItemIndex);
-  };
-
-  const deleteImage = async (name: string) => {
-    // console.log("DELETED IMAMGE: ", name);
-
-    const res = await Axios.post("prefabs/delete_image", {
-      name: name,
-    });
-    if (res) {
-      if (res.data.suc) {
-        getImages();
-        alert("Удалено!");
-      }
-    }
+  const selectElement = async (url: string) => {
+    addImageMask(url, setItemIndex);
   };
 
   return (
@@ -352,28 +309,22 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         <div>
           <ImagesList
             type={"image"}
-            canEdit={canEdit}
             images={images}
             selectElement={selectElement}
-            deleteImage={deleteImage}
           />
         </div>
         <div>
           <ImagesList
             type={"frame"}
-            canEdit={canEdit}
             images={images}
             selectElement={selectElement}
-            deleteImage={deleteImage}
           />
         </div>
         <div>
           <ImagesList
             type={"stiker"}
-            canEdit={canEdit}
             images={images}
             selectElement={selectElement}
-            deleteImage={deleteImage}
           />
         </div>
       </SwipeableViews>
@@ -382,30 +333,3 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
 };
 
 export default ImagesSection;
-
-interface Body {
-  name: string;
-  type: string;
-}
-
-const createFormData = (files: FileC[], body: Body): FormData => {
-  const data = new FormData();
-
-  for (const file of files) {
-    console.log("file", file);
-    if (file.custom_name) data.append("file", file, file.custom_name);
-    else data.append("file", file);
-  }
-
-  (Object.keys(body) as Array<keyof typeof body>).forEach((key) => {
-    data.append(key, body[key] as string);
-    // console.log(key + " : " + body[key]);
-  });
-
-  return data;
-};
-
-interface FabImage extends fabric.Image {
-  src_custom: string;
-  img_up: File;
-}

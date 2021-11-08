@@ -28,7 +28,7 @@ const CreateOrderPage = (): JSX.Element => {
 
 	const {layout, user} = useSelector((state: RootState) => {
 		return {
-			layout: state.layouts?.find(l => l._id === stateLocation.layoutId),
+			layout: state.layouts?.allLayouts.find(l => l._id === stateLocation.layoutId),
 			user: state.user
 		};
 	});
