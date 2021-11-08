@@ -33,7 +33,6 @@ export default withLayout(Home);
 
 export const getStaticProps: GetStaticProps<HomeProps> = async ({locale}) => {
 	const {data: page} = await axios.get<PageInterface>(`${API.host}/${API.pages.home}`);
-	console.log('----------------- -------------------------', locale);
 	return {
 		props: {
 			...(await serverSideTranslations(locale as string, ['common'])), page,
