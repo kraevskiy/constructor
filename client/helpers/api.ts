@@ -7,4 +7,7 @@ export const API = {
 		login: 'api/auth/login',
 		registration: 'api/auth/register'
 	},
+	mail: {
+		message: '/api/mail/feedback'
+	}
 };

@@ -21,6 +21,10 @@
 		width: 100%;
 	}
 
+	&:disabled {
+		color: var(--c-white);
+		background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+	}
 	&-icon {
 		width: 40px;
 		max-width: unset;
@@ -40,6 +44,10 @@
 .second {
 	background: var(--grad-orange);
 
+	&:disabled {
+		color: var(--c-white);
+		background: linear-gradient(var(--c-dark), var(--c-dark-grey));
+	}
 	&:hover {
 		color: black;
 		background: var(--grad-black);

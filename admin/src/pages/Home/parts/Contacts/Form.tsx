@@ -3,6 +3,10 @@ import { Input, Textarea, Button } from '../../../../components/';
 import { useTranslation } from 'react-i18next';
 import cls from './Contacts.module.scss';
 import { validate } from '../../../../helpers';
+import axios from 'axios';
+import { ResponseMail } from '../../../../types/response-mail';
+import Loader from '../../../../components/Loader/Loader';
+import { useState } from 'react';
 
 interface IFormData {
 	name: string;
@@ -12,12 +16,16 @@ interface IFormData {
 }
 
 const Form = (): JSX.Element => {
-	const {register, handleSubmit, formState: {errors}} = useForm<IFormData>();
+	const {register, handleSubmit, reset, formState: {errors}} = useForm<IFormData>();
+	const [loading, setLoading] = useState(false);
 
 	const {t} = useTranslation();
 
-	const handleSubmitForm = (data: IFormData) => {
-		console.log(data);
+	const handleSubmitForm = async (data: IFormData) => {
+		setLoading(true);
+		await axios.post<ResponseMail>(process.env.REACT_APP_FEDDBACK_URL as string, data);
+		setLoading(false);
+		reset();
 	};
 
 	return (
@@ -55,7 +63,9 @@ const Form = (): JSX.Element => {
 					placeholder={t('form.message')}
 					{...register('message')}/>
 			</label>
-			<Button>
+			<Button
+				disabled={loading}
+			>
 				{t('form.send')}
 			</Button>
 		</form>

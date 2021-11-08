@@ -8,7 +8,7 @@ import { ICreatePageFormInterface } from '../../components/CreatePageForm/Create
 import { errorHandler } from '../../helpers';
 import { toast } from 'react-toastify';
 import { PageResponse } from '../../types/page';
-import { pageIndexExample } from './page.index.example';
+import {ExamplePage} from './examplePage';
 
 export const getPageBySlug = (slug: string) => {
 	return async (dispatch: Dispatch<ActionType>): Promise<ActionType | PageResponse | null> => {
@@ -20,11 +20,11 @@ export const getPageBySlug = (slug: string) => {
 					payload: res.data
 				});
 			} else {
-				return pageIndexExample;
+				return ExamplePage;
 			}
 		} catch (e) {
 			errorHandler(e);
-			return slug === 'home' ? pageIndexExample : null;
+			return slug === 'home' ? ExamplePage : null;
 		}
 	};
 };
