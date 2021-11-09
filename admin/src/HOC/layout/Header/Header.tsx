@@ -94,7 +94,7 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
           </button>
         )}
         <LanguageSwitcher
-          languages={["en", "ru"]}
+          languages={["en-US", "ru-RU"]}
           onClick={handleChangeLanguage}
         />
       </div>

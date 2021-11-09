@@ -33,7 +33,7 @@ export const LanguageList = ({languages, handlerClick, setIsOpen}:LanguageListPr
 			{
 				languages.map(l => (
 						<li key={l}  onClick={() => handlerClick(l)}>
-							<img src={i[l]} alt=""/>
+							<img src={i[l]} alt="ss"/>
 						</li>
 					)
 				)

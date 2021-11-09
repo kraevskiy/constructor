@@ -1,6 +1,6 @@
 {
   "page.index": "индекс",
-  "page.constructor": "конструктор",
+  "page.constr": "конструктор",
   "page.login": "авторизоваться",
   "page.registration": "регистрация",
   "page.orders": "мои заказы",
