@@ -77,6 +77,7 @@ export interface StateUserLayout {
   createdAt: Date;
   updatedAt: Date;
   type: string;
+  public:boolean;
 }
 
 export interface StateAllLayouts {

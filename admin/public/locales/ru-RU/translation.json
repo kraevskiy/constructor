@@ -69,5 +69,6 @@
   "form.message": "Ваше сообщение",
   "form.send": "Отправить сообщение",
   "constructor.download": "Скачать",
-  "constructor.save": "Сохранить"
+  "constructor.save": "Сохранить",
+  "constructor.buy":"Купить"
 }

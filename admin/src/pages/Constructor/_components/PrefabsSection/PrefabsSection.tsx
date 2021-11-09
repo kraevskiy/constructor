@@ -3,11 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
 
 import { IconButton } from "@material-ui/core";
-import { DeleteForever } from "@material-ui/icons";
+import { DeleteForever, Visibility } from "@material-ui/icons";
 import { changeHistory } from "../../../../redux/editor/editorActions";
 import { CanConfig, StateUserLayout } from "../../../../redux/redux.types";
 import { mm_px } from "../../../../helpers/constants";
-import { deleteLayout, setConfig } from "../../../../redux/actions";
+import {
+  activateLayout,
+  deleteLayout,
+  setConfig,
+} from "../../../../redux/actions";
 
 import style from "./PrefabsSection.module.scss";
 
@@ -20,9 +24,11 @@ const PrefabsSection: React.FC<Props> = ({ attachListeners }) => {
   const {
     editor: { instance, cover_instance },
     layouts: { allLayouts },
+    user: { role },
   } = useSelector((state: RootState) => state);
 
   const canvas = instance;
+  const isAdmin = role === "admin";
 
   const loadPrefab = async (prefab: StateUserLayout) => {
     if (!canvas || !cover_instance) return null;
@@ -83,10 +89,18 @@ const PrefabsSection: React.FC<Props> = ({ attachListeners }) => {
         >
           <div className={style.layer_title_bar}>
             <div className={style.opacity_caver} />
-            <IconButton
-              onClick={() => dispatch(deleteLayout(prefab._id))}
-              // aria-label={`star ${prefab.title}`}
-            >
+            {isAdmin && (
+              <IconButton
+                onClick={() =>
+                  dispatch(activateLayout(prefab._id, prefab.public))
+                }
+              >
+                <Visibility
+                  style={{ color: prefab.public ? "green" : "red" }}
+                />
+              </IconButton>
+            )}
+            <IconButton onClick={() => dispatch(deleteLayout(prefab._id))}>
               <DeleteForever style={{ color: "orange" }} />
             </IconButton>
           </div>

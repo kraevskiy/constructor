@@ -32,7 +32,13 @@ export const layoutsReducer = (
           (l) => l._id !== action?.payload[0]._id
         ),
       };
-    // return state.filter((l) => l._id !== action?.payload[0]._id);
+    case TypesLayout.editLayout: {
+      const index = state.allLayouts.findIndex(
+        (item) => item._id === action?.payload[0]._id
+      );
+      state.allLayouts[index] = action?.payload[0];
+      return { ...state, allLayouts: state.allLayouts };
+    }
     case TypesLayout.createLayout:
       return { ...state, allLayouts: [action.payload[0], ...state.allLayouts] };
     case TypesLayout.getLayouts:

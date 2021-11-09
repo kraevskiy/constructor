@@ -31,4 +31,8 @@ export class LayoutModel extends TimeStamps {
 
   @prop()
   type: string;
+
+  @prop()
+  public: boolean;
+  
 }

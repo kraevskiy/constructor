@@ -1,4 +1,4 @@
-import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { IsBoolean, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class FindLayoutsDto {
 	@IsOptional()
@@ -12,4 +12,8 @@ export class FindLayoutsDto {
 	@IsOptional()
 	@IsString()
 	user?: string;
+
+  @IsOptional()
+	@IsBoolean()
+	public?: boolean;
 }

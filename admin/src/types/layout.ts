@@ -7,4 +7,5 @@ export interface LayoutType {
 	instance: string;
 	preview?: string;
 	onOrder?: false;
+  public:false;
 }

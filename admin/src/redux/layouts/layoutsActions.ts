@@ -38,6 +38,28 @@ export const deleteLayout = (id: string) => {
   };
 };
 
+export const activateLayout = (id: string, active: boolean) => {
+  return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
+    try {
+      const editedLayout = await Axios.patch<StateUserLayout>(
+        `${process.env.REACT_APP_LAYOUT}/${id}`,
+        { public: !active }
+      );
+      toast.success(`Layout: ${id} New status: ${active}`);
+
+      return dispatch({
+        type: TypesLayout.editLayout,
+        payload: [editedLayout.data],
+      });
+    } catch (e) {
+      console.log("errr", e);
+
+      errorHandler(e);
+      return null;
+    }
+  };
+};
+
 export const getLayouts = (id?: string) => {
   return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
     try {
@@ -70,6 +92,7 @@ export const getAllLayouts = (filter?: {
   limit?: number;
   page?: number;
   user?: string;
+  public?: boolean
 }) => {
   return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
     try {

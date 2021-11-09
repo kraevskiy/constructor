@@ -27,7 +27,6 @@ export class CreateLayoutDto {
   @IsString()
   instance: string;
 
-  @IsOptional()
   @IsString()
   preview?: string;
 
@@ -37,6 +36,10 @@ export class CreateLayoutDto {
 
   @IsString()
   type: string;
+
+  @IsOptional()
+  @IsBoolean()
+  public: boolean;
 }
 
 export class EditLayoutDto {
@@ -44,6 +47,7 @@ export class EditLayoutDto {
   @IsString()
   user?: string;
 
+  @IsOptional()
   @IsString()
   title?: string;
 
@@ -51,12 +55,15 @@ export class EditLayoutDto {
   @IsString()
   slash?: string;
 
+  @IsOptional()
   @IsString()
   config?: string;
 
+  @IsOptional()
   @IsArray()
   files?: string[];
 
+  @IsOptional()
   @IsString()
   instance?: string;
 
@@ -67,4 +74,12 @@ export class EditLayoutDto {
   @IsOptional()
   @IsBoolean()
   onOrder?: boolean;
+
+  @IsOptional()
+  @IsString()
+  type: string;
+
+  @IsOptional()
+  @IsBoolean()
+  public: boolean;
 }

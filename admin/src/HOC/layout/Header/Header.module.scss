@@ -78,7 +78,7 @@
   align-self: center;
   grid-gap: 10px;
   display: grid;
-  grid-template-columns: repeat(5, auto);
+  grid-template-columns: repeat(6, auto);
   align-items: center;
   @include xs {
     grid-gap: 5px;

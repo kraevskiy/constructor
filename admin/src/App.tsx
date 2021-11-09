@@ -49,7 +49,7 @@ const App = (): JSX.Element => {
     dispatch(getOrders(_id));
     dispatch(hideLoader());
     dispatch(getAllImages({ limit: 100 }));
-    dispatch(getAllLayouts({ limit: 100 }));
+    dispatch(getAllLayouts({ limit: 100, public: role != "admin" }));
   }, [isLoggedIn, initAutologin]);
 
   return (

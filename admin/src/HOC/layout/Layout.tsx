@@ -17,7 +17,7 @@ import { text } from '../../images/icons';
 
 const Layout = ({children}: LayoutProp): JSX.Element => {
 	const {app: {isOpenMenu, showFooter: showFooterState}} = useSelector((state: RootState) => state);
-	const {listen, location: {pathname}} = useHistory();
+	const {listen, location: {pathname}, } = useHistory();
 	const dispatch = useDispatch();
 
 	useEffect(() => {
@@ -28,7 +28,7 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 	}, []);
 
 	useEffect(() => {
-		return listen((location) => {
+    return listen((location) => {
 			if (location.pathname.includes(paths.constructor)) {
 				dispatch(hideFooter());
 				dispatch(showDownloadBtn());
@@ -37,7 +37,7 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 				dispatch(hideDownloadBtn());
 			}
 		});
-	}, [pathname]);
+	}, [location]);
 
 
 	return (

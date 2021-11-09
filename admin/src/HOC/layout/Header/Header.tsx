@@ -23,7 +23,7 @@ import {
 const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   const { i18n, t } = useTranslation();
   const {
-    user: { isLoggedIn },
+    user: { isLoggedIn, role },
     app: { isOpenMenu, showDownloadBtn },
     editor: { instance },
   } = useSelector((state: RootState) => state);
@@ -78,9 +78,14 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
             <img src={logoutIcon} alt="" />
           </button>
         )}
-        {isLoggedIn && showDownloadBtn && (
+        {isLoggedIn && showDownloadBtn && role === "admin" &&  (
           <button className="btn" onClick={() => dispatch(createLayout())}>
             {t("constructor.save")}
+          </button>
+        )}
+        {isLoggedIn && showDownloadBtn && (
+          <button className="btn" onClick={() => dispatch(createLayout())}>
+            {t("constructor.buy")}
           </button>
         )}
         {isLoggedIn && showDownloadBtn && (

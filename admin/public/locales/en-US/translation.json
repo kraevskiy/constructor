@@ -69,5 +69,6 @@
   "form.message": "Message",
   "form.send": "Send message",
   "constructor.download": "Download",
-  "constructor.save": "Save"
+  "constructor.save": "Save",
+  "constructor.buy": "Buy"
 }

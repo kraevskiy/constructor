@@ -5,6 +5,7 @@ import { DocumentType, ModelType } from '@typegoose/typegoose/lib/types';
 import { OrderDto } from './dto/order.dto';
 import { FindOrdersDto } from './dto/find-orders.dto';
 import { LayoutService } from '../layout/layout.service';
+import { EditLayoutDto } from 'src/layout/dto/create-layout.dto';
 
 @Injectable()
 export class OrderService {
@@ -23,7 +24,7 @@ export class OrderService {
 			paymentIntent: 'hold',
 			orderID: allOrders?.length
 		};
-		await this.layoutService.edit(order.layouts[0]._id, {onOrder: true});
+		await this.layoutService.edit(order.layouts[0]._id, {onOrder: true} as EditLayoutDto);
 		return this.orderModel.create(correctOrder);
 	}
 
