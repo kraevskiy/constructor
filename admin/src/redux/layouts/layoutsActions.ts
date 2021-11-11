@@ -92,7 +92,7 @@ export const getAllLayouts = (filter?: {
   limit?: number;
   page?: number;
   user?: string;
-  public?: boolean
+  public?: boolean;
 }) => {
   return async (dispatch: Dispatch<ActionType>): Promise<ActionType | null> => {
     try {
@@ -101,8 +101,8 @@ export const getAllLayouts = (filter?: {
         filter
       );
 
-      console.log("layoutsAll");
-      console.log(layoutsAll.data[0].layouts);
+      // console.log("layoutsAll");
+      // console.log(layoutsAll.data[0].layouts);
 
       return dispatch({
         type: TypesLayout.getAllLayouts,

@@ -56,7 +56,7 @@ const Item = ({
 				}} className="btn green">
 					{addOrder}
         </NavLink>}
-				{linkText && <NavLink className="btn" to={`/layout/${id}`}>
+				{linkText && <NavLink className="btn" to={`/constructor/${id}`}>
 					{linkText}
         </NavLink>}
 				{deleteText && !onOrder && <Button color="red" onClick={() => handleDelete(id)}>

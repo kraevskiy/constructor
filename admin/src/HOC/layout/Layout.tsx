@@ -29,6 +29,7 @@ const Layout = ({children}: LayoutProp): JSX.Element => {
 
 	useEffect(() => {
     return listen((location) => {
+      window.scrollTo(0, 0);
 			if (location.pathname.includes(paths.constructor)) {
 				dispatch(hideFooter());
 				dispatch(showDownloadBtn());

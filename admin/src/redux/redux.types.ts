@@ -97,7 +97,7 @@ export interface RegisterUserModel {
   updatedAt: Date;
 }
 
-export type RolesUser = "admin" | "user" | "visitor";
+export type RolesUser = "admin" | "user" | "visitor" | "vendor";
 
 export interface StateUser {
   access_token: string;
