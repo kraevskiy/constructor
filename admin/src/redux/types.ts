@@ -25,6 +25,7 @@ export enum TypesOrder {
 }
 
 export enum TypesLayout {
+  getLayout = "LAYOUT/GET",
   getLayouts = "LAYOUT/GET",
   getAllLayouts = "LAYOUT/GET_ALL",
   createLayout = "LAYOUT/CREATE_LAYOUT",
