@@ -11,7 +11,7 @@
   min-width: 225px;
   &:after {
     position: absolute;
-    content: '';
+    content: "";
     background: var(--c-blue);
     height: 3px;
     width: 225px;
@@ -57,4 +57,15 @@
   &:after {
     background: var(--c-green);
   }
+}
+
+.onTap {
+  &:hover {
+    color: var(--c-yellow);
+    cursor: pointer;
+  }
+}
+
+.selected {
+  color: var(--c-yellow);
 }

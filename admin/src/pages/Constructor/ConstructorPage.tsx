@@ -76,7 +76,6 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
   const [leftBarVisible, setLeftBarVisible] = useState<boolean>(false);
   const [itemIndex, setItemIndex] = useState<number>(-1);
   const [editorHeight, setEditorHeight] = useState<number>(0);
-  const [loadedLink, setLoadedLink] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
 
   const canvas = instance;
@@ -86,24 +85,12 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
   }, [canvas]);
 
   useEffect(() => {
-    if (match.params.id && !loadedLink && canvas && cover_instance) {
-      console.log("HERERERERE");
-
+    if (match.params.id && canvas && cover_instance)
       fetchPrefab(match.params.id);
-    } else {
-      console.log("Not hererere");
-    }
-  }, [canvas, cover_instance, loadedLink]);
-
-  useEffect(() => {
-    return () => {
-      setLoadedLink(false);
-    };
-  }, []);
+  }, [canvas, cover_instance]);
 
   const fetchPrefab = async (id: string) => {
     try {
-      setLoadedLink(true);
       const layout = await Axios.get<StateUserLayout>(
         `${process.env.REACT_APP_LAYOUT}/${id}`
       );
@@ -116,7 +103,8 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
   const loadPrefab = async (prefab: StateUserLayout) => {
     if (!canvas || !cover_instance) return null;
 
-    console.log("prefab", prefab);
+    // console.log("prefab", prefab);
+    console.log("PREFAB LOADING");
 
     const obj = JSON.parse(prefab.instance);
 
