@@ -197,4 +197,5 @@ export interface Canvas extends fabric.Canvas {}
 
 export interface FabImage extends fabric.Image {
   img_up?: File;
+  src:string;
 }

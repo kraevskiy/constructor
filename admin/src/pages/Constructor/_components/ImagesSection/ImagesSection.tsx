@@ -129,6 +129,7 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         if (minDis < 1) oImg.scale(minDis);
 
         oImg.img_up = img_up;
+        oImg.src = oImg.getSrc();
 
         canvas.add(oImg);
         canvas.setActiveObject(oImg);

@@ -392,6 +392,7 @@ const ConstructorPage: React.FC<Props> = ({ match }) => {
               switchLayers={switchLayers}
               deleteLayer={deleteLayer}
               copyLayer={copyLayer}
+              setItemIndex={setItemIndex}
             />
 
             <PrefabsSection loadPrefab={loadPrefab} />

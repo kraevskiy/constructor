@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { IconButton } from "@material-ui/core";
 import {
   DeleteForever,
@@ -20,6 +20,7 @@ interface Props {
   selectElement: (i: number) => void;
   copyLayer: (i: number) => void;
   deleteLayer: (i: number) => void;
+  setItemIndex: (i: number) => void;
   switchLayers: (index: number, dir: number) => void;
 }
 
@@ -28,6 +29,7 @@ const LayersSection: React.FC<Props> = ({
   switchLayers,
   copyLayer,
   deleteLayer,
+  setItemIndex,
 }) => {
   const {
     editor: { instance },
@@ -35,21 +37,6 @@ const LayersSection: React.FC<Props> = ({
 
   if (!instance) return <></>;
   const canvas = instance;
-
-  // const [, updateState] = React.useState<unknown>(undefined);
-  // const forceUpdate = React.useCallback(() => updateState({}), []);
-
-  const setSelectable = (index: number) => {
-    if (!canvas) return;
-    const item = canvas.item(index) as unknown as fabric.Object;
-    item.set({
-      selectable: !item.selectable,
-      evented: !item.evented,
-    });
-    canvas.requestRenderAll();
-    selectElement(index);
-    // forceUpdate();
-  };
 
   // console.log(canvas.getObjects());
 
@@ -77,7 +64,6 @@ const LayersSection: React.FC<Props> = ({
               style={{ marginLeft: -13 }}
               onClick={() => switchLayers(index, -1)}
               aria-label={`star 1`}
-              // aria-label={`star ${layer.title}`}
             >
               <ExpandLess style={{ color: "white" }} />
             </IconButton>
@@ -85,7 +71,6 @@ const LayersSection: React.FC<Props> = ({
               style={{ marginLeft: -13 }}
               onClick={() => switchLayers(index, 1)}
               aria-label={`star 2`}
-              // aria-label={`star ${layer.title}`}
             >
               <ExpandMore style={{ color: "white" }} />
             </IconButton>
@@ -94,30 +79,19 @@ const LayersSection: React.FC<Props> = ({
               style={{ marginLeft: -13 }}
               onClick={() => copyLayer(index)}
               aria-label={`star 3`}
-              // aria-label={`star ${layer.title}`}
             >
               <FileCopy style={{ color: "white" }} />
             </IconButton>
-            <IconButton
-              style={{ marginLeft: -13 }}
-              onClick={() => setSelectable(index)}
-              aria-label={`star 4`}
-              // aria-label={`star ${layer.title}`}
-            >
-              {layer.selectable ? (
-                <LockOpen style={{ color: "white" }} />
-              ) : (
-                <Lock style={{ color: "white" }} />
-              )}
-            </IconButton>
-            {/* <IconButton style={{ marginLeft: -13 }} onClick={() => props.selectElement(index)} aria-label={`star ${layer.title}`}>
-                    <StarBorder style={{ color: 'white' }}  />
-                  </IconButton> */}
+            <BlockLayerItem
+              setItemIndex={setItemIndex}
+              index={index}
+              canvas={canvas}
+              selected={layer.selectable}
+            />
             <IconButton
               style={{ marginLeft: -13 }}
               onClick={() => deleteLayer(index)}
               aria-label={`star 5`}
-              // aria-label={`star ${layer.title}`}
             >
               <DeleteForever style={{ color: "orange" }} />
             </IconButton>
@@ -129,6 +103,48 @@ const LayersSection: React.FC<Props> = ({
 };
 
 export default LayersSection;
+
+interface PropsSelect {
+  setItemIndex: (i: number) => void;
+  selected: boolean | undefined;
+  canvas: fabric.Canvas;
+  index: number;
+}
+
+const BlockLayerItem: React.FC<PropsSelect> = ({
+  selected,
+  setItemIndex,
+  canvas,
+  index,
+}) => {
+  const [selectable, setSelectable] = useState<boolean | undefined>(selected);
+
+  const set = (index: number) => {
+    if (!canvas) return;
+    const item = canvas.item(index) as unknown as fabric.Object;
+    item.set({
+      selectable: !item.selectable,
+      evented: !item.evented,
+    });
+    canvas.requestRenderAll();
+    setSelectable(!selectable);
+    setItemIndex(-1);
+  };
+
+  return (
+    <IconButton
+      style={{ marginLeft: -13 }}
+      onClick={() => set(index)}
+      aria-label={`star 4`}
+    >
+      {selectable ? (
+        <LockOpen style={{ color: "white" }} />
+      ) : (
+        <Lock style={{ color: "white" }} />
+      )}
+    </IconButton>
+  );
+};
 
 export interface FabObj extends fabric.Object {
   src_custom?: string;
