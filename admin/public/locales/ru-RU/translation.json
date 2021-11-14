@@ -1,5 +1,5 @@
 {
-  "page.index": "content",
+  "page.index": "оглавление",
   "page.constr": "конструктор",
   "page.login": "авторизоваться",
   "page.registration": "регистрация",
@@ -36,6 +36,8 @@
   "order.showMore": "Подробней",
   "login.title": "Авториз",
   "order.view": "Просмотреть",
+  "order.add": "Добавить к заказу",
+  "order.delete": "Удалить",
   "login.email": "Адрес электронной почты",
   "login.password": "Пароль",
   "login.button": "Войти",

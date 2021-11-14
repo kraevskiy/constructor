@@ -180,6 +180,7 @@ export interface Editor {
   prefabsLoading: boolean;
   history: string[];
   history_n: number;
+  loading:boolean;
 }
 
 export interface Images {

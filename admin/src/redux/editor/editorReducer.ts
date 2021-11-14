@@ -17,6 +17,7 @@ const initialState: Editor = {
   prefabsLoading: true,
   history: [],
   history_n: 0,
+  loading: false,
 };
 
 export interface ActionType {
@@ -27,7 +28,8 @@ export interface ActionType {
     | number
     | string
     | Image[]
-    | string[];
+    | string[]
+    | boolean;
 }
 
 export const editorReducer = (
@@ -90,6 +92,9 @@ export const editorReducer = (
     }
     case TypesEditor.set_history_moment: {
       return { ...state, history_n: action.payload as number };
+    }
+    case TypesEditor.set_loading: {
+      return { ...state, loading: action.payload as boolean };
     }
 
     default:

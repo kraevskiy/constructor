@@ -15,7 +15,7 @@ const LayoutsPage = (): JSX.Element => {
       <PageHead className={cls.head} text={t("layout.text")}>
         <span>{t("layout.title")}</span>
         <NavLink className="btn" to={paths.constructor}>
-          Create new
+          {t("layout.create")}
         </NavLink>
       </PageHead>
       {layouts?.length ? (

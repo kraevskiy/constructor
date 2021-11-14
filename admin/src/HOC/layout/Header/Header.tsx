@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { paths } from "../../../routes/paths";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { logo1, logo2 } from "../../../images";
 import {} from "../../../images";
 import { logout as logoutIcon } from "../../../images/icons";
 import download from "downloadjs";
+import Button from "../../../components/Button/Button";
 import {
   clearOrders,
   clearLayouts,
@@ -25,9 +26,10 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   const {
     user: { isLoggedIn, role },
     app: { isOpenMenu, showDownloadBtn },
-    editor: { instance },
+    editor: { instance, loading },
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleChangeLanguage = (lang: string) => {
     return i18n.changeLanguage(lang);
@@ -78,20 +80,31 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
             <img src={logoutIcon} alt="" />
           </button>
         )}
-        {isLoggedIn && showDownloadBtn && role === "admin" &&  (
-          <button className="btn" onClick={() => dispatch(createLayout())}>
+        {isLoggedIn && showDownloadBtn && role === "admin" && (
+          <Button
+            color="red"
+            onClick={() => dispatch(createLayout())}
+            loading={loading || instance?.getObjects().length == 0}
+          >
             {t("constructor.save")}
-          </button>
+          </Button>
         )}
         {isLoggedIn && showDownloadBtn && (
-          <button className="btn" onClick={() => dispatch(createLayout())}>
+          <Button
+            onClick={() => dispatch(createLayout(true, history))}
+            loading={loading || instance?.getObjects().length == 0}
+          >
             {t("constructor.buy")}
-          </button>
+          </Button>
         )}
         {isLoggedIn && showDownloadBtn && (
-          <button className="btn second" onClick={() => DownloadCanvas()}>
+          <Button
+            color="orange"
+            onClick={() => DownloadCanvas()}
+            loading={loading}
+          >
             {t("constructor.download")}
-          </button>
+          </Button>
         )}
         <LanguageSwitcher
           languages={["en-US", "ru-RU"]}

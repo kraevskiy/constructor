@@ -1,7 +1,7 @@
 import { Dispatch } from "redux";
 import { v4 as uuidv4 } from "uuid";
 import Axios from "../../helpers/Axios";
-import { TypesLayout } from "../types";
+import { TypesEditor, TypesLayout } from "../types";
 import { ActionType } from "./layoutsReducer";
 import { toast } from "react-toastify";
 import { decode } from "jsonwebtoken";
@@ -13,6 +13,8 @@ import {
 } from "../redux.types";
 import { errorHandler } from "../../helpers";
 import { RootState } from "../rootReducer";
+import { History } from "history";
+import { paths } from "../../routes/paths";
 
 interface TypeResponseUpload {
   name: string;
@@ -124,15 +126,25 @@ export const clearAllLayouts = () => {
   };
 };
 
-export const createLayout = () => {
+export interface EditorType {
+  type: TypesEditor;
+  payload: boolean;
+}
+
+export const createLayout = (buy?: boolean, history?: History) => {
   return async (
-    dispatch: Dispatch<ActionType>,
+    dispatch: Dispatch<ActionType | EditorType>,
     getState: () => RootState
   ): Promise<ActionType | null> => {
     const {
       editor: { canvasConfig, instance },
     } = getState();
     const canvas = instance;
+
+    dispatch({
+      type: TypesEditor.set_loading,
+      payload: true,
+    });
 
     const files_n: string[] = [];
 
@@ -199,6 +211,15 @@ export const createLayout = () => {
 
       toast.success(`Successful create ${layout.data.title}`);
       // toast.success(layout);
+      dispatch({
+        type: TypesEditor.set_loading,
+        payload: false,
+      });
+      if (buy) {
+        history?.push(paths.orders.create, {
+          layoutId: layout.data._id,
+        });
+      }
       return dispatch({
         type: TypesLayout.createLayout,
         payload: [layout.data],

@@ -20,7 +20,6 @@
   }
 }
 
-
 .sidebar,
 .body {
   background: var(--c-dark-grey);
@@ -29,7 +28,6 @@
   box-shadow: 0px 3px 6px #00000029;
   @include lg {
     padding: 30px 15px;
-
   }
 }
 .box {
@@ -40,12 +38,12 @@
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 20px;
   margin-bottom: 20px;
-  @include lg(){
+  @include lg() {
     grid-template-columns: 1fr;
     margin-bottom: 0;
   }
-  &>*{
-    @include lg(){
+  & > * {
+    @include lg() {
       margin-bottom: 20px;
     }
   }
@@ -61,7 +59,7 @@
 .button {
   margin: auto;
   margin-top: 40px;
-  @include lg(){
+  @include lg() {
     display: none !important;
   }
 }
@@ -84,34 +82,35 @@
   margin-bottom: 40px;
 }
 
-.orderInfo{
-
+.orderInfo {
 }
-.orderTitle{
+.orderTitle {
   font-size: 20px;
   font-weight: bold;
   margin-top: 0;
 }
-.orderPrice{
+.orderPrice {
   font-size: 15px;
   display: grid;
   grid-template-columns: 60px 1fr;
   grid-gap: 30px;
-  span:first-child{
+  span:first-child {
     font-weight: bold;
   }
-  span:last-child{}
+  span:last-child {
+  }
 }
-.orderCount{
+.orderCount {
   font-size: 15px;
   display: grid;
   grid-template-columns: 60px 1fr;
   grid-gap: 30px;
   margin-bottom: 0;
-  span:first-child{
+  span:first-child {
     font-weight: bold;
   }
-  span:last-child{}
+  span:last-child {
+  }
 }
 
 .input {
@@ -125,13 +124,17 @@
   grid-template-columns: repeat(2, 1fr);
   border-top: 1px solid var(--c-grey);
   border-bottom: 1px solid var(--c-grey);
-  span:first-child{
+  span:first-child {
     font-weight: bold;
     font-size: 20px;
   }
-  span:last-child{
+  span:last-child {
     text-align: right;
     font-weight: bold;
     font-size: 31px;
   }
+}
+
+.image {
+  background-color: gray;
 }

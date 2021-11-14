@@ -184,8 +184,7 @@ const CreateOrderPage = (): JSX.Element => {
 					<div className={cls.order}>
 						<img
 							className={cls.image}
-							// src={layout.preview}
-							src={'https://picsum.photos/200/200'}
+							src={layout.preview}
 							alt={layout.title}/>
 						<div className={cls.orderInfo}>
 							<p className={cls.orderTitle}>{layout.title}</p>

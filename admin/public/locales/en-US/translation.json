@@ -35,6 +35,8 @@
   "order.approve": "Approve",
   "order.showMore": "Show more",
   "order.view": "View",
+  "order.add": "Add to order",
+  "order.delete": "Delete",
   "login.title": "Login",
   "login.email": "Email address",
   "login.password": "Password",

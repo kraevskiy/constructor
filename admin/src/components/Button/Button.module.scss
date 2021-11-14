@@ -72,3 +72,13 @@
   background-size: 200% 200%;
   background-position: 0% 50%;
 }
+
+.gray{
+  background: linear-gradient(to right,
+    var(--c-yellow) 25%,
+    var(--c-gray) 50%,
+    var(--c-dark-green) 50%,
+    var(--c-green) 100%);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+}

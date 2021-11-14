@@ -63,6 +63,7 @@ export enum TypesEditor {
   set_scale = "EDITOR/SET_SCALE",
   change_history = "EDITOR/CHANGE_HISTORY",
   set_history_moment = "EDITOR/SET_HISTORY_MOMENT",
+  set_loading = "EDITOR/SET_LOADING",
 }
 
 export enum TypesImages {

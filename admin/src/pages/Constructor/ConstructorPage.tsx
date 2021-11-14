@@ -59,6 +59,7 @@ import { CanConfig, StateUserLayout } from "../../redux/redux.types";
 import { errorHandler } from "../../helpers";
 import { mm_px } from "../../helpers/constants";
 import Axios from "../../helpers/Axios";
+import Loader from "../../components/Loader/Loader";
 
 export interface MatchParams {
   id: string;
@@ -69,7 +70,14 @@ interface Props extends RouteComponentProps<MatchParams> {}
 const ConstructorPage = ({ match }: Props): JSX.Element => {
   const dispatch = useDispatch();
   const {
-    editor: { instance, history, history_n, scaleRatio, cover_instance },
+    editor: {
+      instance,
+      history,
+      history_n,
+      scaleRatio,
+      cover_instance,
+      loading,
+    },
   } = useSelector((state: RootState) => state);
 
   const [tabIndex, setTabIndex] = useState<number>(0);
@@ -419,7 +427,7 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
 
         <div className={style.editor_wrapper} ref={editorRef}>
           <div className={style.editor_container}>
-            <FabricEditor />
+            {loading ? <Loader /> : <FabricEditor />}
           </div>
 
           {instance && itemIndex >= 0 && (

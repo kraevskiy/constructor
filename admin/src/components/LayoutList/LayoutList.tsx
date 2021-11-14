@@ -51,9 +51,9 @@ const LayoutList = ({layouts, isShowName = false}: LayoutListProps): JSX.Element
 								preview={'asdfa/asd.jpeg'}
 								id={l._id}
 								handleDelete={deleteLayoutHandler}
-								linkText="Open"
-								deleteText="Delete"
-								addOrder="Add to order"
+								linkText={t("order.view")}
+								deleteText={t("order.delete")}
+								addOrder={t("order.add")}
 								{...l}
 							/>
 						))
