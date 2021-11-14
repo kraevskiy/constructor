@@ -37,6 +37,7 @@ const FabricEditor: React.FC = () => {
       height_mm: defCardPropMM.height,
       backgroundColor: "transparent",
       selectionLineWidth: 2,
+      type: "card",
     };
 
     const canvas = new fabric.Canvas(fabricRoot.current, canConf) as Canvas;

@@ -77,7 +77,7 @@ export interface StateUserLayout {
   createdAt: Date;
   updatedAt: Date;
   type: string;
-  public:boolean;
+  public: boolean;
 }
 
 export interface StateAllLayouts {
@@ -170,6 +170,8 @@ export interface CanConfig {
   backgroundColor: string;
   // selectionColor: string,
   selectionLineWidth: number;
+  type: "card" | "module" | "t-short" | "cap";
+  gender?: "male" | "female";
 }
 
 export interface Editor {
@@ -180,7 +182,7 @@ export interface Editor {
   prefabsLoading: boolean;
   history: string[];
   history_n: number;
-  loading:boolean;
+  loading: boolean;
 }
 
 export interface Images {
@@ -198,5 +200,5 @@ export interface Canvas extends fabric.Canvas {}
 
 export interface FabImage extends fabric.Image {
   img_up?: File;
-  src:string;
+  src: string;
 }

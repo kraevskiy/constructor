@@ -12,6 +12,7 @@ const initialState: Editor = {
     backgroundColor: "transparent",
     // selectionColor: 'blue',
     selectionLineWidth: 2,
+    type: "card",
   },
   scaleRatio: 1,
   prefabsLoading: true,

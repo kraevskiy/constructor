@@ -60,6 +60,7 @@ const SettingsSection: React.FC = () => {
       height_mm: canvasHeight,
       backgroundColor: "transparent",
       selectionLineWidth: 2,
+      type: "card",
     };
 
     canvas.setWidth(converted_width + 40);
