@@ -5,7 +5,7 @@ import { Tabs, Tab } from "@material-ui/core";
 import SwipeableViews from "react-swipeable-views";
 import { withStyles } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
-import { FabImage, Image } from "../../../../redux/redux.types";
+import { FabImage } from "../../../../redux/redux.types";
 
 //Images
 import ChangeHistoryIcon from "@material-ui/icons/ChangeHistory";
@@ -35,7 +35,7 @@ interface StyledTabProps {
   label: string;
   icon:
     | string
-    | React.ReactElement<any, string | React.JSXElementConstructor<any>>
+    | React.ReactElement<string, string | React.JSXElementConstructor<string>>
     | undefined;
 }
 

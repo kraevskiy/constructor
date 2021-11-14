@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Typography, Button, TextField, IconButton } from "@material-ui/core";
-import { ChromePicker } from "react-color";
+import { ChromePicker, ColorResult } from "react-color";
 
 //Helpers
 import { fonts } from "../../../../helpers/constants";
@@ -130,7 +130,7 @@ const SettingsComponent: React.FC<Props> = ({
     setCurFont(font);
   };
 
-  const handleColorChangeComplete = (color: any) => {
+  const handleColorChangeComplete = (color: ColorResult) => {
     if (colorModalType === "main") {
       item.set({ fill: color.hex });
 
@@ -594,7 +594,7 @@ const SettingsComponent: React.FC<Props> = ({
     </div>
   );
 
-  return null;
+  // return null;
 };
 
 export default SettingsComponent;

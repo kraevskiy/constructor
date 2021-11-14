@@ -2,10 +2,8 @@ import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { IRegistrationFormInterface } from './RegistrationForm.interface';
 import { hideLoader, login, registrationUser, showLoader } from '../../redux/actions';
-import { paths } from '../../routes/paths';
 import { ActionType, RegisterUserModel } from '../../redux/redux.types';
 import { TypesUser } from '../../redux/types';
-import { useHistory } from 'react-router-dom';
 import cls from './RegistrationForm.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Button, Input } from '../';
@@ -15,7 +13,6 @@ const RegistrationForm = (): JSX.Element => {
 	const {t} = useTranslation();
 	const dispatch = useDispatch();
 	const {register, handleSubmit, formState: {errors}} = useForm<IRegistrationFormInterface>();
-	const history = useHistory();
 
 	const handleSubmitForm = async (data: IRegistrationFormInterface) => {
 		dispatch(showLoader());

@@ -1,9 +1,9 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
 import { Button, TextField, Typography } from "@material-ui/core";
-import { CirclePicker } from "react-color";
+import { CirclePicker, ColorResult } from "react-color";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
-import { setConfig, setEditor } from "../../../../redux/actions";
+import { setConfig } from "../../../../redux/actions";
 
 //Helpers
 import { mm_px } from "../../../../helpers/constants";
@@ -26,7 +26,7 @@ const SettingsSection: React.FC = () => {
     canvasConfig.height_mm
   );
 
-  const onChangeBackColorChange = (color: any) => {
+  const onChangeBackColorChange = (color: ColorResult) => {
     setBackColor(color.hex);
     canvas.setBackgroundColor(color.hex, () => null);
     canvas.requestRenderAll();

@@ -66,7 +66,7 @@ export interface MatchParams {
 
 interface Props extends RouteComponentProps<MatchParams> {}
 
-const ConstructorPage: React.FC<Props> = ({ match }) => {
+const ConstructorPage = ({ match }: Props): JSX.Element => {
   const dispatch = useDispatch();
   const {
     editor: { instance, history, history_n, scaleRatio, cover_instance },
@@ -86,8 +86,13 @@ const ConstructorPage: React.FC<Props> = ({ match }) => {
   }, [canvas]);
 
   useEffect(() => {
-    if (match.params.id && !loadedLink && canvas && cover_instance)
+    if (match.params.id && !loadedLink && canvas && cover_instance) {
+      console.log("HERERERERE");
+
       fetchPrefab(match.params.id);
+    } else {
+      console.log("Not hererere");
+    }
   }, [canvas, cover_instance, loadedLink]);
 
   useEffect(() => {
@@ -255,7 +260,7 @@ const ConstructorPage: React.FC<Props> = ({ match }) => {
       item.on("selected", () =>
         setItemIndex(canvas.getObjects().indexOf(item))
       );
-      item.on("deselected", (e) => {
+      item.on("deselected", () => {
         setItemIndex(-1);
         if (item.type === "textbox" || item.type === "text") {
           const textItem = item as fabric.Textbox;
