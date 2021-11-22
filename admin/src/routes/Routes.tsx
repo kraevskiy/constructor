@@ -23,7 +23,7 @@ const Routes = (): JSX.Element => {
       <Switch>
         <PublicRoute path={paths.index} component={Home} exact />
         <Route
-          path={`${paths.constructor}/:id?`}
+          path={`${paths.constructor}/:type?/:id?`}
           component={ConstructorPage}
           exact
         />

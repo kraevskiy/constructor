@@ -4,6 +4,16 @@ import { CanConfig } from "../redux.types";
 import { ActionType } from "./editorReducer";
 import { RootState } from "../rootReducer";
 
+export const setMainRed = (payload: fabric.Canvas): ActionType => ({
+  type: TypesEditor.set_editor,
+  payload,
+});
+
+export const setCoverRef = (payload: fabric.Canvas): ActionType => ({
+  type: TypesEditor.set_editor,
+  payload,
+});
+
 export const setEditor = (payload: fabric.Canvas): ActionType => ({
   type: TypesEditor.set_editor,
   payload,
@@ -18,8 +28,6 @@ export const setCoverEditor = (payload: fabric.Canvas): ActionType => ({
   type: TypesEditor.set_cover_editor,
   payload,
 });
-
-
 
 export const changeScale = (payload: number): ActionType => ({
   type: TypesEditor.set_scale,

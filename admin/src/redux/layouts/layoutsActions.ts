@@ -195,7 +195,7 @@ export const createLayout = (buy?: boolean, history?: History) => {
         title: "test_title",
         instance: JSON.stringify(final_instance),
         files: files_n,
-        type: "card",
+        type: canvasConfig.type,
         width: canvasConfig.width_mm,
         height: canvasConfig.height_mm,
         preview: preview.data[0].url,

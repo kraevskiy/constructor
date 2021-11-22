@@ -13,16 +13,14 @@ const TextLayerItem: React.FC<Props> = ({ index, layer }) => {
   } = useSelector((state: RootState) => state);
   const [text, setText] = useState(layer.text);
 
-  if (!instance) return <></>;
-
   useEffect(() => {
     setText(layer.text);
   }, [layer.text]);
 
   const handleLayerTextChange = (value: string) => {
-    (instance.item(index) as unknown as fabric.Textbox).text = value;
+    (instance?.item(index) as unknown as fabric.Textbox).text = value;
     setText(value);
-    instance.requestRenderAll();
+    instance?.requestRenderAll();
   };
 
   return (

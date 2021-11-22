@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 import { RootState } from "../../../../redux/rootReducer";
 
+import { paths } from "../../../../routes/paths";
 import { IconButton } from "@material-ui/core";
 import { DeleteForever, Visibility } from "@material-ui/icons";
 import { StateUserLayout } from "../../../../redux/redux.types";
@@ -9,12 +11,9 @@ import { activateLayout, deleteLayout } from "../../../../redux/actions";
 
 import style from "./PrefabsSection.module.scss";
 
-interface Props {
-  loadPrefab: (prefab: StateUserLayout) => void;
-}
-
-const PrefabsSection: React.FC<Props> = ({ loadPrefab }) => {
+const PrefabsSection: React.FC = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const {
     layouts: { allLayouts },
     user: { role },
@@ -26,7 +25,9 @@ const PrefabsSection: React.FC<Props> = ({ loadPrefab }) => {
     <>
       {allLayouts.map((prefab, i) => (
         <div
-          onMouseDown={() => loadPrefab(prefab)}
+          onMouseDown={() =>
+            history.push(`${paths.constructor}/${prefab.type}/${prefab._id}`)
+          }
           key={i}
           style={{
             height: 150,

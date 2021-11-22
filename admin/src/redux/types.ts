@@ -57,6 +57,8 @@ export enum TypesApp {
 }
 
 export enum TypesEditor {
+  set_main_ref = "EDITOR/SET_MAIN_REF",
+  set_cover_ref = "EDITOR/SET_COVER_REF",
   set_editor = "EDITOR/SET_EDITOR",
   set_cover_editor = "EDITOR/SET_COVER_EDITOR",
   set_config = "EDITOR/SET_CONFIG",

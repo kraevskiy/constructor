@@ -15,4 +15,5 @@ export interface ItemProps
   updatedAt: Date;
   userName?: string | null;
   onOrder?: boolean;
+  type:string;
 }

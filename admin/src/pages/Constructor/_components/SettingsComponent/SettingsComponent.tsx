@@ -34,12 +34,9 @@ const SettingsComponent: React.FC<Props> = ({
   switchLayers,
 }) => {
   const [colorModalType, setColorModalType] = useState("");
-  // const dispatch = useDispatch();
   const {
     editor: { instance },
   } = useSelector((state: RootState) => state);
-  if (!instance) return <></>;
-  const canvas = instance;
 
   const [txtType, setTxtType] = useState(false);
   const [circleType, setCircleType] = useState(false);
@@ -65,14 +62,13 @@ const SettingsComponent: React.FC<Props> = ({
   const [borderWidth, setBorderWidth] = useState(0);
   const [radius, setRadius] = useState(0);
 
-  const item = canvas.item(index) as unknown as fabric.Object;
-  if (!item) return <></>;
+  const item = instance?.item(index) as unknown as fabric.Object;
 
   useEffect(() => {
-    // console.log("ITEM", canvas.item(index));
+    // console.log("ITEM", instance.item(index));
     // setItem(item);
 
-    if (canvas.item(index)) {
+    if (instance?.item(index)) {
       setColor(item.fill as string);
       setAngle(item.angle as number);
       setXPos(item.left as number);
@@ -113,8 +109,8 @@ const SettingsComponent: React.FC<Props> = ({
   }, [index]);
 
   useEffect(() => {
-    if (canvas.item(index)) {
-      const item = canvas.item(index) as unknown as fabric.Object;
+    if (instance?.item(index)) {
+      const item = instance.item(index) as unknown as fabric.Object;
 
       setAngle(item.angle as number);
       setXPos(item.left as number);
@@ -126,7 +122,7 @@ const SettingsComponent: React.FC<Props> = ({
 
   const changeTextFont = (font: string) => {
     (item as fabric.Textbox).fontFamily = font;
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setCurFont(font);
   };
 
@@ -140,7 +136,7 @@ const SettingsComponent: React.FC<Props> = ({
       setBorderColor(color.hex);
     }
 
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
   };
 
   const changeAngle = (value: string) => {
@@ -149,7 +145,7 @@ const SettingsComponent: React.FC<Props> = ({
         angle: parseFloat(value),
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setAngle(item.angle as number);
   };
 
@@ -160,7 +156,7 @@ const SettingsComponent: React.FC<Props> = ({
         [type]: parseFloat(value),
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setXPos(item.left as number);
     setYPos(item.top as number);
   };
@@ -173,7 +169,7 @@ const SettingsComponent: React.FC<Props> = ({
         opacity: parseInt(val + "") / 100,
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setOpacity(val);
   };
 
@@ -183,7 +179,7 @@ const SettingsComponent: React.FC<Props> = ({
         underline: !underline,
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setUnderline(!underline);
   };
 
@@ -193,7 +189,7 @@ const SettingsComponent: React.FC<Props> = ({
         linethrough: !linethrough,
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setLinethrough(!linethrough);
   };
 
@@ -204,7 +200,7 @@ const SettingsComponent: React.FC<Props> = ({
           (item as fabric.Textbox).fontWeight === "normal" ? "bold" : "normal",
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
 
     setBold((item as fabric.Textbox).fontWeight === "bold");
   };
@@ -216,7 +212,7 @@ const SettingsComponent: React.FC<Props> = ({
           (item as fabric.Textbox).fontStyle === "normal" ? "italic" : "normal",
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setItalic((item as fabric.Textbox).fontStyle === "italic");
   };
 
@@ -226,7 +222,7 @@ const SettingsComponent: React.FC<Props> = ({
         fontSize: parseFloat(value),
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setFontSize((item as fabric.Textbox).fontSize as number);
   };
 
@@ -245,7 +241,7 @@ const SettingsComponent: React.FC<Props> = ({
         })
         .setCoords();
 
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setScaleX(item.scaleX as number);
     setScaleY(item.scaleY as number);
   };
@@ -256,14 +252,12 @@ const SettingsComponent: React.FC<Props> = ({
         [type]: parseFloat(value),
       })
       .setCoords();
-    canvas.requestRenderAll();
+    instance?.requestRenderAll();
     setWidth(item.width as number);
     setHeight(item.height as number);
     setBorderWidth(item.strokeWidth as number);
     setRadius((item as fabric.Circle).radius as number);
   };
-
-  if (!item) return <></>;
 
   return (
     <div className={style.settingsWrapper}>
@@ -598,13 +592,3 @@ const SettingsComponent: React.FC<Props> = ({
 };
 
 export default SettingsComponent;
-
-// const handleLayerTextChange = (value) => {
-//     // console.log(e.target.value);
-//     item.text = value;
-//     layer.text = value;
-//     setLayer(layer);
-//     canvas.requestRenderAll();
-
-//     // selectElement(index);
-// }

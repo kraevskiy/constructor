@@ -2,17 +2,19 @@ import { TypesEditor } from "../types";
 import { Editor, CanConfig, Canvas, Image } from "../redux.types";
 
 const initialState: Editor = {
+  mainRef: undefined,
+  coverRef: undefined,
   instance: undefined,
   cover_instance: undefined,
   canvasConfig: {
-    width: 700,
-    height: 500,
+    width: 0,
+    height: 0,
     width_mm: 0,
     height_mm: 0,
     backgroundColor: "transparent",
-    // selectionColor: 'blue',
     selectionLineWidth: 2,
     type: "card",
+    // selectionColor: 'blue',
   },
   scaleRatio: 1,
   prefabsLoading: true,
@@ -58,6 +60,7 @@ export const editorReducer = (
     }
     case TypesEditor.set_scale: {
       const { cover_instance, instance, canvasConfig } = state;
+      console.log("HERERERERE");
 
       let scaleRatio = 1;
       const scale = action.payload as number;

@@ -1,0 +1,29 @@
+.dropdownMenu {
+  height: 25px;
+  // overflow-y: scroll;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  .suggestion {
+    width: 100%;
+    position: absolute;
+    background-color: grey;
+    top: 25px;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+    max-height: 200px;
+    overflow-y: scroll;
+  }
+  .item {
+    width: 100%;
+  }
+}
+
+.opened {
+  // height: 200px;
+  overflow: visible;
+  // overflow-x: hidden;
+  // overflow-y: scroll;
+}

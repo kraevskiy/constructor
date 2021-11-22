@@ -11,20 +11,14 @@ import style from "./FontsSection.module.scss";
 
 interface Props {
   setItemIndex: (i: number) => void;
-  handleLayerTextChange: (value: string, index: number) => void;
 }
 
-const FontsSection: React.FC<Props> = ({
-  setItemIndex,
-  handleLayerTextChange,
-}) => {
+const FontsSection: React.FC<Props> = ({ setItemIndex }) => {
   const dispatch = useDispatch();
   const {
     editor: { instance },
   } = useSelector((state: RootState) => state);
   const [filter, setFilter] = useState("");
-
-  if (!instance) return <></>;
 
   const addText = (fontFamily: string) => {
     const text = new fabric.Textbox("hello world", {
@@ -35,23 +29,25 @@ const FontsSection: React.FC<Props> = ({
     });
 
     text.on("selected", () => {
-      setItemIndex(instance.getObjects().indexOf(text));
+      setItemIndex(instance?.getObjects().indexOf(text) ?? 0);
     });
     text.on("deselected", () => {
       setItemIndex(-1);
-      handleLayerTextChange(
-        text.text + "",
-        instance.getObjects().indexOf(text)
-      );
+      (
+        instance?.item(
+          instance.getObjects().indexOf(text)
+        ) as unknown as fabric.Textbox
+      ).text = text.text + "";
+      instance?.requestRenderAll();
     });
 
     text.on("modified", () => {
       dispatch(changeHistory());
     });
 
-    instance.add(text);
+    instance?.add(text);
 
-    instance.setActiveObject(text);
+    instance?.setActiveObject(text);
   };
 
   return (

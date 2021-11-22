@@ -1,6 +1,5 @@
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Input, PageHead, InputLabel, Button, BlockHead } from '../../components/';
-import { RootState } from '../../redux/rootReducer';
 import { useTranslation } from 'react-i18next';
 import { useHistory, useLocation } from 'react-router-dom';
 import { paths } from '../../routes/paths';
@@ -9,11 +8,12 @@ import { useForm } from 'react-hook-form';
 import { ICreateOrderFormInterface } from './CreateOrder.interface';
 import { getCorrectValue, validate } from '../../helpers';
 import Textarea from '../../components/Textarea/Textarea';
-import { useEffect, useState } from 'react';
 import { OrderType } from '../../types/order';
 import { createOrders } from '../../redux/orders/ordersActions';
 import { getLayouts } from '../../redux/layouts/layoutsActions';
 import { INITIAL_PRICE } from '../../helpers/constants';
+import { Input, PageHead, InputLabel, Button, BlockHead } from '../../components/';
+import { RootState } from '../../redux/rootReducer';
 
 interface LocationState {
 	layoutId?: string | undefined

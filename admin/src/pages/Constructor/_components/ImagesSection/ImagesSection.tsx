@@ -86,7 +86,6 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
   } = useSelector((state: RootState) => state);
 
   const canvas = instance;
-  if (!canvas) return <></>;
 
   const fileInput = useRef<HTMLInputElement>(null);
   const imgInput = useRef<HTMLInputElement>(null);
@@ -113,7 +112,7 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
       (img) => {
         const oImg = img as FabImage;
         oImg.on("selected", () => {
-          setItemIndex(canvas.getObjects().indexOf(oImg));
+          setItemIndex(canvas?.getObjects().indexOf(oImg) ?? 0);
         });
         oImg.on("deselected", () => {
           setItemIndex(-1);
@@ -131,8 +130,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         oImg.img_up = img_up;
         oImg.src = oImg.getSrc();
 
-        canvas.add(oImg);
-        canvas.setActiveObject(oImg);
+        canvas?.add(oImg);
+        canvas?.setActiveObject(oImg);
       }
       // { crossOrigin: 'anonymous' }
     );
@@ -172,8 +171,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
     });
     console.log(triangle.type);
     attachListeners(triangle);
-    canvas.add(triangle);
-    canvas.setActiveObject(triangle);
+    canvas?.add(triangle);
+    canvas?.setActiveObject(triangle);
   };
 
   const addRectangle = () => {
@@ -188,8 +187,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
     });
     console.log(react.type);
     attachListeners(react);
-    canvas.add(react);
-    canvas.setActiveObject(react);
+    canvas?.add(react);
+    canvas?.setActiveObject(react);
   };
 
   const addCircle = () => {
@@ -203,8 +202,8 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
     });
     console.log(circle.type);
     attachListeners(circle);
-    canvas.add(circle);
-    canvas.setActiveObject(circle);
+    canvas?.add(circle);
+    canvas?.setActiveObject(circle);
   };
 
   const handleChangeTab = (e: ChangeEvent<unknown>, i: number) => {

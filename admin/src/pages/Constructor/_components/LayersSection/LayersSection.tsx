@@ -32,17 +32,71 @@ const LayersSection: React.FC<Props> = ({
   setItemIndex,
 }) => {
   const {
-    editor: { instance },
+    editor: { instance, canvasConfig },
   } = useSelector((state: RootState) => state);
 
-  if (!instance) return <></>;
   const canvas = instance;
+
+  const commonControl = (index: number, layer: fabric.Object) => (
+    <div className={style.layerTitleBar}>
+      <IconButton
+        style={{ marginLeft: -13 }}
+        onClick={() => switchLayers(index, -1)}
+        aria-label={`star 1`}
+      >
+        <ExpandLess style={{ color: "white" }} />
+      </IconButton>
+      <IconButton
+        style={{ marginLeft: -13 }}
+        onClick={() => switchLayers(index, 1)}
+        aria-label={`star 2`}
+      >
+        <ExpandMore style={{ color: "white" }} />
+      </IconButton>
+      <div className="flex1" />
+      <IconButton
+        style={{ marginLeft: -13 }}
+        onClick={() => copyLayer(index)}
+        aria-label={`star 3`}
+      >
+        <FileCopy style={{ color: "white" }} />
+      </IconButton>
+      <BlockLayerItem
+        setItemIndex={setItemIndex}
+        index={index}
+        canvas={canvas}
+        selected={layer.selectable}
+      />
+      <IconButton
+        style={{ marginLeft: -13 }}
+        onClick={() => deleteLayer(index)}
+        aria-label={`star 5`}
+      >
+        <DeleteForever style={{ color: "orange" }} />
+      </IconButton>
+    </div>
+  );
+
+  const masterControl = (layer: fabric.Object) => (
+    <div className={style.layerTitleBar}>
+      <IconButton
+        style={{ marginLeft: -13 }}
+        onClick={() => switchLayers(0, -1)}
+        aria-label={`star 1`}
+      >
+        {" "}
+        <ExpandLess style={{ color: "white" }} />
+      </IconButton>
+    </div>
+  );
 
   // console.log(canvas.getObjects());
 
+  const hasMaster = canvasConfig.type === "t_shirt";
+
   return (
     <>
-      {(canvas.getObjects() as FabObj[]).map((layer, index) => (
+      {(canvas?.getObjects() as FabObj[]).map((layer, index) => (
         <div
           onMouseDown={() => selectElement(index)}
           key={index}
@@ -59,43 +113,9 @@ const LayersSection: React.FC<Props> = ({
 
           {layer.type === "circle" && <div></div>}
 
-          <div className={style.layerTitleBar}>
-            <IconButton
-              style={{ marginLeft: -13 }}
-              onClick={() => switchLayers(index, -1)}
-              aria-label={`star 1`}
-            >
-              <ExpandLess style={{ color: "white" }} />
-            </IconButton>
-            <IconButton
-              style={{ marginLeft: -13 }}
-              onClick={() => switchLayers(index, 1)}
-              aria-label={`star 2`}
-            >
-              <ExpandMore style={{ color: "white" }} />
-            </IconButton>
-            <div className="flex1" />
-            <IconButton
-              style={{ marginLeft: -13 }}
-              onClick={() => copyLayer(index)}
-              aria-label={`star 3`}
-            >
-              <FileCopy style={{ color: "white" }} />
-            </IconButton>
-            <BlockLayerItem
-              setItemIndex={setItemIndex}
-              index={index}
-              canvas={canvas}
-              selected={layer.selectable}
-            />
-            <IconButton
-              style={{ marginLeft: -13 }}
-              onClick={() => deleteLayer(index)}
-              aria-label={`star 5`}
-            >
-              <DeleteForever style={{ color: "orange" }} />
-            </IconButton>
-          </div>
+          {hasMaster && index === 0
+            ? masterControl(layer)
+            : commonControl(index, layer)}
         </div>
       ))}
     </>
@@ -107,7 +127,7 @@ export default LayersSection;
 interface PropsSelect {
   setItemIndex: (i: number) => void;
   selected: boolean | undefined;
-  canvas: fabric.Canvas;
+  canvas?: fabric.Canvas;
   index: number;
 }
 

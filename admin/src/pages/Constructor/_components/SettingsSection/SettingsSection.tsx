@@ -4,15 +4,18 @@ import { CirclePicker, ColorResult } from "react-color";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
 import { setConfig } from "../../../../redux/actions";
+import { useTranslation } from "react-i18next";
 
 //Helpers
 import { mm_px } from "../../../../helpers/constants";
 
 import style from "./SettingsSection.module.scss";
 import { CanConfig } from "../../../../redux/redux.types";
+import DropdownTypes from "../DropdownType/DropdownTypes";
 
 const SettingsSection: React.FC = () => {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const {
     editor: { instance, cover_instance, canvasConfig },
   } = useSelector((state: RootState) => state);
@@ -86,65 +89,62 @@ const SettingsSection: React.FC = () => {
   };
 
   return (
-    <div
-      className={style.settingsSection}
-      style={{
-        paddingLeft: 20,
-        paddingRight: 20,
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      <Button
-        onClick={() => setBackColorTransparent()}
-        variant="contained"
-        disabled={backColor === "transparent"}
-      >
-        Прозрачный
-      </Button>
+    <div className={style.settingsSection}>
+      <div className={style.mainSection}>
+        <Button
+          onClick={() => setBackColorTransparent()}
+          variant="contained"
+          disabled={backColor === "transparent"}
+        >
+          {t("constructor.transparent")}
+        </Button>
 
-      <div style={{ minHeight: 10 }} />
+        <div style={{ minHeight: 10 }} />
 
-      <CirclePicker
-        onChange={onChangeBackColorChange}
-        circleSpacing={14}
-        color={backColor}
-      />
+        <CirclePicker
+          onChange={onChangeBackColorChange}
+          circleSpacing={14}
+          color={backColor}
+        />
 
-      <div style={{ minHeight: 10 }} />
+        <div style={{ minHeight: 10 }} />
 
-      <Typography style={{ color: "white" }} variant="h5">
-        настройки поля
-      </Typography>
+        <Typography style={{ color: "white" }} variant="h5">
+          {t("constructor.filed_settings")}
+        </Typography>
 
-      <div style={{ minHeight: 10 }} />
+        <div style={{ minHeight: 10 }} />
 
-      <TextField
-        id="outlined-basic"
-        label="Ширина mm."
-        variant="outlined"
-        type="number"
-        value={canvasWidth}
-        onChange={(e) => setCanvasWidth(textFilter(e))}
-      />
+        <TextField
+          id="outlined-basic"
+          label={t("constructor.width_mm")}
+          variant="outlined"
+          type="number"
+          value={canvasWidth}
+          onChange={(e) => setCanvasWidth(textFilter(e))}
+        />
+        <div style={{ minHeight: 10 }} />
 
-      <div style={{ minHeight: 10 }} />
+        <TextField
+          id="outlined-basic"
+          label={t("constructor.height_mm")}
+          variant="outlined"
+          value={canvasHeight}
+          type="number"
+          onChange={(e) => setCanvasHeight(textFilter(e))}
+        />
 
-      <TextField
-        id="outlined-basic"
-        label="Высота mm."
-        variant="outlined"
-        value={canvasHeight}
-        type="number"
-        onChange={(e) => setCanvasHeight(textFilter(e))}
-      />
+        <div style={{ minHeight: 10 }} />
 
-      <div style={{ minHeight: 10 }} />
+        <Button onClick={() => setUpCanvasRes()} variant="contained">
+          {t("constructor.accept")}
+        </Button>
+      </div>
 
-      <Button onClick={() => setUpCanvasRes()} variant="contained">
-        Применить
-      </Button>
+      <div className={style.typesSection}>
+        <h3>{t("constructor.type")}</h3>
+        <DropdownTypes />
+      </div>
     </div>
   );
 };

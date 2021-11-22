@@ -34,10 +34,12 @@ import {
   BorderHorizontal,
 } from "@material-ui/icons";
 import cn from "classnames";
-import { RouteComponentProps } from "react-router";
+import { useParams } from "react-router";
 
 //Components
-import FabricEditor from "./_components/FabricEditor/FabricEditor";
+import FabricEditor, {
+  MatchParams,
+} from "./_components/FabricEditor/FabricEditor";
 import LayersSection from "./_components/LayersSection/LayersSection";
 import ImagesSection from "./_components/ImagesSection/ImagesSection";
 import FontsSection from "./_components/FontsSection/FontsSection";
@@ -50,25 +52,15 @@ import {
   changeHistory,
   setHistoryMoment,
   changeScale,
-  setConfig,
 } from "../../redux/actions";
 import { RootState } from "../../redux/rootReducer";
 import theme from "./theme";
 import style from "./ConstructorPage.module.scss";
-import { CanConfig, StateUserLayout } from "../../redux/redux.types";
-import { errorHandler } from "../../helpers";
-import { mm_px } from "../../helpers/constants";
-import Axios from "../../helpers/Axios";
 import Loader from "../../components/Loader/Loader";
 
-export interface MatchParams {
-  id: string;
-}
-
-interface Props extends RouteComponentProps<MatchParams> {}
-
-const ConstructorPage = ({ match }: Props): JSX.Element => {
+const ConstructorPage = (): JSX.Element => {
   const dispatch = useDispatch();
+  const { id, type } = useParams<MatchParams>();
   const {
     editor: {
       instance,
@@ -84,71 +76,19 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
   const [leftBarVisible, setLeftBarVisible] = useState<boolean>(false);
   const [itemIndex, setItemIndex] = useState<number>(-1);
   const [editorHeight, setEditorHeight] = useState<number>(0);
+  const [visible, setVisible] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
 
   const canvas = instance;
 
   useEffect(() => {
-    if (canvas) document.addEventListener("keydown", KeyPress, false);
-  }, [canvas]);
+    setVisible(false);
+    setTimeout(() => setVisible(true), 999);
+  }, [type, id]);
 
   useEffect(() => {
-    if (match.params.id && canvas && cover_instance)
-      fetchPrefab(match.params.id);
-  }, [canvas, cover_instance]);
-
-  const fetchPrefab = async (id: string) => {
-    try {
-      const layout = await Axios.get<StateUserLayout>(
-        `${process.env.REACT_APP_LAYOUT}/${id}`
-      );
-      if (layout) loadPrefab(layout.data);
-    } catch (e) {
-      errorHandler(e);
-    }
-  };
-
-  const loadPrefab = async (prefab: StateUserLayout) => {
-    if (!canvas || !cover_instance) return null;
-
-    // console.log("prefab", prefab);
-    console.log("PREFAB LOADING");
-
-    const obj = JSON.parse(prefab.instance);
-
-    dispatch(changeHistory(true));
-
-    const canConf = JSON.parse(prefab.config) as CanConfig;
-
-    const converted_width = mm_px * canConf.width_mm;
-    const converted_heigh = mm_px * canConf.height_mm;
-
-    canvas.setWidth(converted_width + 40);
-    canvas.setHeight(converted_heigh + 40);
-    cover_instance.setWidth(converted_width + 40);
-    cover_instance.setHeight(converted_heigh + 40);
-
-    (cover_instance?.item(0) as unknown as fabric.Object).set({
-      width: converted_width,
-      height: converted_heigh,
-      left: canConf.width / 2 - converted_width / 2,
-      top: canConf.height / 2 - converted_heigh / 2,
-      stroke: "#000",
-      strokeWidth: 2,
-      fill: "rgba(0,0,200,0.0)",
-    });
-
-    const canvasLoaded = () => {
-      for (const object of canvas.getObjects()) {
-        // delete object.crossOrigin;
-        // console.log("object", object);
-        attachListeners(object);
-      }
-    };
-
-    canvas.loadFromJSON(obj, canvasLoaded);
-    dispatch(setConfig(canConf));
-  };
+    if (canvas) document.addEventListener("keydown", KeyPress, false);
+  }, [canvas]);
 
   const KeyPress = async (e: KeyboardEvent) => {
     if (e.code === "Delete" && canvas) {
@@ -210,12 +150,6 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
     }
   };
 
-  const handleLayerTextChange = (value: string, index: number) => {
-    console.log("handleLayerTextChange(i, val): ", index, value);
-    // canvas.item(index).text = value;
-    canvas?.requestRenderAll();
-  };
-
   const copyLayer = (index: number, clean = false) => {
     if (!canvas) return null;
     canvas.item(index).clone((clone: fabric.Object) => {
@@ -260,10 +194,8 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
         setItemIndex(-1);
         if (item.type === "textbox" || item.type === "text") {
           const textItem = item as fabric.Textbox;
-          handleLayerTextChange(
-            textItem.text ?? "",
-            canvas.getObjects().indexOf(textItem)
-          );
+          textItem.text = textItem.text ?? "";
+          canvas.requestRenderAll();
         }
       });
     }
@@ -396,17 +328,14 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
               setItemIndex={setItemIndex}
             />
 
-            <PrefabsSection loadPrefab={loadPrefab} />
+            <PrefabsSection />
 
             <ImagesSection
               setItemIndex={setItemIndex}
               attachListeners={attachListeners}
             />
 
-            <FontsSection
-              setItemIndex={setItemIndex}
-              handleLayerTextChange={handleLayerTextChange}
-            />
+            <FontsSection setItemIndex={setItemIndex} />
 
             <SettingsSection />
           </SwipeableViews>
@@ -427,7 +356,11 @@ const ConstructorPage = ({ match }: Props): JSX.Element => {
 
         <div className={style.editor_wrapper} ref={editorRef}>
           <div className={style.editor_container}>
-            {loading ? <Loader /> : <FabricEditor />}
+            {visible ? (
+              <FabricEditor attachListeners={attachListeners} />
+            ) : (
+              <Loader />
+            )}
           </div>
 
           {instance && itemIndex >= 0 && (

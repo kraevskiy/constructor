@@ -2,4 +2,22 @@
   display: flex;
   flex-direction: column;
   padding-top: 10px;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  height: 100%;
+
+  .mainSection {
+    padding-left: 8px;
+    padding-right: 8px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .typesSection {
+    border-top: 3px solid var(--c-white);
+    width: 100%;
+    margin-top: 10px;
+  }
 }

@@ -72,5 +72,15 @@
   "form.send": "Send message",
   "constructor.download": "Download",
   "constructor.save": "Save",
-  "constructor.buy": "Buy"
+  "constructor.buy": "Buy",
+  "constructor.transparent": "Transparent",
+  "constructor.filed_settings": "Field settings",
+  "constructor.width_mm": "width mm",
+  "constructor.height_mm": "height mm",
+  "constructor.accept": "accept",
+  "constructor.t_shirt": "t-Shirt",
+  "constructor.card_rectangle": "business card",
+  "constructor.module_pic": "modular picture",
+  "constructor.cap": "cap",
+  "constructor.type": "type"
 }

@@ -72,5 +72,15 @@
   "form.send": "Отправить сообщение",
   "constructor.download": "Скачать",
   "constructor.save": "Сохранить",
-  "constructor.buy": "Купить"
+  "constructor.buy": "Купить",
+  "constructor.transparent": "Прозрачный",
+  "constructor.filed_settings": "Настройки поля",
+  "constructor.width_mm": "ширина мм",
+  "constructor.height_mm": "высота мм",
+  "constructor.accept": "применить",
+  "constructor.t_shirt": "футболка",
+  "constructor.card_rectangle": "визитка",
+  "constructor.module_pic": "модульная картина",
+  "constructor.cap": "чашка",
+  "constructor.type": "тип"
 }

@@ -170,11 +170,16 @@ export interface CanConfig {
   backgroundColor: string;
   // selectionColor: string,
   selectionLineWidth: number;
-  type: "card" | "module" | "t-short" | "cap";
+  type: CanType;
   gender?: "male" | "female";
+  sizeE?: "XS" | "S" | "M" | "L" | "XL" | "XXL";
 }
 
+export type CanType = "card" | "module" | "t_shirt" | "cap";
+
 export interface Editor {
+  mainRef?: HTMLCanvasElement;
+  coverRef?: HTMLCanvasElement;
   instance?: Canvas;
   cover_instance?: Canvas;
   canvasConfig: CanConfig;
