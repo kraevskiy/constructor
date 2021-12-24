@@ -173,6 +173,7 @@ export interface CanConfig {
   type: CanType;
   gender?: "male" | "female";
   sizeE?: "XS" | "S" | "M" | "L" | "XL" | "XXL";
+  mode?: "full" | "area";
 }
 
 export type CanType = "card" | "module" | "t_shirt" | "cap";

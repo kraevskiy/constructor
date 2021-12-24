@@ -82,5 +82,11 @@
   "constructor.card_rectangle": "business card",
   "constructor.module_pic": "modular picture",
   "constructor.cap": "cap",
-  "constructor.type": "type"
+  "constructor.type": "type",
+  "constructor.gender": "Gender",
+  "constructor.mode": "Mode",
+  "constructor.male": "Male",
+  "constructor.female": "Female",
+  "constructor.fill": "Fill",
+  "constructor.area": "Area"
 }

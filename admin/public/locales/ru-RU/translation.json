@@ -82,5 +82,11 @@
   "constructor.card_rectangle": "визитка",
   "constructor.module_pic": "модульная картина",
   "constructor.cap": "чашка",
-  "constructor.type": "тип"
+  "constructor.type": "тип",
+  "constructor.gender": "Пол",
+  "constructor.mode": "Режим",
+  "constructor.male": "Мужская",
+  "constructor.female": "Женская",
+  "constructor.fill": "Сплошная",
+  "constructor.area": "Область"
 }

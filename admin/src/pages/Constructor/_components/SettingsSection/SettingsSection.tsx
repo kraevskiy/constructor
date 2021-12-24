@@ -1,5 +1,15 @@
 import React, { useState, useEffect, ChangeEvent } from "react";
-import { Button, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  TextField,
+  Typography,
+  Radio,
+  RadioGroup,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Divider,
+} from "@material-ui/core";
 import { CirclePicker, ColorResult } from "react-color";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
@@ -20,9 +30,6 @@ const SettingsSection: React.FC = () => {
     editor: { instance, cover_instance, canvasConfig },
   } = useSelector((state: RootState) => state);
 
-  if (!instance) return <></>;
-  const canvas = instance;
-
   const [backColor, setBackColor] = useState("transparent");
   const [canvasWidth, setCanvasWidth] = useState<number>(canvasConfig.width_mm);
   const [canvasHeight, setCanvasHeight] = useState<number>(
@@ -31,14 +38,14 @@ const SettingsSection: React.FC = () => {
 
   const onChangeBackColorChange = (color: ColorResult) => {
     setBackColor(color.hex);
-    canvas.setBackgroundColor(color.hex, () => null);
-    canvas.requestRenderAll();
+    instance?.setBackgroundColor(color.hex, () => null);
+    instance?.requestRenderAll();
   };
 
   const setBackColorTransparent = () => {
     setBackColor("transparent");
-    canvas.setBackgroundColor("transparent", () => null);
-    canvas.requestRenderAll();
+    instance?.setBackgroundColor("transparent", () => null);
+    instance?.requestRenderAll();
   };
 
   const textFilter = (
@@ -66,8 +73,8 @@ const SettingsSection: React.FC = () => {
       type: "card",
     };
 
-    canvas.setWidth(converted_width + 40);
-    canvas.setHeight(converted_heigh + 40);
+    instance?.setWidth(converted_width + 40);
+    instance?.setHeight(converted_heigh + 40);
     cover_instance?.setWidth(converted_width + 40);
     cover_instance?.setHeight(converted_heigh + 40);
 
@@ -81,7 +88,7 @@ const SettingsSection: React.FC = () => {
       fill: "rgba(0,0,200,0.0)",
     });
 
-    // dispatch(setEditor(canvas));
+    // dispatch(setEditor(instance));
     dispatch(setConfig(canConf));
 
     cover_instance?.requestRenderAll();
@@ -106,43 +113,110 @@ const SettingsSection: React.FC = () => {
           circleSpacing={14}
           color={backColor}
         />
-
-        <div style={{ minHeight: 10 }} />
-
-        <Typography style={{ color: "white" }} variant="h5">
-          {t("constructor.filed_settings")}
-        </Typography>
-
-        <div style={{ minHeight: 10 }} />
-
-        <TextField
-          id="outlined-basic"
-          label={t("constructor.width_mm")}
-          variant="outlined"
-          type="number"
-          value={canvasWidth}
-          onChange={(e) => setCanvasWidth(textFilter(e))}
-        />
-        <div style={{ minHeight: 10 }} />
-
-        <TextField
-          id="outlined-basic"
-          label={t("constructor.height_mm")}
-          variant="outlined"
-          value={canvasHeight}
-          type="number"
-          onChange={(e) => setCanvasHeight(textFilter(e))}
-        />
-
-        <div style={{ minHeight: 10 }} />
-
-        <Button onClick={() => setUpCanvasRes()} variant="contained">
-          {t("constructor.accept")}
-        </Button>
       </div>
 
+      {canvasConfig.type != "t_shirt" && (
+        <>
+          <Divider className={style.divider} variant="middle" />
+          <Typography style={{ color: "white" }} variant="h5">
+            {t("constructor.filed_settings")}
+          </Typography>
+
+          <div style={{ minHeight: 10 }} />
+
+          <TextField
+            id="outlined-basic"
+            label={t("constructor.width_mm")}
+            variant="outlined"
+            type="number"
+            value={canvasWidth}
+            onChange={(e) => setCanvasWidth(textFilter(e))}
+          />
+          <div style={{ minHeight: 10 }} />
+
+          <TextField
+            id="outlined-basic"
+            label={t("constructor.height_mm")}
+            variant="outlined"
+            value={canvasHeight}
+            type="number"
+            onChange={(e) => setCanvasHeight(textFilter(e))}
+          />
+
+          <div style={{ minHeight: 10 }} />
+
+          <Button onClick={() => setUpCanvasRes()} variant="contained">
+            {t("constructor.accept")}
+          </Button>
+        </>
+      )}
+
+      {canvasConfig.type == "t_shirt" && (
+        <>
+          <Divider className={style.divider} variant="middle" />
+          <div className={style.radioSection}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">
+                {t("constructor.gender")}
+              </FormLabel>
+              <RadioGroup
+                aria-label="gender"
+                value={canvasConfig.gender}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  canvasConfig.gender = (event.target as HTMLInputElement)
+                    .value as any;
+                  dispatch(setConfig(canvasConfig));
+                }}
+                name="radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label={t("constructor.female")}
+                />
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label={t("constructor.male")}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+          <Divider className={style.divider} variant="middle" />
+          <div className={style.radioSection}>
+            <FormControl component="fieldset">
+              <FormLabel component="legend">{t("constructor.mode")}</FormLabel>
+              <RadioGroup
+                aria-label="mode"
+                value={canvasConfig.mode}
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  canvasConfig.mode = (event.target as HTMLInputElement)
+                    .value as any;
+                  dispatch(setConfig(canvasConfig));
+                }}
+                name="radio-buttons-group"
+              >
+                <FormControlLabel
+                  value="full"
+                  control={<Radio />}
+                  label={t("constructor.fill")}
+                />
+                <FormControlLabel
+                  value="area"
+                  control={<Radio />}
+                  label={t("constructor.area")}
+                />
+              </RadioGroup>
+            </FormControl>
+          </div>
+        </>
+      )}
+      <Divider className={style.divider} variant="middle" />
+
       <div className={style.typesSection}>
-        <h3>{t("constructor.type")}</h3>
+        <Typography component="legend" variant="h5">
+          {t("constructor.type")}
+        </Typography>
         <DropdownTypes />
       </div>
     </div>

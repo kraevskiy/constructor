@@ -24,9 +24,10 @@ import {
 } from "../../../../redux/actions";
 import { errorHandler } from "../../../../helpers";
 import { t_short_m } from "../../../../images/constructor";
+import Loader from "../../../../components/Loader/Loader";
 
 import style from "./Farbric.module.scss";
-import Loader from "../../../../components/Loader/Loader";
+import "./special.css";
 
 export interface MatchParams {
   id: string;
@@ -46,9 +47,11 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   } = useSelector((state: RootState) => state);
 
   const fabricRoot = useRef<HTMLCanvasElement>(null);
+  const neww = useRef<HTMLDivElement>(null);
   const fabricRootCover = useRef(null);
 
   useEffect(() => {
+    dispatch(changeHistory(true));
     // console.log("Fabric editor did mount");
     switch (type) {
       case "card":
@@ -138,24 +141,35 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
       backgroundColor: "transparent",
       selectionLineWidth: 2,
       type: "t_shirt",
+      mode: "full",
+      gender: "male",
     };
 
-    const canvas = new fabric.Canvas(fabricRoot.current, canConf) as Canvas;
+    const canvas = new fabric.Canvas(fabricRoot.current, canConf);
     canvas.enableRetinaScaling = true;
+    canvas.controlsAboveOverlay = true;
 
-    fabric.Image.fromURL(t_short_m, (img) => {
-      const oImg = img;
-      const wightDis = canConf.width / oImg.getScaledWidth();
-      const heightDis = canConf.height / oImg.getScaledHeight();
-      const minDis = wightDis < heightDis ? wightDis : heightDis;
-      if (minDis < 1) oImg.scale(minDis);
-      oImg.getScaledHeight;
-      oImg.set({
-        selectable: false,
-        evented: false,
-      });
-      canvas.add(oImg);
-    });
+    const clip = new fabric.Path(
+      "M 162.824 27 L 337.176 27 C 349.359 27 359.25 36.891 359.25 49.074 L 359.25 450.926 C 359.25 463.109 349.359 473 337.176 473 L 162.824 473 C 150.641 473 140.75 463.109 140.75 450.926 L 140.75 49.074 C 140.75 36.891 150.641 27 162.824 27 Z  M 190.041 66 C 200.046 66 208.168 74.206 208.168 84.312 L 208.168 141.688 C 208.168 151.794 200.046 160 190.041 160 C 180.037 160 171.915 151.794 171.915 141.688 L 171.915 84.312 C 171.915 74.206 180.037 66 190.041 66 Z",
+      { fill: "white", fillRule: "evenodd", selectable: false, evented: false }
+    );
+    canvas.add(clip);
+    canvas.centerObject(clip);
+    canvas.clipPath = clip;
+    canvas.renderAll();
+
+    // canvas.controlsAboveOverlay = true;
+    // canvas.setOverlayImage(crew_front, canvas.renderAll.bind(canvas), {absolutePositioned:true});
+    // canvas.setOverlayImage(
+    //   crew_front,
+    //   () => {
+    //     canvas.renderAll.bind(canvas);
+    //     canvas.overlayImage &&
+    //       canvas.overlayImage.scaleToWidth(converted_width + 40);
+    //     canvas.renderAll();
+    //   },
+    //   {}
+    // );
 
     const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
 
@@ -183,8 +197,6 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     console.log("PREFAB LOADING");
 
     const obj = JSON.parse(prefab.instance);
-
-    dispatch(changeHistory(true));
 
     const canConf = JSON.parse(prefab.config) as CanConfig;
 
@@ -227,22 +239,21 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
         flexDirection: "column",
       }}
     >
-      <div style={{ position: "relative", display: "flex", margin: "auto" }}>
+      <div
+        ref={neww}
+        style={{ position: "relative", display: "flex", margin: "auto" }}
+      >
         <div
           style={{
             position: "absolute",
-            backgroundImage: `url(${background_image})`,
-            // backgroundImage:
-            //   type === "t_shirt" ? `` : `url(${background_image})`,
+            backgroundImage:
+              type === "t_shirt" ? `` : `url(${background_image})`,
           }}
         >
-          <canvas
-            className={type === "t_shirt" ? style.mask : ""}
-            ref={fabricRoot}
-          />
+          <canvas id="my-node" ref={fabricRoot} />
         </div>
 
-        <div style={{ pointerEvents: "none" }}>
+        <div style={{ pointerEvents: "none", visibility: "hidden" }}>
           <canvas ref={fabricRootCover} />
         </div>
         {loading && (

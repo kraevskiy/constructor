@@ -15,9 +15,23 @@
     justify-content: center;
   }
 
+  .radioSection {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
   .typesSection {
-    border-top: 3px solid var(--c-white);
+    width: 100%;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .divider {
     width: 100%;
     margin-top: 10px;
+    margin-bottom: 10px;
   }
 }

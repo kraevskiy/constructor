@@ -93,10 +93,10 @@ const LayersSection: React.FC<Props> = ({
   // console.log(canvas.getObjects());
 
   const hasMaster = canvasConfig.type === "t_shirt";
-
+  if (!canvas) return <></>;
   return (
     <>
-      {(canvas?.getObjects() as FabObj[]).map((layer, index) => (
+      {(canvas.getObjects() as FabObj[]).map((layer, index) => (
         <div
           onMouseDown={() => selectElement(index)}
           key={index}

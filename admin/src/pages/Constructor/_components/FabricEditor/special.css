@@ -1,0 +1,5 @@
+.mask {
+  mask-image: url("../../../../images/constructor/t_short_m.png");
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}

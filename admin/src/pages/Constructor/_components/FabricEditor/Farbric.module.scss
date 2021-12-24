@@ -1,7 +1,9 @@
 .mask {
   // clip-path: url(#clipping);
-  // -webkit-mask-image: url('../../../../images/constructor/t-short-m.png');
+  -webkit-mask-image: url("../../../../images/constructor/t_short_m.png");
   mask-image: url("../../../../images/constructor/t_short_m.png");
   mask-size: contain;
   mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: contain;
 }

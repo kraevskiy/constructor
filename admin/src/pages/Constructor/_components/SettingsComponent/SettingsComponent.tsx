@@ -118,7 +118,7 @@ const SettingsComponent: React.FC<Props> = ({
       setScaleX(item.scaleX as number);
       setScaleY(item.scaleY as number);
     }
-  }, [item.angle, item.top, item.left, item.scaleX, item.scaleY]);
+  }, [item?.angle, item?.top, item?.left, item?.scaleX, item?.scaleY]);
 
   const changeTextFont = (font: string) => {
     (item as fabric.Textbox).fontFamily = font;
