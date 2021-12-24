@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect } from "react";
 import { fabric } from "fabric";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -23,10 +23,10 @@ import {
   changeHistory,
 } from "../../../../redux/actions";
 import { errorHandler } from "../../../../helpers";
-import { t_short_m } from "../../../../images/constructor";
+// import { t_short_m } from "../../../../images/constructor";
 import Loader from "../../../../components/Loader/Loader";
 
-import style from "./Farbric.module.scss";
+// import style from "./Farbric.module.scss";
 import "./special.css";
 
 export interface MatchParams {
@@ -43,7 +43,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   const dispatch = useDispatch();
 
   const {
-    editor: { instance, cover_instance, canvasConfig, loading },
+    editor: { instance, cover_instance, loading },
   } = useSelector((state: RootState) => state);
 
   const fabricRoot = useRef<HTMLCanvasElement>(null);

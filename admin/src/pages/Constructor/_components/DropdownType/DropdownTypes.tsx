@@ -75,7 +75,7 @@ const DropdownTypes: React.FC = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
-  const [opened, setOpened] = useState<boolean>(false);
+  const [opened] = useState<boolean>(false);
 
   const {
     editor: { canvasConfig },

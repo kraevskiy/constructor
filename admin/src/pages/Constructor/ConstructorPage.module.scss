@@ -29,20 +29,20 @@
       right: -15px;
       justify-content: center;
       align-items: center;
-      top: calc(calc(100vh - 60px) / 2);
+      top: calc(calc(100vh - 55px) / 2);
       border-bottom-right-radius: 10px;
       border-top-right-radius: 10px;
     }
 
     .list_container {
       width: 280px;
-      height: calc(100vh - 60px);
+      height: calc(100vh - 55px);
       background-size: cover;
       background-color: rgb(80, 76, 76);
     }
 
     .tab_slide {
-      height: calc(100vh - 60px);
+      height: calc(100vh - 55px);
     }
 
     .tabs_container {

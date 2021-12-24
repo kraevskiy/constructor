@@ -62,14 +62,7 @@ const ConstructorPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const { id, type } = useParams<MatchParams>();
   const {
-    editor: {
-      instance,
-      history,
-      history_n,
-      scaleRatio,
-      cover_instance,
-      loading,
-    },
+    editor: { instance, history, history_n, scaleRatio },
   } = useSelector((state: RootState) => state);
 
   const [tabIndex, setTabIndex] = useState<number>(0);
