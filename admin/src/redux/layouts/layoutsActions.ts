@@ -15,6 +15,8 @@ import { errorHandler } from "../../helpers";
 import { RootState } from "../rootReducer";
 import { History } from "history";
 import { paths } from "../../routes/paths";
+import { fabric } from "fabric";
+import { t_short_m, t_short_f } from "../../images/constructor/index";
 
 interface TypeResponseUpload {
   name: string;
@@ -151,6 +153,22 @@ export const createLayout = (buy?: boolean, history?: History) => {
     if (!canvas) return null;
 
     const preview_uuid = uuidv4() + "_preview.png";
+
+    fabric.Image.fromURL(
+      canvasConfig.gender == "male" ? t_short_m : t_short_f,
+      (oImg) => {
+        oImg.set({
+          top: canvasConfig.height / 2 - oImg.height! / 2,
+          left: canvasConfig.width / 2 - oImg.width! / 2,
+        });
+        // const item = instance?.item(0) as unknown as fabric.Object;
+        // instance?.remove(item);
+        instance?.insertAt(oImg, 0, false);
+        // instance?.requestRenderAll();
+      },
+      { selectable: false, evented: false, opacity: 0.3 }
+    );
+
     const blobObject = blobCreationFromURL(canvas.toDataURL());
 
     //Uploading files first

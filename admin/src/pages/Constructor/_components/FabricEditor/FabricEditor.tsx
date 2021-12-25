@@ -14,7 +14,7 @@ import { useParams } from "react-router";
 import background_image from "../../../../images/background_1.png";
 
 //Helpers
-import { mm_px } from "../../../../helpers/constants";
+import { IPHONE_X_MASK, mm_px } from "../../../../helpers/constants";
 
 import Axios from "../../../../helpers/Axios";
 import {
@@ -45,7 +45,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   const dispatch = useDispatch();
 
   const {
-    editor: { loading, canvasConfig, editorHeight },
+    editor: { loading, editorHeight },
   } = useSelector((state: RootState) => state);
 
   const fabricRoot = useRef<HTMLCanvasElement>(null);
@@ -63,6 +63,9 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
           break;
         case "t_shirt":
           tShirtInitial();
+          break;
+        case "module":
+          moduleInitial();
           break;
         default:
           cardInitial();
@@ -123,7 +126,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     dispatch(setCoverEditor(canvas_cover));
   };
 
-  const tShirtInitial = async () => {
+  const tShirtInitial = () => {
     // console.log("tShirtInitial");
 
     //1246_1385
@@ -141,21 +144,19 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
       cover_width: 500,
     };
 
-    const canvas = new fabric.Canvas(fabricRoot.current, canConf);
+    const canvas = new fabric.Canvas(fabricRoot.current, {
+      ...canConf,
+      backgroundColor: "white",
+    });
     canvas.enableRetinaScaling = true;
     canvas.controlsAboveOverlay = true;
 
-    const clip = new fabric.Path(
-      "M 162.824 27 L 337.176 27 C 349.359 27 359.25 36.891 359.25 49.074 L 359.25 450.926 C 359.25 463.109 349.359 473 337.176 473 L 162.824 473 C 150.641 473 140.75 463.109 140.75 450.926 L 140.75 49.074 C 140.75 36.891 150.641 27 162.824 27 Z  M 190.041 66 C 200.046 66 208.168 74.206 208.168 84.312 L 208.168 141.688 C 208.168 151.794 200.046 160 190.041 160 C 180.037 160 171.915 151.794 171.915 141.688 L 171.915 84.312 C 171.915 74.206 180.037 66 190.041 66 Z",
-      {
-        fill: "white",
-        fillRule: "evenodd",
-        selectable: false,
-        evented: false,
-        top: 60,
-        left: 100,
-      }
-    );
+    const clip = new fabric.Path(IPHONE_X_MASK, {
+      fill: "white",
+      fillRule: "evenodd",
+      selectable: false,
+      evented: false,
+    });
     clip.scale(3);
 
     canvas.centerObject(clip);
@@ -164,15 +165,16 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
 
     fabric.Image.fromURL(
       t_short_m,
-      (img) => {
-        const oImg = img as FabImage;
+      (oImg) => {
         oImg.set({
           top: canConf.height / 2 - oImg.height! / 2,
           left: canConf.width / 2 - oImg.width! / 2,
         });
-        canvas_cover.add(oImg);
+        // canvas.insertAt(oImg, 0, false);
+        oImg.set({ opacity: 0.3 });
+        canvas_cover.insertAt(oImg, 0, false);
       },
-      { selectable: false, evented: false, opacity: 0.2 }
+      { selectable: false, evented: false }
     );
 
     const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
@@ -185,6 +187,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
       stroke: "#000",
       strokeWidth: 2,
       fill: "rgba(0,0,200,0.0)",
+      opacity: 0,
     });
 
     canvas_cover.add(rect);
@@ -192,6 +195,10 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     dispatch(setConfig(canConf));
     dispatch(setCoverEditor(canvas_cover));
     dispatch(changeScale(editorHeight));
+  };
+
+  const moduleInitial = () => {
+    console.log("heheheheeh");
   };
 
   const loadPrefab = async (prefab: StateUserLayout) => {
@@ -215,7 +222,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
             top: canConf.height / 2 - oImg.height! / 2,
             left: canConf.width / 2 - oImg.width! / 2,
           });
-          canvas_cover.add(oImg);
+          canvas_cover.insertAt(oImg, 0, false);
         },
         { selectable: false, evented: false, opacity: 0.2 }
       );
@@ -275,9 +282,9 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
         <div
           style={{
             position: "absolute",
-            backgroundImage: `url(${background_image})`,
-            // backgroundImage:
-            //   type === "t_shirt" ? `` : `url(${background_image})`,
+            // backgroundImage: `url(${background_image})`,
+            backgroundImage:
+              type === "t_shirt" ? `` : `url(${background_image})`,
           }}
         >
           <canvas id="my-node" ref={fabricRoot} />

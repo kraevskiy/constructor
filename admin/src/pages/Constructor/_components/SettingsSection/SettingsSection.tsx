@@ -16,9 +16,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../../../../redux/rootReducer";
 import { setConfig } from "../../../../redux/actions";
 import { useTranslation } from "react-i18next";
+import { fabric } from "fabric";
+import { t_short_m, t_short_f } from "../../../../images/constructor";
 
 //Helpers
 import {
+  IPHONE_X_MASK,
   max_cover_height_t,
   max_cover_width_t,
   min_cover_height_t,
@@ -34,14 +37,12 @@ const SettingsSection: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const {
-    editor: { instance, cover_instance, canvasConfig },
+    editor: { instance, cover_instance, canvasConfig: config },
   } = useSelector((state: RootState) => state);
 
   const [backColor, setBackColor] = useState("transparent");
-  const [canvasWidth, setCanvasWidth] = useState<number>(canvasConfig.width_mm);
-  const [canvasHeight, setCanvasHeight] = useState<number>(
-    canvasConfig.height_mm
-  );
+  const [canvasWidth, setCanvasWidth] = useState<number>(config.width_mm);
+  const [canvasHeight, setCanvasHeight] = useState<number>(config.height_mm);
 
   const onChangeBackColorChange = (color: ColorResult) => {
     setBackColor(color.hex);
@@ -51,7 +52,10 @@ const SettingsSection: React.FC = () => {
 
   const setBackColorTransparent = () => {
     setBackColor("transparent");
-    instance?.setBackgroundColor("transparent", () => null);
+    instance?.setBackgroundColor(
+      config.type == "t_shirt" ? "white" : "transparent",
+      () => null
+    );
     instance?.requestRenderAll();
   };
 
@@ -62,9 +66,9 @@ const SettingsSection: React.FC = () => {
   };
 
   useEffect(() => {
-    setCanvasWidth(canvasConfig.width_mm);
-    setCanvasHeight(canvasConfig.height_mm);
-  }, [canvasConfig.width_mm, canvasConfig.height_mm]);
+    setCanvasWidth(config.width_mm);
+    setCanvasHeight(config.height_mm);
+  }, [config.width_mm, config.height_mm]);
 
   const setUpCanvasRes = () => {
     const converted_width = mm_px * canvasWidth;
@@ -106,32 +110,52 @@ const SettingsSection: React.FC = () => {
     event: React.ChangeEvent<unknown>,
     newValue: number | number[]
   ) => {
-    (cover_instance?.item(0) as unknown as fabric.Object).set({
-      width: canvasConfig.cover_width,
+    (cover_instance?.item(1) as unknown as fabric.Object).set({
+      width: config.cover_width,
       height: newValue as number,
-      left: canvasConfig.width / 2 - canvasConfig.cover_width! / 2,
-      top: canvasConfig.height / 2 - (newValue as number) / 2,
+      left: config.width / 2 - config.cover_width! / 2,
+      top: config.height / 2 - (newValue as number) / 2,
     });
 
-    canvasConfig.cover_height = newValue as number;
+    const clipPath = new fabric.Rect({
+      width: config.cover_width,
+      height: newValue as number,
+      left: config.width / 2 - config.cover_width! / 2,
+      top: config.height / 2 - (newValue as number) / 2,
+    });
+
+    instance!.clipPath = clipPath;
+    instance?.requestRenderAll();
+
+    config.cover_height = newValue as number;
     cover_instance?.requestRenderAll();
-    dispatch(setConfig(canvasConfig));
+    dispatch(setConfig(config));
   };
 
   const handleChangeWidthT = (
     event: React.ChangeEvent<unknown>,
     newValue: number | number[]
   ) => {
-    (cover_instance?.item(0) as unknown as fabric.Object).set({
+    (cover_instance?.item(1) as unknown as fabric.Object).set({
       width: newValue as number,
-      height: canvasConfig.cover_height,
-      left: canvasConfig.width / 2 - (newValue as number) / 2,
-      top: canvasConfig.height / 2 - canvasConfig.cover_height! / 2,
+      height: config.cover_height,
+      left: config.width / 2 - (newValue as number) / 2,
+      top: config.height / 2 - config.cover_height! / 2,
     });
 
-    canvasConfig.cover_width = newValue as number;
+    const clipPath = new fabric.Rect({
+      width: newValue as number,
+      height: config.cover_height,
+      left: config.width / 2 - (newValue as number) / 2,
+      top: config.height / 2 - config.cover_height! / 2,
+    });
+
+    instance!.clipPath = clipPath;
+    instance?.requestRenderAll();
+
+    config.cover_width = newValue as number;
     cover_instance?.requestRenderAll();
-    dispatch(setConfig(canvasConfig));
+    dispatch(setConfig(config));
   };
 
   return (
@@ -142,7 +166,9 @@ const SettingsSection: React.FC = () => {
           variant="contained"
           disabled={backColor === "transparent"}
         >
-          {t("constructor.transparent")}
+          {config.type == "t_shirt"
+            ? t("constructor.white")
+            : t("constructor.transparent")}
         </Button>
 
         <div style={{ minHeight: 10 }} />
@@ -154,7 +180,7 @@ const SettingsSection: React.FC = () => {
         />
       </div>
 
-      {canvasConfig.type != "t_shirt" && (
+      {config.type != "t_shirt" && (
         <>
           <Divider className={style.divider} variant="middle" />
           <Typography style={{ color: "white" }} variant="h5">
@@ -190,7 +216,7 @@ const SettingsSection: React.FC = () => {
         </>
       )}
 
-      {canvasConfig.gender && canvasConfig.type == "t_shirt" && (
+      {config.gender && config.type == "t_shirt" && (
         <>
           <Divider className={style.divider} variant="middle" />
           <div className={style.radioSection}>
@@ -200,11 +226,27 @@ const SettingsSection: React.FC = () => {
               </FormLabel>
               <RadioGroup
                 aria-label="gender"
-                value={canvasConfig.gender}
+                value={config.gender}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  canvasConfig.gender = (event.target as HTMLInputElement)
-                    .value as any;
-                  dispatch(setConfig(canvasConfig));
+                  const val = (event.target as HTMLInputElement).value;
+                  config.gender = val as any;
+                  dispatch(setConfig(config));
+                  fabric.Image.fromURL(
+                    val == "male" ? t_short_m : t_short_f,
+                    (oImg) => {
+                      oImg.set({
+                        top: config.height / 2 - oImg.height! / 2,
+                        left: config.width / 2 - oImg.width! / 2,
+                      });
+                      const item = cover_instance?.item(
+                        0
+                      ) as unknown as fabric.Object;
+                      cover_instance?.remove(item);
+                      cover_instance?.insertAt(oImg, 0, false);
+                      // cover_instance?.requestRenderAll();
+                    },
+                    { selectable: false, evented: false, opacity: 0.3 }
+                  );
                 }}
                 name="radio-buttons-group"
               >
@@ -227,11 +269,40 @@ const SettingsSection: React.FC = () => {
               <FormLabel component="legend">{t("constructor.mode")}</FormLabel>
               <RadioGroup
                 aria-label="mode"
-                value={canvasConfig.mode}
+                value={config.mode}
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  canvasConfig.mode = (event.target as HTMLInputElement)
-                    .value as any;
-                  dispatch(setConfig(canvasConfig));
+                  const val = (event.target as HTMLInputElement).value;
+                  config.mode = val as any;
+                  dispatch(setConfig(config));
+                  (cover_instance?.item(1) as unknown as fabric.Rect).set({
+                    opacity: val == "fill" ? 0 : 1,
+                  });
+                  if (val == "fill") {
+                    const clip = new fabric.Path(IPHONE_X_MASK, {
+                      fill: "white",
+                      fillRule: "evenodd",
+                      selectable: false,
+                      evented: false,
+                    });
+                    clip.set({
+                      top: config.height / 2 - (clip.height! * 3) / 2,
+                      left: config.width / 2 - (clip.width! * 3) / 2,
+                    });
+                    clip.scale(3);
+                    instance!.clipPath = clip;
+                    instance?.renderAll();
+                  } else {
+                    const clipPath = new fabric.Rect({
+                      width: config.cover_width,
+                      height: config.cover_height,
+                      top: config.height / 2 - config.cover_height! / 2,
+                      left: config.width / 2 - config.cover_width! / 2,
+                    });
+                    instance!.clipPath = clipPath;
+                    instance?.renderAll();
+                  }
+
+                  cover_instance?.requestRenderAll();
                 }}
                 name="radio-buttons-group"
               >
@@ -249,7 +320,7 @@ const SettingsSection: React.FC = () => {
             </FormControl>
           </div>
 
-          {canvasConfig.mode == "area" && (
+          {config.mode == "area" && (
             <>
               <Typography id="input-slider" gutterBottom>
                 {t("constructor.height")}
@@ -258,7 +329,7 @@ const SettingsSection: React.FC = () => {
                 onChange={handleChangeHeightT}
                 max={max_cover_height_t}
                 min={min_cover_height_t}
-                value={canvasConfig.cover_height}
+                value={config.cover_height}
               />
               <Typography id="input-slider" gutterBottom>
                 {t("constructor.width")}
@@ -267,7 +338,7 @@ const SettingsSection: React.FC = () => {
                 onChange={handleChangeWidthT}
                 max={max_cover_width_t}
                 min={min_cover_width_t}
-                value={canvasConfig.cover_width}
+                value={config.cover_width}
               />
             </>
           )}

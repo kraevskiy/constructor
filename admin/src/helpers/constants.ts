@@ -12,6 +12,14 @@ export const min_cover_height_t = 500;
 export const max_cover_width_t = 600;
 export const min_cover_width_t = 300;
 
+export const max_width_mm = 1000;
+export const max_height_mm = 1000;
+export const min_width_mm = 10;
+export const min_height_mm = 10;
+
+export const max_sections = 10;
+export const min_sections = 2;
+
 export const fonts = [
   "Times New Roman",
   "Orbitron",
@@ -39,3 +47,6 @@ export const fonts = [
 ];
 
 export const INITIAL_PRICE = 0.59;
+
+export const IPHONE_X_MASK =
+  "M 162.824 27 L 337.176 27 C 349.359 27 359.25 36.891 359.25 49.074 L 359.25 450.926 C 359.25 463.109 349.359 473 337.176 473 L 162.824 473 C 150.641 473 140.75 463.109 140.75 450.926 L 140.75 49.074 C 140.75 36.891 150.641 27 162.824 27 Z  M 190.041 66 C 200.046 66 208.168 74.206 208.168 84.312 L 208.168 141.688 C 208.168 151.794 200.046 160 190.041 160 C 180.037 160 171.915 151.794 171.915 141.688 L 171.915 84.312 C 171.915 74.206 180.037 66 190.041 66 Z";

@@ -12,6 +12,8 @@ import {} from "../../../images";
 import { logout as logoutIcon } from "../../../images/icons";
 import download from "downloadjs";
 import Button from "../../../components/Button/Button";
+import { fabric } from "fabric";
+import { t_short_m, t_short_f } from "../../../images/constructor/index";
 import {
   clearOrders,
   clearLayouts,
@@ -26,7 +28,7 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
   const {
     user: { isLoggedIn, role },
     app: { isOpenMenu, showDownloadBtn },
-    editor: { instance, loading },
+    editor: { instance, loading, canvasConfig },
   } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
   const history = useHistory();
@@ -39,12 +41,27 @@ const Header = ({ className, ...props }: HeaderProps): JSX.Element => {
 
   const DownloadCanvas = () => {
     if (!instance) return;
-    const data = instance.toDataURL();
-    if (data) {
-      const mimeType = data.split(";")[0];
-      const extension = data.split(";")[0].split("/")[1];
-      download(data, `image.${extension}`, mimeType);
-    }
+    fabric.Image.fromURL(
+      canvasConfig.gender == "male" ? t_short_m : t_short_f,
+      (oImg) => {
+        oImg.set({
+          top: canvasConfig.height / 2 - oImg.height! / 2,
+          left: canvasConfig.width / 2 - oImg.width! / 2,
+        });
+        // const item = instance?.item(0) as unknown as fabric.Object;
+        // instance?.remove(item);
+        instance?.insertAt(oImg, 0, false);
+        // instance?.requestRenderAll();
+
+        const data = instance.toDataURL();
+        if (data) {
+          const mimeType = data.split(";")[0];
+          const extension = data.split(";")[0].split("/")[1];
+          download(data, `image.${extension}`, mimeType);
+        }
+        instance?.remove(oImg);
+      }
+    );
   };
 
   return (
