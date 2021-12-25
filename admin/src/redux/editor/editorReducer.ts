@@ -21,6 +21,7 @@ const initialState: Editor = {
   history: [],
   history_n: 0,
   loading: false,
+  editorHeight: 0,
 };
 
 export interface ActionType {
@@ -60,7 +61,7 @@ export const editorReducer = (
     }
     case TypesEditor.set_scale: {
       const { cover_instance, instance, canvasConfig } = state;
-      console.log("HERERERERE");
+      // console.log("HERERERERE", action.payload);
 
       let scaleRatio = 1;
       const scale = action.payload as number;
@@ -99,6 +100,9 @@ export const editorReducer = (
     }
     case TypesEditor.set_loading: {
       return { ...state, loading: action.payload as boolean };
+    }
+    case TypesEditor.set_editor_height: {
+      return { ...state, editorHeight: action.payload as number };
     }
 
     default:

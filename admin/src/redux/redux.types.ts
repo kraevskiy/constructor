@@ -173,7 +173,9 @@ export interface CanConfig {
   type: CanType;
   gender?: "male" | "female";
   sizeE?: "XS" | "S" | "M" | "L" | "XL" | "XXL";
-  mode?: "full" | "area";
+  mode?: "fill" | "area";
+  cover_width?: number;
+  cover_height?: number;
 }
 
 export type CanType = "card" | "module" | "t_shirt" | "cap";
@@ -189,6 +191,7 @@ export interface Editor {
   history: string[];
   history_n: number;
   loading: boolean;
+  editorHeight:number;
 }
 
 export interface Images {

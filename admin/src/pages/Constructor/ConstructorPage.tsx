@@ -52,6 +52,7 @@ import {
   changeHistory,
   setHistoryMoment,
   changeScale,
+  setEditorHeight,
 } from "../../redux/actions";
 import { RootState } from "../../redux/rootReducer";
 import theme from "./theme";
@@ -62,13 +63,12 @@ const ConstructorPage = (): JSX.Element => {
   const dispatch = useDispatch();
   const { id, type } = useParams<MatchParams>();
   const {
-    editor: { instance, history, history_n, scaleRatio },
+    editor: { instance, history, history_n, scaleRatio, editorHeight },
   } = useSelector((state: RootState) => state);
 
   const [tabIndex, setTabIndex] = useState<number>(0);
   const [leftBarVisible, setLeftBarVisible] = useState<boolean>(false);
   const [itemIndex, setItemIndex] = useState<number>(-1);
-  const [editorHeight, setEditorHeight] = useState<number>(0);
   const [visible, setVisible] = useState(false);
   const editorRef = useRef<HTMLDivElement>(null);
 
@@ -236,7 +236,8 @@ const ConstructorPage = (): JSX.Element => {
   };
 
   useLayoutEffect(() => {
-    if (editorRef.current) setEditorHeight(editorRef.current.offsetHeight);
+    if (editorRef.current)
+      dispatch(setEditorHeight(editorRef.current.offsetHeight));
   }, []);
 
   return (

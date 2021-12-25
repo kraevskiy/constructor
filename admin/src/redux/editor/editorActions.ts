@@ -28,6 +28,10 @@ export const setCoverEditor = (payload: fabric.Canvas): ActionType => ({
   type: TypesEditor.set_cover_editor,
   payload,
 });
+export const setEditorHeight = (payload: number): ActionType => ({
+  type: TypesEditor.set_editor_height,
+  payload,
+});
 
 export const changeScale = (payload: number): ActionType => ({
   type: TypesEditor.set_scale,

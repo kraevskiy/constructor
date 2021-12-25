@@ -96,28 +96,30 @@ const LayersSection: React.FC<Props> = ({
   if (!canvas) return <></>;
   return (
     <>
-      {(canvas.getObjects() as FabObj[]).map((layer, index) => (
-        <div
-          onMouseDown={() => selectElement(index)}
-          key={index}
-          className={style.layerWrapper}
-          style={{
-            height:
-              layer.type === "text" || layer.type === "textbox" ? 100 : 150,
-            backgroundImage: `url(${layer.src})`,
-          }}
-        >
-          {(layer.type === "text" || layer.type === "textbox") && (
-            <TextLayerItem layer={layer as fabric.Textbox} index={index} />
-          )}
+      {(canvas.getObjects() as FabObj[]).map((layer, index) => {
+        // if (hasMaster && index == 0) return;
+        return (
+          <div
+            onMouseDown={() => selectElement(index)}
+            key={index}
+            className={style.layerWrapper}
+            style={{
+              height:
+                layer.type === "text" || layer.type === "textbox" ? 100 : 150,
+              backgroundImage: `url(${layer.src})`,
+            }}
+          >
+            {(layer.type === "text" || layer.type === "textbox") && (
+              <TextLayerItem layer={layer as fabric.Textbox} index={index} />
+            )}
 
-          {layer.type === "circle" && <div></div>}
-
-          {hasMaster && index === 0
-            ? masterControl(layer)
-            : commonControl(index, layer)}
-        </div>
-      ))}
+            {layer.type === "circle" && <div></div>}
+            {hasMaster && index === 0
+              ? masterControl(layer)
+              : commonControl(index, layer)}
+          </div>
+        );
+      })}
     </>
   );
 };

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   CanConfig,
   Canvas,
+  FabImage,
   StateUserLayout,
 } from "../../../../redux/redux.types";
 import { RootState } from "../../../../redux/rootReducer";
@@ -23,11 +24,12 @@ import {
   changeHistory,
 } from "../../../../redux/actions";
 import { errorHandler } from "../../../../helpers";
-// import { t_short_m } from "../../../../images/constructor";
+import { t_short_m, t_short_f } from "../../../../images/constructor";
 import Loader from "../../../../components/Loader/Loader";
 
 // import style from "./Farbric.module.scss";
 import "./special.css";
+import { changeScale } from "../../../../redux/editor/editorActions";
 
 export interface MatchParams {
   id: string;
@@ -43,7 +45,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   const dispatch = useDispatch();
 
   const {
-    editor: { instance, cover_instance, loading },
+    editor: { loading, canvasConfig, editorHeight },
   } = useSelector((state: RootState) => state);
 
   const fabricRoot = useRef<HTMLCanvasElement>(null);
@@ -53,22 +55,20 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   useEffect(() => {
     dispatch(changeHistory(true));
     // console.log("Fabric editor did mount");
-    switch (type) {
-      case "card":
-        cardInitial();
-        break;
-      case "t_shirt":
-        tShirtInitial();
-        break;
-      default:
-        cardInitial();
-        break;
-    }
+    if (id) fetchPrefab(id);
+    else
+      switch (type) {
+        case "card":
+          cardInitial();
+          break;
+        case "t_shirt":
+          tShirtInitial();
+          break;
+        default:
+          cardInitial();
+          break;
+      }
   }, []);
-
-  useEffect(() => {
-    if (instance && cover_instance && id) fetchPrefab(id);
-  }, [instance, cover_instance]);
 
   const fetchPrefab = async (id: string) => {
     try {
@@ -123,26 +123,22 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     dispatch(setCoverEditor(canvas_cover));
   };
 
-  const tShirtInitial = () => {
+  const tShirtInitial = async () => {
     // console.log("tShirtInitial");
-    const defCardPropMM = {
-      width: 100,
-      height: 130,
-    };
 
-    const converted_width = mm_px * defCardPropMM.width;
-    const converted_heigh = mm_px * defCardPropMM.height;
-
+    //1246_1385
     const canConf: CanConfig = {
-      width: converted_width + 40,
-      height: converted_heigh + 40,
-      width_mm: defCardPropMM.width,
-      height_mm: defCardPropMM.height,
+      width: 1350,
+      height: 1450,
+      width_mm: 1350,
+      height_mm: 1450,
       backgroundColor: "transparent",
       selectionLineWidth: 2,
       type: "t_shirt",
-      mode: "full",
+      mode: "fill",
       gender: "male",
+      cover_height: 900,
+      cover_width: 500,
     };
 
     const canvas = new fabric.Canvas(fabricRoot.current, canConf);
@@ -151,83 +147,116 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
 
     const clip = new fabric.Path(
       "M 162.824 27 L 337.176 27 C 349.359 27 359.25 36.891 359.25 49.074 L 359.25 450.926 C 359.25 463.109 349.359 473 337.176 473 L 162.824 473 C 150.641 473 140.75 463.109 140.75 450.926 L 140.75 49.074 C 140.75 36.891 150.641 27 162.824 27 Z  M 190.041 66 C 200.046 66 208.168 74.206 208.168 84.312 L 208.168 141.688 C 208.168 151.794 200.046 160 190.041 160 C 180.037 160 171.915 151.794 171.915 141.688 L 171.915 84.312 C 171.915 74.206 180.037 66 190.041 66 Z",
-      { fill: "white", fillRule: "evenodd", selectable: false, evented: false }
+      {
+        fill: "white",
+        fillRule: "evenodd",
+        selectable: false,
+        evented: false,
+        top: 60,
+        left: 100,
+      }
     );
-    canvas.add(clip);
+    clip.scale(3);
+
     canvas.centerObject(clip);
     canvas.clipPath = clip;
     canvas.renderAll();
 
-    // canvas.controlsAboveOverlay = true;
-    // canvas.setOverlayImage(crew_front, canvas.renderAll.bind(canvas), {absolutePositioned:true});
-    // canvas.setOverlayImage(
-    //   crew_front,
-    //   () => {
-    //     canvas.renderAll.bind(canvas);
-    //     canvas.overlayImage &&
-    //       canvas.overlayImage.scaleToWidth(converted_width + 40);
-    //     canvas.renderAll();
-    //   },
-    //   {}
-    // );
+    fabric.Image.fromURL(
+      t_short_m,
+      (img) => {
+        const oImg = img as FabImage;
+        oImg.set({
+          top: canConf.height / 2 - oImg.height! / 2,
+          left: canConf.width / 2 - oImg.width! / 2,
+        });
+        canvas_cover.add(oImg);
+      },
+      { selectable: false, evented: false, opacity: 0.2 }
+    );
 
     const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
 
     const rect = new fabric.Rect({
-      width: converted_width,
-      height: converted_heigh,
-      left: canConf.width / 2 - converted_width / 2,
-      top: canConf.height / 2 - converted_heigh / 2,
+      width: canConf.cover_width,
+      height: canConf.cover_height,
+      top: canConf.height / 2 - canConf.cover_height! / 2,
+      left: canConf.width / 2 - canConf.cover_width! / 2,
       stroke: "#000",
       strokeWidth: 2,
       fill: "rgba(0,0,200,0.0)",
     });
 
     canvas_cover.add(rect);
-
     dispatch(setEditor(canvas));
     dispatch(setConfig(canConf));
     dispatch(setCoverEditor(canvas_cover));
+    dispatch(changeScale(editorHeight));
   };
 
   const loadPrefab = async (prefab: StateUserLayout) => {
-    if (!instance || !cover_instance) return null;
-
     // console.log("prefab", prefab);
     console.log("PREFAB LOADING");
 
     const obj = JSON.parse(prefab.instance);
 
     const canConf = JSON.parse(prefab.config) as CanConfig;
+    const canvas = new fabric.Canvas(fabricRoot.current, canConf);
+    canvas.enableRetinaScaling = true;
+    canvas.controlsAboveOverlay = true;
+    const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
 
-    const converted_width = mm_px * canConf.width_mm;
-    const converted_heigh = mm_px * canConf.height_mm;
+    if (canConf.type == "t_shirt") {
+      fabric.Image.fromURL(
+        canConf.gender == "male" ? t_short_m : t_short_f,
+        (img) => {
+          const oImg = img as FabImage;
+          oImg.set({
+            top: canConf.height / 2 - oImg.height! / 2,
+            left: canConf.width / 2 - oImg.width! / 2,
+          });
+          canvas_cover.add(oImg);
+        },
+        { selectable: false, evented: false, opacity: 0.2 }
+      );
 
-    instance.setWidth(converted_width + 40);
-    instance.setHeight(converted_heigh + 40);
-    cover_instance.setWidth(converted_width + 40);
-    cover_instance.setHeight(converted_heigh + 40);
-
-    (cover_instance?.item(0) as unknown as fabric.Object).set({
-      width: converted_width,
-      height: converted_heigh,
-      left: canConf.width / 2 - converted_width / 2,
-      top: canConf.height / 2 - converted_heigh / 2,
-      stroke: "#000",
-      strokeWidth: 2,
-      fill: "rgba(0,0,200,0.0)",
-    });
+      const rect = new fabric.Rect({
+        width: canConf.cover_width,
+        height: canConf.cover_height,
+        top: canConf.height / 2 - canConf.cover_height! / 2,
+        left: canConf.width / 2 - canConf.cover_width! / 2,
+        stroke: "#000",
+        strokeWidth: 2,
+        fill: "rgba(0,0,200,0.0)",
+      });
+      canvas_cover.add(rect);
+    } else {
+      const converted_width = mm_px * canConf.width_mm;
+      const converted_heigh = mm_px * canConf.height_mm;
+      const rect = new fabric.Rect({
+        width: converted_width,
+        height: converted_heigh,
+        top: canConf.height / 2 - converted_heigh / 2,
+        left: canConf.width / 2 - converted_width / 2,
+        stroke: "#000",
+        strokeWidth: 2,
+        fill: "rgba(0,0,200,0.0)",
+      });
+      canvas_cover.add(rect);
+    }
 
     const canvasLoaded = () => {
-      for (const object of instance.getObjects()) {
-        // delete object.crossOrigin;
+      for (const object of canvas.getObjects()) {
         // console.log("object", object);
         attachListeners(object);
       }
     };
 
-    instance.loadFromJSON(obj, canvasLoaded);
+    canvas.loadFromJSON(obj, canvasLoaded);
+    dispatch(setEditor(canvas));
     dispatch(setConfig(canConf));
+    dispatch(setCoverEditor(canvas_cover));
+    dispatch(changeScale(editorHeight));
   };
 
   return (
@@ -246,14 +275,15 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
         <div
           style={{
             position: "absolute",
-            backgroundImage:
-              type === "t_shirt" ? `` : `url(${background_image})`,
+            backgroundImage: `url(${background_image})`,
+            // backgroundImage:
+            //   type === "t_shirt" ? `` : `url(${background_image})`,
           }}
         >
           <canvas id="my-node" ref={fabricRoot} />
         </div>
 
-        <div style={{ pointerEvents: "none", visibility: "hidden" }}>
+        <div style={{ pointerEvents: "none" }}>
           <canvas ref={fabricRootCover} />
         </div>
         {loading && (

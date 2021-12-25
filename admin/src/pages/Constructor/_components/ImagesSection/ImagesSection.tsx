@@ -104,6 +104,9 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
     if (inp.target) {
       if (!inp.target.files) return;
       input_img = URL.createObjectURL(inp.target.files[0]);
+      console.log('====================================');
+      console.log('inp.target.files[0]', inp.target.files[0]);
+      console.log('====================================');
       img_up = inp.target.files[0];
     } else input_img = event as string;
 
@@ -127,9 +130,15 @@ const ImagesSection: React.FC<Props> = ({ attachListeners, setItemIndex }) => {
         const minDis = wightDis < heightDis ? wightDis : heightDis;
         if (minDis < 1) oImg.scale(minDis);
 
+        oImg.set({
+          top: canvasConfig.height / 2 - oImg.height! / 2,
+          left: canvasConfig.width / 2 - oImg.width! / 2,
+        });
+
         oImg.img_up = img_up;
         oImg.src = oImg.getSrc();
-
+        console.log('oImg', oImg);
+        
         canvas?.add(oImg);
         canvas?.setActiveObject(oImg);
       }

@@ -9,6 +9,7 @@ import {
   FormControlLabel,
   FormLabel,
   Divider,
+  Slider,
 } from "@material-ui/core";
 import { CirclePicker, ColorResult } from "react-color";
 import { useSelector, useDispatch } from "react-redux";
@@ -17,7 +18,13 @@ import { setConfig } from "../../../../redux/actions";
 import { useTranslation } from "react-i18next";
 
 //Helpers
-import { mm_px } from "../../../../helpers/constants";
+import {
+  max_cover_height_t,
+  max_cover_width_t,
+  min_cover_height_t,
+  min_cover_width_t,
+  mm_px,
+} from "../../../../helpers/constants";
 
 import style from "./SettingsSection.module.scss";
 import { CanConfig } from "../../../../redux/redux.types";
@@ -95,6 +102,38 @@ const SettingsSection: React.FC = () => {
     instance?.requestRenderAll();
   };
 
+  const handleChangeHeightT = (
+    event: React.ChangeEvent<unknown>,
+    newValue: number | number[]
+  ) => {
+    (cover_instance?.item(0) as unknown as fabric.Object).set({
+      width: canvasConfig.cover_width,
+      height: newValue as number,
+      left: canvasConfig.width / 2 - canvasConfig.cover_width! / 2,
+      top: canvasConfig.height / 2 - (newValue as number) / 2,
+    });
+
+    canvasConfig.cover_height = newValue as number;
+    cover_instance?.requestRenderAll();
+    dispatch(setConfig(canvasConfig));
+  };
+
+  const handleChangeWidthT = (
+    event: React.ChangeEvent<unknown>,
+    newValue: number | number[]
+  ) => {
+    (cover_instance?.item(0) as unknown as fabric.Object).set({
+      width: newValue as number,
+      height: canvasConfig.cover_height,
+      left: canvasConfig.width / 2 - (newValue as number) / 2,
+      top: canvasConfig.height / 2 - canvasConfig.cover_height! / 2,
+    });
+
+    canvasConfig.cover_width = newValue as number;
+    cover_instance?.requestRenderAll();
+    dispatch(setConfig(canvasConfig));
+  };
+
   return (
     <div className={style.settingsSection}>
       <div className={style.mainSection}>
@@ -126,7 +165,7 @@ const SettingsSection: React.FC = () => {
 
           <TextField
             id="outlined-basic"
-            label={t("constructor.width_mm")}
+            label={t("constructor.width") + " " + t("constructor.mm")}
             variant="outlined"
             type="number"
             value={canvasWidth}
@@ -136,7 +175,7 @@ const SettingsSection: React.FC = () => {
 
           <TextField
             id="outlined-basic"
-            label={t("constructor.height_mm")}
+            label={t("constructor.height") + " " + t("constructor.mm")}
             variant="outlined"
             value={canvasHeight}
             type="number"
@@ -151,7 +190,7 @@ const SettingsSection: React.FC = () => {
         </>
       )}
 
-      {canvasConfig.type == "t_shirt" && (
+      {canvasConfig.gender && canvasConfig.type == "t_shirt" && (
         <>
           <Divider className={style.divider} variant="middle" />
           <div className={style.radioSection}>
@@ -197,7 +236,7 @@ const SettingsSection: React.FC = () => {
                 name="radio-buttons-group"
               >
                 <FormControlLabel
-                  value="full"
+                  value="fill"
                   control={<Radio />}
                   label={t("constructor.fill")}
                 />
@@ -209,6 +248,29 @@ const SettingsSection: React.FC = () => {
               </RadioGroup>
             </FormControl>
           </div>
+
+          {canvasConfig.mode == "area" && (
+            <>
+              <Typography id="input-slider" gutterBottom>
+                {t("constructor.height")}
+              </Typography>
+              <Slider
+                onChange={handleChangeHeightT}
+                max={max_cover_height_t}
+                min={min_cover_height_t}
+                value={canvasConfig.cover_height}
+              />
+              <Typography id="input-slider" gutterBottom>
+                {t("constructor.width")}
+              </Typography>
+              <Slider
+                onChange={handleChangeWidthT}
+                max={max_cover_width_t}
+                min={min_cover_width_t}
+                value={canvasConfig.cover_width}
+              />
+            </>
+          )}
         </>
       )}
       <Divider className={style.divider} variant="middle" />

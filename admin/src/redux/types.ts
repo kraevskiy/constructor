@@ -66,6 +66,7 @@ export enum TypesEditor {
   change_history = "EDITOR/CHANGE_HISTORY",
   set_history_moment = "EDITOR/SET_HISTORY_MOMENT",
   set_loading = "EDITOR/SET_LOADING",
+  set_editor_height = "EDITOR/SET_EDITOR_HEIGHT",
 }
 
 export enum TypesImages {

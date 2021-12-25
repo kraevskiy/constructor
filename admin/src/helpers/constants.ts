@@ -7,6 +7,11 @@ export const cm_px = 37.795275591;
 export const mm_px = 3.7795275591;
 export const header_height = "60px";
 
+export const max_cover_height_t = 1000;
+export const min_cover_height_t = 500;
+export const max_cover_width_t = 600;
+export const min_cover_width_t = 300;
+
 export const fonts = [
   "Times New Roman",
   "Orbitron",
