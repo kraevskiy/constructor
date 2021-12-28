@@ -4,18 +4,18 @@ import { CanConfig } from "../redux.types";
 import { ActionType } from "./editorReducer";
 import { RootState } from "../rootReducer";
 
-export const setMainRed = (payload: fabric.Canvas): ActionType => ({
-  type: TypesEditor.set_editor,
-  payload,
-});
-
-export const setCoverRef = (payload: fabric.Canvas): ActionType => ({
-  type: TypesEditor.set_editor,
-  payload,
-});
-
 export const setEditor = (payload: fabric.Canvas): ActionType => ({
   type: TypesEditor.set_editor,
+  payload,
+});
+
+export const setCoverEditor = (payload: fabric.Canvas): ActionType => ({
+  type: TypesEditor.set_cover_editor,
+  payload,
+});
+
+export const setBackEditor = (payload: fabric.Canvas): ActionType => ({
+  type: TypesEditor.set_back_editor,
   payload,
 });
 
@@ -24,10 +24,6 @@ export const setConfig = (payload: CanConfig): ActionType => ({
   payload,
 });
 
-export const setCoverEditor = (payload: fabric.Canvas): ActionType => ({
-  type: TypesEditor.set_cover_editor,
-  payload,
-});
 export const setEditorHeight = (payload: number): ActionType => ({
   type: TypesEditor.set_editor_height,
   payload,

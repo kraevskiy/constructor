@@ -2,10 +2,9 @@ import { TypesEditor } from "../types";
 import { Editor, CanConfig, Canvas, Image } from "../redux.types";
 
 const initialState: Editor = {
-  mainRef: undefined,
-  coverRef: undefined,
   instance: undefined,
   cover_instance: undefined,
+  back_instance: undefined,
   canvasConfig: {
     width: 0,
     height: 0,
@@ -15,6 +14,7 @@ const initialState: Editor = {
     selectionLineWidth: 2,
     type: "card",
     // selectionColor: 'blue',
+    show_background: true,
   },
   scaleRatio: 1,
   prefabsLoading: true,
@@ -47,21 +47,27 @@ export const editorReducer = (
         instance: action.payload as Canvas,
       };
     }
-    case TypesEditor.set_config: {
-      return {
-        ...state,
-        canvasConfig: action.payload as CanConfig,
-      };
-    }
     case TypesEditor.set_cover_editor: {
       return {
         ...state,
         cover_instance: action.payload as Canvas,
       };
     }
+    case TypesEditor.set_back_editor: {
+      return {
+        ...state,
+        back_instance: action.payload as Canvas,
+      };
+    }
+    case TypesEditor.set_config: {
+      return {
+        ...state,
+        canvasConfig: action.payload as CanConfig,
+      };
+    }
     case TypesEditor.set_scale: {
-      const { cover_instance, instance, canvasConfig } = state;
-      // console.log("HERERERERE", action.payload);
+      const { cover_instance, instance, back_instance, canvasConfig } = state;
+      // console.log("TypesEditor.set_scale", action.payload);
 
       let scaleRatio = 1;
       const scale = action.payload as number;
@@ -80,14 +86,20 @@ export const editorReducer = (
         width: canvasConfig.width * scaleRatio,
         height: canvasConfig.height * scaleRatio,
       });
+      back_instance?.setDimensions({
+        width: canvasConfig.width * scaleRatio,
+        height: canvasConfig.height * scaleRatio,
+      });
 
       instance?.setZoom(scaleRatio);
       cover_instance?.setZoom(scaleRatio);
+      back_instance?.setZoom(scaleRatio);
 
       return {
         ...state,
         instance: instance,
         cover_instance: cover_instance,
+        back_instance: back_instance,
         scaleRatio: scaleRatio,
       };
     }

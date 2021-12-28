@@ -10,6 +10,7 @@ import {
   FormLabel,
   Divider,
   Slider,
+  Checkbox,
 } from "@material-ui/core";
 import { CirclePicker, ColorResult } from "react-color";
 import { useSelector, useDispatch } from "react-redux";
@@ -37,7 +38,7 @@ const SettingsSection: React.FC = () => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const {
-    editor: { instance, cover_instance, canvasConfig: config },
+    editor: { instance, cover_instance, canvasConfig: config, back_instance },
   } = useSelector((state: RootState) => state);
 
   const [backColor, setBackColor] = useState("transparent");
@@ -52,10 +53,7 @@ const SettingsSection: React.FC = () => {
 
   const setBackColorTransparent = () => {
     setBackColor("transparent");
-    instance?.setBackgroundColor(
-      config.type == "t_shirt" ? "white" : "transparent",
-      () => null
-    );
+    instance?.setBackgroundColor("transparent", () => null);
     instance?.requestRenderAll();
   };
 
@@ -82,6 +80,7 @@ const SettingsSection: React.FC = () => {
       backgroundColor: "transparent",
       selectionLineWidth: 2,
       type: "card",
+      show_background: config.show_background,
     };
 
     instance?.setWidth(converted_width + 40);
@@ -178,6 +177,18 @@ const SettingsSection: React.FC = () => {
           circleSpacing={14}
           color={backColor}
         />
+        <FormControlLabel
+          control={
+            <Checkbox
+              onChange={() => {
+                config.show_background = !config.show_background;
+                dispatch(setConfig(config));
+              }}
+              checked={config.show_background}
+            />
+          }
+          label={t("constructor.background")}
+        />
       </div>
 
       {config.type != "t_shirt" && (
@@ -247,6 +258,23 @@ const SettingsSection: React.FC = () => {
                     },
                     { selectable: false, evented: false, opacity: 0.3 }
                   );
+
+                  fabric.Image.fromURL(
+                    val == "male" ? t_short_m : t_short_f,
+                    (oImg) => {
+                      oImg.set({
+                        top: config.height / 2 - oImg.height! / 2,
+                        left: config.width / 2 - oImg.width! / 2,
+                      });
+                      const item = cover_instance?.item(
+                        0
+                      ) as unknown as fabric.Object;
+                      back_instance?.remove(item);
+                      back_instance?.insertAt(oImg, 0, false);
+                      // cover_instance?.requestRenderAll();
+                    },
+                    { selectable: false, evented: false }
+                  );
                 }}
                 name="radio-buttons-group"
               >
@@ -285,8 +313,8 @@ const SettingsSection: React.FC = () => {
                       evented: false,
                     });
                     clip.set({
-                      top: config.height / 2 - (clip.height! * 3) / 2,
-                      left: config.width / 2 - (clip.width! * 3) / 2,
+                      top: config.height / 2 - (clip.height ?? 0 * 3) / 2,
+                      left: config.width / 2 - (clip.width ?? 0 * 3) / 2,
                     });
                     clip.scale(3);
                     instance!.clipPath = clip;

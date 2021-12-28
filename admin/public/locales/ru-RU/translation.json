@@ -87,6 +87,7 @@
   "constructor.type": "тип",
   "constructor.gender": "Пол",
   "constructor.mode": "Режим",
+  "constructor.background": "Фон",
   "constructor.male": "Мужская",
   "constructor.female": "Женская",
   "constructor.fill": "Сплошная",

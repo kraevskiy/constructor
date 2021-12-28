@@ -161,6 +161,14 @@ export interface DecodeTokenTypes {
   _id: string;
 }
 
+export interface ObjectMeasurement {
+  width: number;
+  height: number;
+  top: number;
+  left: number;
+  margin: number;
+}
+
 //EDITOR////
 export interface CanConfig {
   width: number;
@@ -176,22 +184,22 @@ export interface CanConfig {
   mode?: "fill" | "area";
   cover_width?: number;
   cover_height?: number;
+  show_background: boolean;
 }
 
-export type CanType = "card" | "module" | "t_shirt" | "cap";
+export type CanType = "card" | "module" | "t_shirt" | "cap" | "picture";
 
 export interface Editor {
-  mainRef?: HTMLCanvasElement;
-  coverRef?: HTMLCanvasElement;
   instance?: Canvas;
   cover_instance?: Canvas;
+  back_instance?: Canvas;
   canvasConfig: CanConfig;
   scaleRatio: number;
   prefabsLoading: boolean;
   history: string[];
   history_n: number;
   loading: boolean;
-  editorHeight:number;
+  editorHeight: number;
 }
 
 export interface Images {

@@ -29,7 +29,10 @@ import Loader from "../../../../components/Loader/Loader";
 
 // import style from "./Farbric.module.scss";
 import "./special.css";
-import { changeScale } from "../../../../redux/editor/editorActions";
+import {
+  changeScale,
+  setBackEditor,
+} from "../../../../redux/editor/editorActions";
 
 export interface MatchParams {
   id: string;
@@ -45,16 +48,15 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   const dispatch = useDispatch();
 
   const {
-    editor: { loading, editorHeight },
+    editor: { loading, editorHeight, canvasConfig: config },
   } = useSelector((state: RootState) => state);
 
   const fabricRoot = useRef<HTMLCanvasElement>(null);
-  const neww = useRef<HTMLDivElement>(null);
-  const fabricRootCover = useRef(null);
+  const fabricRootCover = useRef<HTMLCanvasElement>(null);
+  const fabricRootBack = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     dispatch(changeHistory(true));
-    // console.log("Fabric editor did mount");
     if (id) fetchPrefab(id);
     else
       switch (type) {
@@ -102,6 +104,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
       backgroundColor: "transparent",
       selectionLineWidth: 2,
       type: "card",
+      show_background: true,
     };
 
     const canvas = new fabric.Canvas(fabricRoot.current, canConf) as Canvas;
@@ -127,9 +130,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
   };
 
   const tShirtInitial = () => {
-    // console.log("tShirtInitial");
-
-    //1246_1385
+    //just one of my images 1246_1385
     const canConf: CanConfig = {
       width: 1350,
       height: 1450,
@@ -142,12 +143,24 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
       gender: "male",
       cover_height: 900,
       cover_width: 500,
+      show_background: false,
     };
 
-    const canvas = new fabric.Canvas(fabricRoot.current, {
-      ...canConf,
-      backgroundColor: "white",
-    });
+    fabric.Image.fromURL(
+      t_short_m,
+      (oImg) => {
+        oImg.set({
+          top: canConf.height / 2 - oImg.height! / 2,
+          left: canConf.width / 2 - oImg.width! / 2,
+        });
+        canvas_back.insertAt(oImg, 0, false);
+      },
+      { selectable: false, evented: false }
+    );
+
+    const canvas = new fabric.Canvas(fabricRoot.current, canConf);
+    const canvas_back = new fabric.Canvas(fabricRootBack.current, canConf);
+    const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
     canvas.enableRetinaScaling = true;
     canvas.controlsAboveOverlay = true;
 
@@ -170,14 +183,11 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
           top: canConf.height / 2 - oImg.height! / 2,
           left: canConf.width / 2 - oImg.width! / 2,
         });
-        // canvas.insertAt(oImg, 0, false);
         oImg.set({ opacity: 0.3 });
         canvas_cover.insertAt(oImg, 0, false);
       },
       { selectable: false, evented: false }
     );
-
-    const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
 
     const rect = new fabric.Rect({
       width: canConf.cover_width,
@@ -191,19 +201,20 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     });
 
     canvas_cover.add(rect);
+
     dispatch(setEditor(canvas));
-    dispatch(setConfig(canConf));
     dispatch(setCoverEditor(canvas_cover));
+    dispatch(setBackEditor(canvas_back));
+    dispatch(setConfig(canConf));
     dispatch(changeScale(editorHeight));
   };
 
   const moduleInitial = () => {
-    console.log("heheheheeh");
+    console.log("moduleInitial");
   };
 
   const loadPrefab = async (prefab: StateUserLayout) => {
-    // console.log("prefab", prefab);
-    console.log("PREFAB LOADING");
+    // console.log("PREFAB LOADING", prefab);
 
     const obj = JSON.parse(prefab.instance);
 
@@ -212,6 +223,7 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     canvas.enableRetinaScaling = true;
     canvas.controlsAboveOverlay = true;
     const canvas_cover = new fabric.Canvas(fabricRootCover.current, canConf);
+    const canvas_back = new fabric.Canvas(fabricRootBack.current, canConf);
 
     if (canConf.type == "t_shirt") {
       fabric.Image.fromURL(
@@ -225,6 +237,18 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
           canvas_cover.insertAt(oImg, 0, false);
         },
         { selectable: false, evented: false, opacity: 0.2 }
+      );
+      fabric.Image.fromURL(
+        canConf.gender == "male" ? t_short_m : t_short_f,
+        (img) => {
+          const oImg = img as FabImage;
+          oImg.set({
+            top: canConf.height / 2 - oImg.height! / 2,
+            left: canConf.width / 2 - oImg.width! / 2,
+          });
+          canvas_back.insertAt(oImg, 0, false);
+        },
+        { selectable: false, evented: false }
       );
 
       const rect = new fabric.Rect({
@@ -253,16 +277,14 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
     }
 
     const canvasLoaded = () => {
-      for (const object of canvas.getObjects()) {
-        // console.log("object", object);
-        attachListeners(object);
-      }
+      for (const object of canvas.getObjects()) attachListeners(object);
     };
 
     canvas.loadFromJSON(obj, canvasLoaded);
     dispatch(setEditor(canvas));
-    dispatch(setConfig(canConf));
     dispatch(setCoverEditor(canvas_cover));
+    dispatch(setBackEditor(canvas_back));
+    dispatch(setConfig(canConf));
     dispatch(changeScale(editorHeight));
   };
 
@@ -276,21 +298,32 @@ const FabricEditor: React.FC<Props> = ({ attachListeners }) => {
       }}
     >
       <div
-        ref={neww}
-        style={{ position: "relative", display: "flex", margin: "auto" }}
+        style={{
+          position: "relative",
+          display: "flex",
+          margin: "auto",
+          backgroundImage: config.show_background
+            ? `url(${background_image})`
+            : ``,
+        }}
       >
         <div
           style={{
+            pointerEvents: "none",
             position: "absolute",
-            // backgroundImage: `url(${background_image})`,
-            backgroundImage:
-              type === "t_shirt" ? `` : `url(${background_image})`,
+            width: 200,
+            height: 300,
           }}
         >
-          <canvas id="my-node" ref={fabricRoot} />
+          <canvas ref={fabricRootBack} />
         </div>
-
-        <div style={{ pointerEvents: "none" }}>
+        <canvas ref={fabricRoot} />
+        <div
+          style={{
+            pointerEvents: "none",
+            position: "absolute",
+          }}
+        >
           <canvas ref={fabricRootCover} />
         </div>
         {loading && (

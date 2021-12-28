@@ -85,6 +85,7 @@
   "constructor.module_pic": "modular picture",
   "constructor.cap": "cap",
   "constructor.type": "type",
+  "constructor.background": "Background",
   "constructor.gender": "Gender",
   "constructor.mode": "Mode",
   "constructor.male": "Male",
